@@ -1,14 +1,15 @@
-package methods.BLDs;
+package methods.LBLs;
 
 
 import cubes.Cube;
 import cubes.Cube2x2;
+import methods.FMs.FM;
 
-public class BLD2X2 implements BLD {
+public class LBL2X2 implements LBL {
 
     private Cube2x2 cube;
 
-    public BLD2X2(Cube cube){
+    public LBL2X2(Cube cube){
         this.cube = (Cube2x2)cube;
     }
 
