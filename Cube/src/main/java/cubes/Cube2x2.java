@@ -173,7 +173,7 @@ public class Cube2x2 extends Cube {
         switch (inspectMove.getMoveEnum()){
             case PRIM:
                 rotateSide(false,4);
-                field =new int[][]{{3,2},{0,1}};
+                field =new int[][]{{3,2},{1,3}};
                 side = new int[]{2,0,3,1};
                 moveElementary( side,field);
                 break;
@@ -186,7 +186,7 @@ public class Cube2x2 extends Cube {
 
             case SIMPLE:
                 rotateSide(true, 4);
-                field = new int[][]{ {0,1}, {3,2} };
+                field = new int[][]{ {1,3}, {3,2} };
                 side = new int[]{ 0,2,1,3 };
                 moveElementary(side, field);
                 break;
@@ -253,8 +253,8 @@ public class Cube2x2 extends Cube {
                 break;
 
             case SIMPLE:
-                moveR(new InspectMove("U"));
-                moveL(new InspectMove("D'"));
+                moveU(new InspectMove("U"));
+                moveD(new InspectMove("D'"));
                 break;
         }
     }
@@ -298,6 +298,15 @@ public class Cube2x2 extends Cube {
                 break;
             case 'B':
                 moveB(inspectMove);
+                break;
+            case 'X':
+                moveX(inspectMove);
+                break;
+            case 'Y':
+                moveY(inspectMove);
+                break;
+            case 'Z':
+                moveZ(inspectMove);
                 break;
             default:
                 break;
