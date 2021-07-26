@@ -4,11 +4,10 @@ package methods.BLDs;
 import cubes.Cube;
 import cubes.Cube2x2;
 import cubes.Cube3x3;
-import methods.SolvingMethod;
 
-public class BLDFactory implements SolvingMethod {
+public class BLDFactory  {
 
-    private BLD getBLD(Cube cube){
+    public BLD getBLD(Cube cube){
 
         if(cube instanceof Cube2x2){
             return new BLD2X2(cube);
@@ -19,16 +18,4 @@ public class BLDFactory implements SolvingMethod {
         return null;
     }
 
-
-    public String solve(Cube cube) {
-
-        BLD bld =  getBLD(cube);
-        String solution;
-
-        solution = bld.solve();
-
-        return solution;
-
-
-    }
 }

@@ -7,18 +7,21 @@ import methods.FMs.FM;
 
 public class LBLPyraminx implements LBL {
 
-    private CubePyraminx cube;
+    private Cube cube;
 
     public LBLPyraminx(Cube cube){
-        this.cube = (CubePyraminx)cube;
+        this.cube = cube;
     }
 
+    /** Here is implementation of LBL for Pyraminx
+     *
+     * @return series of moves to solve cube
+     */
     @Override
     public String solve(){
 
 
         return null;
     }
-
 
 }

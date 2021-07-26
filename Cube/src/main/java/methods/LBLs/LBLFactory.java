@@ -6,13 +6,9 @@ import methods.BLDs.BLD2X2;
 import methods.BLDs.BLD3X3;
 import methods.SolvingMethod;
 
-public class LBLFactory implements SolvingMethod {
+public class LBLFactory{
 
-    private LBL getLBL(Cube cube){
-
-
-
-
+    public LBL getLBL(Cube cube){
         if(cube instanceof Cube2x2){
             return new LBL2X2(cube);
         }
@@ -28,17 +24,4 @@ public class LBLFactory implements SolvingMethod {
         return null;
     }
 
-
-
-    public String solve(Cube cube) {
-
-        LBL lbl =  getLBL(cube);
-        String solution;
-
-        solution = lbl.solve();
-
-        return solution;
-
-
-    }
 }

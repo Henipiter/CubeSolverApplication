@@ -7,12 +7,16 @@ import cubes.CubePyraminx;
 
 public class FMPyraminx implements FM {
 
-    private CubePyraminx cube;
+    private Cube cube;
 
     public FMPyraminx(Cube cube){
-        this.cube = (CubePyraminx)cube;
+        this.cube = cube;
     }
 
+    /** Here is implementation of FM for Pyraminx
+     *
+     * @return series of moves to solve cube
+     */
     @Override
     public String solve(){
 

@@ -7,15 +7,18 @@ import methods.FMs.FM;
 
 public class LBL2X2 implements LBL {
 
-    private Cube2x2 cube;
+    private Cube cube;
 
     public LBL2X2(Cube cube){
-        this.cube = (Cube2x2)cube;
+        this.cube = cube;
     }
 
+    /** Here is implementation of LBL for 2x2
+     *
+     * @return series of moves to solve cube
+     */
     @Override
     public String solve(){
-
 
         return null;
     }
