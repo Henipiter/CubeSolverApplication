@@ -1,4 +1,4 @@
-package cubes.cube2x2.moves;
+package cubes.cube2x2.moves.basic;
 
 import cubes.Cube2x2;
 import org.junit.Assert;
@@ -38,7 +38,7 @@ public class MoveFTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.move("F");
+        cube2x2.moveUsingString("F");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }
@@ -55,7 +55,7 @@ public class MoveFTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.move("F'");
+        cube2x2.moveUsingString("F'");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }
@@ -72,7 +72,7 @@ public class MoveFTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.move("F2");
+        cube2x2.moveUsingString("F2");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -91,8 +91,8 @@ public class MoveFTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.move("F");
-        cube2x2.move("F'");
+        cube2x2.moveUsingString("F");
+        cube2x2.moveUsingString("F'");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -111,8 +111,8 @@ public class MoveFTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.move("F2");
-        cube2x2.move("F2");
+        cube2x2.moveUsingString("F2");
+        cube2x2.moveUsingString("F2");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
 

@@ -1,26 +1,25 @@
-package cubes.cube2x2.moves;
+package cubes.cube2x2.moves.basic;
 
 import cubes.Cube2x2;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MoveZTest {
+public class MoveDTest {
 // R U L D R
     //up Y, f O
     private char[][] input;
-
     private Cube2x2 cube2x2;
 
     @BeforeEach
     public void init(){
-        input = new char[][]{
-            {'r','b','g','w'},
-            {'r','g','o','b'},
-            {'g','o','y','w'},
-            {'y','o','r','w'},
-            {'y','b','g','r'},
-            {'w','o','b','y'}
+        input = new char[][] {
+                {'r','b','g','w'},
+                {'r','g','o','b'},
+                {'g','o','y','w'},
+                {'y','o','r','w'},
+                {'y','b','g','r'},
+                {'w','o','b','y'}
         };
 
         cube2x2 = new Cube2x2(input);
@@ -28,52 +27,52 @@ public class MoveZTest {
 
 
     @Test
-    public void testMoveZ(){
+    public void testMoveD(){
         //given
         char[][] expected = new char[][] {
-                {'y','g','w','o'},
-                {'r','y','w','o'},
-                {'r','o','g','b'},
-                {'r','g','b','w'},
-                {'g','y','r','b'},
-                {'b','w','y','o'}
-        };
-        //when
-        cube2x2.move("Z");
-        //then
-        Assert.assertArrayEquals(expected, cube2x2.getCube());
-    }
-
-    @Test
-    public void testMoveZprim(){
-        //given
-        char[][] expected = new char[][] {
-                {'y','r','o','w'},
-                {'g','y','o','w'},
-                {'b','w','r','g'},
+                {'r','b','g','w'},
                 {'g','b','r','o'},
-                {'b','r','y','g'},
-                {'o','y','w','b'}
+                {'g','o','y','b'},
+                {'y','o','r','g'},
+                {'y','b','y','w'},
+                {'w','o','r','w'}
         };
         //when
-        cube2x2.move("Z'");
+        cube2x2.moveUsingString("D");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }
 
     @Test
-    public void testMoveZdouble(){
+    public void testMoveDprim(){
         //given
         char[][] expected = new char[][] {
-                {'g','r','b','o'},
-                {'b','r','w','g'},
-                {'r','w','y','o'},
-                {'y','w','g','o'},
-                {'r','g','b','y'},
-                {'y','b','o','w'}
+                {'r','b','g','w'},
+                {'o','r','b','g'},
+                {'g','o','g','r'},
+                {'y','o','b','y'},
+                {'y','b','w','r'},
+                {'w','o','w','y'}
         };
         //when
-        cube2x2.move("Z2");
+        cube2x2.moveUsingString("D'");
+        //then
+        Assert.assertArrayEquals(expected, cube2x2.getCube());
+    }
+
+    @Test
+    public void testMoveDdouble(){
+        //given
+        char[][] expected = new char[][] {
+                {'r','b','g','w'},
+                {'b','o','g','r'},
+                {'g','o','w','r'},
+                {'y','o','w','y'},
+                {'y','b','y','b'},
+                {'w','o','r','g'}
+        };
+        //when
+        cube2x2.moveUsingString("D2");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -81,8 +80,7 @@ public class MoveZTest {
 
     }
     @Test
-    public void testMoveZZprim(){
-
+    public void testMoveDDprim(){
         //given
         char[][] expected = new char[][] {
                 {'r','b','g','w'},
@@ -93,8 +91,8 @@ public class MoveZTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.move("Z");
-        cube2x2.move("Z'");
+        cube2x2.moveUsingString("D");
+        cube2x2.moveUsingString("D'");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -102,7 +100,7 @@ public class MoveZTest {
 
     }
     @Test
-    public void testMoveDoubleZdouble(){
+    public void testMoveDoubleDdouble(){
         //given
         char[][] expected = new char[][] {
                 {'r','b','g','w'},
@@ -113,8 +111,8 @@ public class MoveZTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.move("Z2");
-        cube2x2.move("Z2");
+        cube2x2.moveUsingString("D2");
+        cube2x2.moveUsingString("D2");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
 
