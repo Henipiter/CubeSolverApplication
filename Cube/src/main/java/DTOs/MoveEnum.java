@@ -1,5 +1,5 @@
 package DTOs;
 
 public enum MoveEnum {
-    SIMPLE, PRIM, DOUBLE
+    SIMPLE, PRIM, DOUBLE, INVALID
 }

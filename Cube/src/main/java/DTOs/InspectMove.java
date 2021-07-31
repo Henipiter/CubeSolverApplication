@@ -1,5 +1,8 @@
 package DTOs;
 
+/** Parse moves for cubes
+ *
+ */
 public class InspectMove {
     private char move;
     private MoveEnum moveEnum;
@@ -7,15 +10,16 @@ public class InspectMove {
 
     public InspectMove(String direction){
         move = direction.charAt(0);
+        moveEnum = MoveEnum.INVALID;
         if( direction.length()==2 ){
             if(direction.charAt(1)=='2')
                 moveEnum = MoveEnum.DOUBLE;
-
-            else
+            else if(direction.charAt(1)=='\'')
                 moveEnum = MoveEnum.PRIM;
         }
-        else
+        else if(direction.length()==1)
             moveEnum = MoveEnum.SIMPLE;
+
     }
 
     public char getMove() {

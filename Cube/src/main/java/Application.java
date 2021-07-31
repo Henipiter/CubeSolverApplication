@@ -1,6 +1,7 @@
 import cubes.Cube2x2;
 import cubes.Cube3x3;
 import methods.BLDs.BLDFactory;
+import methods.BLDs.BLDSolver;
 import methods.MethodStrategy;
 
 public class Application {
@@ -15,11 +16,11 @@ public class Application {
         MethodStrategy methodStrategy;
         String a;
 
-        methodStrategy = new MethodStrategy(new BLDFactory());
+        methodStrategy = new MethodStrategy(new BLDSolver());
         a = methodStrategy.solve(cube3x3);
         System.out.println(a);
 
-        methodStrategy = new MethodStrategy(new BLDFactory());
+        methodStrategy = new MethodStrategy(new BLDSolver());
         a = methodStrategy.solve(cube2x2);
         System.out.println(a);
 

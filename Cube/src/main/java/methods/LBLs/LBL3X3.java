@@ -7,18 +7,20 @@ import methods.FMs.FM;
 
 public class LBL3X3 implements LBL {
 
-    private Cube3x3 cube;
+    private Cube cube;
 
     public LBL3X3(Cube cube){
-        this.cube = (Cube3x3)cube;
+        this.cube = cube;
     }
 
+    /** Here is implementation of LBL for 3x3
+     *
+     * @return series of moves to solve cube
+     */
     @Override
     public String solve(){
 
-
         return null;
     }
-
 
 }

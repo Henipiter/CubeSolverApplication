@@ -7,12 +7,16 @@ import cubes.Cube4x4;
 
 public class FM4X4 implements FM {
 
-    private Cube4x4 cube;
+    private Cube cube;
 
     public FM4X4(Cube cube){
-        this.cube = (Cube4x4) cube;
+        this.cube = cube;
     }
 
+    /** Here is implementation of FM for 4x4
+     *
+     * @return series of moves to solve cube
+     */
     @Override
     public String solve(){
 

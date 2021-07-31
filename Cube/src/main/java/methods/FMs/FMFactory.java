@@ -7,9 +7,9 @@ import methods.BLDs.BLD2X2;
 import methods.BLDs.BLD3X3;
 import methods.SolvingMethod;
 
-public class FMFactory implements SolvingMethod {
+public class FMFactory{
 
-    private FM getFM(Cube cube){
+    public FM getFM(Cube cube){
 
         if(cube instanceof Cube2x2){
             return new FM2X2(cube);
@@ -26,17 +26,4 @@ public class FMFactory implements SolvingMethod {
         return null;
     }
 
-
-
-    public String solve(Cube cube) {
-
-        FM fm =  getFM(cube);
-        String solution;
-
-        solution = fm.solve();
-
-        return solution;
-
-
-    }
 }

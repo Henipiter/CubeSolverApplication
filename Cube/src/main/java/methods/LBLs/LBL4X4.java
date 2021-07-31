@@ -7,18 +7,20 @@ import methods.FMs.FM;
 
 public class LBL4X4 implements LBL {
 
-    private Cube4x4 cube;
+    private Cube cube;
 
     public LBL4X4(Cube cube){
-        this.cube = (Cube4x4) cube;
+        this.cube = cube;
     }
 
+    /** Here is implementation of LBL for 4x4
+     *
+     * @return series of moves to solve cube
+     */
     @Override
     public String solve(){
 
-
         return null;
     }
-
 
 }
