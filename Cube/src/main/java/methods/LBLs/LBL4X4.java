@@ -4,6 +4,7 @@ package methods.LBLs;
 import DTOs.InspectMove;
 import calculations.CalculateCenters4x4;
 import cubes.Cube;
+import cubes.Cube4x4;
 import interpretations.Interpretation4x4;
 
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class LBL4X4 implements LBL {
     public LBL4X4(Cube cube){
         interpretation = new Interpretation4x4();
         calculation = new CalculateCenters4x4();
-        this.cube = cube;
-        this.oriStateCube = cube;
+        this.cube = new Cube4x4(cube.getCube());
+        this.oriStateCube = new Cube4x4(cube.getCube());
     }
 
     /** Here is implementation of LBL for 4x4
@@ -52,13 +53,24 @@ public class LBL4X4 implements LBL {
     private ArrayList<InspectMove> setupFieldAndJoinToDestSide(int source, int dest, char color){
 
         ArrayList<InspectMove> algorithm = new ArrayList<>();
+        ArrayList<InspectMove> partial_alg = new ArrayList<>();
         interpretation.interpretCenters(cube);
         //calculate alg to rotate to prepare to join field into upper side
-        algorithm.add(calculation.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(source));
+
+        partial_alg.add(calculation.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(source));
+        updateCubeAndInterpretationAndCalculation(partial_alg);
+        algorithm.addAll(partial_alg);
+        source = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide(color);
         //calculate alg to prepare both sides to join
-        algorithm.addAll(calculation.calculateMovesToPrepareJoining(source, dest,color));
+    //    partial_alg.clear();
+        partial_alg = calculation.calculateMovesToPrepareJoining(source, dest,color);
+        updateCubeAndInterpretationAndCalculation(partial_alg);
+        algorithm.addAll(partial_alg);
         //join
-        algorithm.addAll(calculation.calculateMovesToJoinFromSourceSideToDestinationSide(source,dest,color));
+    //    partial_alg.clear();
+        partial_alg=calculation.calculateMovesToJoinFromSourceSideToDestinationSide(source,dest,color);
+        updateCubeAndInterpretationAndCalculation(partial_alg);
+        algorithm.addAll(partial_alg);
         return algorithm;
     }
 
@@ -79,7 +91,7 @@ public class LBL4X4 implements LBL {
             int sideWithWhiteField = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide('w');
             alg_solve_center = setupFieldAndJoinToDestSide(sideWithWhiteField,0,'w');
             algorithm.addAll(alg_solve_center);
-            updateCubeAndInterpretationAndCalculation(alg_solve_center);
+            //updateCubeAndInterpretationAndCalculation(alg_solve_center);
         }
         return algorithm;
     }

@@ -79,7 +79,6 @@ public class CalculateCenters4x4 {
 //        return alg;
 //    }
 
-
     public ArrayList<InspectMove> calculateMovesToPrepareJoining(int sourceSide, int destinationSide, char color) {
         if (interpretation4x4.isStripesOnGivenSides(sourceSide, destinationSide, color)) {
             return prepareJoiningIfOnBothSidesAreStripes(sourceSide, destinationSide, color);
@@ -90,16 +89,13 @@ public class CalculateCenters4x4 {
         }
     }
 
-
     //diagonally field on destination side must have different color than field on source side
     private InspectMove getMoveToRotateDestinationSideToAdaptForSourceSide(int sideSource, int sideDestination, char color) {
         int sourceField = interpretation4x4.getNumOfFieldsOnGivenSideWithGivenColor(sideSource, color);
-        int diagonallyField = (sourceField + 2) % 2;
+        int diagonallyField = (sourceField + 2) % 4;
         if(!interpretation4x4.isFieldInGivenColor(sideDestination,diagonallyField,color)){
-
             return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE); //everything is OK
         }
-
         if (!interpretation4x4.isFieldInGivenColor(sideDestination, sourceField, color)) {
             return new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE);
         }
@@ -168,10 +164,10 @@ public class CalculateCenters4x4 {
 
     public InspectMove getReverseSetupMoveToJoin(InspectMove setup) {
         if (setup.getMoveType() == MoveTypeEnum.PRIM)
-            setup.setMoveType(MoveTypeEnum.SIMPLE);
+            return new InspectMove(setup.getMove(), MoveTypeEnum.SIMPLE);
         else if (setup.getMoveType() == MoveTypeEnum.SIMPLE)
-            setup.setMoveType(MoveTypeEnum.PRIM);
-        return setup;
+            return new InspectMove(setup.getMove(), MoveTypeEnum.PRIM);
+        return new InspectMove(setup);
     }
 
     public InspectMove getMoveToJoin(int sideSource, char color) {

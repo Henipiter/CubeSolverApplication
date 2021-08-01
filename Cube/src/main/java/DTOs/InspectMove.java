@@ -6,7 +6,6 @@ import static DTOs.MoveEnum.INVALID;
  *
  */
 public class InspectMove {
-    private char move;
     private MoveTypeEnum moveTypeEnum;
     private MoveEnum moveEnum;
 
@@ -18,6 +17,11 @@ public class InspectMove {
     public InspectMove(String direction){
         recogniseType(direction);
         recogniseMove(direction);
+    }
+
+    public InspectMove(InspectMove inspectMove){
+        this.moveEnum = inspectMove.getMove();
+        this.moveTypeEnum = inspectMove.getMoveType();
     }
 
     private void recogniseMove(String direction){
@@ -66,14 +70,16 @@ public class InspectMove {
         if (o == this) {
             return true;
         }
-
         if (!(o instanceof InspectMove)) {
             return false;
         }
         InspectMove c = (InspectMove) o;
-
-
         return c.getMove() == this.getMove() &&
                 c.getMoveType() == this.getMoveType();
+    }
+
+    @Override
+    public String toString() {
+        return "move = ["+moveEnum.toString()+moveTypeEnum.toString()+"]";
     }
 }

@@ -48,13 +48,15 @@ public class Interpretation4x4 {
     }
 
     public void interpretEdges(Cube4x4 cube) {
+        //TODO
     }
 
     public void interpretVertexes(Cube4x4 cube) {
+        //TODO
     }
 
     public int inWhichSideIsTheMostWhiteFields(char color) {
-        int max = 1;
+        int max = 0;
         int whichSide = 0;
         int countField;
         for (int wall = 0; wall < 6; wall++) {
@@ -68,6 +70,8 @@ public class Interpretation4x4 {
     }
 
     public int inWhichSideIsGivenColorFieldsExceptUpperSide(char color) {
+        if( countFieldWithGivenColor(4,color)>0) //front side is priority
+            return 4;
         for (int wall = 1; wall < 6; wall++) {
             if (countFieldWithGivenColor(wall, color) > 0) {
                 return wall;
@@ -89,16 +93,6 @@ public class Interpretation4x4 {
 
     public boolean isStripesOnGivenSides(int sourceSide, int destinationSide, char color) {
         return isStripe(sourceSide, color) && isStripe(destinationSide, color);
-    }
-
-    public boolean isStripesOnTwoSidesAreParallelOrAcross(int sourceSide, int destinationSide, char color) {
-        return isTwoFieldsFormLengthwiseStripe(destinationSide, color)
-                == isTwoFieldsFormLengthwiseStripe(sourceSide, color);
-    }
-
-    public boolean isStripesOnTwoSidesAreParallel(int sourceSide, int destinationSide, char color) {
-        return isTwoFieldsFormLengthwiseStripe(destinationSide, color)
-                && isTwoFieldsFormLengthwiseStripe(sourceSide, color);
     }
 
     public boolean isStripe(int side, char color) {
@@ -141,7 +135,6 @@ public class Interpretation4x4 {
             }
         }
         return false;
-
     }
 
     private boolean isColorInTheSamePlaceInCenterOnBothSides(int sideSource, int sideDestination, char color) {
