@@ -1,4 +1,4 @@
-package cubes.cube4x4.moves.basic;
+package cubes.cube4x4.moves.basic.inner;
 
 import cubes.Cube4x4;
 import org.junit.Assert;

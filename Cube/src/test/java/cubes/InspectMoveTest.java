@@ -70,7 +70,7 @@ public class InspectMoveTest {
         String direction = "X3";
         InspectMove inspectMove = new InspectMove(direction);
 
-        Assertions.assertEquals(MoveEnum.X, inspectMove.getMove());
+        Assertions.assertEquals(MoveEnum.INVALID, inspectMove.getMove());
         Assertions.assertEquals(MoveTypeEnum.INVALID, inspectMove.getMoveType());
 
     }
@@ -80,7 +80,20 @@ public class InspectMoveTest {
         InspectMove inspectMove = new InspectMove(direction);
 
         Assertions.assertEquals(MoveEnum.INVALID, inspectMove.getMove());
-        Assertions.assertEquals(MoveTypeEnum.INVALID, inspectMove.getMoveType());
+        Assertions.assertEquals(MoveTypeEnum.DOUBLE, inspectMove.getMoveType());
 
+    }
+
+    @Test
+    public void compareEquals_should_return_true(){
+        InspectMove inspectMove = new InspectMove("X2");
+        InspectMove inspectMove2 = new InspectMove("X2");
+        Assertions.assertTrue(inspectMove.equals(inspectMove2));
+    }
+    @Test
+    public void compareEquals_should_return_false(){
+        InspectMove inspectMove = new InspectMove("X");
+        InspectMove inspectMove2 = new InspectMove("X'");
+        Assertions.assertFalse(inspectMove.equals(inspectMove2));
     }
 }

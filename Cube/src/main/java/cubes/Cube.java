@@ -5,7 +5,10 @@ import DTOs.InspectMove;
 import exceptions.IncorectMoveException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
+
+import static java.util.Arrays.deepEquals;
 
 public class Cube {
 
@@ -45,6 +48,22 @@ public class Cube {
         return cube;
     }
 
-
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o == this) {
+//            return true;
+//        }
+//
+//        if (o instanceof Cube2x2) {
+//            Cube2x2 c = (Cube2x2) o;
+//            return deepEquals(c.cube,this.cube);
+//        }
+//        if (o instanceof Cube4x4) {
+//            Cube4x4 c = (Cube4x4) o;
+//            return deepEquals(c.cube,this.cube);
+//        }
+//        return false;
+//
+//    }
 
 }

@@ -16,10 +16,11 @@ public class CenterInterpretation {
     @BeforeEach
     public void init() {
         cube = new Cube4x4();
-        interpretation4x4.interpretCenters(cube);
     }
     @Test
     public void call_interpretCenters_and_check_correctness(){
+        //bad test - to repair
+        cube.makeMovesUsingString("r u l d r");
         interpretation4x4.interpretCenters(cube);
         int[] order = new int[]{5,6,9,10};
         int[] order2 = new int[]{9,10,6,5};
@@ -33,6 +34,9 @@ public class CenterInterpretation {
             }
         }
     }
+
+    /*****************************************************************/
+
 
     @Test
     public void call_inWhichSideIsTheMostWhiteFields_and_should_return_0(){
@@ -54,6 +58,9 @@ public class CenterInterpretation {
         Assertions.assertEquals(4, interpretation4x4.inWhichSideIsTheMostWhiteFields('w'));
     }
 
+    /*****************************************************************/
+
+
     @Test
     public void call_inWhichSideIsGivenColorFieldsExceptUpperSide_and_should_return_0(){
         interpretation4x4.interpretCenters(cube);
@@ -66,6 +73,8 @@ public class CenterInterpretation {
         interpretation4x4.interpretCenters(cube);
         Assertions.assertEquals(3, interpretation4x4.inWhichSideIsGivenColorFieldsExceptUpperSide('w'));
     }
+
+    /*****************************************************************/
 
     @Test
     public void call_countFieldWithGivenColor_and_verify_correctness(){
@@ -92,6 +101,8 @@ public class CenterInterpretation {
         Assertions.assertEquals(1, interpretation4x4.countFieldWithGivenColor(4,'g'));
         Assertions.assertEquals(0, interpretation4x4.countFieldWithGivenColor(4,'b'));
     }
+
+    /*****************************************************************/
 
     @Test
     public void call_isStripesOnGivenSides_with_parallel_stripes_and_should_return_true(){
@@ -121,6 +132,8 @@ public class CenterInterpretation {
         Assertions.assertFalse(interpretation4x4.isStripesOnGivenSides(2,0,'o'));
     }
 
+    /*****************************************************************/
+
     @Test
     public void call_isTwoFieldsFormStripe_with_lengthwise_stripe_and_should_return_true(){
         cube.makeMovesUsingString("u");
@@ -142,6 +155,7 @@ public class CenterInterpretation {
         Assertions.assertFalse(interpretation4x4.isTwoFieldsFormLengthwiseStripe(4,'g'));
     }
 
+    /*****************************************************************/
 
     @Test
     public void call_isStripesAreInOneLine_with_stripes_in_one_line_and_should_return_true(){
@@ -164,6 +178,8 @@ public class CenterInterpretation {
         Assertions.assertFalse(interpretation4x4.isStripesAreInOneLine(0,4,'g'));
     }
 
+    /*****************************************************************/
+
     @Test
     public void call_getNumOfFieldsOnGivenSideWithGivenColor_and_should_return_2(){
         cube.makeMovesUsingString("r U");
@@ -177,6 +193,9 @@ public class CenterInterpretation {
         interpretation4x4.interpretCenters(cube);
         Assertions.assertEquals(-1,interpretation4x4.getNumOfFieldsOnGivenSideWithGivenColor(0,'r'));
     }
+
+    /*****************************************************************/
+
     @Test
     public void call_isFieldInGivenColor_and_should_return_true(){
         interpretation4x4.interpretCenters(cube);
@@ -189,4 +208,7 @@ public class CenterInterpretation {
         interpretation4x4.interpretCenters(cube);
         Assertions.assertFalse(interpretation4x4.isFieldInGivenColor(0,3,'g'));
     }
+
+    /*****************************************************************/
+
 }

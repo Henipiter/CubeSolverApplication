@@ -19,7 +19,7 @@ public class CalculateCenters4x4 {
     }
 
 
-    //need to move this method to another class - in which? dunno
+
     public InspectMove rotateSideToGetItOnTopAlgorithm(int side) {
         switch (side) {
             case 1:
@@ -37,17 +37,17 @@ public class CalculateCenters4x4 {
     }
 
 
-    private InspectMove getMoveToSetGivenSideOnXAxisSide(int side) {
-        switch (side) {
-            case 2:
-                return new InspectMove(MoveEnum.Y, MoveTypeEnum.PRIM);
-            case 3:
-                return new InspectMove(MoveEnum.Y, MoveTypeEnum.SIMPLE);
-        }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE);
-    }
+//    private InspectMove getMoveToSetGivenSideOnXAxisSide(int side) {
+//        switch (side) {
+//            case 2:
+//                return new InspectMove(MoveEnum.Y, MoveTypeEnum.PRIM);
+//            case 3:
+//                return new InspectMove(MoveEnum.Y, MoveTypeEnum.SIMPLE);
+//        }
+//        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE);
+//    }
 
-    public InspectMove getMoveToSetGivenSideOnFront(int side) {
+    public InspectMove getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(int side) {
         switch (side) {
             case 2:
                 return new InspectMove(MoveEnum.Y, MoveTypeEnum.PRIM);
@@ -59,25 +59,25 @@ public class CalculateCenters4x4 {
         return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE);
     }
 
-    public ArrayList<InspectMove> getMoveToSetGivenSideOnUp(int side) {
-        ArrayList<InspectMove> alg = new ArrayList<>();
-        alg.add(getMoveToSetGivenSideOnXAxisSide(side));
-        switch (side) {
-            case 0:
-                alg.add(new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE));
-                break;
-            case 1:
-                alg.add(new InspectMove(MoveEnum.X, MoveTypeEnum.DOUBLE));
-                break;
-            case 4:
-                alg.add(new InspectMove(MoveEnum.X, MoveTypeEnum.SIMPLE));
-                break;
-            case 5:
-                alg.add(new InspectMove(MoveEnum.X, MoveTypeEnum.PRIM));
-                break;
-        }
-        return alg;
-    }
+//    public ArrayList<InspectMove> getMoveToSetGivenSideOnUp(int side) {
+//        ArrayList<InspectMove> alg = new ArrayList<>();
+//        alg.add(getMoveToSetGivenSideOnXAxisSide(side));
+//        switch (side) {
+//            case 0:
+//                alg.add(new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE));
+//                break;
+//            case 1:
+//                alg.add(new InspectMove(MoveEnum.X, MoveTypeEnum.DOUBLE));
+//                break;
+//            case 4:
+//                alg.add(new InspectMove(MoveEnum.X, MoveTypeEnum.SIMPLE));
+//                break;
+//            case 5:
+//                alg.add(new InspectMove(MoveEnum.X, MoveTypeEnum.PRIM));
+//                break;
+//        }
+//        return alg;
+//    }
 
 
     public ArrayList<InspectMove> calculateMovesToPrepareJoining(int sourceSide, int destinationSide, char color) {
@@ -95,6 +95,11 @@ public class CalculateCenters4x4 {
     private InspectMove getMoveToRotateDestinationSideToAdaptForSourceSide(int sideSource, int sideDestination, char color) {
         int sourceField = interpretation4x4.getNumOfFieldsOnGivenSideWithGivenColor(sideSource, color);
         int diagonallyField = (sourceField + 2) % 2;
+        if(!interpretation4x4.isFieldInGivenColor(sideDestination,diagonallyField,color)){
+
+            return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE); //everything is OK
+        }
+
         if (!interpretation4x4.isFieldInGivenColor(sideDestination, sourceField, color)) {
             return new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE);
         }
@@ -116,7 +121,7 @@ public class CalculateCenters4x4 {
         }
         if (!isSrcSideStripeLengthwise) {
             switch (sourceSide) {
-                case 2:
+                case 1:
                     alg.add(new InspectMove(MoveEnum.D, MoveTypeEnum.SIMPLE));
                     break;
                 case 4:
@@ -136,21 +141,21 @@ public class CalculateCenters4x4 {
     public MoveEnum getMoveEnumToSetup(int sideSource, char color) {
         if (interpretation4x4.isFieldInGivenColor(sideSource, 0, color)
                 || interpretation4x4.isFieldInGivenColor(sideSource, 3, color)) {
-            return MoveEnum.L;
+            return MoveEnum.Lw;
         }
-        return MoveEnum.R;
+        return MoveEnum.Rw;
     }
 
     public MoveTypeEnum getMoveEnumTypeToSetup(int sideSource, char color) {
         switch (sideSource) {
-            case 2:
+            case 1:
                 return MoveTypeEnum.DOUBLE;
             case 4:
-                if (getMoveEnumToSetup(sideSource, color) == MoveEnum.R)
+                if (getMoveEnumToSetup(sideSource, color) == MoveEnum.Rw)
                     return MoveTypeEnum.SIMPLE;
                 return MoveTypeEnum.PRIM;
             case 5:
-                if (getMoveEnumToSetup(sideSource, color) == MoveEnum.R)
+                if (getMoveEnumToSetup(sideSource, color) == MoveEnum.Rw)
                     return MoveTypeEnum.PRIM;
                 return MoveTypeEnum.SIMPLE;
         }
@@ -178,13 +183,12 @@ public class CalculateCenters4x4 {
             return new InspectMove(MoveEnum.U, MoveTypeEnum.SIMPLE);
         }
         return new InspectMove(MoveEnum.U, MoveTypeEnum.PRIM);
-
     }
-
 
     public ArrayList<InspectMove> calculateMovesToJoinFromSourceSideToDestinationSide(int sourceSide, int destinationSide, char color) {
         ArrayList<InspectMove> alg = new ArrayList<>();
-        if (!interpretation4x4.isStripesAreInOneLine(sourceSide, destinationSide, color)) {
+        if (interpretation4x4.isStripesOnGivenSides(sourceSide,destinationSide,color) &&
+                !interpretation4x4.isStripesAreInOneLine(sourceSide, destinationSide, color)) {
             alg.add(new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE));
         }
         InspectMove setup = getSetupMoveToJoin(sourceSide, color);

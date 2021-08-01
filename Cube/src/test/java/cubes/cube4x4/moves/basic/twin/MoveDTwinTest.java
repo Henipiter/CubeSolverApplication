@@ -1,11 +1,11 @@
-package cubes.cube4x4.moves.basic;
+package cubes.cube4x4.moves.basic.twin;
 
 import cubes.Cube4x4;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MoveLTest {
+public class MoveDTwinTest {
 // R U L D R
     //up Y, f O
     private char[][] input;
@@ -27,52 +27,52 @@ public class MoveLTest {
 
 
     @Test
-    public void testMoveL(){
+    public void testMoveDTwin(){
         //given
         char[][] expected = new char[][] {
-                {   'b','r','b','b',    'b','r','b','b',    'w','g','w','w',    'w','g','w','w'},
-                {   'g','r','g','g',    'g','r','g','g',    'y','o','b','b',    'y','o','b','b'},
-                {   'y','y','g','g',    'y','y','g','g',    'w','w','o','o',    'w','w','o','o'},
-                {   'y','y','o','o',    'y','y','o','o',    'r','r','w','w',    'r','r','w','w'},
-                {   'r','y','b','b',    'r','y','b','b',    'g','g','r','r',    'g','g','r','r'},
-                {   'r','w','o','o',    'r','w','o','o',    'o','b','y','y',    'o','b','y','y'}
+                {   'r','r','b','b',    'r','r','b','b',    'g','g','w','w',    'g','g','w','w'},
+                {   'g','g','b','b',    'g','g','b','b',    'r','r','o','o',    'r','r','o','o'},
+                {   'g','g','o','o',    'g','g','o','o',    'y','y','b','b',    'y','y','b','b'},
+                {   'y','y','o','o',    'y','y','o','o',    'r','r','g','g',    'r','r','g','g'},
+                {   'y','y','b','b',    'y','y','b','b',    'y','y','w','w',    'y','y','w','w'},
+                {   'w','w','o','o',    'w','w','o','o',    'r','r','w','w',    'r','r','w','w'}
         };
         //when
-        cube4x4.moveUsingString("L");
+        cube4x4.moveUsingString("Dw");
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
     }
 
     @Test
-    public void testMoveLprim(){
+    public void testMoveDTwinprim(){
         //given
         char[][] expected = new char[][] {
-                {   'y','r','b','b',    'y','r','b','b',    'g','g','w','w',    'g','g','w','w'},
-                {   'w','r','g','g',    'w','r','g','g',    'b','o','b','b',    'b','o','b','b'},
-                {   'o','o','w','w',    'o','o','w','w',    'g','g','y','y',    'g','g','y','y',},
-                {   'y','y','o','o',    'y','y','o','o',    'r','r','w','w',    'r','r','w','w'},
-                {   'o','y','b','b',    'o','y','b','b',    'r','g','r','r',    'r','g','r','r'},
-                {   'g','w','o','o',    'g','w','o','o',    'r','b','y','y',    'r','b','y','y'}
+                {   'r','r','b','b',    'r','r','b','b',    'g','g','w','w',    'g','g','w','w'},
+                {   'b','b','o','o',    'b','b','o','o',    'g','g','r','r',    'g','g','r','r'},
+                {   'g','g','o','o',    'g','g','o','o',    'w','w','r','r',    'w','w','r','r'},
+                {   'y','y','o','o',    'y','y','o','o',    'w','w','y','y',    'w','w','y','y'},
+                {   'y','y','b','b',    'y','y','b','b',    'y','y','b','b',    'y','y','b','b'},
+                {   'w','w','o','o',    'w','w','o','o',    'r','r','g','g',    'r','r','g','g'}
         };
         //when
-        cube4x4.moveUsingString("L'");
+        cube4x4.moveUsingString("Dw2");
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
     }
 
     @Test
-    public void testMoveLdouble(){
+    public void testMoveDTwindouble(){
         //given
         char[][] expected = new char[][] {
-                {   'o','r','b','b',    'o','r','b','b',    'r','g','w','w',    'r','g','w','w'},
-                {   'g','r','g','g',    'g','r','g','g',    'r','o','b','b',    'r','o','b','b'},
-                {   'w','w','y','y',    'w','w','y','y',    'o','o','g','g',    'o','o','g','g'},
-                {   'y','y','o','o',    'y','y','o','o',    'r','r','w','w',    'r','r','w','w'},
-                {   'b','y','b','b',    'b','y','b','b',    'w','g','r','r',    'w','g','r','r'},
-                {   'g','w','o','o',    'g','w','o','o',    'y','b','y','y',    'y','b','y','y'}
+                {   'r','r','b','b',    'r','r','b','b',    'g','g','w','w',    'g','g','w','w'},
+                {   'b','b','o','o',    'b','b','o','o',    'g','g','r','r',    'g','g','r','r'},
+                {   'g','g','o','o',    'g','g','o','o',    'w','w','r','r',    'w','w','r','r'},
+                {   'y','y','o','o',    'y','y','o','o',    'w','w','y','y',    'w','w','y','y'},
+                {   'y','y','b','b',    'y','y','b','b',    'y','y','b','b',    'y','y','b','b'},
+                {   'w','w','o','o',    'w','w','o','o',    'r','r','g','g',    'r','r','g','g'}
         };
         //when
-        cube4x4.moveUsingString("L2");
+        cube4x4.moveUsingString("Dw2");
 
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
@@ -80,7 +80,7 @@ public class MoveLTest {
 
     }
     @Test
-    public void testMoveLLprim(){
+    public void testMoveDTwinDTwinprim(){
         //given
         char[][] expected = new char[][] {
                 {   'r','r','b','b',    'r','r','b','b',    'g','g','w','w',    'g','g','w','w'},
@@ -91,8 +91,8 @@ public class MoveLTest {
                 {   'w','w','o','o',    'w','w','o','o',    'b','b','y','y',    'b','b','y','y'}
         };
         //when
-        cube4x4.moveUsingString("L");
-        cube4x4.moveUsingString("L'");
+        cube4x4.moveUsingString("Dw");
+        cube4x4.moveUsingString("Dw'");
 
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
@@ -100,7 +100,7 @@ public class MoveLTest {
 
     }
     @Test
-    public void testMoveDoubleLdouble(){
+    public void testMoveDoubleDTwindouble(){
         //given
         char[][] expected = new char[][] {
                 {   'r','r','b','b',    'r','r','b','b',    'g','g','w','w',    'g','g','w','w'},
@@ -111,8 +111,8 @@ public class MoveLTest {
                 {   'w','w','o','o',    'w','w','o','o',    'b','b','y','y',    'b','b','y','y'}
         };
         //when
-        cube4x4.moveUsingString("L2");
-        cube4x4.moveUsingString("L2");
+        cube4x4.moveUsingString("Dw2");
+        cube4x4.moveUsingString("Dw2");
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
 

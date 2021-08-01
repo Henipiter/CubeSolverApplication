@@ -18,8 +18,6 @@ public class InspectMove {
     public InspectMove(String direction){
         recogniseType(direction);
         recogniseMove(direction);
-
-
     }
 
     private void recogniseMove(String direction){
@@ -61,5 +59,21 @@ public class InspectMove {
 
     public void setMoveEnum(MoveEnum moveEnum) {
         this.moveEnum = moveEnum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof InspectMove)) {
+            return false;
+        }
+        InspectMove c = (InspectMove) o;
+
+
+        return c.getMove() == this.getMove() &&
+                c.getMoveType() == this.getMoveType();
     }
 }

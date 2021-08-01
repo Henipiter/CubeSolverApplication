@@ -24,18 +24,25 @@ public class Interpretation4x4 {
         centerArrayList = new ArrayList<>();
         char[][] cubeTemp = cube.getCube();
         Center center;
-        for (int i = 0; i < 3; i++) {
-            center = new Center(new char[]{
-                    cubeTemp[i][5], cubeTemp[i][6],
-                    cubeTemp[i][10], cubeTemp[i][9]
-            });
-            centerArrayList.add(center);
-        }
-        for (int i = 3; i < 6; i++) {
-            center = new Center(new char[]{
-                    cubeTemp[i][9], cubeTemp[i][10],
-                    cubeTemp[i][6], cubeTemp[i][5]
-            });
+        for (int i = 0; i < 6; i++) {
+            if(i==1 || i==5) {
+                center = new Center(new char[]{
+                        cubeTemp[i][9], cubeTemp[i][10],
+                        cubeTemp[i][6], cubeTemp[i][5]
+                });
+            }
+            else if(i==3) {
+                center = new Center(new char[]{
+                        cubeTemp[i][6], cubeTemp[i][5],
+                        cubeTemp[i][9], cubeTemp[i][10]
+                });
+            }
+            else{
+                center = new Center(new char[]{
+                        cubeTemp[i][5], cubeTemp[i][6],
+                        cubeTemp[i][10], cubeTemp[i][9]
+                });
+            }
             centerArrayList.add(center);
         }
     }
