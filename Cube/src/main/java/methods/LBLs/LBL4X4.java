@@ -29,10 +29,20 @@ public class LBL4X4 implements LBL {
      */
     @Override
     public String solve(){
-        solveFirstCenter();
-        restoreCube();
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        algorithm.addAll(solveCenters());
         //...
         return null;
+    }
+
+    public ArrayList<InspectMove> solveCenters(){
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        algorithm.addAll(solveFirstCenter());
+        algorithm.addAll(solveSecondCenter());
+        algorithm.addAll(solveThirdCenter());
+        algorithm.addAll(solveFourthCenter());
+        algorithm.addAll(solveLastTwoCenters());
+        return algorithm;
     }
 
     private void restoreCube(){
@@ -51,26 +61,19 @@ public class LBL4X4 implements LBL {
     }
 
     private ArrayList<InspectMove> setupFieldAndJoinToDestSide(int source, int dest, char color){
-
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         ArrayList<InspectMove> partial_alg = new ArrayList<>();
         interpretation.interpretCenters(cube);
         //calculate alg to rotate to prepare to join field into upper side
-
         partial_alg.add(calculation.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(source));
-        updateCubeAndInterpretationAndCalculation(partial_alg);
-        algorithm.addAll(partial_alg);
+        addToAlgorithmAndUpdateCubeStuff(partial_alg, algorithm);
         source = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide(color);
         //calculate alg to prepare both sides to join
-    //    partial_alg.clear();
         partial_alg = calculation.calculateMovesToPrepareJoining(source, dest,color);
-        updateCubeAndInterpretationAndCalculation(partial_alg);
-        algorithm.addAll(partial_alg);
+        addToAlgorithmAndUpdateCubeStuff(partial_alg, algorithm);
         //join
-    //    partial_alg.clear();
         partial_alg=calculation.calculateMovesToJoinFromSourceSideToDestinationSide(source,dest,color);
-        updateCubeAndInterpretationAndCalculation(partial_alg);
-        algorithm.addAll(partial_alg);
+        addToAlgorithmAndUpdateCubeStuff(partial_alg, algorithm);
         return algorithm;
     }
 
@@ -91,10 +94,106 @@ public class LBL4X4 implements LBL {
             int sideWithWhiteField = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide('w');
             alg_solve_center = setupFieldAndJoinToDestSide(sideWithWhiteField,0,'w');
             algorithm.addAll(alg_solve_center);
-            //updateCubeAndInterpretationAndCalculation(alg_solve_center);
         }
+        System.out.println("To solve first center: " );
+        interpretation.printAlgorithm(algorithm);
         return algorithm;
     }
 
+    public ArrayList<InspectMove> solveSecondCenter(){
+        interpretation.interpretCenters(cube);
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        ArrayList<InspectMove> alg_solve_center = new ArrayList<>();
+        algorithm.add(new InspectMove("X2"));
+        updateCubeAndInterpretationAndCalculation(algorithm);
+        while(interpretation.countFieldWithGivenColor(0,'y')<4){
+            alg_solve_center.clear();
+            int sideWithWhiteField = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide('y');
+            alg_solve_center = setupFieldAndJoinToDestSide(sideWithWhiteField,0,'y');
+            algorithm.addAll(alg_solve_center);
+        }
+        System.out.println("To solve second center: " );
+        interpretation.printAlgorithm(algorithm);
+        return algorithm;
+    }
+
+    public void addToAlgorithmAndUpdateCubeStuff(ArrayList<InspectMove> algToSet, ArrayList<InspectMove> finalAlg){
+        updateCubeAndInterpretationAndCalculation(algToSet);
+        finalAlg.addAll(algToSet);
+    }
+
+    public ArrayList<InspectMove> solveThirdCenter(){
+
+        ArrayList<InspectMove> temp_alg = new ArrayList<>();
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        interpretation.interpretCenters(cube);
+        temp_alg.add(new InspectMove("Z"));
+        addToAlgorithmAndUpdateCubeStuff(temp_alg,algorithm);
+        temp_alg.clear();
+        int numOfDestSide = interpretation.inWhichSideIsTheGreatestAmountOfCentersWithSameColor(new int[]{0, 4, 1, 5});
+        char colorOfDestSide = interpretation.whichColorIsMostCommonInGivenSide(numOfDestSide);
+        temp_alg.add(calculation.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
+        addToAlgorithmAndUpdateCubeStuff(temp_alg,algorithm);
+
+        while(!interpretation.isWholeCenterInOneColor(0)){
+
+            int sideWithWhiteField = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide(colorOfDestSide);
+            temp_alg = setupFieldAndJoinToDestSide(sideWithWhiteField,0,colorOfDestSide);
+            algorithm.addAll(temp_alg);
+            //updateCubeAndInterpretationAndCalculation(alg_solve_center);
+        }
+        System.out.println("To solve third center: " );
+        interpretation.printAlgorithm(algorithm);
+        return algorithm;
+
+    }
+
+    public ArrayList<InspectMove> solveFourthCenter(){
+
+        ArrayList<InspectMove> temp_alg = new ArrayList<>();
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        interpretation.interpretCenters(cube);
+
+        int numOfDestSide = 4;
+        char colorOfDestSide = interpretation.whichColorIsNextInOrder(numOfDestSide);
+        temp_alg.add(calculation.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
+        addToAlgorithmAndUpdateCubeStuff(temp_alg,algorithm);
+
+        while(!interpretation.isWholeCenterInOneColor(0)){
+
+            int sideWithWhiteField = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide(colorOfDestSide);
+            temp_alg = setupFieldAndJoinToDestSide(sideWithWhiteField,0,colorOfDestSide);
+            algorithm.addAll(temp_alg);
+            //updateCubeAndInterpretationAndCalculation(alg_solve_center);
+        }
+        System.out.println("To solve fourth center: " );
+        interpretation.printAlgorithm(algorithm);
+        return algorithm;
+
+    }
+
+    public ArrayList<InspectMove> solveLastTwoCenters(){
+
+        ArrayList<InspectMove> temp_alg = new ArrayList<>();
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        interpretation.interpretCenters(cube);
+
+        int numOfDestSide = 4;
+        char colorOfDestSide = interpretation.whichColorIsNextInOrder(numOfDestSide);
+        temp_alg.add(calculation.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
+        addToAlgorithmAndUpdateCubeStuff(temp_alg,algorithm);
+
+        while(!interpretation.isWholeCenterInOneColor(0)){
+
+            int sideWithWhiteField = interpretation.inWhichSideIsGivenColorFieldsExceptUpperSide(colorOfDestSide);
+            temp_alg = setupFieldAndJoinToDestSide(sideWithWhiteField,0,colorOfDestSide);
+            algorithm.addAll(temp_alg);
+            //updateCubeAndInterpretationAndCalculation(alg_solve_center);
+        }
+        System.out.println("To solve fifth center: " );
+        interpretation.printAlgorithm(algorithm);
+        return algorithm;
+
+    }
 
 }

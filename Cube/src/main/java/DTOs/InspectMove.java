@@ -46,8 +46,8 @@ public class InspectMove {
         }
         if(( direction.length()==2 && direction.charAt(1)=='w')|| direction.length()==1 )
             moveTypeEnum = MoveTypeEnum.SIMPLE;
-
     }
+
 
     public MoveEnum getMove() {
         return moveEnum;
@@ -80,6 +80,8 @@ public class InspectMove {
 
     @Override
     public String toString() {
-        return "move = ["+moveEnum.toString()+moveTypeEnum.toString()+"]";
+        return moveEnum.toString()+moveTypeEnum.toString();
     }
+
+
 }

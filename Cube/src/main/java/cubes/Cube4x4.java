@@ -432,7 +432,7 @@ public class Cube4x4 extends Cube{
 
     @Override
     public void move(InspectMove inspectMove){
-        logger.info("Do " + inspectMove.getMove().toString() + inspectMove.getMoveType().toString() + " move");
+       // logger.info("Do " + inspectMove.getMove().toString() + inspectMove.getMoveType().toString() + " move");
         switch (inspectMove.getMove()) {
             case R: moveR(inspectMove); break;
             case L: moveL(inspectMove); break;
