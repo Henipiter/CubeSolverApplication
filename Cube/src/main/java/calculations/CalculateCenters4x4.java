@@ -49,7 +49,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
 
     public ArrayList<InspectMove> prepareJoiningIfOnBothSidesAreStripes(int sourceSide, int destinationSide, char color) {
         ArrayList<InspectMove> alg = new ArrayList<>();
-        boolean isDestSideStripeLengthwise = interpretation4x4.isTwoFieldsFormLengthwiseStripe(destinationSide, color);
+        boolean isDestSideStripeLengthwise = interpretation4x4.isTwoFieldsFormLengthwiseBlankStripe(destinationSide, color);
         boolean isSrcSideStripeLengthwise = interpretation4x4.isTwoFieldsFormLengthwiseStripe(sourceSide, color);
         if (!isDestSideStripeLengthwise) {
             alg.add(new InspectMove(MoveEnum.U, MoveTypeEnum.SIMPLE));
@@ -123,7 +123,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
     public ArrayList<InspectMove> calculateMovesToJoinFromSourceSideToDestinationSide(int sourceSide, int destinationSide, char color) {
         ArrayList<InspectMove> alg = new ArrayList<>();
         if (interpretation4x4.isStripesOnGivenSides(sourceSide,destinationSide,color) &&
-                !interpretation4x4.isStripesAreInOneLine(sourceSide, destinationSide, color)) {
+                interpretation4x4.isStripesAreInOneLine(sourceSide, destinationSide, color)) {
             alg.add(new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE));
         }
         InspectMove setup = getSetupMoveToJoin(sourceSide, color);

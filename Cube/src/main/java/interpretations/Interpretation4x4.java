@@ -145,19 +145,30 @@ public class Interpretation4x4 {
 
 
     public boolean isStripesOnGivenSides(int sourceSide, int destinationSide, char color) {
-        return isStripe(sourceSide, color) && isStripe(destinationSide, color);
+        return isStripe(sourceSide, color) && isTwoFieldsFormBlankStripe(destinationSide, color);
     }
 
     public boolean isStripe(int side, char color) {
-        return countFieldWithGivenColor(side, color) == 2 && isTwoFieldsFormStripe(side, color);
+        return countFieldWithGivenColor(side, color) >= 2 && isTwoFieldsFormStripe(side, color);
     }
 
     //if fields form stripe
     public boolean isTwoFieldsFormStripe(int side, int color) {
         int[][] pairs = new int[][]{{0, 1}, {1, 2}, {2, 3}, {0, 3}};
         for (int[] pair : pairs) {
-            if (centerArrayList.get(side).getColor()[pair[0]] == centerArrayList.get(side).getColor()[pair[1]]
+            if (centerArrayList.get(side).getColor()[pair[1]] == color
                     && centerArrayList.get(side).getColor()[pair[0]] == color) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isTwoFieldsFormBlankStripe(int side, int color) {
+        int[][] pairs = new int[][]{{0, 1}, {1, 2}, {2, 3}, {0, 3}};
+        for (int[] pair : pairs) {
+            if (centerArrayList.get(side).getColor()[pair[1]] != color
+                    && centerArrayList.get(side).getColor()[pair[0]] != color) {
                 return true;
             }
         }
@@ -176,13 +187,24 @@ public class Interpretation4x4 {
         return false;
     }
 
+    public boolean isTwoFieldsFormLengthwiseBlankStripe(int side, int color) {
+        int[][] pairs = new int[][]{{0, 3}, {1, 2}};
+        for (int[] pair : pairs) {
+            if (centerArrayList.get(side).getColor()[pair[1]] != color
+                    && centerArrayList.get(side).getColor()[pair[0]] != color) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isStripesAreInOneLine(int sideSource, int sideDestination, int color) {
         int[][] pairs = new int[][]{{0, 3}, {1, 2}};
         for (int[] pair : pairs) {
             if (centerArrayList.get(sideSource).getColor()[pair[0]] == centerArrayList.get(sideSource).getColor()[pair[1]]
                     && centerArrayList.get(sideSource).getColor()[pair[0]] == color
-                    && centerArrayList.get(sideDestination).getColor()[pair[0]] == centerArrayList.get(sideDestination).getColor()[pair[1]]
-                    && centerArrayList.get(sideDestination).getColor()[pair[0]] == color
+                    && centerArrayList.get(sideDestination).getColor()[pair[0]] != color
+                    && centerArrayList.get(sideDestination).getColor()[pair[1]] != color
             ) {
                 return true;
             }

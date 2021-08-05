@@ -104,6 +104,7 @@ public class LBL4X4 implements LBL {
         interpretation.interpretCenters(cube);
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         ArrayList<InspectMove> alg_solve_center = new ArrayList<>();
+       // char secondCenterColor = interpretation.col
         algorithm.add(new InspectMove("X2"));
         updateCubeAndInterpretationAndCalculation(algorithm);
         while(interpretation.countFieldWithGivenColor(0,'y')<4){
