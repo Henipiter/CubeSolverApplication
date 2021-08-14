@@ -5,7 +5,7 @@ import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
 import calculations.CalculateCenters4x4;
 import cubes.Cube4x4;
-import interpretations.Interpretation4x4;
+import interpretations.Interpretation4x4Centers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class CalculateCentersTest {
 
-    Interpretation4x4 interpretation4x4 = new Interpretation4x4();
+    Interpretation4x4Centers interpretation4X4Centers = new Interpretation4x4Centers();
     CalculateCenters4x4 calculateCenters4x4 = new CalculateCenters4x4();
     Cube4x4 cube;
 
@@ -99,9 +99,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(4,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(4,'w'));
     }
 
     @Test
@@ -113,9 +113,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(5,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(5,'w'));
     }
 
     @Test
@@ -127,9 +127,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(1,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(1,'w'));
     }
 
     @Test
@@ -141,9 +141,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(1,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(1,'w'));
     }
 
     @Test
@@ -155,9 +155,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(4,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(4,'w'));
     }
 
     @Test
@@ -169,9 +169,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(5,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(5,'w'));
     }
 
     @Test
@@ -183,9 +183,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(1,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(1,'w'));
     }
 
     @Test
@@ -197,9 +197,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(4,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(4,'w'));
     }
 
     @Test
@@ -211,9 +211,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(4,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(4,'w'));
     }
 
     @Test
@@ -225,9 +225,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(5,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(5,'w'));
     }
 
     @Test
@@ -239,9 +239,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(5,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(5,'w'));
     }
 
     @Test
@@ -253,9 +253,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(1,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(1,'w'));
     }
 
     @Test
@@ -267,9 +267,9 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
-        interpretation4x4.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(0,'w'));
-        Assertions.assertTrue(interpretation4x4.isTwoFieldsFormLengthwiseStripe(1,'w'));
+        interpretation4X4Centers.interpretCenters(cube);
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(1,'w'));
     }
 
     /*****************************************************************/
@@ -614,8 +614,8 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
-        interpretation4x4.interpretCenters(cube);
-        int countWhiteFields = interpretation4x4.countFieldWithGivenColor(0,'w');
+        interpretation4X4Centers.interpretCenters(cube);
+        int countWhiteFields = interpretation4X4Centers.countFieldWithGivenColor(0,'w');
 
         Assertions.assertEquals(4,countWhiteFields);
     }
@@ -628,8 +628,8 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
-        interpretation4x4.interpretCenters(cube);
-        int countWhiteFields = interpretation4x4.countFieldWithGivenColor(0,'w');
+        interpretation4X4Centers.interpretCenters(cube);
+        int countWhiteFields = interpretation4X4Centers.countFieldWithGivenColor(0,'w');
 
         Assertions.assertEquals(4,countWhiteFields);
     }
@@ -642,8 +642,8 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
-        interpretation4x4.interpretCenters(cube);
-        int countWhiteFields = interpretation4x4.countFieldWithGivenColor(0,'w');
+        interpretation4X4Centers.interpretCenters(cube);
+        int countWhiteFields = interpretation4X4Centers.countFieldWithGivenColor(0,'w');
 
         Assertions.assertEquals(4,countWhiteFields);
     }
@@ -656,8 +656,8 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
-        interpretation4x4.interpretCenters(cube);
-        int countWhiteFields = interpretation4x4.countFieldWithGivenColor(0,'w');
+        interpretation4X4Centers.interpretCenters(cube);
+        int countWhiteFields = interpretation4X4Centers.countFieldWithGivenColor(0,'w');
 
         Assertions.assertEquals(3,countWhiteFields);
     }
@@ -670,8 +670,8 @@ public class CalculateCentersTest {
         ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(4,0,'w');
         //then
         cube.makeMoves(result);
-        interpretation4x4.interpretCenters(cube);
-        int countWhiteFields = interpretation4x4.countFieldWithGivenColor(0,'w');
+        interpretation4X4Centers.interpretCenters(cube);
+        int countWhiteFields = interpretation4X4Centers.countFieldWithGivenColor(0,'w');
 
         Assertions.assertEquals(4,countWhiteFields);
     }

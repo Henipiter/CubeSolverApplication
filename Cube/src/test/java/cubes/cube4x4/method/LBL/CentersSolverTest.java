@@ -3,7 +3,7 @@ package cubes.cube4x4.method.LBL;
 import DTOs.InspectMove;
 import cubes.Cube;
 import cubes.Cube4x4;
-import interpretations.Interpretation4x4;
+import interpretations.Interpretation4x4Centers;
 import methods.LBLs.LBL4X4;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CentersSolverTest {
 
     Cube cube = new Cube4x4();
-    Interpretation4x4 interpretation = new Interpretation4x4();
+    Interpretation4x4Centers interpretation = new Interpretation4x4Centers();
 
     @Test
     public void call_addToAlgorithmAndUpdateCubeStuff_and_check_correctness(){

@@ -5,7 +5,7 @@ import DTOs.InspectMove;
 import calculations.CalculateCenters4x4;
 import cubes.Cube;
 import cubes.Cube4x4;
-import interpretations.Interpretation4x4;
+import interpretations.Interpretation4x4Centers;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,11 @@ public class LBL4X4 implements LBL {
 
     private Cube cube;
     private Cube oriStateCube;
-    private Interpretation4x4 interpretation;
+    private Interpretation4x4Centers interpretation;
     private CalculateCenters4x4 calculation;
 
     public LBL4X4(Cube cube){
-        interpretation = new Interpretation4x4();
+        interpretation = new Interpretation4x4Centers();
         calculation = new CalculateCenters4x4();
         this.cube = new Cube4x4(cube.getCube());
         this.oriStateCube = new Cube4x4(cube.getCube());
@@ -31,7 +31,7 @@ public class LBL4X4 implements LBL {
     public String solve(){
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         algorithm.addAll(solveCenters());
-        //...
+        //TODO
         return null;
     }
 

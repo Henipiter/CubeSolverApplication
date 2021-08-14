@@ -10,19 +10,18 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @Data
-public class Interpretation4x4 {
+public class Interpretation4x4Centers {
     private ArrayList<Center> centerArrayList;
-    private ArrayList<Edge> edgeArrayList;
     private ArrayList<Vertex> vertexArrayList;
 
-    public Interpretation4x4() {
+    public Interpretation4x4Centers() {
         centerArrayList = new ArrayList<>();
-        edgeArrayList = new ArrayList<>();
         vertexArrayList = new ArrayList<>();
     }
 
 
     public void interpretCenters(Cube cube) {
+        //TODO delete 'cubeTemp', use 'cube' variable
         centerArrayList = new ArrayList<>();
         char[][] cubeTemp = cube.getCube();
         Center center;
@@ -47,9 +46,6 @@ public class Interpretation4x4 {
         }
     }
 
-    public void interpretEdges(Cube4x4 cube) {
-        //TODO
-    }
 
     public void interpretVertexes(Cube4x4 cube) {
         //TODO
@@ -246,10 +242,6 @@ public class Interpretation4x4 {
 
     public ArrayList<Center> getCenterArrayList() {
         return centerArrayList;
-    }
-
-    public ArrayList<Edge> getEdgeArrayList() {
-        return edgeArrayList;
     }
 
     public ArrayList<Vertex> getVertexArrayList() {
