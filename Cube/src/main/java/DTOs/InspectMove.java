@@ -1,5 +1,10 @@
 package DTOs;
 
+import org.apache.maven.shared.utils.StringUtils;
+
+import java.util.ArrayList;
+
+import static DTOs.MoveEnum.BLANK;
 import static DTOs.MoveEnum.INVALID;
 
 /** Parse moves for cubes
@@ -9,14 +14,28 @@ public class InspectMove {
     private MoveTypeEnum moveTypeEnum;
     private MoveEnum moveEnum;
 
+    public static ArrayList<InspectMove> createAndReturnArrayListFromString(String alg){
+        ArrayList<InspectMove> result = new ArrayList<>();
+        if(!alg.trim().isEmpty()){
+            alg=StringUtils.stripStart(alg, null);
+            String[] splitAlg = alg.split(" ");
+            for (String move : splitAlg) {
+                result.add(new InspectMove(move));
+            }
+        }
+        return result;
+    }
+
     public InspectMove(MoveEnum moveEnum, MoveTypeEnum moveTypeEnum){
         this.moveEnum = moveEnum;
         this.moveTypeEnum = moveTypeEnum;
     }
 
     public InspectMove(String direction){
-        recogniseType(direction);
-        recogniseMove(direction);
+        if(direction!=null && direction.length()>0) {
+            recogniseType(direction);
+            recogniseMove(direction);
+        }
     }
 
     public InspectMove(InspectMove inspectMove){
@@ -83,5 +102,15 @@ public class InspectMove {
         return moveEnum.toString()+moveTypeEnum.toString();
     }
 
-
+    public static String algToString(ArrayList<InspectMove> alg){
+        String result = "";
+        for( InspectMove move : alg){
+            if(move.getMove()!=BLANK) {
+                result = result.concat(move.toString() + " ");
+            }
+        }
+        if(result!="")
+            return result.substring(0, result.length()-1);
+        return "";
+    }
 }

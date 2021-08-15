@@ -141,20 +141,24 @@ public class CentersSolverTest {
         for(int i=0;i<6;i++){
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
+        String expectedAlg = "Z' Lw' U' Lw Rw2 U Rw2 X2 U' Lw' U Lw Y2 U2 Rw U Rw' Z X U' Rw U Rw' X Rw U Rw' D Lw2 U2 Lw2 X U' Rw U Rw'";
+        Assertions.assertEquals(expectedAlg, InspectMove.algToString(algorithm));
     }
 
-    @Test
-    public void call_solveWholeCenters_with_random3_scramble(){
 
-        cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
+
+    @Test
+    public void call_solveWholeCenters_with_random1_scramble(){
+        cube.makeMovesUsingString("r' d R D2 U' B' r' B' D' d");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<InspectMove> algorithm = lbl.solveCenters();
         interpretation.interpretCenters(cube);
         interpretation.printAlgorithm(algorithm);
-
         for(int i=0;i<6;i++){
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
+        String expectedAlg = "Lw2 U Lw2 Y U' Rw U Rw' Y U2 Lw' U' Lw X2 Rw U' Rw' Y F Rw U2 Rw' Y U Rw U Rw' Z X U Rw U' Rw' X Rw U Rw' D Lw2 U2 Lw2 X U2 Rw U2 Rw' U' Lw' U' Lw";
+        Assertions.assertEquals(expectedAlg, InspectMove.algToString(algorithm));
     }
 
     @Test
@@ -169,12 +173,14 @@ public class CentersSolverTest {
         for(int i=0;i<6;i++){
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
+        String expectedAlg = "X2 Y U2 Rw U' Rw' Y Rw U Rw' X2 Lw' U' Lw Y U Lw' U Lw Z X' U Lw' U' Lw X Lw' U Lw Rw2 U' Rw2 U' Lw2 U' Lw2 X U2 Lw' U2 Lw Rw U' Rw'";
+        Assertions.assertEquals(expectedAlg, InspectMove.algToString(algorithm));
     }
 
     @Test
-    public void call_solveWholeCenters_with_random1_scramble(){
+    public void call_solveWholeCenters_with_random3_scramble(){
 
-        cube.makeMovesUsingString("r' d R D2 U' B' r' B' D' d");
+        cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<InspectMove> algorithm = lbl.solveCenters();
         interpretation.interpretCenters(cube);
@@ -183,5 +189,8 @@ public class CentersSolverTest {
         for(int i=0;i<6;i++){
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
+        String expectedAlg = "Z Rw U Rw' Rw2 U Rw2 Y2 Rw U Rw' X2 Lw' U' Lw Y' Rw U Rw' Y2 Lw' U Lw Rw U Rw' Z X U' Rw U Rw' Y2 U' Rw U' Rw' X F U2 Rw U2 Rw' Lw2 U Lw2 X Rw U' Rw' Lw' U' Lw";
+        Assertions.assertEquals(expectedAlg, InspectMove.algToString(algorithm));
     }
+
 }

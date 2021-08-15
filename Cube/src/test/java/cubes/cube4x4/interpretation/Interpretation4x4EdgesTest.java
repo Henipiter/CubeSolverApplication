@@ -5,6 +5,7 @@ import cubes.Cube4x4;
 import interpretations.Interpretation4x4Centers;
 import interpretations.Interpretation4x4Edges;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.Assert;
@@ -23,7 +24,7 @@ class Interpretation4x4EdgesTest {
     }
 
     @Test
-    public void call_interpretCenters_and_check_correctness() {
+    public void call_interpretEdges() {
 
         cube.makeMovesUsingString("Rw Uw Lw Dw Rw");
         interpretation4x4Edges.interpretEdges(cube);
@@ -47,6 +48,34 @@ class Interpretation4x4EdgesTest {
 
         for(int i=0;i<24;i++){
             Assert.assertArrayEquals(expected[i], result.get(i).getColor());
+        }
+    }
+
+    @Test
+    public void call_isChosenEdgeIsPaired(){
+        cube.makeMovesUsingString("Rw");
+        interpretation4x4Edges.interpretEdges(cube);
+        for(int i=0;i<24;i++){
+            if(i/2==0 || i/2==2 || i/2==8 || i/2==10){
+                Assertions.assertFalse(interpretation4x4Edges.isChosenEdgeIsPaired(i));
+            }
+            else {
+                Assertions.assertTrue(interpretation4x4Edges.isChosenEdgeIsPaired(i));
+            }
+        }
+    }
+
+    @Test
+    public void call_isChosenEdgeIsPairedw(){
+        cube.makeMovesUsingString("Rw Uw Rw");
+        interpretation4x4Edges.interpretEdges(cube);
+        for(int i=0;i<24;i++){
+            if(i/2==6 || i/2==11){
+                Assertions.assertTrue(interpretation4x4Edges.isChosenEdgeIsPaired(i));
+            }
+            else {
+                Assertions.assertFalse(interpretation4x4Edges.isChosenEdgeIsPaired(i));
+            }
         }
     }
 

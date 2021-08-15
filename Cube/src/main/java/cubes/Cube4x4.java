@@ -29,7 +29,6 @@ public class Cube4x4 extends Cube{
         this.cube = cube;
     }
 
-
     private void rotateSide(boolean clockwise, int side){
         char buffer;
         char[] fieldsOrder;
@@ -419,6 +418,57 @@ public class Cube4x4 extends Cube{
         }
     }
 
+    private void moveM(InspectMove inspectMove){
+        switch (inspectMove.getMoveType()){
+            case PRIM:
+                moveRIn(new InspectMove(r, SIMPLE));
+                moveLIn(new InspectMove(l, PRIM));
+                break;
+            case DOUBLE:
+                moveM(new InspectMove(M, SIMPLE));
+                moveM(new InspectMove(M, SIMPLE));
+                break;
+            case SIMPLE:
+                moveRIn(new InspectMove(r, PRIM));
+                moveLIn(new InspectMove(l, SIMPLE));
+                break;
+        }
+    }
+
+    private void moveS(InspectMove inspectMove){
+        switch (inspectMove.getMoveType()){
+            case PRIM:
+                moveFIn(new InspectMove(f, PRIM));
+                moveBIn(new InspectMove(b, SIMPLE));
+                break;
+            case DOUBLE:
+                moveS(new InspectMove(S, SIMPLE));
+                moveS(new InspectMove(S, SIMPLE));
+                break;
+            case SIMPLE:
+                moveFIn(new InspectMove(f, SIMPLE));
+                moveBIn(new InspectMove(b, PRIM));
+                break;
+        }
+    }
+
+    private void moveE(InspectMove inspectMove){
+        switch (inspectMove.getMoveType()){
+            case PRIM:
+                moveUIn(new InspectMove(u, SIMPLE));
+                moveDIn(new InspectMove(d, PRIM));
+                break;
+            case DOUBLE:
+                moveE(new InspectMove(E, SIMPLE));
+                moveE(new InspectMove(E, SIMPLE));
+                break;
+            case SIMPLE:
+                moveUIn(new InspectMove(u, PRIM));
+                moveDIn(new InspectMove(d, SIMPLE));
+                break;
+        }
+    }
+
     @Override
     public void moveUsingString(String direction){
         InspectMove inspectMove = new InspectMove(direction);
@@ -455,9 +505,9 @@ public class Cube4x4 extends Cube{
             case X: moveX(inspectMove); break;
             case Y: moveY(inspectMove); break;
             case Z: moveZ(inspectMove); break;
-//                case M: moveM(inspectMove); break;
-//                case S: moveS(inspectMove); break;
-//                case E: moveE(inspectMove); break;
+            case M: moveM(inspectMove); break;
+            case S: moveS(inspectMove); break;
+            case E: moveE(inspectMove); break;
             case BLANK: /*nothing to do*/ break;
             default:
                 logger.info("Cannot do \"" + inspectMove.getMove().toString() + "\" move");

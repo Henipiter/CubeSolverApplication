@@ -4,6 +4,7 @@ import DTOs.Edge;
 import cubes.Cube;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Interpretation4x4Edges {
 
@@ -50,5 +51,73 @@ public class Interpretation4x4Edges {
 
     public ArrayList<Edge> getEdgeArrayList() {
         return edgeArrayList;
+    }
+
+    public boolean isChosenEdgeIsPaired(int edgeIndex){
+        char[] chosenEdgeColor = edgeArrayList.get(edgeIndex).getColor();
+        int pairToChosenEdge = (edgeIndex%2+1)%2 + edgeIndex/2*2;
+        char[] pairToChosenEdgeColor = edgeArrayList.get(pairToChosenEdge).getColor();
+        return Arrays.equals(chosenEdgeColor,pairToChosenEdgeColor);
+    }
+
+    public boolean isAllEdgesArePaired(){
+        for (int i = 0; i < 12; i+=2) {
+            if(!isChosenEdgeIsPaired(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int getUnpairedPairEdgeIndex() {
+        int[] order = new int[]{3, 4, 11, 0, 1, 2, 10, 9, 8, 5, 6, 7};
+        for (int i : order) {
+            if (!isChosenEdgeIsPaired(i * 2)) {
+                return i * 2;
+            }
+        }
+        return 0;
+    }
+
+    public int getUnpairedEdgeIndex() {
+        int[] order = new int[]{6, 2, 3, 4, 11, 0, 1, 10, 9, 8, 5, 7};
+        for (int i : order) {
+            for (int j = 2 * i; j <= 2 * i + 1; j++) {
+                if (!isChosenEdgeIsPaired(j)) {
+                    return j;
+                }
+            }
+        }
+        return 0; //TODO exception - cannot find
+    }
+
+    private boolean isTheSameContent(char[] colors1, char[] colors2) {
+        return (colors1[0] == colors2[0] && colors1[1] == colors2[1]) ||
+                (colors1[0] == colors2[1] && colors1[1] == colors2[0]);
+    }
+
+    public boolean isGivenEdgesHaveTheSameContent(int edge1, int edge2){
+        char[] colorsOnEdge1 = edgeArrayList.get(edge1).getColor();
+        char[] colorsOnEdge2 = edgeArrayList.get(edge2).getColor();
+        return isTheSameContent(colorsOnEdge1, colorsOnEdge2);
+    }
+
+    public boolean isGivenEdgeHasItsPairOnGivenEdgePair(int edge, int pairEdge){
+        return isGivenEdgesHaveTheSameContent(edge, pairEdge*2) ||
+                isGivenEdgesHaveTheSameContent(edge, pairEdge*2+1);
+    }
+
+    public int getEdgeIndexWithTheSameColorsLikeInGivenEdge(int sourceEdge){
+        int[] order = new int[]{6, 2, 3, 4, 11, 0, 1, 10, 9, 8, 5, 7};
+        for (int i : order) {
+            for (int checkingEdge = 2 * i; checkingEdge <= 2 * i + 1; checkingEdge++) {
+                if( isGivenEdgesHaveTheSameContent(sourceEdge, checkingEdge)){
+                    return checkingEdge;
+                }
+
+            }
+        }
+        return 0;
+        //TODO exception - cannot find
     }
 }

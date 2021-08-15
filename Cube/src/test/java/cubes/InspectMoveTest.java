@@ -6,6 +6,9 @@ import DTOs.MoveTypeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class InspectMoveTest {
 
     @Test
@@ -95,5 +98,37 @@ public class InspectMoveTest {
         InspectMove inspectMove = new InspectMove("X");
         InspectMove inspectMove2 = new InspectMove("X'");
         Assertions.assertFalse(inspectMove.equals(inspectMove2));
+    }
+
+    @Test
+    public void call_createAndReturnArrayListFromString_and_should_return_expected_arraylist(){
+
+        ArrayList<InspectMove> expected = new ArrayList<>(Arrays.asList(
+                new InspectMove("R"),
+                new InspectMove("U"),
+                new InspectMove("R"),
+                new InspectMove("U")
+        ));
+        ArrayList<InspectMove> result = InspectMove.createAndReturnArrayListFromString("R U R U");
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    void call_algToString_and_should_return_RURU(){
+        ArrayList<InspectMove> alg = new ArrayList<>(Arrays.asList(
+                new InspectMove("R"),
+                new InspectMove("U"),
+                new InspectMove("R"),
+                new InspectMove("U")
+        ));
+        String result = InspectMove.algToString(alg);
+        Assertions.assertEquals("R U R U", result);
+    }
+
+    @Test
+    void call_algToString_and_should_return_empty_string(){
+        ArrayList<InspectMove> alg = new ArrayList<>();
+        String result = InspectMove.algToString(alg);
+        Assertions.assertEquals("", result);
     }
 }
