@@ -1,0 +1,13 @@
+rozpoznawanie kolorów ze zdjęcia. Należy wykorzystać bibliotekę cv2.
+Na wyjściu oczekiwana jest sekwencja znaków oznaczająch kolor pola
+2x2 - 4znaki
+3x3 - 9 znaków
+4x4 - 16 znaków
+Pyraminx - 10 znaków
+
+w - white
+y - yellow
+g - green
+b - blue
+r - red
+o - orange

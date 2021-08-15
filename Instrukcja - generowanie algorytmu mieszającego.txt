@@ -1,0 +1,64 @@
+- generowanie algorytmu mieszającego. Ruchy nie powinny się powtarzać po sobie ( R, R'), nie powinny powtarzać się po ruchach z tej samej płaszczyzny (R L R'). Dlatego generowanie algorytmu musi uwzględniać te rzeczy.
+- sugeruję:
+	-wykonywanie ruchów zawsze w różnych płaszczyznach. Zatem po ruchu R, nie może wystąpić L, Lw, l, R, Rw, r
+	-wykonywanie ruchów zewnętrznych (R,L,U,D,B,F) dla 3x3 i 2x2 (nie wykonywać M,S,E,X,Y,Z), oraz zewnętrznych i dwóch warstw (R,L,U,D,B,F,Rw, Lw,Uw,Dw,Bw,Fw) dla 4x4 (nie wykonywać r,l,u,d,f,w,M,S,E,X,Y,Z)
+
+wyjaśnienie niepoprawnej sekwencji:
+Dla 2x2, 3x3, 4x4
+	R' R - dwa ruchy, które się znoszą,
+	R R - równoważne do R2
+	R2 R - równoważne do R'
+	R L R - równoważne do R2 L i L R2
+	L' R - równoważne do M'
+Dla 2x2
+	L' R - równoważne z X (nie ma to zastosowania w 3x3, gdyż tam jest jeszcze środkowa ściana 
+Dla 4x4
+	Rw Rw' - ruchy się znosza (identycznie co do 3x3 itd...)
+	r R - równoważne do Rw
+	r l' - równoważne do M'
+
+poprawne:
+R U R - te R2 U daje inny efekt, więc nie można skrócić
+
+
+Typ ruchu ( ', 2 ):
+ R - prawa ściana zgodnie ze wskazówkami zegara
+ R' - prawa ściana przeciwnie do ruchu wskazówek zegara
+ R2 - prawa ściana podwójnie
+Ruchy:
+ Obrót:
+  X - obrót w osi x
+  Y - obrót w osi y
+  Z - obrót w osi z
+
+ 2x2:
+  R-prawa ściana (right)
+  L-lewa ściana (left)
+  U-górna ściana (up)
+  D-dolna ściana (down)
+  F-przednia ściana (front)
+  B-tylna ściana (back)
+ 3x3:
+  R-prawa ściana (right) (oś X)
+  L-lewa ściana (left) (oś X)
+  U-górna ściana (up) (oś Y)
+  D-dolna ściana (down) (oś Y)
+  F-przednia ściana (front) (oś Z)
+  B-tylna ściana (back) (oś Z)
+  M-środkowa ściana  (oś X)
+  S-środkowa ściana  (oś Y)
+  E-środkowa ściana  (oś Z)
+ 4x4
+  R-prawa ściana (right) (oś X)
+  L-lewa ściana (left) (oś X)
+  U-górna ściana (up) (oś Y)
+  D-dolna ściana (down) (oś Y)
+  F-przednia ściana (front) (oś Z)
+  B-tylna ściana (back) (oś Z)
+  M-środkowa ściana  (oś X)
+  S-środkowa ściana  (oś Y)
+  E-środkowa ściana  (oś Z)
+  r - prawa, wewnętrzna ściana
+  ...
+  Rw - prawa, wewnętrzna i zewnętrzna ściana
+  ...
