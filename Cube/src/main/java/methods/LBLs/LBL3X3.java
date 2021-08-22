@@ -2,8 +2,6 @@ package methods.LBLs;
 
 
 import cubes.Cube;
-import cubes.Cube3x3;
-import methods.FMs.FM;
 
 public class LBL3X3 implements LBL {
 
@@ -13,12 +11,9 @@ public class LBL3X3 implements LBL {
         this.cube = cube;
     }
 
-    /** Here is implementation of LBL for 3x3
-     *
-     * @return series of moves to solve cube
-     */
+
     @Override
-    public String solve(){
+    public String solve(char firstCenterColor){
 
         return null;
     }

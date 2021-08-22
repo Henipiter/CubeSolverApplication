@@ -34,7 +34,7 @@ public class Interpretation1x1 {
         cube.move(calculate.rotateSideToGetItOnTopAlgorithm(leftSide));
 
 
-        cube.moveUsingString("Z'");
+        cube.moveUsingString("z'");
         int upperSide = getSideWithGivenColor(upperSideColor);
         cube.move(calculate.rotateSideToGetItOnTopAlgorithm(upperSide));
         return cube.getCube()[choosenSide][0];

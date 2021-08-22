@@ -9,15 +9,15 @@ public class CalculateMoves {
     public InspectMove rotateSideToGetItOnTopAlgorithm(int side) {
         switch (side) {
             case 1:
-                return new InspectMove(MoveEnum.X, MoveTypeEnum.DOUBLE);
+                return new InspectMove(MoveEnum.x, MoveTypeEnum.DOUBLE);
             case 2:
-                return new InspectMove(MoveEnum.Z, MoveTypeEnum.SIMPLE);
+                return new InspectMove(MoveEnum.z, MoveTypeEnum.SIMPLE);
             case 3:
-                return new InspectMove(MoveEnum.Z, MoveTypeEnum.PRIM);
+                return new InspectMove(MoveEnum.z, MoveTypeEnum.PRIM);
             case 4:
-                return new InspectMove(MoveEnum.X, MoveTypeEnum.SIMPLE);
+                return new InspectMove(MoveEnum.x, MoveTypeEnum.SIMPLE);
             case 5:
-                return new InspectMove(MoveEnum.X, MoveTypeEnum.PRIM);
+                return new InspectMove(MoveEnum.x, MoveTypeEnum.PRIM);
         }
         return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE);
     }
@@ -25,11 +25,11 @@ public class CalculateMoves {
     public InspectMove getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(int side) {
         switch (side) {
             case 2:
-                return new InspectMove(MoveEnum.Y, MoveTypeEnum.PRIM);
+                return new InspectMove(MoveEnum.y, MoveTypeEnum.PRIM);
             case 3:
-                return new InspectMove(MoveEnum.Y, MoveTypeEnum.SIMPLE);
+                return new InspectMove(MoveEnum.y, MoveTypeEnum.SIMPLE);
             case 5:
-                return new InspectMove(MoveEnum.Y, MoveTypeEnum.DOUBLE);
+                return new InspectMove(MoveEnum.y, MoveTypeEnum.DOUBLE);
         }
         return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE);
     }

@@ -1,8 +1,6 @@
 package methods.LBLs;
 
 import cubes.Cube;
-import methods.FMs.FM;
-import methods.FMs.FMFactory;
 import methods.SolvingMethod;
 
 public class LBLSolver implements SolvingMethod {
@@ -11,8 +9,8 @@ public class LBLSolver implements SolvingMethod {
         LBLFactory lblFactory = new LBLFactory();
         LBL lbl =  lblFactory.getLBL(cube);
 
-        String solution=null;
-        solution = lbl.solve();
+
+        String solution = lbl.solve('w');
 
         return solution;
     }

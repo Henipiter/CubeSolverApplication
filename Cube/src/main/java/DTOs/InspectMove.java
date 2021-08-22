@@ -1,13 +1,44 @@
 package DTOs;
 
+import lombok.Data;
+import org.apache.maven.shared.utils.StringUtils;
+
+import java.util.ArrayList;
+
+import static DTOs.MoveEnum.BLANK;
 import static DTOs.MoveEnum.INVALID;
 
 /** Parse moves for cubes
  *
  */
+@Data
 public class InspectMove {
     private MoveTypeEnum moveTypeEnum;
     private MoveEnum moveEnum;
+
+    public static ArrayList<InspectMove> createAndReturnArrayListFromString(String alg){
+        ArrayList<InspectMove> result = new ArrayList<>();
+        if(!alg.trim().isEmpty()){
+            alg=StringUtils.stripStart(alg, null);
+            String[] splitAlg = alg.split(" ");
+            for (String move : splitAlg) {
+                result.add(new InspectMove(move));
+            }
+        }
+        return result;
+    }
+
+    public static String algorithmToString(ArrayList<InspectMove> alg){
+        String result = "";
+        for( InspectMove move : alg){
+            if(move.getMoveEnum()!=BLANK) {
+                result = result.concat(move.toString() + " ");
+            }
+        }
+        if(!result.equals(""))
+            return result.substring(0, result.length()-1);
+        return "";
+    }
 
     public InspectMove(MoveEnum moveEnum, MoveTypeEnum moveTypeEnum){
         this.moveEnum = moveEnum;
@@ -20,8 +51,8 @@ public class InspectMove {
     }
 
     public InspectMove(InspectMove inspectMove){
-        this.moveEnum = inspectMove.getMove();
-        this.moveTypeEnum = inspectMove.getMoveType();
+        this.moveEnum = inspectMove.getMoveEnum();
+        this.moveTypeEnum = inspectMove.getMoveTypeEnum();
     }
 
     private void recogniseMove(String direction){
@@ -48,23 +79,6 @@ public class InspectMove {
             moveTypeEnum = MoveTypeEnum.SIMPLE;
     }
 
-
-    public MoveEnum getMove() {
-        return moveEnum;
-    }
-
-    public MoveTypeEnum getMoveType() {
-        return moveTypeEnum;
-    }
-
-    public void setMoveType(MoveTypeEnum moveTypeEnum) {
-        this.moveTypeEnum = moveTypeEnum;
-    }
-
-    public void setMoveEnum(MoveEnum moveEnum) {
-        this.moveEnum = moveEnum;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -74,14 +88,12 @@ public class InspectMove {
             return false;
         }
         InspectMove c = (InspectMove) o;
-        return c.getMove() == this.getMove() &&
-                c.getMoveType() == this.getMoveType();
+        return c.getMoveEnum() == this.getMoveEnum() &&
+                c.getMoveTypeEnum() == this.getMoveTypeEnum();
     }
 
     @Override
     public String toString() {
         return moveEnum.toString()+moveTypeEnum.toString();
     }
-
-
 }

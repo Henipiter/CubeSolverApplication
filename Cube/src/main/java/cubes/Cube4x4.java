@@ -29,30 +29,26 @@ public class Cube4x4 extends Cube{
         this.cube = cube;
     }
 
-
     private void rotateSide(boolean clockwise, int side){
-        char buffer;
-        char[] fieldsOrder;
         if(clockwise){
             /* vertexes */
-            changeFourFields(cube, side, new char[]{0,12,15,3});
+            changeFourFields(cube, side, new int[]{0,12,15,3});
             /* edges */
-            changeFourFields(cube, side, new char[]{1,8,14,7});
-            changeFourFields(cube, side, new char[]{2,4,13,11});
+            changeFourFields(cube, side, new int[]{1,8,14,7});
+            changeFourFields(cube, side, new int[]{2,4,13,11});
             /* centers */
-            changeFourFields(cube, side, new char[]{5,9,10,6});
+            changeFourFields(cube, side, new int[]{5,9,10,6});
         }
         else{
             /* vertexes */
-            changeFourFields(cube, side, new char[]{0,3,15,12});
+            changeFourFields(cube, side, new int[]{0,3,15,12});
             /* edges */
-            changeFourFields(cube, side, new char[]{1,7,14,8});
-            changeFourFields(cube, side, new char[]{2,11,13,4});
+            changeFourFields(cube, side, new int[]{1,7,14,8});
+            changeFourFields(cube, side, new int[]{2,11,13,4});
             /* centers */
-            changeFourFields(cube, side, new char[]{5,6,10,9});
+            changeFourFields(cube, side, new int[]{5,6,10,9});
         }
     }
-
 
     private void moveElementary(int[] sideOrder, int[][] field){
         char[] buffer =new char[4];
@@ -69,7 +65,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveR(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()) {
+        switch (inspectMove.getMoveTypeEnum()) {
             case PRIM:
                 rotateSide(true,3);
                 moveElementary( new int[]{4,0,5,1},new int[][]{{3,7,11,15},{3,7,11,15}});
@@ -86,7 +82,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveRIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()) {
+        switch (inspectMove.getMoveTypeEnum()) {
             case PRIM:
                 moveElementary( new int[]{4,0,5,1},new int[][]{{2,6,10,14},{2,6,10,14}});
                 break;
@@ -101,7 +97,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveL(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 rotateSide(false,2);
                 moveElementary( new int[]{0,4,1,5},new int[][]{{0,4,8,12},{0,4,8,12}});
@@ -118,7 +114,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveLIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{0,4,1,5},new int[][]{{1,5,9,13},{1,5,9,13}});
                 break;
@@ -133,7 +129,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveU(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 rotateSide(false,0);
                 moveElementary( new int[]{4,2,5,3},new int[][]{{0,1,2,3},{0,1,2,3}});
@@ -150,7 +146,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveUIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{4,2,5,3},new int[][]{{4,5,6,7},{4,5,6,7}});
                 break;
@@ -165,7 +161,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveD(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 rotateSide(true,1);
                 moveElementary( new int[]{2,4,3,5},new int[][]{{12,13,14,15},{12,13,14,15}});
@@ -182,7 +178,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveDIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{2,4,3,5},new int[][]{{8,9,10,11},{8,9,10,11}});
                 break;
@@ -197,7 +193,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveF(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 rotateSide(false,4);
                 moveElementary( new int[]{2,0,3,1},new int[][]{{15,14,13,12},{3,7,11,15}});
@@ -214,7 +210,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveFIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{2,0,3,1},new int[][]{{11,10,9,8},{2,6,10,14}});
                 break;
@@ -228,7 +224,7 @@ public class Cube4x4 extends Cube{
         }
     }
     private void moveB(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 rotateSide(true,5);
                 moveElementary( new int[]{0,2,1,3},new int[][]{{12,8,4,0},{0,1,2,3}});
@@ -245,7 +241,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveBIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{0,2,1,3},new int[][]{{13,9,5,1},{4,5,6,7}});
                 break;
@@ -259,7 +255,7 @@ public class Cube4x4 extends Cube{
         }
     }
     private void moveX(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveR(new InspectMove(R,PRIM));
                 moveRIn(new InspectMove(r, PRIM));
@@ -267,8 +263,8 @@ public class Cube4x4 extends Cube{
                 moveL(new InspectMove(L,SIMPLE));
                 break;
             case DOUBLE:
-                moveX(new InspectMove(X, SIMPLE));
-                moveX(new InspectMove(X, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
                 break;
             case SIMPLE:
                 moveR(new InspectMove(R,SIMPLE));
@@ -280,7 +276,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveY(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveU(new InspectMove(U, PRIM));
                 moveUIn(new InspectMove(u, PRIM));
@@ -288,8 +284,8 @@ public class Cube4x4 extends Cube{
                 moveD(new InspectMove(D,SIMPLE));
                 break;
             case DOUBLE:
-                moveY(new InspectMove(Y, SIMPLE));
-                moveY(new InspectMove(Y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
                 break;
             case SIMPLE:
                 moveU(new InspectMove(U, SIMPLE));
@@ -301,14 +297,14 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveZ(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveFTwin(new InspectMove(Fw,PRIM));
                 moveBTwin(new InspectMove(Bw, SIMPLE));
                 break;
             case DOUBLE:
-                moveZ(new InspectMove(Z, SIMPLE));
-                moveZ(new InspectMove(Z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
                 break;
             case SIMPLE:
                 moveFTwin(new InspectMove(Fw,SIMPLE));
@@ -318,7 +314,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveRTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveR(new InspectMove(R, PRIM));
                 moveRIn(new InspectMove(r, PRIM));
@@ -335,7 +331,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveLTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveL(new InspectMove(L, PRIM));
                 moveLIn(new InspectMove(l, PRIM));
@@ -352,7 +348,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveUTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveU(new InspectMove(U, PRIM));
                 moveUIn(new InspectMove(u, PRIM));
@@ -369,7 +365,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveDTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveD(new InspectMove(D,PRIM));
                 moveDIn(new InspectMove(d, PRIM));
@@ -386,7 +382,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveFTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveF(new InspectMove(F, PRIM));
                 moveFIn(new InspectMove(f, PRIM));
@@ -403,7 +399,7 @@ public class Cube4x4 extends Cube{
     }
 
     private void moveBTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveB(new InspectMove(B, PRIM));
                 moveBIn(new InspectMove(b, PRIM));
@@ -419,21 +415,71 @@ public class Cube4x4 extends Cube{
         }
     }
 
+    private void moveM(InspectMove inspectMove){
+        switch (inspectMove.getMoveTypeEnum()){
+            case PRIM:
+                moveRIn(new InspectMove(r, SIMPLE));
+                moveLIn(new InspectMove(l, PRIM));
+                break;
+            case DOUBLE:
+                moveM(new InspectMove(M, SIMPLE));
+                moveM(new InspectMove(M, SIMPLE));
+                break;
+            case SIMPLE:
+                moveRIn(new InspectMove(r, PRIM));
+                moveLIn(new InspectMove(l, SIMPLE));
+                break;
+        }
+    }
+
+    private void moveS(InspectMove inspectMove){
+        switch (inspectMove.getMoveTypeEnum()){
+            case PRIM:
+                moveFIn(new InspectMove(f, PRIM));
+                moveBIn(new InspectMove(b, SIMPLE));
+                break;
+            case DOUBLE:
+                moveS(new InspectMove(S, SIMPLE));
+                moveS(new InspectMove(S, SIMPLE));
+                break;
+            case SIMPLE:
+                moveFIn(new InspectMove(f, SIMPLE));
+                moveBIn(new InspectMove(b, PRIM));
+                break;
+        }
+    }
+
+    private void moveE(InspectMove inspectMove){
+        switch (inspectMove.getMoveTypeEnum()){
+            case PRIM:
+                moveUIn(new InspectMove(u, SIMPLE));
+                moveDIn(new InspectMove(d, PRIM));
+                break;
+            case DOUBLE:
+                moveE(new InspectMove(E, SIMPLE));
+                moveE(new InspectMove(E, SIMPLE));
+                break;
+            case SIMPLE:
+                moveUIn(new InspectMove(u, PRIM));
+                moveDIn(new InspectMove(d, SIMPLE));
+                break;
+        }
+    }
+
     @Override
     public void moveUsingString(String direction){
         InspectMove inspectMove = new InspectMove(direction);
-        if(inspectMove.getMoveType()== MoveTypeEnum.INVALID)
+        if(inspectMove.getMoveTypeEnum()== MoveTypeEnum.INVALID)
             logger.info("Cannot do \""+direction+"\" move");
         else {
             move(inspectMove);
         }
-
     }
 
     @Override
     public void move(InspectMove inspectMove){
        // logger.info("Do " + inspectMove.getMove().toString() + inspectMove.getMoveType().toString() + " move");
-        switch (inspectMove.getMove()) {
+        switch (inspectMove.getMoveEnum()) {
             case R: moveR(inspectMove); break;
             case L: moveL(inspectMove); break;
             case U: moveU(inspectMove); break;
@@ -452,15 +498,15 @@ public class Cube4x4 extends Cube{
             case Dw: moveDTwin(inspectMove); break;
             case Fw: moveFTwin(inspectMove); break;
             case Bw: moveBTwin(inspectMove); break;
-            case X: moveX(inspectMove); break;
-            case Y: moveY(inspectMove); break;
-            case Z: moveZ(inspectMove); break;
-//                case M: moveM(inspectMove); break;
-//                case S: moveS(inspectMove); break;
-//                case E: moveE(inspectMove); break;
+            case x: moveX(inspectMove); break;
+            case y: moveY(inspectMove); break;
+            case z: moveZ(inspectMove); break;
+            case M: moveM(inspectMove); break;
+            case S: moveS(inspectMove); break;
+            case E: moveE(inspectMove); break;
             case BLANK: /*nothing to do*/ break;
             default:
-                logger.info("Cannot do \"" + inspectMove.getMove().toString() + "\" move");
+                logger.info("Cannot do \"" + inspectMove.getMoveEnum().toString() + "\" move");
                 break;
         }
 

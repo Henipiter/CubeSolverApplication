@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class makeMovesTest {
+public class MakeMovesTest {
 
     private Cube4x4 cube;
     private Cube4x4 cubeExpected;

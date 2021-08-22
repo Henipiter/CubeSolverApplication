@@ -30,8 +30,8 @@ public class ScrambleTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.moveUsingString("X2");
-        cube2x2.moveUsingString("Y'");
+        cube2x2.moveUsingString("x2");
+        cube2x2.moveUsingString("y'");
         cube2x2.moveUsingString("R");
         cube2x2.moveUsingString("U");
         cube2x2.moveUsingString("L");

@@ -1,4 +1,4 @@
-package cubes.cube2x2.moves.basic;
+package cubes.cube2x2.moves.rotate;
 
 import cubes.Cube2x2;
 import org.junit.Assert;
@@ -39,13 +39,13 @@ public class MoveYTest {
                 {'o','g','w','y'}
         };
         //when
-        cube2x2.moveUsingString("Y");
+        cube2x2.moveUsingString("y");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }
 
     @Test
-    public void testMoveYprim(){
+    public void testMoveyprim(){
         //given
         char[][] expected = new char[][] {
                 {'b','w','r','g'},
@@ -56,7 +56,7 @@ public class MoveYTest {
                 {'y','o','r','w'}
         };
         //when
-        cube2x2.moveUsingString("Y'");
+        cube2x2.moveUsingString("y'");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }
@@ -73,7 +73,7 @@ public class MoveYTest {
                 {'b','y','r','g'}
         };
         //when
-        cube2x2.moveUsingString("Y2");
+        cube2x2.moveUsingString("y2");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -93,8 +93,8 @@ public class MoveYTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.moveUsingString("Y");
-        cube2x2.moveUsingString("Y'");
+        cube2x2.moveUsingString("y");
+        cube2x2.moveUsingString("y'");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -113,8 +113,8 @@ public class MoveYTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.moveUsingString("Y2");
-        cube2x2.moveUsingString("Y2");
+        cube2x2.moveUsingString("y2");
+        cube2x2.moveUsingString("y2");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
 

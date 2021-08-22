@@ -1,61 +1,65 @@
 package interpretations;
 
 import DTOs.*;
-import calculations.CalculateCenters4x4;
 import cubes.Cube;
 import cubes.Cube1x1;
-import cubes.Cube4x4;
 import lombok.Data;
 
 import java.util.ArrayList;
 
+
 @Data
-public class Interpretation4x4 {
+public class Interpretation4x4Centers {
     private ArrayList<Center> centerArrayList;
-    private ArrayList<Edge> edgeArrayList;
-    private ArrayList<Vertex> vertexArrayList;
 
-    public Interpretation4x4() {
+    public Interpretation4x4Centers() {
         centerArrayList = new ArrayList<>();
-        edgeArrayList = new ArrayList<>();
-        vertexArrayList = new ArrayList<>();
     }
-
 
     public void interpretCenters(Cube cube) {
         centerArrayList = new ArrayList<>();
-        char[][] cubeTemp = cube.getCube();
         Center center;
         for (int i = 0; i < 6; i++) {
             if (i == 1 || i == 5) {
                 center = new Center(new char[]{
-                        cubeTemp[i][9], cubeTemp[i][10],
-                        cubeTemp[i][6], cubeTemp[i][5]
+                        cube.getCube()[i][9], cube.getCube()[i][10],
+                        cube.getCube()[i][6], cube.getCube()[i][5]
                 });
             } else if (i == 3) {
                 center = new Center(new char[]{
-                        cubeTemp[i][6], cubeTemp[i][5],
-                        cubeTemp[i][9], cubeTemp[i][10]
+                        cube.getCube()[i][6], cube.getCube()[i][5],
+                        cube.getCube()[i][9], cube.getCube()[i][10]
                 });
             } else {
                 center = new Center(new char[]{
-                        cubeTemp[i][5], cubeTemp[i][6],
-                        cubeTemp[i][10], cubeTemp[i][9]
+                        cube.getCube()[i][5], cube.getCube()[i][6],
+                        cube.getCube()[i][10], cube.getCube()[i][9]
                 });
             }
             centerArrayList.add(center);
         }
     }
 
-    public void interpretEdges(Cube4x4 cube) {
-        //TODO
+    public char getColorOfOppositeSide(char sideColor){
+        char[] colors = new char[] {'w','y','o','r','g','b'};
+        int indexOfColor = new String(colors).indexOf(sideColor);
+        return colors[(indexOfColor%2 +1)%2+indexOfColor/2*2];
     }
 
-    public void interpretVertexes(Cube4x4 cube) {
-        //TODO
+    public char getColorOfOppositeSide(int side){
+        char sideColor = getColorOfCenter(side);
+        return getColorOfOppositeSide(sideColor);
     }
 
-    public int inWhichSideIsTheMostWhiteFields(char color) {
+    public char getColorOfCenter(int side){
+        if(isWholeCenterInOneColor(side)){
+            return centerArrayList.get(side).getColor()[0];
+        }
+        //TODO exception
+        return '-';
+    }
+
+    public int getSideWithTheMostFieldsWithGivenColor(char color) {
         int max = 0;
         int whichSide = 0;
         int countField;
@@ -69,6 +73,22 @@ public class Interpretation4x4 {
         return whichSide;
     }
 
+    public int getSideWithTheMostFieldsWithGivenColorFromGivenSides(char color, int[] sides) {
+        int max = 0;
+        int whichSide = 0;
+        int countField;
+        for(int wall : sides){
+       // for (int wall = 0; wall < 6; wall++) {
+            countField = countFieldWithGivenColor(wall, color);
+            if (countField > max) {
+                whichSide = wall;
+                max = countField;
+            }
+        }
+        return whichSide;
+
+    }
+
     public int inWhichSideIsGivenColorFieldsExceptUpperSide(char color) {
         if (countFieldWithGivenColor(4, color) > 0) //front side is priority
             return 4;
@@ -78,6 +98,11 @@ public class Interpretation4x4 {
             }
         }
         return 0;
+    }
+
+    public char getMostCompleteCenterColor(){
+        int firstSide = inWhichSideIsTheGreatestAmountOfCentersWithSameColor(new int[]{0,1,2,3,4,5});
+        return whichColorIsMostCommonInGivenSide(firstSide);
     }
 
     public char whichColorIsMostCommonInGivenSide(int side) {
@@ -112,12 +137,10 @@ public class Interpretation4x4 {
         interpretation1x1.refreshCube(cube1x1);
         char colorOnLeft = centerArrayList.get(2).getColor()[0];
         char colorOnUp = centerArrayList.get(0).getColor()[0];
-
         return interpretation1x1.whichColorIsNextInOrder(choosenSide,colorOnLeft, colorOnUp);
     }
 
     public int inWhichSideIsTheGreatestAmountOfCentersWithSameColor(int[] searchingSides) {
-
         char color;
         int count;
         int max = 0;
@@ -152,7 +175,6 @@ public class Interpretation4x4 {
         return countFieldWithGivenColor(side, color) >= 2 && isTwoFieldsFormStripe(side, color);
     }
 
-    //if fields form stripe
     public boolean isTwoFieldsFormStripe(int side, int color) {
         int[][] pairs = new int[][]{{0, 1}, {1, 2}, {2, 3}, {0, 3}};
         for (int[] pair : pairs) {
@@ -175,7 +197,6 @@ public class Interpretation4x4 {
         return false;
     }
 
-    //if stipe is lengthwise, if not - stripe is across
     public boolean isTwoFieldsFormLengthwiseStripe(int side, int color) {
         int[][] pairs = new int[][]{{0, 3}, {1, 2}};
         for (int[] pair : pairs) {
@@ -212,15 +233,21 @@ public class Interpretation4x4 {
         return false;
     }
 
-    private boolean isColorInTheSamePlaceInCenterOnBothSides(int sideSource, int sideDestination, char color) {
-        return getNumOfFieldsOnGivenSideWithGivenColor(sideSource, color) == getNumOfFieldsOnGivenSideWithGivenColor(sideDestination, color);
-    }
-
-    private boolean isCenterWithoutGivenColor(int side, char color) {
-        for (int field = 0; field < 4; field++) {
-            if (centerArrayList.get(side).getColor()[field] != color)
+    public boolean isStripesAreNotInOneLine(int sideSource, int sideDestination, int color) {
+        int[][] pairs = new int[][]{{0, 3}, {1, 2}};
+        for (int i =0;i<2;i++){
+            int[] pair = pairs[i];
+            int[] secondPair = pairs[(i+1)%2];
+            if (centerArrayList.get(sideSource).getColor()[pair[0]] == centerArrayList.get(sideSource).getColor()[pair[1]]
+                    && centerArrayList.get(sideSource).getColor()[pair[0]] == color
+                    && centerArrayList.get(sideDestination).getColor()[secondPair[0]] != color
+                    && centerArrayList.get(sideDestination).getColor()[secondPair[1]] != color
+            ) {
                 return true;
+            }
         }
+
+
         return false;
     }
 
@@ -238,7 +265,7 @@ public class Interpretation4x4 {
 
     public void printAlgorithm(ArrayList<InspectMove> alg) {
         for (InspectMove i : alg) {
-            if (i.getMove() != MoveEnum.BLANK)
+            if (i.getMoveEnum() != MoveEnum.BLANK)
                 System.out.print(i + " ");
         }
         System.out.println(" ");
@@ -248,11 +275,4 @@ public class Interpretation4x4 {
         return centerArrayList;
     }
 
-    public ArrayList<Edge> getEdgeArrayList() {
-        return edgeArrayList;
-    }
-
-    public ArrayList<Vertex> getVertexArrayList() {
-        return vertexArrayList;
-    }
 }

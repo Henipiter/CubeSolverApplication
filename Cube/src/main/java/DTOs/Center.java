@@ -1,6 +1,8 @@
 package DTOs;
 
+import lombok.Data;
 
+@Data
 public class Center {
     char[] color;
 
@@ -8,11 +10,5 @@ public class Center {
         this.color = color;
     }
 
-    public char[] getColor() {
-        return color;
-    }
 
-    public void setColor(char[] color) {
-        this.color = color;
-    }
 }
