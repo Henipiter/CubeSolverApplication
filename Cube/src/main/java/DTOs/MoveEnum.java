@@ -8,7 +8,7 @@ public enum MoveEnum {
     F, Fw, f,
     B, Bw, b,
     M, S, E,
-    X, Y, Z,
+    x, y, z,
     INVALID,
     BLANK
 

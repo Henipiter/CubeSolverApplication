@@ -16,7 +16,7 @@ public class rotateMovesTest {
 
     @Test
     public void alg_Z2Y_test(){
-        cube.makeMovesUsingString("Z2 Y");
+        cube.makeMovesUsingString("z2 y");
 
         char[][] expected = new char[][] {
                 {   'y','y','y','y',    'y','y','y','y',    'y','y','y','y',    'y','y','y','y'},

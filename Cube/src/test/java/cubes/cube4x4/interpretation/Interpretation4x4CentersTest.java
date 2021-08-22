@@ -6,8 +6,10 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-public class CenterInterpretation {
+public class Interpretation4x4CentersTest {
 
     Interpretation4x4Centers interpretation4X4Centers = new Interpretation4x4Centers();
     Cube4x4 cube;
@@ -16,9 +18,15 @@ public class CenterInterpretation {
     public void init() {
         cube = new Cube4x4();
     }
+
+    @ParameterizedTest
+    @CsvSource({"w,y","y,w","g,b","b,g","o,r","r,o"})
+    public void call_getColorOfOppositeSide_and_check_correctness(char input, char expected) {
+        Assertions.assertEquals(expected, interpretation4X4Centers.getColorOfOppositeSide(input));
+    }
+
     @Test
     public void call_interpretCenters_and_check_correctness() {
-        //bad test - to repair
         cube.makeMovesUsingString("r u l d r");
         interpretation4X4Centers.interpretCenters(cube);
         char[][] expectedCenter = new char[][]{
@@ -39,21 +47,21 @@ public class CenterInterpretation {
     @Test
     public void call_inWhichSideIsTheMostWhiteFields_and_should_return_0(){
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertEquals(0, interpretation4X4Centers.inWhichSideIsTheMostWhiteFields('w'));
+        Assertions.assertEquals(0, interpretation4X4Centers.getSideWithTheMostFieldsWithGivenColor('w'));
     }
 
     @Test
     public void call_inWhichSideIsTheMostWhiteFields_and_should_return_5(){
-        cube.makeMovesUsingString("X");
+        cube.makeMovesUsingString("x");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertEquals(5, interpretation4X4Centers.inWhichSideIsTheMostWhiteFields('w'));
+        Assertions.assertEquals(5, interpretation4X4Centers.getSideWithTheMostFieldsWithGivenColor('w'));
     }
 
     @Test
     public void call_inWhichSideIsTheMostWhiteFields_and_should_return_4(){
-        cube.makeMovesUsingString("r u X'");
+        cube.makeMovesUsingString("r u x'");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertEquals(4, interpretation4X4Centers.inWhichSideIsTheMostWhiteFields('w'));
+        Assertions.assertEquals(4, interpretation4X4Centers.getSideWithTheMostFieldsWithGivenColor('w'));
     }
 
     /*****************************************************************/

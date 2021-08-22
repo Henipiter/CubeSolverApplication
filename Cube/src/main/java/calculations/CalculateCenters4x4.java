@@ -75,6 +75,14 @@ public class CalculateCenters4x4 extends CalculateMoves {
 
     public MoveEnum getMoveEnumToSetup(int sideSource, char color) {
         int field = interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(sideSource, color);
+
+        if(interpretation4X4Centers.isStripe(sideSource,color) && interpretation4X4Centers.isTwoFieldsFormBlankStripe(0,color)){
+            if (interpretation4X4Centers.isFieldInGivenColor(sideSource,0,color)
+                    && interpretation4X4Centers.isFieldInGivenColor(sideSource,3,color)) {
+                return MoveEnum.Lw;
+            }
+            else return MoveEnum.Rw;
+        }
         if (field ==0 || field ==3) {
             return MoveEnum.Lw;
         }
@@ -97,7 +105,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
         return MoveTypeEnum.INVALID;
     }
 
-    public InspectMove getSetupMoveToJoin(int sideSource, char color) {
+    public InspectMove getSetupMoveToJoinSingleField(int sideSource, char color) {
         return new InspectMove(getMoveEnumToSetup(sideSource, color), getMoveEnumTypeToSetup(sideSource, color));
     }
 
@@ -123,10 +131,13 @@ public class CalculateCenters4x4 extends CalculateMoves {
     public ArrayList<InspectMove> calculateMovesToJoinFromSourceSideToDestinationSide(int sourceSide, int destinationSide, char color) {
         ArrayList<InspectMove> alg = new ArrayList<>();
         if (interpretation4X4Centers.isStripesOnGivenSides(sourceSide,destinationSide,color) &&
-                interpretation4X4Centers.isStripesAreInOneLine(sourceSide, destinationSide, color)) {
+                !interpretation4X4Centers.isStripesAreNotInOneLine(sourceSide,destinationSide,color) &&
+                interpretation4X4Centers.isStripesAreInOneLine(sourceSide, destinationSide, color))
+
+        {
             alg.add(new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE));
         }
-        InspectMove setup = getSetupMoveToJoin(sourceSide, color);
+        InspectMove setup = getSetupMoveToJoinSingleField(sourceSide, color);
         alg.add(setup); //setup
         alg.add(getMoveToJoin(sourceSide, color)); //join
         alg.add(getReverseSetupMoveToJoin(setup)); //undo setup

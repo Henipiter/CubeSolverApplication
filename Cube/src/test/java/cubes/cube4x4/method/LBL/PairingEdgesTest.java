@@ -29,7 +29,7 @@ public class PairingEdgesTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/algForTestSetupTo12Edge.csv")
     void call_pairAllEdges_and_check_correctness_of_setup_to_12_edge(String edgeNum, String scramble){
-        String initScramble = InspectMove.algToString(CalculateEdges4x4.getAlgorithmToJoinEdges());
+        String initScramble = InspectMove.algorithmToString(CalculateEdges4x4.getAlgorithmToJoinEdges());
         String fullScramble = initScramble+" "+scramble;
         cube.makeMovesUsingString(fullScramble);
         interpretation4x4Edges.interpretEdges(cube);
@@ -39,7 +39,7 @@ public class PairingEdgesTest {
         interpretation4x4Edges.interpretEdges(cube);
 
         System.out.println(scramble);
-        System.out.println(InspectMove.algToString(alg));
+        System.out.println(InspectMove.algorithmToString(alg));
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
 
     }
@@ -47,7 +47,7 @@ public class PairingEdgesTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/algForTestSetupTo14Or15Edge.csv")
     void call_pairAllEdges_and_check_correctness_of_setup_to_14_or_15_edge(String edgeNum,String scramble){
-        String initScramble = InspectMove.algToString(CalculateEdges4x4.getAlgorithmToJoinEdges());
+        String initScramble = InspectMove.algorithmToString(CalculateEdges4x4.getAlgorithmToJoinEdges());
         String fullScramble = initScramble+" "+scramble;
         cube.makeMovesUsingString(fullScramble);
         interpretation4x4Edges.interpretEdges(cube);
@@ -59,7 +59,7 @@ public class PairingEdgesTest {
         interpretation4x4Edges.interpretEdges(cube);
 
         System.out.println(scramble);
-        System.out.println(InspectMove.algToString(alg));
+        System.out.println(InspectMove.algorithmToString(alg));
 
         boolean resulttt = interpretation4x4Edges.isGivenEdgeHasItsPairOnGivenEdgePair(14,6) ||
                 interpretation4x4Edges.isGivenEdgeHasItsPairOnGivenEdgePair(15,6);
@@ -82,14 +82,14 @@ public class PairingEdgesTest {
     void call_pairAllEdge2s(){
 
         cube.makeMovesUsingString("r' d R D2 U' B' r' B' D' d");
-        cube.makeMovesUsingString("Lw2 U Lw2 Y U' Rw U Rw' Y U2 Lw' U' Lw X2 Rw U' Rw' Y F Rw U2 Rw' Y U Rw U Rw' Z X U Rw U' Rw' X Rw U Rw' D Lw2 U2 Lw2 X U2 Rw U2 Rw' U' Lw' U' Lw");
+        cube.makeMovesUsingString("Lw2 U Lw2 y U' Rw U Rw' y U2 Lw' U' Lw x2 Rw U' Rw' y F Rw U2 Rw' y U Rw U Rw' z x U Rw U' Rw' x Rw U Rw' D Lw2 U2 Lw2 x U2 Rw U2 Rw' U' Lw' U' Lw");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<InspectMove> algorithm = lbl.pairAllEdges();
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
         System.out.println(algorithm.toString());
 
         String expectedAlg = "R U R' F R' F' R Uw' R U R' F R' F' R Uw M' R U' R' Uw' R U R' F R' F' R Uw D M' R U' R' Uw' R U R' F R' F' R Uw D' M' F R' F' R Uw' R U R' F R' F' R Uw D' M' R U' R' Uw' R U R' F R' F' R Uw M2 F R' F' R Uw' R U R' F R' F' R Uw U R U' R' Uw' R U R' F R' F' R Uw L U' L' R U' R' Uw' R U R' F R' F' R Uw L' D' M' F R' F' R Uw' R U R' F R' F' R Uw R' U R R U' R' Uw' R U R' F R' F' R Uw";
-        Assertions.assertEquals(expectedAlg, InspectMove.algToString(algorithm));
+        Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm));
     }
 
     @Test

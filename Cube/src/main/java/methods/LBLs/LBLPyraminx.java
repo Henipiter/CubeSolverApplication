@@ -2,8 +2,6 @@ package methods.LBLs;
 
 
 import cubes.Cube;
-import cubes.CubePyraminx;
-import methods.FMs.FM;
 
 public class LBLPyraminx implements LBL {
 
@@ -13,12 +11,9 @@ public class LBLPyraminx implements LBL {
         this.cube = cube;
     }
 
-    /** Here is implementation of LBL for Pyraminx
-     *
-     * @return series of moves to solve cube
-     */
+
     @Override
-    public String solve(){
+    public String solve(char firstCenterColor){
 
 
         return null;

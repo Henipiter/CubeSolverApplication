@@ -28,6 +28,18 @@ public class InspectMove {
         return result;
     }
 
+    public static String algorithmToString(ArrayList<InspectMove> alg){
+        String result = "";
+        for( InspectMove move : alg){
+            if(move.getMoveEnum()!=BLANK) {
+                result = result.concat(move.toString() + " ");
+            }
+        }
+        if(!result.equals(""))
+            return result.substring(0, result.length()-1);
+        return "";
+    }
+
     public InspectMove(MoveEnum moveEnum, MoveTypeEnum moveTypeEnum){
         this.moveEnum = moveEnum;
         this.moveTypeEnum = moveTypeEnum;
@@ -67,9 +79,6 @@ public class InspectMove {
             moveTypeEnum = MoveTypeEnum.SIMPLE;
     }
 
-
-
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -86,17 +95,5 @@ public class InspectMove {
     @Override
     public String toString() {
         return moveEnum.toString()+moveTypeEnum.toString();
-    }
-
-    public static String algToString(ArrayList<InspectMove> alg){
-        String result = "";
-        for( InspectMove move : alg){
-            if(move.getMoveEnum()!=BLANK) {
-                result = result.concat(move.toString() + " ");
-            }
-        }
-        if(!result.equals(""))
-            return result.substring(0, result.length()-1);
-        return "";
     }
 }

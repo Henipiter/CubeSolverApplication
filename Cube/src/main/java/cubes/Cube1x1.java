@@ -42,8 +42,8 @@ public class Cube1x1 extends Cube {
                 moveElementary( new int[]{4,0,5,1});
                 break;
             case DOUBLE:
-                moveX(new InspectMove(X, SIMPLE));
-                moveX(new InspectMove(X, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
                 break;
             case SIMPLE:
                 moveElementary(new int[]{ 0,4,1,5 });
@@ -57,8 +57,8 @@ public class Cube1x1 extends Cube {
                 moveElementary( new int[]{4,2,5,3});
                 break;
             case DOUBLE:
-                moveY(new InspectMove(Y, SIMPLE));
-                moveY(new InspectMove(Y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
                 break;
             case SIMPLE:
                 moveElementary(new int[]{ 2,4,3,5});
@@ -73,8 +73,8 @@ public class Cube1x1 extends Cube {
                 moveElementary( new int[]{2,0,3,1});
                 break;
             case DOUBLE:
-                moveZ(new InspectMove(Z, SIMPLE));
-                moveZ(new InspectMove(Z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
                 break;
             case SIMPLE:
                 moveElementary(new int[]{ 0,2,1,3 });
@@ -96,13 +96,13 @@ public class Cube1x1 extends Cube {
     @Override
     public void move(InspectMove inspectMove){
         switch (inspectMove.getMoveEnum()){
-            case X:
+            case x:
                 moveX(inspectMove);
                 break;
-            case Y:
+            case y:
                 moveY(inspectMove);
                 break;
-            case Z:
+            case z:
                 moveZ(inspectMove);
                 break;
             default:

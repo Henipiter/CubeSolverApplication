@@ -1,7 +1,6 @@
 package cubes;
 
 import DTOs.InspectMove;
-import exceptions.IncorectMoveException;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -238,8 +237,8 @@ public class Cube3x3 extends Cube{
                 moveL(new InspectMove(L, PRIM));
                 break;
             case DOUBLE:
-                moveX(new InspectMove(X, SIMPLE));
-                moveX(new InspectMove(X, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
                 break;
             case SIMPLE:
                 moveR(new InspectMove(R, SIMPLE));
@@ -257,8 +256,8 @@ public class Cube3x3 extends Cube{
                 moveD(new InspectMove(L, SIMPLE));
                 break;
             case DOUBLE:
-                moveY(new InspectMove(Y, SIMPLE));
-                moveY(new InspectMove(Y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
                 break;
             case SIMPLE:
                 moveU(new InspectMove(R, SIMPLE));
@@ -276,8 +275,8 @@ public class Cube3x3 extends Cube{
                 moveB(new InspectMove(B, SIMPLE));
                 break;
             case DOUBLE:
-                moveZ(new InspectMove(Z, SIMPLE));
-                moveZ(new InspectMove(Z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
                 break;
             case SIMPLE:
                 moveF(new InspectMove(F, SIMPLE));
@@ -414,9 +413,9 @@ public class Cube3x3 extends Cube{
             case B: moveB(inspectMove); break;
             case R: moveR(inspectMove); break;
             case L: moveL(inspectMove); break;
-            case X: moveX(inspectMove); break;
-            case Y: moveY(inspectMove); break;
-            case Z: moveZ(inspectMove); break;
+            case x: moveX(inspectMove); break;
+            case y: moveY(inspectMove); break;
+            case z: moveZ(inspectMove); break;
             case r: mover(inspectMove); break;
             case l: movel(inspectMove); break;
             case f: movef(inspectMove); break;

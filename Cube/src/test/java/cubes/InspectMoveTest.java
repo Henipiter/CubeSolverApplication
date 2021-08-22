@@ -70,7 +70,7 @@ public class InspectMoveTest {
 
     @Test
     public void readMoveInvalid(){
-        String direction = "X3";
+        String direction = "Xx3";
         InspectMove inspectMove = new InspectMove(direction);
 
         Assertions.assertEquals(MoveEnum.INVALID, inspectMove.getMoveEnum());
@@ -79,7 +79,7 @@ public class InspectMoveTest {
     }
     @Test
     public void readMoveInvalid1(){
-        String direction = "X'2";
+        String direction = "x'2";
         InspectMove inspectMove = new InspectMove(direction);
 
         Assertions.assertEquals(MoveEnum.INVALID, inspectMove.getMoveEnum());
@@ -89,14 +89,14 @@ public class InspectMoveTest {
 
     @Test
     public void compareEquals_should_return_true(){
-        InspectMove inspectMove = new InspectMove("X2");
-        InspectMove inspectMove2 = new InspectMove("X2");
+        InspectMove inspectMove = new InspectMove("x2");
+        InspectMove inspectMove2 = new InspectMove("x2");
         Assertions.assertEquals(inspectMove2, inspectMove);
     }
     @Test
     public void compareEquals_should_return_false(){
-        InspectMove inspectMove = new InspectMove("X");
-        InspectMove inspectMove2 = new InspectMove("X'");
+        InspectMove inspectMove = new InspectMove("x");
+        InspectMove inspectMove2 = new InspectMove("x'");
         Assertions.assertNotEquals(inspectMove2, inspectMove);
     }
 
@@ -121,14 +121,14 @@ public class InspectMoveTest {
                 new InspectMove("R"),
                 new InspectMove("U")
         ));
-        String result = InspectMove.algToString(alg);
+        String result = InspectMove.algorithmToString(alg);
         Assertions.assertEquals("R U R U", result);
     }
 
     @Test
     void call_algToString_and_should_return_empty_string(){
         ArrayList<InspectMove> alg = new ArrayList<>();
-        String result = InspectMove.algToString(alg);
+        String result = InspectMove.algorithmToString(alg);
         Assertions.assertEquals("", result);
     }
 }

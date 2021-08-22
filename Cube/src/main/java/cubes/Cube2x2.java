@@ -184,8 +184,8 @@ public class Cube2x2 extends Cube {
                 moveL(new InspectMove("L"));
                 break;
             case DOUBLE:
-                moveX(new InspectMove(X, SIMPLE));
-                moveX(new InspectMove(X, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
                 break;
             case SIMPLE:
                 moveR(new InspectMove("R"));
@@ -201,8 +201,8 @@ public class Cube2x2 extends Cube {
                 moveD(new InspectMove("D"));
                 break;
             case DOUBLE:
-                moveY(new InspectMove(Y, SIMPLE));
-                moveY(new InspectMove(Y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
                 break;
             case SIMPLE:
                 moveU(new InspectMove("U"));
@@ -218,8 +218,8 @@ public class Cube2x2 extends Cube {
                 moveB(new InspectMove("B"));
                 break;
             case DOUBLE:
-                moveZ(new InspectMove(Z, SIMPLE));
-                moveZ(new InspectMove(Z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
                 break;
             case SIMPLE:
                 moveF(new InspectMove("F"));
@@ -259,13 +259,13 @@ public class Cube2x2 extends Cube {
             case B:
                 moveB(inspectMove);
                 break;
-            case X:
+            case x:
                 moveX(inspectMove);
                 break;
-            case Y:
+            case y:
                 moveY(inspectMove);
                 break;
-            case Z:
+            case z:
                 moveZ(inspectMove);
                 break;
             default:

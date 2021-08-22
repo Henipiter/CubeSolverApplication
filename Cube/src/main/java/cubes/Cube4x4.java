@@ -263,8 +263,8 @@ public class Cube4x4 extends Cube{
                 moveL(new InspectMove(L,SIMPLE));
                 break;
             case DOUBLE:
-                moveX(new InspectMove(X, SIMPLE));
-                moveX(new InspectMove(X, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
+                moveX(new InspectMove(x, SIMPLE));
                 break;
             case SIMPLE:
                 moveR(new InspectMove(R,SIMPLE));
@@ -284,8 +284,8 @@ public class Cube4x4 extends Cube{
                 moveD(new InspectMove(D,SIMPLE));
                 break;
             case DOUBLE:
-                moveY(new InspectMove(Y, SIMPLE));
-                moveY(new InspectMove(Y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
+                moveY(new InspectMove(y, SIMPLE));
                 break;
             case SIMPLE:
                 moveU(new InspectMove(U, SIMPLE));
@@ -303,8 +303,8 @@ public class Cube4x4 extends Cube{
                 moveBTwin(new InspectMove(Bw, SIMPLE));
                 break;
             case DOUBLE:
-                moveZ(new InspectMove(Z, SIMPLE));
-                moveZ(new InspectMove(Z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
+                moveZ(new InspectMove(z, SIMPLE));
                 break;
             case SIMPLE:
                 moveFTwin(new InspectMove(Fw,SIMPLE));
@@ -498,9 +498,9 @@ public class Cube4x4 extends Cube{
             case Dw: moveDTwin(inspectMove); break;
             case Fw: moveFTwin(inspectMove); break;
             case Bw: moveBTwin(inspectMove); break;
-            case X: moveX(inspectMove); break;
-            case Y: moveY(inspectMove); break;
-            case Z: moveZ(inspectMove); break;
+            case x: moveX(inspectMove); break;
+            case y: moveY(inspectMove); break;
+            case z: moveZ(inspectMove); break;
             case M: moveM(inspectMove); break;
             case S: moveS(inspectMove); break;
             case E: moveE(inspectMove); break;
