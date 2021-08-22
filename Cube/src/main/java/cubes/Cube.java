@@ -15,14 +15,11 @@ public class Cube {
     private Logger logger = Logger.getLogger("Cube");
     private char[][] cube;
     private char[] center;
-    /** Make single move (e.g. R', R, R2) on cube
-     * If incorrect, log a message on console
-     * @param direction
-     */
+
     public void moveUsingString(String direction){}
     public void move(InspectMove inspectMove){}
 
-    protected void changeFourFields(char[][] cube, int side, char[] fieldsOrder){
+    protected void changeFourFields(char[][] cube, int side, int[] fieldsOrder){
         char buffer;
         buffer = cube[side][fieldsOrder[0]];
         for(int i=0;i<fieldsOrder.length-1;i++)

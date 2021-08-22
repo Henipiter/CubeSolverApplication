@@ -102,10 +102,10 @@ public class CalculateCenters4x4 extends CalculateMoves {
     }
 
     public InspectMove getReverseSetupMoveToJoin(InspectMove setup) {
-        if (setup.getMoveType() == MoveTypeEnum.PRIM)
-            return new InspectMove(setup.getMove(), MoveTypeEnum.SIMPLE);
-        else if (setup.getMoveType() == MoveTypeEnum.SIMPLE)
-            return new InspectMove(setup.getMove(), MoveTypeEnum.PRIM);
+        if (setup.getMoveTypeEnum() == MoveTypeEnum.PRIM)
+            return new InspectMove(setup.getMoveEnum(), MoveTypeEnum.SIMPLE);
+        else if (setup.getMoveTypeEnum() == MoveTypeEnum.SIMPLE)
+            return new InspectMove(setup.getMoveEnum(), MoveTypeEnum.PRIM);
         return new InspectMove(setup);
     }
 

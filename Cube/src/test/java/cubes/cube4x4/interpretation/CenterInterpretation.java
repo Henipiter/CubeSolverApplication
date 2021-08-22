@@ -2,13 +2,12 @@ package cubes.cube4x4.interpretation;
 
 import cubes.Cube4x4;
 import interpretations.Interpretation4x4Centers;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CenterInterpretation {
-
-
 
     Interpretation4x4Centers interpretation4X4Centers = new Interpretation4x4Centers();
     Cube4x4 cube;
@@ -18,23 +17,22 @@ public class CenterInterpretation {
         cube = new Cube4x4();
     }
     @Test
-    public void call_interpretCenters_and_check_correctness(){
+    public void call_interpretCenters_and_check_correctness() {
         //bad test - to repair
         cube.makeMovesUsingString("r u l d r");
         interpretation4X4Centers.interpretCenters(cube);
-        int[] order = new int[]{5,6,9,10};
-        int[] order2 = new int[]{9,10,6,5};
-        for(int i=0;i<6;i++){
-            if(i>=3)
-                order = order2;
-            for(int j=0;j<4;j++){
-                char cubeField = cube.getCube()[i][order[j]];
-                char interpretedField = interpretation4X4Centers.getCenterArrayList().get(i).getColor()[j];
-                Assertions.assertEquals(cubeField, interpretedField);
-            }
+        char[][] expectedCenter = new char[][]{
+                {'b', 'r', 'o', 'o'},
+                {'r', 'r', 'o', 'g'},
+                {'g', 'y', 'y', 'w'},
+                {'w', 'b', 'y', 'w'},
+                {'w', 'b', 'b', 'o'},
+                {'r', 'g', 'g', 'y'}
+        };
+        for (int i = 0; i < 6; i++) {
+            Assert.assertArrayEquals(expectedCenter[i], interpretation4X4Centers.getCenterArrayList().get(i).getColor());
         }
     }
-
     /*****************************************************************/
 
 

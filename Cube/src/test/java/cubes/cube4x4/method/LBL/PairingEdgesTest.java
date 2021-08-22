@@ -88,7 +88,7 @@ public class PairingEdgesTest {
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
         System.out.println(algorithm.toString());
 
-        String expectedAlg = "";
+        String expectedAlg = "R U R' F R' F' R Uw' R U R' F R' F' R Uw M' R U' R' Uw' R U R' F R' F' R Uw D M' R U' R' Uw' R U R' F R' F' R Uw D' M' F R' F' R Uw' R U R' F R' F' R Uw D' M' R U' R' Uw' R U R' F R' F' R Uw M2 F R' F' R Uw' R U R' F R' F' R Uw U R U' R' Uw' R U R' F R' F' R Uw L U' L' R U' R' Uw' R U R' F R' F' R Uw L' D' M' F R' F' R Uw' R U R' F R' F' R Uw R' U R R U' R' Uw' R U R' F R' F' R Uw";
         Assertions.assertEquals(expectedAlg, InspectMove.algToString(algorithm));
     }
 

@@ -1,4 +1,4 @@
-package cubes.cube2x2.moves.basic;
+package cubes.cube2x2.moves.rotate;
 
 import cubes.Cube2x2;
 import org.junit.Assert;

@@ -1,7 +1,6 @@
 package interpretations;
 
 import DTOs.*;
-import calculations.CalculateCenters4x4;
 import cubes.Cube;
 import cubes.Cube1x1;
 import cubes.Cube4x4;
@@ -234,7 +233,7 @@ public class Interpretation4x4Centers {
 
     public void printAlgorithm(ArrayList<InspectMove> alg) {
         for (InspectMove i : alg) {
-            if (i.getMove() != MoveEnum.BLANK)
+            if (i.getMoveEnum() != MoveEnum.BLANK)
                 System.out.print(i + " ");
         }
         System.out.println(" ");

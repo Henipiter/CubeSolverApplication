@@ -37,7 +37,7 @@ public class Cube1x1 extends Cube {
 
     private void moveX(InspectMove inspectMove){
 
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{4,0,5,1});
                 break;
@@ -52,7 +52,7 @@ public class Cube1x1 extends Cube {
     }
 
     private void moveY(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{4,2,5,3});
                 break;
@@ -68,7 +68,7 @@ public class Cube1x1 extends Cube {
 
 
     private void moveZ(InspectMove inspectMove){
-        switch (inspectMove.getMoveType()){
+        switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
                 moveElementary( new int[]{2,0,3,1});
                 break;
@@ -86,7 +86,7 @@ public class Cube1x1 extends Cube {
     @Override
     public void moveUsingString(String direction) {
         InspectMove inspectMove = new InspectMove(direction);
-        if(inspectMove.getMoveType()== MoveTypeEnum.INVALID)
+        if(inspectMove.getMoveTypeEnum()== MoveTypeEnum.INVALID)
             logger.info("Cannot do \""+direction+"\" move");
         else{
             move(inspectMove);
@@ -95,7 +95,7 @@ public class Cube1x1 extends Cube {
 
     @Override
     public void move(InspectMove inspectMove){
-        switch (inspectMove.getMove()){
+        switch (inspectMove.getMoveEnum()){
             case X:
                 moveX(inspectMove);
                 break;
@@ -106,7 +106,7 @@ public class Cube1x1 extends Cube {
                 moveZ(inspectMove);
                 break;
             default:
-                logger.info("Cannot do \""+inspectMove.getMove().toString()+"\" move");
+                logger.info("Cannot do \""+inspectMove.getMoveEnum().toString()+"\" move");
                 break;
         }
 

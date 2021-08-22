@@ -1,5 +1,6 @@
 package DTOs;
 
+import lombok.Data;
 import org.apache.maven.shared.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import static DTOs.MoveEnum.INVALID;
 /** Parse moves for cubes
  *
  */
+@Data
 public class InspectMove {
     private MoveTypeEnum moveTypeEnum;
     private MoveEnum moveEnum;
@@ -32,15 +34,13 @@ public class InspectMove {
     }
 
     public InspectMove(String direction){
-        if(direction!=null && direction.length()>0) {
-            recogniseType(direction);
-            recogniseMove(direction);
-        }
+        recogniseType(direction);
+        recogniseMove(direction);
     }
 
     public InspectMove(InspectMove inspectMove){
-        this.moveEnum = inspectMove.getMove();
-        this.moveTypeEnum = inspectMove.getMoveType();
+        this.moveEnum = inspectMove.getMoveEnum();
+        this.moveTypeEnum = inspectMove.getMoveTypeEnum();
     }
 
     private void recogniseMove(String direction){
@@ -68,21 +68,7 @@ public class InspectMove {
     }
 
 
-    public MoveEnum getMove() {
-        return moveEnum;
-    }
 
-    public MoveTypeEnum getMoveType() {
-        return moveTypeEnum;
-    }
-
-    public void setMoveType(MoveTypeEnum moveTypeEnum) {
-        this.moveTypeEnum = moveTypeEnum;
-    }
-
-    public void setMoveEnum(MoveEnum moveEnum) {
-        this.moveEnum = moveEnum;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,8 +79,8 @@ public class InspectMove {
             return false;
         }
         InspectMove c = (InspectMove) o;
-        return c.getMove() == this.getMove() &&
-                c.getMoveType() == this.getMoveType();
+        return c.getMoveEnum() == this.getMoveEnum() &&
+                c.getMoveTypeEnum() == this.getMoveTypeEnum();
     }
 
     @Override
@@ -105,11 +91,11 @@ public class InspectMove {
     public static String algToString(ArrayList<InspectMove> alg){
         String result = "";
         for( InspectMove move : alg){
-            if(move.getMove()!=BLANK) {
+            if(move.getMoveEnum()!=BLANK) {
                 result = result.concat(move.toString() + " ");
             }
         }
-        if(result!="")
+        if(!result.equals(""))
             return result.substring(0, result.length()-1);
         return "";
     }
