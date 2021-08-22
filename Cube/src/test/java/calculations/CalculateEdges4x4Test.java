@@ -1,4 +1,4 @@
-package cubes.cube4x4.method.LBL;
+package calculations;
 
 import DTOs.InspectMove;
 import calculations.CalculateEdges4x4;
@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import java.util.ArrayList;
 
-public class PairingEdgesTest {
+public class CalculateEdges4x4Test {
 
     Cube4x4 cube;
     Interpretation4x4Edges interpretation4x4Edges;

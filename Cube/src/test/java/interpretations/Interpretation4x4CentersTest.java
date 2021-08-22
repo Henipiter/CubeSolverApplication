@@ -1,7 +1,6 @@
-package cubes.cube4x4.interpretation;
+package interpretations;
 
 import cubes.Cube4x4;
-import interpretations.Interpretation4x4Centers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

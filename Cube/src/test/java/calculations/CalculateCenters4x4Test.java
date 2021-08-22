@@ -1,4 +1,4 @@
-package cubes.cube4x4.interpretation;
+package calculations;
 
 import DTOs.InspectMove;
 import DTOs.MoveEnum;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class CalculateCentersTest {
+public class CalculateCenters4x4Test {
 
     Interpretation4x4Centers interpretation4X4Centers = new Interpretation4x4Centers();
     CalculateCenters4x4 calculateCenters4x4 = new CalculateCenters4x4();

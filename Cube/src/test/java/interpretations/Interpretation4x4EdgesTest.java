@@ -1,17 +1,14 @@
-package cubes.cube4x4.interpretation;
+package interpretations;
 
 import DTOs.Edge;
 import cubes.Cube4x4;
-import interpretations.Interpretation4x4Centers;
-import interpretations.Interpretation4x4Edges;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.Assert;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class Interpretation4x4EdgesTest {
 

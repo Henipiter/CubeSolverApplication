@@ -1,12 +1,11 @@
 package cubes.cube3x3.moves.basic;
 
-import cubes.Cube2x2;
 import cubes.Cube3x3;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MoveRTest {
+public class MoveBTest {
 // R U L D R
     //up Y, f O
     private char[][] input;
@@ -28,52 +27,52 @@ public class MoveRTest {
 
 
     @Test
-    public void testMoveR(){
+    public void testMoveB(){
         //given
         char[][] expected = new char[][] {
-                {'b','w','r','b','y','o','g','b'},
-                {'b','b','g','y','w','g','g','w'},
-                {'o','o','g','o','g','w','b','y'},
-                {'g','g','y','r','r','w','b','b'},
-                {'w','r','r','w','w','o','o','o'},
-                {'y','o','y','y','y','r','r','r'}
+                {'w','b','b','b','y','o','g','y'},
+                {'o','o','w','y','w','g','g','r'},
+                {'r','o','g','w','g','b','b','y'},
+                {'o','r','g','b','g','b','r','y'},
+                {'w','r','r','w','y','o','o','b'},
+                {'g','w','w','o','r','y','y','r'}
         };
         //when
-        cube3x3.moveUsingString("R");
+        cube3x3.moveUsingString("B");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
     }
 
     @Test
-    public void testMoveRprim(){
+    public void testMoveBprim(){
         //given
         char[][] expected = new char[][] {
-                {'b','w','w','b','w','o','g','g'},
-                {'b','b','b','y','y','g','g','r'},
-                {'o','o','g','o','g','w','b','y'},
-                {'b','b','w','r','r','y','g','g'},
-                {'w','r','r','w','y','o','o','y'},
-                {'y','o','o','y','w','r','r','r'}
+                {'w','o','o','b','y','o','g','y'},
+                {'b','b','w','y','w','g','g','r'},
+                {'b','o','g','b','g','o','b','y'},
+                {'b','r','g','w','g','r','r','y'},
+                {'w','r','r','w','y','o','o','b'},
+                {'r','y','y','r','o','w','w','g'}
         };
         //when
-        cube3x3.moveUsingString("R'");
+        cube3x3.moveUsingString("B'");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
     }
 
     @Test
-    public void testMoveRdouble(){
+    public void testMoveBdouble(){
         //given
         char[][] expected = new char[][] {
-                {'b','w','r','b','w','o','g','o'},
-                {'b','b','y','y','y','g','g','r'},
-                {'o','o','g','o','g','w','b','y'},
-                {'y','r','b','g','b','g','r','w'},
-                {'w','r','w','w','w','o','o','g'},
-                {'y','o','b','y','y','r','r','r'}
+                {'o','b','b','b','y','o','g','y'},
+                {'r','w','b','y','w','g','g','r'},
+                {'b','o','g','b','g','w','b','y'},
+                {'w','r','g','o','g','o','r','y'},
+                {'w','r','r','w','y','o','o','b'},
+                {'w','r','r','w','y','g','o','y'}
         };
         //when
-        cube3x3.moveUsingString("R2");
+        cube3x3.moveUsingString("B2");
 
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
@@ -81,7 +80,7 @@ public class MoveRTest {
 
     }
     @Test
-    public void testMoveRRprim(){
+    public void testMoveBBprim(){
         //given
         char[][] expected = new char[][] {
                 {'b','w','r','b','y','o','g','y'},
@@ -92,8 +91,8 @@ public class MoveRTest {
                 {'y','o','g','y','w','r','r','w'}
         };
         //when
-        cube3x3.moveUsingString("R");
-        cube3x3.moveUsingString("R'");
+        cube3x3.moveUsingString("B");
+        cube3x3.moveUsingString("B'");
 
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
@@ -101,7 +100,7 @@ public class MoveRTest {
 
     }
     @Test
-    public void testMoveDoubleRdouble(){
+    public void testMoveDoubleBdouble(){
         //given
         char[][] expected = new char[][] {
                 {'b','w','r','b','y','o','g','y'},
@@ -112,8 +111,8 @@ public class MoveRTest {
                 {'y','o','g','y','w','r','r','w'}
         };
         //when
-        cube3x3.moveUsingString("R2");
-        cube3x3.moveUsingString("R2");
+        cube3x3.moveUsingString("B2");
+        cube3x3.moveUsingString("B2");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
 
