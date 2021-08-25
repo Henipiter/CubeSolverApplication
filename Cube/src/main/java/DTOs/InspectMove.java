@@ -1,6 +1,7 @@
 package DTOs;
 
 import lombok.Data;
+import methods.BLDs.BLD;
 import org.apache.maven.shared.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class InspectMove {
         return result;
     }
 
+
     public static String algorithmToString(ArrayList<InspectMove> alg){
         String result = "";
         for( InspectMove move : alg){
@@ -41,8 +43,14 @@ public class InspectMove {
     }
 
     public InspectMove(MoveEnum moveEnum, MoveTypeEnum moveTypeEnum){
-        this.moveEnum = moveEnum;
-        this.moveTypeEnum = moveTypeEnum;
+        if(moveEnum == BLANK || moveTypeEnum==MoveTypeEnum.BLANK){
+            this.moveEnum = BLANK;
+            this.moveTypeEnum = MoveTypeEnum.BLANK;
+        }
+        else{
+            this.moveEnum = moveEnum;
+            this.moveTypeEnum = moveTypeEnum;
+        }
     }
 
     public InspectMove(String direction){

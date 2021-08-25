@@ -94,7 +94,6 @@ public class CalculateEdges4x4Test {
 
     @Test
     void call_pairAllEdge_with_random_scramble1_with_solved_centers(){
-
         cube.makeMovesUsingString("r u l d");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<InspectMove> algorithm = lbl.pairAllEdges();

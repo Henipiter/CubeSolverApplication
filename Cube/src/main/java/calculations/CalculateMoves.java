@@ -19,7 +19,7 @@ public class CalculateMoves {
             case 5:
                 return new InspectMove(MoveEnum.x, MoveTypeEnum.PRIM);
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE);
+        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
     public InspectMove getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(int side) {
@@ -31,7 +31,7 @@ public class CalculateMoves {
             case 5:
                 return new InspectMove(MoveEnum.y, MoveTypeEnum.DOUBLE);
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE);
+        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
 }

@@ -33,7 +33,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
         int sourceField = interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(sideSource, color);
         int diagonallyField = (sourceField + 2) % 4;
         if(!interpretation4X4Centers.isFieldInGivenColor(sideDestination,diagonallyField,color)){
-            return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE); //everything is OK
+            return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK); //everything is OK
         }
         if (!interpretation4X4Centers.isFieldInGivenColor(sideDestination, sourceField, color)) {
             return new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE);
@@ -44,7 +44,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
         if (!interpretation4X4Centers.isFieldInGivenColor(sideDestination, (diagonallyField + 3) % 4, color)) {
             return new InspectMove(MoveEnum.U, MoveTypeEnum.SIMPLE);
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE); //everything is OK
+        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK); //everything is OK
     }
 
     public ArrayList<InspectMove> prepareJoiningIfOnBothSidesAreStripes(int sourceSide, int destinationSide, char color) {
@@ -68,7 +68,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
             }
         }
         if (isDestSideStripeLengthwise && isSrcSideStripeLengthwise) {
-            alg.add(new InspectMove(MoveEnum.BLANK, MoveTypeEnum.SIMPLE));
+            alg.add(new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK));
         }
         return alg;
     }
