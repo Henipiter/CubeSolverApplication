@@ -22,22 +22,42 @@ public class CalculateEdges3x3 extends CalculateMoves {
         interpretation3x3Edges.interpretEdges(cube);
     }
 
+    public InspectMove getMovesToMoveInnerEdgeOnConflictEdge(int side, char crossColor){
+        int sideEdgeIndex =interpretation3x3Edges.getEdgeIndexFromSideWithGivenColorOnSide(side, crossColor);
+
+        if(sideEdgeIndex%2==0 ) {
+            MoveEnum moveEnum = getMoveEnumToJoinField(side);
+
+            if (!interpretation3x3Edges.isGivenSideEdgeIndexHasGivenColor(side, crossColor)) {
+                if (sideEdgeIndex == 0) {
+                    return new InspectMove(moveEnum, MoveTypeEnum.SIMPLE);
+                }
+                return new InspectMove(moveEnum, MoveTypeEnum.PRIM);
+            }
+            if (sideEdgeIndex == 0) {
+                return new InspectMove(moveEnum, MoveTypeEnum.PRIM);
+            }
+            return new InspectMove(moveEnum, MoveTypeEnum.SIMPLE);
+        }
+        return  new InspectMove(MoveEnum.BLANK,MoveTypeEnum.BLANK);
+    }
 
     public ArrayList<InspectMove> getMovesToJoinEdgeToCross(int side, int sideEdgeNumber, char crossColor){
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
-        int edgeFieldIndex =  interpretation3x3Edges.getIndexFieldOfEdgeWithGivenColor(sideEdgeNumber, crossColor);
-        tempAlg.add( getMoveToGetFreeSlotOnGivenSide(side,crossColor));
+        int edgeIndex = interpretation3x3Edges.getIndexesOfEdgesOnGivenSide(side)[sideEdgeNumber];
+        int edgeFieldIndex =  interpretation3x3Edges.getIndexFieldOfEdgeWithGivenColor(edgeIndex, crossColor);
         if(interpretation3x3Edges.isFieldOnCircumference(side, sideEdgeNumber, edgeFieldIndex)){
+            tempAlg.add( getMoveToGetFreeSlotOnGivenSide(side,crossColor));
             tempAlg.add(getInspectMoveToJoinCircumferenceField(side, sideEdgeNumber));
         }
         else{
-            tempAlg.add(new InspectMove(getMoveEnumToJoinField(side), MoveTypeEnum.SIMPLE));
+            tempAlg.add(getMovesToMoveInnerEdgeOnConflictEdge(side, crossColor));
         }
         return tempAlg;
     }
 
     public InspectMove getInspectMoveToJoinCircumferenceField(int side, int sideEdgeNumber){
-        MoveTypeEnum moveTypeEnum= getMoveTypeEnumToJoinCircumferenceField(sideEdgeNumber);
+        MoveTypeEnum moveTypeEnum= getMoveTypeEnumToJoinCircumferenceField(side, sideEdgeNumber);
         return new InspectMove(getMoveEnumToJoinField(side), moveTypeEnum);
     }
 
@@ -68,13 +88,18 @@ public class CalculateEdges3x3 extends CalculateMoves {
     }
 
     public InspectMove getMoveToGetFreeSlotOnGivenSide(int side, char crossColor){
+        int sideEdgeIndex = interpretation3x3Edges.getIndexesOfEdgesOnGivenSide(side)[2];
+        if(interpretation3x3Edges.getEdgeArrayList().get(sideEdgeIndex).getColor()[0] != crossColor){
+            return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+        }
+
         InspectMove to4thSide = getMoveToGetFreeSlotOn4thSide(crossColor);
         InspectMove toGivenSide = getMoveToGetFreeSlotFrom4thSideToGivenSide(side);
         MoveTypeEnum moveTypeEnum = MoveTypeEnum.simplify(to4thSide.getMoveTypeEnum(),toGivenSide.getMoveTypeEnum());
         return new InspectMove(MoveEnum.D,moveTypeEnum);
     }
 
-    private MoveTypeEnum getMoveTypeEnumToJoinCircumferenceField(int sideEdgeNumber){
+    private MoveTypeEnum getMoveTypeEnumToJoinCircumferenceField(int side,int sideEdgeNumber){
         MoveTypeEnum moveTypeEnum = MoveTypeEnum.BLANK;
         switch (sideEdgeNumber){
             case 0:

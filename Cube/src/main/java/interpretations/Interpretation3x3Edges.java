@@ -34,7 +34,7 @@ public class Interpretation3x3Edges {
         edgeArrayList.addAll(addSingleEdge(new int[]{3, 4}, new int[]{4, 4}));
         edgeArrayList.addAll(addSingleEdge(new int[]{2, 4}, new int[]{4, 3}));
 
-        edgeArrayList.addAll(addSingleEdge(new int[]{1, 5}, new int[]{0, 6}));
+        edgeArrayList.addAll(addSingleEdge(new int[]{1, 5}, new int[]{1, 6}));
         edgeArrayList.addAll(addSingleEdge(new int[]{1, 3}, new int[]{4, 6}));
         edgeArrayList.addAll(addSingleEdge(new int[]{1, 4}, new int[]{6, 6}));
         edgeArrayList.addAll(addSingleEdge(new int[]{1, 2}, new int[]{3, 6}));
@@ -115,6 +115,27 @@ public class Interpretation3x3Edges {
         return -1;
     }
 
+    public int getRightCrossEdge(int side){
+        switch (side){
+            case 2:
+                return 10;
+            case 3:
+                return 8;
+            case 4:
+                return 9;
+            case 5:
+                return 11;
+
+        }
+        return 9;
+    }
+
+    public boolean isGivenSideEdgeIndexHasGivenColor(int side, char color){
+       int edgeIndex =  getRightCrossEdge(side);
+        return edgeArrayList.get(edgeIndex).getColor()[0]==color ||
+                edgeArrayList.get(edgeIndex).getColor()[1]==color;
+    }
+
     public int getFreeSlotOnCross(char crossColor){
         int[] crossEdges = getIndexesOfEdgesOnGivenSide(1);
         for (int i = 0; i < 4; i++) {
@@ -134,24 +155,35 @@ public class Interpretation3x3Edges {
         return true;
     }
 
-    public int getEdgeIndexFromSideWithGivenColorOnCircumference(int side, char color){
+    private int getEdgeIndexFromSideWithGivenColorOnSide(int side, char color, boolean circumference){
         int[] edgeIndexes = getIndexesOfEdgesOnGivenSide(side);
         int[] circumferenceFields = getIndexesOfFieldsOnEdgesOnGivenSide(side);
-        for (int i = 0; i < 4; i++) {
-            if(edgeArrayList.get(edgeIndexes[i]).getColor()[circumferenceFields[i]]==color)
+        int field=0;
+        int[] order = new int[]{1,3,0,2};
+        if(!circumference){
+            field=1;
+        }
+        for (int i :order) {
+            if(edgeArrayList.get(edgeIndexes[i]).getColor()[(circumferenceFields[i]+field)%2]==color)
                 return i;
         }
         return -1;
     }
 
+    public int getEdgeIndexFromSideWithGivenColorOnCircumference(int side, char color){
+        return getEdgeIndexFromSideWithGivenColorOnSide(side, color, true);
+    }
+
     public int getEdgeIndexFromSideWithGivenColorOnInnerSide(int side, char color){
-        int[] edgeIndexes = getIndexesOfEdgesOnGivenSide(side);
-        int[] circumferenceFields = getIndexesOfFieldsOnEdgesOnGivenSide(side);
-        for (int i = 0; i < 4; i++) {
-            if(edgeArrayList.get(edgeIndexes[i]).getColor()[(circumferenceFields[i]+1)%2]==color)
-                return i;
+        return getEdgeIndexFromSideWithGivenColorOnSide(side, color, false);
+    }
+
+    public int getEdgeIndexFromSideWithGivenColorOnSide(int side, char color){
+        int onCircumference = getEdgeIndexFromSideWithGivenColorOnSide(side, color, true);
+        if(onCircumference==-1){
+            return getEdgeIndexFromSideWithGivenColorOnSide(side,color,false);
         }
-        return -1;
+        return onCircumference;
     }
 
     public ArrayList<Edge> getEdgesOnGivenSide(int side){
@@ -163,11 +195,11 @@ public class Interpretation3x3Edges {
         return edges;
     }
 
-    public boolean isFieldOnCircumference(int side, int edgeIndex, int edgeFieldIndex){
-        int[] edgeIndexes = getIndexesOfEdgesOnGivenSide(side);
+    public boolean isFieldOnCircumference(int side, int sideEdgeNumber, int edgeFieldIndex){
+
         int[] circumferenceFields = getIndexesOfFieldsOnEdgesOnGivenSide(side);
-        int sideEdgeNumber = getSideEdgeNumber(side, edgeIndex);
-        return edgeIndexes[sideEdgeNumber]==edgeIndex && circumferenceFields[sideEdgeNumber]==edgeFieldIndex;
+
+        return  circumferenceFields[sideEdgeNumber]==edgeFieldIndex;
     }
 
     public int getSideEdgeNumber(int side,int edgeIndex){
@@ -184,10 +216,11 @@ public class Interpretation3x3Edges {
         switch (side){
             case 1:
                 return new int[]{10,9,11,8};
+
             case 2:
                 return new int[]{3,7,11,4};
             case 3:
-                return new int[]{1,6,9,5}; // R2,R, -, R'
+                return new int[]{1,5,9,6}; // R2,R, -, R'
             case 4:
                 return new int[]{2,6,10,7};
             case 5:
@@ -207,8 +240,5 @@ public class Interpretation3x3Edges {
         }
         return null;
     }
-
-
-
 
 }

@@ -41,14 +41,14 @@ class Interpretation3x3EdgesTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"2,3,0,true","2,3,1,false","2,4,0,false","2,4,1,true",
-            "2,7,0,false","2,7,1,true","2,11,0,true","2,11,1,false",
-            "3,1,0,true","3,1,1,false","3,5,0,false","3,5,1,true",
-            "3,6,0,false","3,6,1,true","3,9,0,true","3,9,1,false",
-            "4,2,0,true","4,2,1,false","4,6,0,true","4,6,1,false",
-            "4,7,0,true","4,7,1,false","4,10,0,true","4,10,1,false",
-            "5,0,0,true","5,0,1,false","5,4,0,true","5,4,1,false",
-            "5,5,0,true","5,5,1,false","5,8,0,true","5,8,1,false"})
+    @CsvSource({"2,0,0,true","2,0,1,false","2,3,0,false","2,3,1,true",
+            "2,1,0,false","2,1,1,true","2,2,0,true","2,2,1,false",
+            "3,0,0,true","3,0,1,false","3,3,0,false","3,3,1,true",
+            "3,1,0,false","3,1,1,true","3,2,0,true","3,2,1,false",
+            "4,0,0,true","4,0,1,false","4,3,0,true","4,3,1,false",
+            "4,1,0,true","4,1,1,false","4,2,0,true","4,2,1,false",
+            "5,0,0,true","5,0,1,false","5,3,0,true","5,3,1,false",
+            "5,1,0,true","5,1,1,false","5,2,0,true","5,2,1,false"})
     public void call_isFieldOnCircumference_should_return_expected_values(
             int side, int edge, int field, boolean expected){
         Assertions.assertAll(()->Assertions.assertEquals(
@@ -59,7 +59,7 @@ class Interpretation3x3EdgesTest {
 
     @ParameterizedTest
     @CsvSource({"2,3,0","2,7,1","2,4,3","2,11,2",
-            "3,1,0","3,6,1","3,5,3","3,9,2",
+            "3,1,0","3,5,1","3,6,3","3,9,2",
             "4,2,0","4,6,1","4,7,3","4,10,2",
             "5,0,0","5,4,1","5,5,3","5,8,2" })
     public void call_getSideEdgeNumber_should_return_expected_values(
@@ -98,7 +98,7 @@ class Interpretation3x3EdgesTest {
     public  void call_getColorOnCircumferenceFromGivenSide(){
         cube.makeMovesUsingString("F B U D");
         interpretation3x3Edges.interpretEdges(cube);
-        char[] expected= new char[]{'r','g','r','b'};
+        char[] expected= new char[]{'r','b','r','g'};
         char[] result = interpretation3x3Edges.getColorOnCircumferenceFromGivenSide(3);
         Assert.assertArrayEquals(expected,result);
     }
@@ -107,7 +107,7 @@ class Interpretation3x3EdgesTest {
     public  void getColorOnInnerSideFromGivenSide(){
         cube.makeMovesUsingString("F B U D");
         interpretation3x3Edges.interpretEdges(cube);
-        char[] expected= new char[]{'b','w','g','y'};
+        char[] expected= new char[]{'b','y','g','w'};
         char[] result = interpretation3x3Edges.getColorOnInnerSideFromGivenSide(3);
         Assert.assertArrayEquals(expected,result);
     }
@@ -116,7 +116,7 @@ class Interpretation3x3EdgesTest {
     public  void getColorFromAllEdgesFromGivenSide(){
         cube.makeMovesUsingString("F B U D");
         interpretation3x3Edges.interpretEdges(cube);
-        char[] expected= new char[]{'r','g','r','b','b','w','g','y'};
+        char[] expected= new char[]{'r','b','r','g','b','y','g','w'};
         char[] result = interpretation3x3Edges.getColorFromAllEdgesFromGivenSide(3);
         Assert.assertArrayEquals(expected,result);
     }

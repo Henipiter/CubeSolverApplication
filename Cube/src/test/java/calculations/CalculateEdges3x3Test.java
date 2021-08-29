@@ -7,8 +7,11 @@ import cubes.Cube3x3;
 import interpretations.Interpretation3x3Edges;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.ArrayList;
 
 public class CalculateEdges3x3Test {
 
@@ -58,7 +61,8 @@ public class CalculateEdges3x3Test {
         }
         switch(sideEdge){
             case 0:moveTypeEnum=MoveTypeEnum.DOUBLE;break;
-            case 1:moveTypeEnum=MoveTypeEnum.SIMPLE;break;
+            case 1:
+                moveTypeEnum=MoveTypeEnum.SIMPLE;break;
             case 2:moveTypeEnum=MoveTypeEnum.BLANK; break;
             case 3:moveTypeEnum=MoveTypeEnum.PRIM;  break;
         }
@@ -69,6 +73,46 @@ public class CalculateEdges3x3Test {
         Assertions.assertEquals(expected,result);
     }
 
+    @ParameterizedTest
+    @CsvSource({"F, F',4,3","F', F,4,1", "F2, F2,4,0"})
+    void getInspectMoveToJoinCircumferenceField(String scramble, String expectedAlg, int side, int sideEdge){
+        cube.makeMovesUsingString(scramble);
+        interpretation3x3Edges.interpretEdges(cube);
+        calculateEdges3x3.refreshCube(cube);
+        InspectMove expected = new InspectMove(expectedAlg);
+        //when
+        InspectMove result = calculateEdges3x3.getInspectMoveToJoinCircumferenceField(side,sideEdge);
+        //then
+        Assertions.assertEquals(expected,result);
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({"M' U M U',F'","M' U M U' F2,F", "M' U M U' R2,F","M' U M U' F2 R2,F'"})
+    void getMovesToMoveInnerEdgeOnConflictEdge(String scramble, String expected){
+        cube.makeMovesUsingString(scramble);
+        interpretation3x3Edges.interpretEdges(cube);
+        calculateEdges3x3.refreshCube(cube);
+        //when
+        InspectMove result = calculateEdges3x3.getMovesToMoveInnerEdgeOnConflictEdge(4,'y');
+        //then
+        Assertions.assertEquals(expected,result.toString());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "M' U M U' F,D R',3,3", "M' U M U' F R,R2,3,0", "M' U M U' F R2 ,R,3,1",
+            "M' U M U' F',D' L,2,1"
+    })
+    void getMovesToJoinEdgeToCross(String scramble, String expected,int side, int sideEdgeNumber){
+        cube.makeMovesUsingString(scramble);
+        interpretation3x3Edges.interpretEdges(cube);
+        calculateEdges3x3.refreshCube(cube);
+        //when
+        ArrayList<InspectMove> result = calculateEdges3x3.getMovesToJoinEdgeToCross(side,sideEdgeNumber,'y');
+        //then
+        Assertions.assertEquals(expected,InspectMove.algorithmToString(result));
+    }
 
 
 }
