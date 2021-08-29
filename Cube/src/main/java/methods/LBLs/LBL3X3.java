@@ -7,7 +7,9 @@ import cubes.Cube;
 import cubes.Cube3x3;
 import interpretations.Interpretation3x3Edges;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LBL3X3 implements LBL {
 
@@ -43,23 +45,33 @@ public class LBL3X3 implements LBL {
         return colors;
     }
 
+    public boolean isOldIterator(int[] order,char color){
+        return Arrays.equals(order, interpretationEdges.getOrderSolvingCrossEdges(color));
+    }
+
     public ArrayList<InspectMove> solveCross(char firstCenterColor){
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
         int i=0;
         int side;
+        int[] order = interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
+
         while(!interpretationEdges.isSolvedCross(firstCenterColor)) {
-            side = i + 2;
-            while (interpretationEdges.countFieldsWithGivenColor(
-                    firstCenterColor, removeIrrelevantColors(
+            side = order[i];
+
+            while (interpretationEdges.countFieldsWithGivenColor(firstCenterColor, removeIrrelevantColors(
                             interpretationEdges.getColorFromAllEdgesFromGivenSide(side))) > 0) {
-
                 tempAlg.addAll(recursiveSolveCross(firstCenterColor, side, side));
-                interpretationEdges.interpretEdges(cube);
-
             }
-            i = (i+1)% 4;
+
+            if(isOldIterator(order,firstCenterColor)){
+                i= (i+1)%4;
+            }
+            else{
+                order =interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
+                i=0;
+            }
         }
         return tempAlg;
     }

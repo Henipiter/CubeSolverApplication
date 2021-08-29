@@ -19,11 +19,11 @@ public class CrossSolverTest {
     Interpretation3x3Edges interpretation3x3Edges = new Interpretation3x3Edges();
 
     @ParameterizedTest
-    @CsvSource({
+    @CsvSource({ "D R2 D2 B2 U' L2 R2 U' R2 F2 R D2 F D' B' U' L2 R F2 D2,L' F' D' F' R B' R'",
+
             "L B R2 D2 F2 U2 B2 R F2 R2 B2 R' F2 R' U F L' D R2 U F',R' B' D R'",
-            "B' U B2 R2 F2 U2 F2 D2 R' F2 R D2 R D B' R F' L2 R D2 F2,F' L R' D' F R B",
-            "D R2 D2 B2 U' L2 R2 U' R2 F2 R D2 F D' B' U' L2 R F2 D2,L' R' F D' F D2 F",
-            "R U L D R, D' L' R2 D R"
+            "B' U B2 R2 F2 U2 F2 D2 R' F2 R D2 R D B' R F' L2 R D2 F2,F' L B R' D' F D' R",
+            "R U L D R, R' D R' L'"
     })
     void solveCross(String scramble, String expected){
         cube = new Cube3x3();

@@ -42,6 +42,8 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return  new InspectMove(MoveEnum.BLANK,MoveTypeEnum.BLANK);
     }
 
+
+
     public ArrayList<InspectMove> getMovesToJoinEdgeToCross(int side, int sideEdgeNumber, char crossColor){
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
         int edgeIndex = interpretation3x3Edges.getIndexesOfEdgesOnGivenSide(side)[sideEdgeNumber];

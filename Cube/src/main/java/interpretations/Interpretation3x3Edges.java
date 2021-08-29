@@ -23,6 +23,26 @@ public class Interpretation3x3Edges {
         }
     }
 
+
+
+    public int[] getOrderSolvingCrossEdges(char color){
+        int[] order = new int[4];
+        int[] sides = new int[]{2,4,3,5};
+        int beginIndex=0;
+        int endIndex=3;
+        for(int i=0;i<4;i++){
+            if(edgeArrayList.get(11-i).getColor()[0] == color){
+                order[endIndex]=sides[i];
+                endIndex--;
+            }
+            else{
+                order[beginIndex]=sides[i];
+                beginIndex++;
+            }
+        }
+        return order;
+    }
+
     private void saveEdgePositionOnWallsAndFields() {
         edgeArrayList.addAll(addSingleEdge(new int[]{0, 5}, new int[]{1, 1}));
         edgeArrayList.addAll(addSingleEdge(new int[]{0, 3}, new int[]{4, 1}));
@@ -127,7 +147,7 @@ public class Interpretation3x3Edges {
                 return 11;
 
         }
-        return 9;
+        return -1;
     }
 
     public boolean isGivenSideEdgeIndexHasGivenColor(int side, char color){
@@ -159,12 +179,14 @@ public class Interpretation3x3Edges {
         int[] edgeIndexes = getIndexesOfEdgesOnGivenSide(side);
         int[] circumferenceFields = getIndexesOfFieldsOnEdgesOnGivenSide(side);
         int field=0;
-        int[] order = new int[]{1,3,0,2};
+        int[] order = new int[]{1,3,0};
         if(!circumference){
             field=1;
+            order = new int[]{1,3,0,2};
         }
         for (int i :order) {
-            if(edgeArrayList.get(edgeIndexes[i]).getColor()[(circumferenceFields[i]+field)%2]==color)
+            int index = (circumferenceFields[i]+field)%2;
+            if(edgeArrayList.get(edgeIndexes[i]).getColor()[index]==color)
                 return i;
         }
         return -1;
