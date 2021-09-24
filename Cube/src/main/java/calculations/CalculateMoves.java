@@ -6,7 +6,7 @@ import DTOs.MoveTypeEnum;
 
 public class CalculateMoves {
 
-    public InspectMove rotateSideToGetItOnTopAlgorithm(int side) {
+    public static InspectMove rotateSideToGetItOnTopAlgorithm(int side) {
         switch (side) {
             case 1:
                 return new InspectMove(MoveEnum.x, MoveTypeEnum.DOUBLE);
@@ -22,7 +22,7 @@ public class CalculateMoves {
         return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public InspectMove getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(int side) {
+    public static InspectMove getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(int side) {
         switch (side) {
             case 2:
                 return new InspectMove(MoveEnum.y, MoveTypeEnum.PRIM);

@@ -1,6 +1,7 @@
 package cubes;
 
 import DTOs.InspectMove;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -10,6 +11,7 @@ import static DTOs.MoveTypeEnum.*;
 import static DTOs.MoveTypeEnum.INVALID;
 import static java.util.Arrays.deepEquals;
 
+@Getter
 public class Cube3x3 extends Cube{
 
     char[][] cube = new char[6][8];

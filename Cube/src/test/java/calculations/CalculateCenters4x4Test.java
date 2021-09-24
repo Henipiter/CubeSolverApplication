@@ -26,42 +26,42 @@ public class CalculateCenters4x4Test {
     @Test
     public void call_rotateSideToGetItOnTopAlgorithm_for_0side_on_up(){
 
-        cube.move(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(0));
+        cube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(0));
         Assertions.assertEquals('w', cube.getCube()[0][5]);
     }
 
     @Test
     public void call_rotateSideToGetItOnTopAlgorithm_for_1side_on_up(){
         cube.makeMovesUsingString("x2");
-        cube.move(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(1));
+        cube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(1));
         Assertions.assertEquals('w', cube.getCube()[0][5]);
     }
 
     @Test
     public void call_rotateSideToGetItOnTopAlgorithm_for_2side_on_up(){
         cube.makeMovesUsingString("z'");
-        cube.move(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(2));
+        cube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(2));
         Assertions.assertEquals('w', cube.getCube()[0][5]);
     }
 
     @Test
     public void call_rotateSideToGetItOnTopAlgorithm_for_3side_on_up(){
         cube.makeMovesUsingString("z");
-        cube.move(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(3));
+        cube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(3));
         Assertions.assertEquals('w', cube.getCube()[0][5]);
     }
 
     @Test
     public void call_rotateSideToGetItOnTopAlgorithm_for_4side_on_up(){
         cube.makeMovesUsingString("x'");
-        cube.move(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(4));
+        cube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(4));
         Assertions.assertEquals('w', cube.getCube()[0][5]);
     }
 
     @Test
     public void call_rotateSideToGetItOnTopAlgorithm_for_5side_on_up(){
         cube.makeMovesUsingString("x");
-        cube.move(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(5));
+        cube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(5));
         Assertions.assertEquals('w', cube.getCube()[0][5]);
     }
 
@@ -70,21 +70,21 @@ public class CalculateCenters4x4Test {
     @Test
     public void call_getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide_for_2side(){
         cube.makeMovesUsingString("z'");
-        cube.move(calculateCenters4x4.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(2));
+        cube.move(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(2));
         Assertions.assertEquals('w', cube.getCube()[4][5]);
     }
 
     @Test
     public void call_getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide_for_3side(){
         cube.makeMovesUsingString("z");
-        cube.move(calculateCenters4x4.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(3));
+        cube.move(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(3));
         Assertions.assertEquals('w', cube.getCube()[4][5]);
     }
 
     @Test
     public void call_getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide_for_5side(){
         cube.makeMovesUsingString("x");
-        cube.move(calculateCenters4x4.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(5));
+        cube.move(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(5));
         Assertions.assertEquals('w', cube.getCube()[4][5]);
     }
 

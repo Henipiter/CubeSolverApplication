@@ -1,7 +1,6 @@
 package interpretations;
 
 
-import DTOs.Edge;
 import DTOs.Vertex;
 import cubes.Cube3x3;
 import org.junit.Assert;
@@ -24,7 +23,7 @@ class Interpretation3x3VerticesTest {
     public void call_interpretEdges() {
         //given
         cube.makeMovesUsingString("R U L D R");
-        interpretation3x3Vertices.interpretEdges(cube);
+        interpretation3x3Vertices.interpretVertices(cube);
         char[][] expected = new char[][]{
                 {'b', 'o','y'}, {'r', 'w','g'}, {'y', 'g','r'}, {'o', 'g','w'},
                 {'b', 'w','r'}, {'o', 'b','w'}, {'r', 'y','b'}, {'g', 'y','o'},

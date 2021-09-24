@@ -1,7 +1,7 @@
 package DTOs;
 
 public enum MoveTypeEnum {
-    BLANK(0), SIMPLE(1), DOUBLE(2), PRIM(-1),  INVALID(-2);
+    BLANK(0), SIMPLE(1), DOUBLE(2), PRIM(3), INVALID(-2);
 
     private final int value;
 
@@ -13,37 +13,34 @@ public enum MoveTypeEnum {
         return value;
     }
 
-    private static MoveTypeEnum returnEnumByInt(int val){
-       for( MoveTypeEnum type : MoveTypeEnum.values()){
-           if(val == type.value)
-               return  type;
-       }
-       return INVALID;
+    public static MoveTypeEnum returnEnumByInt(int val) {
+        for (MoveTypeEnum type : MoveTypeEnum.values()) {
+            if (val == type.value)
+                return type;
+        }
+        return INVALID;
     }
 
     @Override
     public String toString() {
-        switch(this) {
-            case SIMPLE: return "";
-            case DOUBLE: return "2";
-            case PRIM: return "'";
-            case INVALID: return "INVALID";
-            case BLANK: return "--";
-            default: throw new IllegalArgumentException();
+        switch (this) {
+            case SIMPLE:
+                return "";
+            case DOUBLE:
+                return "2";
+            case PRIM:
+                return "'";
+            case INVALID:
+                return "INVALID";
+            case BLANK:
+                return "--";
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
     public static MoveTypeEnum simplify(MoveTypeEnum type1, MoveTypeEnum type2) {
-        int sum = type1.value + type2.value;
-        switch (sum) {
-            case -2:
-                return DOUBLE;
-            case 4:
-                return BLANK;
-            case 3:
-                return PRIM;
-            default:
-                return returnEnumByInt(sum);
-        }
+        int sum = (type1.value + type2.value) % 4;
+        return returnEnumByInt(sum);
     }
 }

@@ -8,10 +8,8 @@ import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 
-
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class Interpretation4x4Centers extends  Interpretation {
+public class Interpretation4x4Centers {
     private ArrayList<Center> centerArrayList;
 
     public Interpretation4x4Centers() {
@@ -44,7 +42,7 @@ public class Interpretation4x4Centers extends  Interpretation {
 
     public char getColorOfOppositeSide(int side){
         char sideColor = getColorOfCenter(side);
-        return getColorOfOppositeSide(sideColor);
+        return Interpretation.getColorOfOppositeSide(sideColor);
     }
 
     public char getColorOfCenter(int side){
