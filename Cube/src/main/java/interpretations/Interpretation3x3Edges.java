@@ -167,9 +167,9 @@ public class Interpretation3x3Edges {
         return 0;
     }
 
-    public boolean isSolvedCross(char crossColor) {
+    public boolean isSolvedCross() {
         for (int i = 8; i < 12; i++) {
-            if (edgeArrayList.get(i).getColor()[0] != crossColor) {
+            if (edgeArrayList.get(i).getColor()[0] != centerArray[1]) {
                 return false;
             }
         }

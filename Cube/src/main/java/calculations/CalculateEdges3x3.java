@@ -158,6 +158,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
             boolean adjacentEdges = interpretation3x3Edges.isOppositeEdgeIsPairedWithCenter(notPairedEdgeIndex);
             alg2.addAll(getAlgorithmToMakeCorrectOrderCross(adjacentEdges));
             cube3x3.makeMoves(alg2);
+            alg.addAll(alg2);
         }
         return alg;
     }

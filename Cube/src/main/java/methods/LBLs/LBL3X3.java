@@ -2,12 +2,18 @@ package methods.LBLs;
 
 
 import DTOs.InspectMove;
+import DTOs.MoveEnum;
+import DTOs.MoveTypeEnum;
 import calculations.CalculateEdges3x3;
+import calculations.CalculateMoves;
+import calculations.CalculateVertices3x3;
 import cubes.Cube;
 import cubes.Cube3x3;
+import interpretations.Interpretation;
+import interpretations.Interpretation3x3Centers;
 import interpretations.Interpretation3x3Edges;
+import interpretations.Interpretation3x3Vertices;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,85 +21,157 @@ public class LBL3X3 implements LBL {
 
     private Cube cube;
     private final Interpretation3x3Edges interpretationEdges;
+    private final Interpretation3x3Vertices interpretation3x3Vertices;
     private final CalculateEdges3x3 calculateEdges;
+    private final CalculateVertices3x3 calculateVertices;
 
-    public LBL3X3(Cube cube){
+    public LBL3X3(Cube cube) {
         this.cube = cube;
         interpretationEdges = new Interpretation3x3Edges();
-        calculateEdges = new CalculateEdges3x3((Cube3x3)cube);
+        interpretation3x3Vertices = new Interpretation3x3Vertices();
+        calculateVertices = new CalculateVertices3x3((Cube3x3) cube);
+        calculateEdges = new CalculateEdges3x3((Cube3x3) cube);
     }
-
 
     @Override
-    public String solve(char firstCenterColor){
-        firstCenterColor='w';
+    public String solve(char firstCenterColor) {
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        firstCenterColor = 'w';
+        algorithm.addAll(solveCross(firstCenterColor));
+        algorithm.addAll(solveIncorrectCross());
 
-
-        return null;
+        return InspectMove.algorithmToString(algorithm);
     }
 
-    public void updateCubeAndInterpretationAndCalculation( ArrayList<InspectMove> alg){
+    private void updateCubeAndInterpretationAndCalculation(ArrayList<InspectMove> alg) {
         cube.makeMoves(alg);
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
     }
 
-    private char[] removeIrrelevantColors(char[] colors){
-        colors[2]='x';
-        colors[5]='x';
-        colors[7]='x';
+    private char[] removeIrrelevantColors(char[] colors) {
+        colors[2] = 'x';
+        colors[5] = 'x';
+        colors[7] = 'x';
         return colors;
     }
 
-    public boolean isOldIterator(int[] order,char color){
-        return Arrays.equals(order, interpretationEdges.getOrderSolvingCrossEdges(color));
+    private InspectMove rotateCubeToSetCrossOnBottom(char firstCenterColor) {
+        char oppositeColor = Interpretation.getColorOfOppositeSide(firstCenterColor);
+        int sideWithOppositeColor =
+                Interpretation3x3Centers.getCenterNumberWithGivenColor(cube, oppositeColor);
+        return CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideWithOppositeColor);
     }
 
-    public ArrayList<InspectMove> solveCross(char firstCenterColor){
+    public ArrayList<InspectMove> solveCross(char firstCenterColor) {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
-        int i=0;
+        tempAlg.add(rotateCubeToSetCrossOnBottom(firstCenterColor));
+        int i = 0;
         int side;
         int[] order = interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
-
-        while(!interpretationEdges.isSolvedCross(firstCenterColor)) {
+        while (!interpretationEdges.isSolvedCross()) {
             side = order[i];
-
             while (interpretationEdges.countFieldsWithGivenColor(firstCenterColor, removeIrrelevantColors(
-                            interpretationEdges.getColorFromAllEdgesFromGivenSide(side))) > 0) {
+                    interpretationEdges.getColorFromAllEdgesFromGivenSide(side))) > 0) {
                 tempAlg.addAll(recursiveSolveCross(firstCenterColor, side, side));
             }
-
-            if(isOldIterator(order,firstCenterColor)){
-                i= (i+1)%4;
-            }
-            else{
-                order =interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
-                i=0;
+            if (Arrays.equals(order, interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor))) {
+                i = (i + 1) % 4;
+            } else {
+                order = interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
+                i = 0;
             }
         }
         return tempAlg;
     }
 
-    private ArrayList<InspectMove> recursiveSolveCross(char crossColor,int beginSide, int actualSide){
+    private ArrayList<InspectMove> recursiveSolveCross(char crossColor, int beginSide, int actualSide) {
         ArrayList<InspectMove> recursiveAlg = new ArrayList<>();
-        if(interpretationEdges.isCollisionWithDifferentSide(actualSide,crossColor)){
+        if (interpretationEdges.isCollisionWithDifferentSide(actualSide, crossColor)) {
             int nextCollisionSide = interpretationEdges.getSideWhichHaveCollisionWithGivenSide(actualSide, crossColor);
-            if(nextCollisionSide!=beginSide){
-                recursiveAlg.addAll(recursiveSolveCross(crossColor, beginSide,nextCollisionSide));
+            if (nextCollisionSide != beginSide) {
+                recursiveAlg.addAll(recursiveSolveCross(crossColor, beginSide, nextCollisionSide));
             }
         }
         //calculate
-        int sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnCircumference(actualSide,crossColor);
-        if(sideEdgeNumber<0 || sideEdgeNumber==2){
-            sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide,crossColor);
+        int sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnCircumference(actualSide, crossColor);
+        if (sideEdgeNumber < 0 || sideEdgeNumber == 2) {
+            sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide, crossColor);
         }
-        ArrayList<InspectMove> tempAlg = calculateEdges.getMovesToJoinEdgeToCross(actualSide,sideEdgeNumber, crossColor);
+        ArrayList<InspectMove> tempAlg = calculateEdges.getMovesToJoinEdgeToCross(actualSide, sideEdgeNumber, crossColor);
         updateCubeAndInterpretationAndCalculation(tempAlg);
-        recursiveAlg.addAll( tempAlg);
+        recursiveAlg.addAll(tempAlg);
         return recursiveAlg;
-
     }
 
+    public ArrayList<InspectMove> solveIncorrectCross() {
+        interpretationEdges.interpretEdges(cube);
+        calculateEdges.refreshCube(cube);
+        return calculateEdges.getMoveToSolveIncorrectOrderCross();
+    }
+
+    private void addInspectMoveAndRefreshCube(ArrayList<InspectMove> tempAlg, InspectMove movement) {
+        tempAlg.add(movement);
+        cube.move(movement);
+        calculateVertices.refreshCube(cube);
+    }
+
+    private int refreshVertexIndexAfterMovement(int vertexIndex, InspectMove movement) {
+        return (vertexIndex + movement.getMoveTypeEnum().getValue()) % 4;
+    }
+
+    private ArrayList<InspectMove> putFromUpperSideToBottomLayer(char crossColor) {
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        InspectMove moveUpperSide;
+        InspectMove rotateCube;
+        int vertexIndex = interpretation3x3Vertices.getVertexWithGivenColorOnUpperSide(crossColor);
+        moveUpperSide = calculateVertices.getMoveToMoveVertexAboveRightDestination(vertexIndex);
+        vertexIndex = refreshVertexIndexAfterMovement(vertexIndex, moveUpperSide);
+        algorithm.add(moveUpperSide);
+
+        rotateCube = calculateVertices.getMoveToRotateCubeToGetVertexOnFrontSide(vertexIndex);
+        vertexIndex = refreshVertexIndexAfterMovement(vertexIndex, rotateCube);
+        addInspectMoveAndRefreshCube(algorithm, rotateCube);
+        ArrayList<InspectMove> joinAlg = calculateVertices.getMoveToJoinVertexIntoFirstLayer(vertexIndex, crossColor);
+        algorithm.addAll(joinAlg);
+        cube.makeMoves(joinAlg);
+        return algorithm;
+    }
+
+    private ArrayList<InspectMove> putFromBottomLayerToUpperSide() {
+        InspectMove rotateCube;
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+
+        int vertexIndex = interpretation3x3Vertices.getIncorrectVertexInFirstLayer();
+        rotateCube = calculateVertices.getMoveToRotateCubeToGetVertexOnFrontSide(vertexIndex % 4);
+        vertexIndex = refreshVertexIndexAfterMovement(vertexIndex, rotateCube) + 4;
+
+        addInspectMoveAndRefreshCube(algorithm, rotateCube);
+        ArrayList<InspectMove> joinAlg = calculateVertices.getMoveToMoveOutVertexFromFirstLayer(vertexIndex % 4);
+        algorithm.addAll(joinAlg);
+
+        cube.makeMoves(joinAlg);
+        return algorithm;
+    }
+
+    public ArrayList<InspectMove> solveFirstLayer() {
+        interpretation3x3Vertices.interpretVertices(cube);
+        calculateVertices.refreshCube(cube);
+        InspectMove movement;
+        ArrayList<InspectMove> tempAlg = new ArrayList<>();
+        ArrayList<InspectMove> tempAlg2 = new ArrayList<>();
+        char crossColor = interpretation3x3Vertices.getCenterArray()[1];
+        while (!interpretation3x3Vertices.isFirstLayerComplete()) {
+            if (interpretation3x3Vertices.isVertexWithGivenColorOnUpperSide(crossColor)) {
+                tempAlg.addAll(putFromUpperSideToBottomLayer(crossColor));
+            } else {
+                tempAlg.addAll(putFromBottomLayerToUpperSide());
+            }
+            interpretation3x3Vertices.interpretVertices(cube);
+            calculateVertices.refreshCube(cube);
+        }
+        return tempAlg;
+    }
 }

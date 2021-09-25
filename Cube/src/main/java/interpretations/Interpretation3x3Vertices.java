@@ -1,6 +1,5 @@
 package interpretations;
 
-import DTOs.Edge;
 import DTOs.Vertex;
 import cubes.Cube;
 import lombok.Getter;
@@ -10,13 +9,14 @@ import java.util.ArrayList;
 @Getter
 public class Interpretation3x3Vertices {
 
-    private ArrayList<Vertex> vertexArrayList = new ArrayList<>();
+    private final ArrayList<Vertex> vertexArrayList = new ArrayList<>();
+    private char[] centerArray = new char[6];
 
     public Interpretation3x3Vertices() {
-        saveEdgePositionOnWallsAndFields();
+        saveVertexPositionOnWallsAndFields();
     }
 
-    public void interpretEdges(Cube cube) {
+    public void interpretVertices(Cube cube) {
         for (Vertex vertex : vertexArrayList) {
             char[] vertexColor = new char[3];
             for (int i = 0; i < 3; i++) {
@@ -24,18 +24,19 @@ public class Interpretation3x3Vertices {
             }
             vertex.setColor(vertexColor);
         }
+        centerArray = Interpretation.getCenterArray(cube);
     }
 
-    private void saveEdgePositionOnWallsAndFields() {
-        vertexArrayList.addAll(addSingleVertex(new int[]{0,2,5}, new int[]{0,0,0}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{0,3,5}, new int[]{2,0,2}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{0,3,4}, new int[]{7,2,2}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{0,2,4}, new int[]{5,2,0}));
+    private void saveVertexPositionOnWallsAndFields() {
+        vertexArrayList.addAll(addSingleVertex(new int[]{0, 2, 5}, new int[]{0, 0, 0}));
+        vertexArrayList.addAll(addSingleVertex(new int[]{0, 3, 5}, new int[]{2, 0, 2}));
+        vertexArrayList.addAll(addSingleVertex(new int[]{0, 3, 4}, new int[]{7, 2, 2}));
+        vertexArrayList.addAll(addSingleVertex(new int[]{0, 2, 4}, new int[]{5, 2, 0}));
 
-        vertexArrayList.addAll(addSingleVertex(new int[]{1,2,5}, new int[]{0,5,5}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{1,3,5}, new int[]{2,5,7}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{1,3,4}, new int[]{7,7,7}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{1,2,4}, new int[]{5,7,5}));
+        vertexArrayList.addAll(addSingleVertex(new int[]{1, 2, 5}, new int[]{0, 5, 5}));
+        vertexArrayList.addAll(addSingleVertex(new int[]{1, 3, 5}, new int[]{2, 5, 7}));
+        vertexArrayList.addAll(addSingleVertex(new int[]{1, 3, 4}, new int[]{7, 7, 7}));
+        vertexArrayList.addAll(addSingleVertex(new int[]{1, 2, 4}, new int[]{5, 7, 5}));
     }
 
     private ArrayList<Vertex> addSingleVertex(int[] sides, int[] fields) {
@@ -45,4 +46,76 @@ public class Interpretation3x3Vertices {
         vertexList.add(vertex);
         return vertexList;
     }
+
+    public boolean isVertexHasGivenColor(int vertexIndex, char color) {
+        for (int i = 0; i < 3; i++) {
+            if (vertexArrayList.get(vertexIndex).getColor()[i] == color) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getFieldWithColor(int vertexIndex, char color) {
+        for (int i = 0; i < 3; i++) {
+            if (vertexArrayList.get(vertexIndex).getColor()[i] == color) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isVertexBetweenItsCenters(int vertexIndex) {
+        char firstColor = centerArray[2 + (vertexIndex + 3) % 4];
+        char secondColor = centerArray[2 + vertexIndex % 4];
+        return isVertexHasGivenColor(vertexIndex, firstColor) &&
+                isVertexHasGivenColor(vertexIndex, secondColor);
+    }
+
+    public int getVertexDestination(char color1, char color2) {
+        for (int i = 4; i < 8; i++) {
+            if (isVertexHasGivenColor(i, color1) && isVertexHasGivenColor(i, color2)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isVertexWithGivenColorOnUpperSide(char color) {
+        for (int i = 0; i < 4; i++) {
+            if (isVertexHasGivenColor(i, color)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getVertexWithGivenColorOnUpperSide(char color) {
+        for (int i = 3; i >= 0; i--) {
+            if (isVertexHasGivenColor(i, color)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isFirstLayerComplete() {
+        return !isVertexWithGivenColorOnUpperSide(getCenterArray()[1]) &&
+                getIncorrectVertexInFirstLayer() == -1;
+    }
+
+    private boolean isVertexNotInRightPlaceOrHasIncorrectOrientation(int vertexIndex) {
+        return !isVertexBetweenItsCenters(vertexIndex) ||
+                vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[1];
+    }
+
+    public int getIncorrectVertexInFirstLayer() {
+        for (int i = 7; i >= 4; i--) {
+            if (isVertexNotInRightPlaceOrHasIncorrectOrientation(i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }

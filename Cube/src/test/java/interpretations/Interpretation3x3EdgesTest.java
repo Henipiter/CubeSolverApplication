@@ -74,7 +74,7 @@ class Interpretation3x3EdgesTest {
     public void call_isSolvedCross_should_return_expected_values(String alg, boolean expected){
         cube.makeMovesUsingString(alg);
         interpretation3x3Edges.interpretEdges(cube);
-        Assertions.assertEquals(expected,interpretation3x3Edges.isSolvedCross('y'));
+        Assertions.assertEquals(expected,interpretation3x3Edges.isSolvedCross());
     }
 
     @ParameterizedTest
@@ -127,11 +127,23 @@ class Interpretation3x3EdgesTest {
         Assertions.assertEquals(2,interpretation3x3Edges.countFieldsWithGivenColor('r', colors));
     }
 
+
+
     @ParameterizedTest
-    @CsvSource({"R, 9","F,10","L,11","B,8"})
-    void call_getFreeSlotOnCross(String alg, int expected){
+    @CsvSource({"D,true", "R D R' D' R, false", "M2 U2 M2, false" })
+    void call_isCrossInCorrectOrder(String alg, boolean expected){
         cube.makeMovesUsingString(alg);
         interpretation3x3Edges.interpretEdges(cube);
-        Assertions.assertEquals(expected,interpretation3x3Edges.getFreeSlotOnCross('y'));
+        boolean result = interpretation3x3Edges.isCrossInCorrectOrder('y');
+        Assertions.assertEquals(expected,result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"D,0", "D2 D2,4", "R D R' D' R, 2", "R D R' D' R D, 1","M2 U2 M2, 2" })
+    void call_countEdgesPairedWithCenters(String alg, int expected){
+        cube.makeMovesUsingString(alg);
+        interpretation3x3Edges.interpretEdges(cube);
+        int result = interpretation3x3Edges.countEdgesPairedWithCenters();
+        Assertions.assertEquals(expected,result);
     }
 }

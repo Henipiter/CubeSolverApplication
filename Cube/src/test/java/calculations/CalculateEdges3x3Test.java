@@ -115,4 +115,36 @@ public class CalculateEdges3x3Test {
     }
 
 
+    @ParameterizedTest
+    @CsvSource({
+            "D, PRIM", "D2, DOUBLE", "D', SIMPLE", "D2 D2, BLANK"
+    })
+    void getMoveToPairCrossEdgesToCenters(String scramble, MoveTypeEnum expected){
+        cube.makeMovesUsingString(scramble);
+        calculateEdges3x3.refreshCube(cube);
+        //when
+        InspectMove result = calculateEdges3x3.getMoveToPairCrossEdgesToCenters();
+        //then
+        Assertions.assertEquals(expected,result.getMoveTypeEnum());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "R D R' D' R", "R D R' D' R D",  "R D R' D' R D2",  "R D R' D' R D'",
+            "M2 D2 M2", "M2 D2 M2 D", "M2 D2 M2 D2", "M2 D2 M2 D'"
+    })
+    void isCorrectCross(String scramble){
+        //given
+        cube.makeMovesUsingString(scramble);
+        calculateEdges3x3.refreshCube(cube);
+        //when
+        calculateEdges3x3.getMoveToSolveIncorrectOrderCross();
+        //then
+        interpretation3x3Edges.interpretEdges(cube);
+        Assertions.assertTrue(interpretation3x3Edges.isCorrectCross());
+    }
+
+
+
+
 }
