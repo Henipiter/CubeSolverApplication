@@ -391,7 +391,30 @@ public class Interpretation3x3Edges {
     public boolean isUpperCrossPositionCorrect() {
         return edgeArrayList.get(2).getColor()[0] != centerArray[0] &&
                 (edgeArrayList.get(1).getColor()[0] != centerArray[0] ||
-                edgeArrayList.get(0).getColor()[0] != centerArray[0]);
+                        edgeArrayList.get(0).getColor()[0] != centerArray[0]);
     }
+
+    public boolean isUpperIncorrectCrossPositionCorrect() {
+        return edgeArrayList.get(0).getColor()[1] ==
+                Interpretation.getColorOfOppositeSide(edgeArrayList.get(2).getColor()[1]) ||
+                (edgeArrayList.get(0).getColor()[1] == centerArray[2] &&
+                        edgeArrayList.get(1).getColor()[1] == centerArray[3]);
+
+    }
+
+    public int getNumOfCorrectEdgesInUpperCross() {
+        int counter = 0;
+        for (int i = 0; i < 4; i++) {
+            if (edgeArrayList.get(i).getColor()[1] == centerArray[2 + i]) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public boolean isUpperCrossIsCorrect(){
+        return getNumOfCorrectEdgesInUpperCross()==4;
+    }
+
 
 }

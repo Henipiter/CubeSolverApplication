@@ -221,14 +221,12 @@ public class LBL3X3 implements LBL {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
-
         while(!interpretationEdges.isSecondLayerComplete()){
             if(interpretationEdges.isSecondLayerEdgeOnUpperSide()){
                 tempAlg.addAll(putEdgeFromUpperSideToSecondLayer());
             }
             else{
                 tempAlg.addAll(putEdgeFromSecondLayerToUpperSide());
-
             }
             interpretationEdges.interpretEdges(cube);
             calculateEdges.refreshCube(cube);
@@ -236,20 +234,46 @@ public class LBL3X3 implements LBL {
         return tempAlg;
     }
 
+    private ArrayList<InspectMove> getMovesToRotateUpperSideToCorrectPositionAndSolveUpperCross(){
+        ArrayList<InspectMove> tempAlg = new ArrayList<>();
+        tempAlg.add(calculateEdges.rotateUpperCrossToRightPosition());
+        tempAlg.addAll(calculateEdges.upperCrossSolveAlgorithm());
+        cube.makeMoves(calculateEdges.upperCrossSolveAlgorithm());
+        interpretationEdges.interpretEdges(cube);
+        calculateEdges.refreshCube(cube);
+        return tempAlg;
+    }
+
+
     public ArrayList<InspectMove> solveUpperCross(){
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
 
         while(!interpretationEdges.isCrossOnUpperSideIsComplete()){
-            InspectMove rotateUpperSide = calculateEdges.rotateUpperCrossToRightPosition();
-            tempAlg.add(rotateUpperSide);
-            cube.makeMoves(calculateEdges.upperCrossSolveAlgorithm());
-            interpretationEdges.interpretEdges(cube);
-            calculateEdges.refreshCube(cube);
-            tempAlg.addAll(calculateEdges.upperCrossSolveAlgorithm());
-
+            tempAlg.addAll(getMovesToRotateUpperSideToCorrectPositionAndSolveUpperCross());
         }
         return CalculateMoves.reduceRepeatingMoves(tempAlg);
     }
+
+    public ArrayList<InspectMove> solveIncorrectUpperCross(){
+
+        ArrayList<InspectMove> tempAlg = new ArrayList<>();
+        interpretationEdges.interpretEdges(cube);
+        calculateEdges.refreshCube(cube);
+        while (!interpretationEdges.isUpperCrossIsCorrect()){
+
+            tempAlg.add(calculateEdges.moveUpperIncorrectCrossToRightPosition());
+            tempAlg.add(calculateEdges.rotateUpperIncorrectCrossToRightPosition());
+
+            tempAlg.addAll(calculateEdges.incorrectUpperCrossSolveAlgorithm());
+            cube.makeMoves(calculateEdges.incorrectUpperCrossSolveAlgorithm());
+            interpretationEdges.interpretEdges(cube);
+            calculateEdges.refreshCube(cube);
+
+        }
+        return tempAlg;
+
+    }
+
 }

@@ -122,4 +122,24 @@ public class CrossSolverTest {
         );
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "R U R' U' R' F R2 U' R' U' R U R' F', R U R' U R U2 R' U U' y' R U R' U R U2 R' U",
+            "R U2 R' U' R U2 L' U R' U' L, y R U R' U R U2 R' U",
+    })
+    void solveIncorrectUpperCross(String scramble, String expected) {
+        cube = new Cube3x3();
+        cube.makeMovesUsingString(scramble);
+        lbl3X3 = new LBL3X3(cube);
+        //when
+        ArrayList<InspectMove> alg = lbl3X3.solveIncorrectUpperCross();
+        //then
+        interpretation3x3Edges.interpretEdges(cube);
+        System.out.println(InspectMove.algorithmToString(alg));
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(interpretation3x3Edges.isUpperCrossIsCorrect()),
+                () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
+        );
+    }
+
 }
