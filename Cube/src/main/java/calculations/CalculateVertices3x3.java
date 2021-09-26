@@ -99,4 +99,18 @@ public class CalculateVertices3x3 {
         return InspectMove.createAndReturnArrayListFromString(algorithm);
     }
 
+    public InspectMove rotateCubeToGetRightPlacedVertexInCorrectPosition(){
+        int movesCounter = 0;
+        while (!interpretation3x3Vertices.isVertexInRightPosition()) {
+            movesCounter++;
+            cube3x3.moveUsingString("y");
+            refreshCube(cube3x3);
+        }
+        return new InspectMove(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
+    }
+
+    public ArrayList<InspectMove> permuteVertexAlgorithm(){
+        return InspectMove.createAndReturnArrayListFromString("L' U R U' L U R' U'");
+    }
+
 }

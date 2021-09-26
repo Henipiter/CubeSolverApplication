@@ -93,6 +93,7 @@ public class Interpretation3x3Vertices {
                 vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[1];
     }
 
+
     public int getIncorrectVertexInFirstLayer() {
         for (int i = 7; i >= 4; i--) {
             if (isVertexNotInRightPlaceOrHasIncorrectOrientation(i)) {
@@ -101,5 +102,28 @@ public class Interpretation3x3Vertices {
         }
         return -1;
     }
+
+    public int getNumOfVertexesInRightPlace(){
+        int counter = 0;
+        for (int i = 0; i < 4; i++) {
+            if( isVertexBetweenItsCenters(i, vertexArrayList.get(i))){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public boolean isAllVertexInRightPlace(){
+        return getNumOfVertexesInRightPlace()==4;
+    }
+
+
+    public boolean isVertexInRightPosition(){
+        return getNumOfVertexesInRightPlace()==0 ||
+                (getNumOfVertexesInRightPlace()==1 && isVertexBetweenItsCenters(2,vertexArrayList.get(2)));
+
+
+    }
+
 
 }

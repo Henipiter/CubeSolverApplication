@@ -236,7 +236,7 @@ public class Cube3x3 extends Cube{
             case PRIM:
                 moveR(new InspectMove(R, PRIM));
                 moveM(new InspectMove(M, SIMPLE));
-                moveL(new InspectMove(L, PRIM));
+                moveL(new InspectMove(L, SIMPLE));
                 break;
             case DOUBLE:
                 moveX(new InspectMove(x, SIMPLE));

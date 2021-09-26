@@ -142,4 +142,25 @@ public class CrossSolverTest {
         );
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "x R' U R' D2 R U' R' D2 R2 x', y' L' U R U' L U R' U' L' U R U' L U R' U'",
+            "x' R U' R' D R U R' D' R U R' D R U' R' D' x, L' U R U' L U R' U' y2 L' U R U' L U R' U' L' U R U' L U R' U'",
+
+    })
+    void solveNotPermutedVertexes(String scramble, String expected) {
+        cube = new Cube3x3();
+        cube.makeMovesUsingString(scramble);
+        lbl3X3 = new LBL3X3(cube);
+        //when
+        ArrayList<InspectMove> alg = lbl3X3.solveNotPermutedVertexes();
+        //then
+        interpretation3x3Vertices.interpretVertices(cube);
+        System.out.println(InspectMove.algorithmToString(alg));
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVertexInRightPlace()),
+                () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
+        );
+    }
+
 }
