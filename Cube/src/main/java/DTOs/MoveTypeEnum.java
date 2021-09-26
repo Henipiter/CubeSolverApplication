@@ -43,4 +43,6 @@ public enum MoveTypeEnum {
         int sum = (type1.value + type2.value) % 4;
         return returnEnumByInt(sum);
     }
+
+
 }

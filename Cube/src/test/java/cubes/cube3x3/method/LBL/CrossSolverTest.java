@@ -102,4 +102,24 @@ public class CrossSolverTest {
         );
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "D2 L B R' U R L B U F2 L2 B2 U' R2 F2 D' L2 D2 F2 B B' R' D R' F' D' L y' R D R' D' R U' R U2 R' U' R U R' U' y U R U' R' U y R U R' y R U R' U' R U2 R' U' R U R' U2 y' U R U' R' F R' F' R U' y' U' L' U L F' L F L' U2 U R U' R' F R' F' R, F R U R' U' F' U2 F R U R' U' R U R' U' F'",
+            "R2 U2 R2 U2 R2 U R U' R' F R' F' R U y U R U' R' F R' F' R U' y' U R U' R' F R' F' R U, U F R U R' U' F'",
+    })
+    void solveUpperCross(String scramble, String expected) {
+        cube = new Cube3x3();
+        cube.makeMovesUsingString(scramble);
+        lbl3X3 = new LBL3X3(cube);
+        //when
+        ArrayList<InspectMove> alg = lbl3X3.solveUpperCross();
+        //then
+        interpretation3x3Edges.interpretEdges(cube);
+        System.out.println(InspectMove.algorithmToString(alg));
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(interpretation3x3Edges.isCrossOnUpperSideIsComplete()),
+                () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
+        );
+    }
+
 }

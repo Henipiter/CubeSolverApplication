@@ -214,6 +214,21 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return InspectMove.createAndReturnArrayListFromString(alg);
     }
 
+    public InspectMove rotateUpperCrossToRightPosition(){
+        int movesCounter = 0;
+
+        while (!interpretation3x3Edges.isUpperCrossPositionCorrect()) {
+            movesCounter++;
+            cube3x3.moveUsingString("U");
+            refreshCube(cube3x3);
+        }
+        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+    }
+
+    public ArrayList<InspectMove> upperCrossSolveAlgorithm(){
+        return InspectMove.createAndReturnArrayListFromString("F R U R' U' F'");
+    }
+
 }
 
 

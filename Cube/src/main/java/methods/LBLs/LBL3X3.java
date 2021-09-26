@@ -3,6 +3,7 @@ package methods.LBLs;
 
 import DTOs.Edge;
 import DTOs.InspectMove;
+import DTOs.MoveTypeEnum;
 import DTOs.Vertex;
 import calculations.CalculateEdges3x3;
 import calculations.CalculateMoves;
@@ -40,6 +41,7 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(solveCross(firstCenterColor));
         algorithm.addAll(solveIncorrectCross());
         algorithm.addAll(solveFirstLayer());
+        algorithm.addAll(solveSecondLayer());
 
         return InspectMove.algorithmToString(algorithm);
     }
@@ -215,8 +217,6 @@ public class LBL3X3 implements LBL {
         return algorithm;
     }
 
-
-
     public ArrayList<InspectMove> solveSecondLayer() {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
@@ -234,5 +234,22 @@ public class LBL3X3 implements LBL {
             calculateEdges.refreshCube(cube);
         }
         return tempAlg;
+    }
+
+    public ArrayList<InspectMove> solveUpperCross(){
+        interpretationEdges.interpretEdges(cube);
+        calculateEdges.refreshCube(cube);
+        ArrayList<InspectMove> tempAlg = new ArrayList<>();
+
+        while(!interpretationEdges.isCrossOnUpperSideIsComplete()){
+            InspectMove rotateUpperSide = calculateEdges.rotateUpperCrossToRightPosition();
+            tempAlg.add(rotateUpperSide);
+            cube.makeMoves(calculateEdges.upperCrossSolveAlgorithm());
+            interpretationEdges.interpretEdges(cube);
+            calculateEdges.refreshCube(cube);
+            tempAlg.addAll(calculateEdges.upperCrossSolveAlgorithm());
+
+        }
+        return CalculateMoves.reduceRepeatingMoves(tempAlg);
     }
 }

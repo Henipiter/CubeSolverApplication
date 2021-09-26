@@ -1,6 +1,5 @@
 package interpretations;
 
-import DTOs.Edge;
 import DTOs.Vertex;
 import cubes.Cube;
 import lombok.Getter;
