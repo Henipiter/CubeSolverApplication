@@ -3,6 +3,7 @@ package calculations;
 import DTOs.InspectMove;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
+import DTOs.Vertex;
 import cubes.Cube3x3;
 import interpretations.Interpretation3x3Edges;
 import interpretations.Interpretation3x3Vertices;
@@ -34,8 +35,10 @@ public class CalculateVertices3x3Test {
 
         cube.makeMovesUsingString(scramble);
         calculateVertices3x3.refreshCube(cube);
+        interpretation3x3Vertices.interpretVertices(cube);
+        Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(2);
 
-        InspectMove result = calculateVertices3x3.getMoveToMoveVertexAboveRightDestination(2);
+        InspectMove result = calculateVertices3x3.getMoveToMoveVertexAboveRightDestination(2,vertex);
         Assertions.assertEquals(expect, result.toString());
     }
 

@@ -45,8 +45,9 @@ class Interpretation3x3VerticesTest {
         //when
         cube.makeMovesUsingString(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
+        Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(2);
         //when
-        boolean result = interpretation3x3Vertices.isVertexHasGivenColor(2, 'w');
+        boolean result = interpretation3x3Vertices.isVertexHasGivenColor(vertex, 'w');
         //then
         Assertions.assertEquals(expected, result);
     }
@@ -58,7 +59,7 @@ class Interpretation3x3VerticesTest {
         cube.makeMovesUsingString(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         //when
-        int result = interpretation3x3Vertices.getFieldWithColor(2, 'w');
+        int result = interpretation3x3Vertices.getFieldWithColor(interpretation3x3Vertices.getVertexArrayList().get(2), 'w');
         //then
         Assertions.assertEquals(expected, result);
     }
@@ -72,8 +73,9 @@ class Interpretation3x3VerticesTest {
         //when
         cube.makeMovesUsingString(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
+        Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex);
         //when
-        boolean result = interpretation3x3Vertices.isVertexBetweenItsCenters(vertexIndex);
+        boolean result = interpretation3x3Vertices.isVertexBetweenItsCenters(vertexIndex,vertex);
         //then
         Assertions.assertEquals(expected, result);
     }

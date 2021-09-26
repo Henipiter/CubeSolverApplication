@@ -3,6 +3,7 @@ package calculations;
 import DTOs.InspectMove;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
+import DTOs.Vertex;
 import cubes.Cube;
 import cubes.Cube3x3;
 import interpretations.Interpretation3x3Vertices;
@@ -22,13 +23,11 @@ public class CalculateVertices3x3 {
         interpretation3x3Vertices.interpretVertices(cube);
     }
 
-    public InspectMove getMoveToMoveVertexAboveRightDestination(int vertexIndex) {
+    public InspectMove getMoveToMoveVertexAboveRightDestination(int vertexIndex, Vertex vertex) {
         int movesCounter = 0;
 
-        while (!interpretation3x3Vertices.isVertexBetweenItsCenters((vertexIndex+movesCounter)%4)) {
+        while (!interpretation3x3Vertices.isVertexBetweenItsCenters((vertexIndex+movesCounter)%4,vertex)) {
             movesCounter++;
-            cube3x3.moveUsingString("U");
-            refreshCube(cube3x3);
         }
         return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
@@ -57,7 +56,8 @@ public class CalculateVertices3x3 {
     }
 
     public ArrayList<InspectMove> getMoveToJoinVertexIntoFirstLayer(int vertexIndex, char color) {
-        int field = interpretation3x3Vertices.getFieldWithColor(vertexIndex, color);
+        Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex);
+        int field = interpretation3x3Vertices.getFieldWithColor(vertex, color);
         switch (vertexIndex) {
             case 2:
                 return getMoveToSolveVertexIntoFirstLayerOnRightHand(field);

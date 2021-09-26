@@ -1,9 +1,9 @@
 package methods.LBLs;
 
 
+import DTOs.Edge;
 import DTOs.InspectMove;
-import DTOs.MoveEnum;
-import DTOs.MoveTypeEnum;
+import DTOs.Vertex;
 import calculations.CalculateEdges3x3;
 import calculations.CalculateMoves;
 import calculations.CalculateVertices3x3;
@@ -39,6 +39,7 @@ public class LBL3X3 implements LBL {
         firstCenterColor = 'w';
         algorithm.addAll(solveCross(firstCenterColor));
         algorithm.addAll(solveIncorrectCross());
+        algorithm.addAll(solveFirstLayer());
 
         return InspectMove.algorithmToString(algorithm);
     }
@@ -115,6 +116,7 @@ public class LBL3X3 implements LBL {
     private void addInspectMoveAndRefreshCube(ArrayList<InspectMove> tempAlg, InspectMove movement) {
         tempAlg.add(movement);
         cube.move(movement);
+        calculateEdges.refreshCube(cube);
         calculateVertices.refreshCube(cube);
     }
 
@@ -122,14 +124,19 @@ public class LBL3X3 implements LBL {
         return (vertexIndex + movement.getMoveTypeEnum().getValue()) % 4;
     }
 
-    private ArrayList<InspectMove> putFromUpperSideToBottomLayer(char crossColor) {
+    private int refreshEdgeIndexAfterMovement(int edgeIndex, InspectMove movement) {
+        return (edgeIndex + movement.getMoveTypeEnum().getValue()) % 4;
+    }
+
+    private ArrayList<InspectMove> putVertexFromUpperSideToBottomLayer(char crossColor) {
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         InspectMove moveUpperSide;
         InspectMove rotateCube;
         int vertexIndex = interpretation3x3Vertices.getVertexWithGivenColorOnUpperSide(crossColor);
-        moveUpperSide = calculateVertices.getMoveToMoveVertexAboveRightDestination(vertexIndex);
+        Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex);
+        moveUpperSide = calculateVertices.getMoveToMoveVertexAboveRightDestination(vertexIndex, vertex);
         vertexIndex = refreshVertexIndexAfterMovement(vertexIndex, moveUpperSide);
-        algorithm.add(moveUpperSide);
+        addInspectMoveAndRefreshCube(algorithm, moveUpperSide);
 
         rotateCube = calculateVertices.getMoveToRotateCubeToGetVertexOnFrontSide(vertexIndex);
         vertexIndex = refreshVertexIndexAfterMovement(vertexIndex, rotateCube);
@@ -140,7 +147,7 @@ public class LBL3X3 implements LBL {
         return algorithm;
     }
 
-    private ArrayList<InspectMove> putFromBottomLayerToUpperSide() {
+    private ArrayList<InspectMove> putVertexFromBottomLayerToUpperSide() {
         InspectMove rotateCube;
         ArrayList<InspectMove> algorithm = new ArrayList<>();
 
@@ -159,18 +166,72 @@ public class LBL3X3 implements LBL {
     public ArrayList<InspectMove> solveFirstLayer() {
         interpretation3x3Vertices.interpretVertices(cube);
         calculateVertices.refreshCube(cube);
-        InspectMove movement;
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
-        ArrayList<InspectMove> tempAlg2 = new ArrayList<>();
         char crossColor = interpretation3x3Vertices.getCenterArray()[1];
         while (!interpretation3x3Vertices.isFirstLayerComplete()) {
             if (interpretation3x3Vertices.isVertexWithGivenColorOnUpperSide(crossColor)) {
-                tempAlg.addAll(putFromUpperSideToBottomLayer(crossColor));
+                tempAlg.addAll(putVertexFromUpperSideToBottomLayer(crossColor));
             } else {
-                tempAlg.addAll(putFromBottomLayerToUpperSide());
+                tempAlg.addAll(putVertexFromBottomLayerToUpperSide());
             }
             interpretation3x3Vertices.interpretVertices(cube);
             calculateVertices.refreshCube(cube);
+        }
+        return tempAlg;
+    }
+
+
+
+    public ArrayList<InspectMove> putEdgeFromUpperSideToSecondLayer() {
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        int edgeIndex = interpretationEdges.getSecondLayerEdgeIndexOnUpperSide();
+        Edge edge = interpretationEdges.getEdgeArrayList().get(edgeIndex);
+        InspectMove moveUpperSide = calculateEdges.getMoveToMoveEdgeAboveRightCenter(edgeIndex,edge);
+        edgeIndex = refreshEdgeIndexAfterMovement(edgeIndex,moveUpperSide);
+        addInspectMoveAndRefreshCube(algorithm, moveUpperSide);
+        InspectMove rotateCube = calculateEdges.getMoveToRotateCubeToGetEdgeOnFrontSide(edgeIndex);
+        edgeIndex = refreshEdgeIndexAfterMovement(edgeIndex,rotateCube);
+        addInspectMoveAndRefreshCube(algorithm, rotateCube);
+        ArrayList<InspectMove> joinAlg = calculateEdges.getMoveToJoinEdgeIntoSecondLayer(edgeIndex, edge.getColor()[0]);
+        algorithm.addAll(joinAlg);
+        cube.makeMoves(joinAlg);
+        return algorithm;
+    }
+
+    private ArrayList<InspectMove> putEdgeFromSecondLayerToUpperSide() {
+        InspectMove rotateCube;
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+
+        int edgeIndex = interpretationEdges.getIncorrectEdgeInSecondLayer();
+        rotateCube = calculateEdges.getMoveToRotateCubeToGetEdgeOnFrontSide(edgeIndex);
+        edgeIndex = refreshEdgeIndexAfterMovement(edgeIndex,rotateCube);
+        addInspectMoveAndRefreshCube(algorithm, rotateCube);
+
+
+        ArrayList<InspectMove> joinAlg = calculateEdges.getMoveToMoveOutEdgeFromSecondLayer(edgeIndex % 4);
+        algorithm.addAll(joinAlg);
+
+        cube.makeMoves(joinAlg);
+        return algorithm;
+    }
+
+
+
+    public ArrayList<InspectMove> solveSecondLayer() {
+        interpretationEdges.interpretEdges(cube);
+        calculateEdges.refreshCube(cube);
+        ArrayList<InspectMove> tempAlg = new ArrayList<>();
+
+        while(!interpretationEdges.isSecondLayerComplete()){
+            if(interpretationEdges.isSecondLayerEdgeOnUpperSide()){
+                tempAlg.addAll(putEdgeFromUpperSideToSecondLayer());
+            }
+            else{
+                tempAlg.addAll(putEdgeFromSecondLayerToUpperSide());
+
+            }
+            interpretationEdges.interpretEdges(cube);
+            calculateEdges.refreshCube(cube);
         }
         return tempAlg;
     }

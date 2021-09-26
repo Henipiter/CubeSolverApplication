@@ -1,5 +1,6 @@
 package calculations;
 
+import DTOs.Edge;
 import DTOs.InspectMove;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
@@ -23,12 +24,13 @@ public class CalculateEdges3x3 extends CalculateMoves {
     }
 
     public InspectMove getMovesToMoveInnerEdgeOnConflictEdge(int side, char crossColor) {
+        Edge edge = interpretation3x3Edges.getEdgeArrayList().get(interpretation3x3Edges.getRightCrossEdge(side));
         int sideEdgeIndex = interpretation3x3Edges.getEdgeIndexFromSideWithGivenColorOnSide(side, crossColor);
 
         if (sideEdgeIndex % 2 == 0) {
             MoveEnum moveEnum = getMoveEnumToJoinField(side);
 
-            if (!interpretation3x3Edges.isGivenSideEdgeIndexHasGivenColor(side, crossColor)) {
+            if (!interpretation3x3Edges.isGivenSideEdgeIndexHasGivenColor(edge, crossColor)) {
                 if (sideEdgeIndex == 0) {
                     return new InspectMove(moveEnum, MoveTypeEnum.SIMPLE);
                 }
@@ -170,6 +172,47 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return InspectMove.createAndReturnArrayListFromString("M2 U2 M2");
     }
 
+    public InspectMove getMoveToMoveEdgeAboveRightCenter(int edgeIndex, Edge edge) {
+        int movesCounter = 0;
+
+        while (!interpretation3x3Edges.isEdgeAboveRightCenters((edgeIndex+movesCounter)%4,edge)) {
+            movesCounter++;
+        }
+        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+    }
+
+    public InspectMove getMoveToRotateCubeToGetEdgeOnFrontSide(int edgeIndex) {
+        switch (edgeIndex) {
+            case 3:
+                return new InspectMove("y'");
+            case 1:
+                return new InspectMove("y");
+            case 0:
+                return new InspectMove("y2");
+        }
+        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+    }
+
+    public ArrayList<InspectMove> getMoveToJoinEdgeIntoSecondLayer(int edgeIndex, char secondCenterColor) {
+
+        if(secondCenterColor == interpretation3x3Edges.getCenterArray()[3]){
+            return InspectMove.createAndReturnArrayListFromString("U R U' R' F R' F' R");
+        }
+        return InspectMove.createAndReturnArrayListFromString("U' L' U L F' L F L'");
+    }
+
+    public ArrayList<InspectMove> getMoveToMoveOutEdgeFromSecondLayer(int edgeIndex) {
+        String alg = "";
+        switch (edgeIndex) {
+            case 2:
+                alg = "U R U' R' F R' F' R";
+                break;
+            case 3:
+                alg = "U' L' U L F' L F L'";
+                break;
+        }
+        return InspectMove.createAndReturnArrayListFromString(alg);
+    }
 
 }
 

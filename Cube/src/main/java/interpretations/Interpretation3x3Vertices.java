@@ -1,5 +1,6 @@
 package interpretations;
 
+import DTOs.Edge;
 import DTOs.Vertex;
 import cubes.Cube;
 import lombok.Getter;
@@ -47,52 +48,35 @@ public class Interpretation3x3Vertices {
         return vertexList;
     }
 
-    public boolean isVertexHasGivenColor(int vertexIndex, char color) {
-        for (int i = 0; i < 3; i++) {
-            if (vertexArrayList.get(vertexIndex).getColor()[i] == color) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isVertexHasGivenColor(Vertex vertex, char color) {
+        return getFieldWithColor(vertex,color)!=-1;
     }
 
-    public int getFieldWithColor(int vertexIndex, char color) {
+    public int getFieldWithColor(Vertex vertex, char color) {
         for (int i = 0; i < 3; i++) {
-            if (vertexArrayList.get(vertexIndex).getColor()[i] == color) {
+            if (vertex.getColor()[i] == color) {
                 return i;
             }
         }
         return -1;
     }
 
-    public boolean isVertexBetweenItsCenters(int vertexIndex) {
+    public boolean isVertexBetweenItsCenters(int vertexIndex, Vertex vertex) {
         char firstColor = centerArray[2 + (vertexIndex + 3) % 4];
         char secondColor = centerArray[2 + vertexIndex % 4];
-        return isVertexHasGivenColor(vertexIndex, firstColor) &&
-                isVertexHasGivenColor(vertexIndex, secondColor);
+        return isVertexHasGivenColor(vertex, firstColor) &&
+                isVertexHasGivenColor(vertex, secondColor);
     }
 
-    public int getVertexDestination(char color1, char color2) {
-        for (int i = 4; i < 8; i++) {
-            if (isVertexHasGivenColor(i, color1) && isVertexHasGivenColor(i, color2)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+
 
     public boolean isVertexWithGivenColorOnUpperSide(char color) {
-        for (int i = 0; i < 4; i++) {
-            if (isVertexHasGivenColor(i, color)) {
-                return true;
-            }
-        }
-        return false;
+        return getVertexWithGivenColorOnUpperSide(color) != -1;
     }
 
     public int getVertexWithGivenColorOnUpperSide(char color) {
         for (int i = 3; i >= 0; i--) {
-            if (isVertexHasGivenColor(i, color)) {
+            if (isVertexHasGivenColor(getVertexArrayList().get(i), color)) {
                 return i;
             }
         }
@@ -105,7 +89,8 @@ public class Interpretation3x3Vertices {
     }
 
     private boolean isVertexNotInRightPlaceOrHasIncorrectOrientation(int vertexIndex) {
-        return !isVertexBetweenItsCenters(vertexIndex) ||
+        Vertex vertex = getVertexArrayList().get(vertexIndex);
+        return !isVertexBetweenItsCenters(vertexIndex,vertex) ||
                 vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[1];
     }
 

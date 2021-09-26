@@ -146,4 +146,13 @@ class Interpretation3x3EdgesTest {
         int result = interpretation3x3Edges.countEdgesPairedWithCenters();
         Assertions.assertEquals(expected,result);
     }
+
+    @ParameterizedTest
+    @CsvSource({"R R', true","R U R' F R' F' R, false" })
+    void call_isSecondLayerComplete(String alg, boolean expected){
+        cube.makeMovesUsingString(alg);
+        interpretation3x3Edges.interpretEdges(cube);
+        boolean result = interpretation3x3Edges.isSecondLayerComplete();
+        Assertions.assertEquals(expected,result);
+    }
 }

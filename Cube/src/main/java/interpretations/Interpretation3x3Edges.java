@@ -11,7 +11,7 @@ public class Interpretation3x3Edges {
 
     private final ArrayList<Edge> edgeArrayList = new ArrayList<>();
     private char[] centerArray = new char[6];
-    private int[] sideOrder = new int[]{0, 5, 3, 4, 2, 1};
+    private final int[] sideOrder = new int[]{0, 5, 3, 4, 2, 1};
 
     public Interpretation3x3Edges() {
         saveEdgePositionOnWallsAndFields();
@@ -151,10 +151,9 @@ public class Interpretation3x3Edges {
         return -1;
     }
 
-    public boolean isGivenSideEdgeIndexHasGivenColor(int side, char color) {
-        int edgeIndex = getRightCrossEdge(side);
-        return edgeArrayList.get(edgeIndex).getColor()[0] == color ||
-                edgeArrayList.get(edgeIndex).getColor()[1] == color;
+    public boolean isGivenSideEdgeIndexHasGivenColor(Edge edge, char color) {
+        return edge.getColor()[0] == color ||
+                edge.getColor()[1] == color;
     }
 
     public int getFreeSlotOnCross(char crossColor) {
@@ -165,6 +164,31 @@ public class Interpretation3x3Edges {
             }
         }
         return 0;
+    }
+
+    public int getIncorrectEdgeInSecondLayer() {
+        if (!(getEdgeArrayList().get(7).getColor()[0] == centerArray[5] &&
+                getEdgeArrayList().get(7).getColor()[1] == centerArray[4])) {
+            return 7;
+        }
+        if (!(getEdgeArrayList().get(6).getColor()[0] == centerArray[3] &&
+                getEdgeArrayList().get(6).getColor()[1] == centerArray[4])) {
+            return 6;
+        }
+        if (!(getEdgeArrayList().get(5).getColor()[0] == centerArray[3] &&
+                getEdgeArrayList().get(5).getColor()[1] == centerArray[2])) {
+            return 5;
+        }
+        if (!(getEdgeArrayList().get(4).getColor()[0] == centerArray[5] &&
+                getEdgeArrayList().get(4).getColor()[1] == centerArray[2])) {
+            return 4;
+        }
+        return -1;
+    }
+
+
+    public boolean isSecondLayerComplete() {
+        return getIncorrectEdgeInSecondLayer() == -1;
     }
 
     public boolean isSolvedCross() {
@@ -302,8 +326,8 @@ public class Interpretation3x3Edges {
         return counter;
     }
 
-    public boolean isCorrectCross(){
-        return countEdgesPairedWithCenters()==4;
+    public boolean isCorrectCross() {
+        return countEdgesPairedWithCenters() == 4;
     }
 
     public int getIndexOfNotPairedEdgeWithCenter() {
@@ -322,8 +346,8 @@ public class Interpretation3x3Edges {
         return centerArray[oppositeEdge + 2] == edgeArrayList.get(oppositeEdge + buffer * 8).getColor()[1];
     }
 
-    public int getSideIndexWithGivenEdgeIndex(int edgeIndex){
-        switch (edgeIndex%8){
+    public int getSideIndexWithGivenEdgeIndex(int edgeIndex) {
+        switch (edgeIndex % 8) {
             case 0:
                 return 5;
             case 1:
@@ -334,6 +358,25 @@ public class Interpretation3x3Edges {
                 return 2;
         }
         return -1;
+    }
+
+    public int getSecondLayerEdgeIndexOnUpperSide() {
+        int[] order = new int[]{2, 3, 1, 0};
+        for (int i : order) {
+            if (!isGivenSideEdgeIndexHasGivenColor(edgeArrayList.get(i), centerArray[0])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isSecondLayerEdgeOnUpperSide() {
+        return getSecondLayerEdgeIndexOnUpperSide() != -1;
+    }
+
+    public boolean isEdgeAboveRightCenters(int edgeIndex, Edge edge) {
+
+        return edge.getColor()[1] == centerArray[2 + edgeIndex];
     }
 
 }
