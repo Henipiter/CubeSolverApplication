@@ -333,7 +333,9 @@ public class Interpretation3x3Edges {
     public int getIndexOfNotPairedEdgeWithCenter() {
 
         for (int i = 3; i >= 0; i--) {
-            if (centerArray[i + 2] != edgeArrayList.get(i + 8).getColor()[1]) {
+            if (centerArray[i + 2] != edgeArrayList.get(i + 8).getColor()[1] &&
+                    centerArray[(i + 1) % 4 + 2] == edgeArrayList.get((i + 1) %4 +8).getColor()[1]
+            ) {
                 return i + 8;
             }
         }
@@ -412,9 +414,16 @@ public class Interpretation3x3Edges {
         return counter;
     }
 
-    public boolean isUpperCrossIsCorrect(){
-        return getNumOfCorrectEdgesInUpperCross()==4;
+    public boolean isUpperCrossIsCorrect() {
+        return getNumOfCorrectEdgesInUpperCross() == 4;
     }
+
+//    public boolean isAllEdgesAreSolved(){
+//        int[] indexes = new int[]{1,3,4,6};
+//        for (int i = 0; i < 6; i++) {
+//
+//        }
+//    }
 
 
 }

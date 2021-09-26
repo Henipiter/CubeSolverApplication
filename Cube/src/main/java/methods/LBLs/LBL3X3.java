@@ -34,7 +34,6 @@ public class LBL3X3 implements LBL {
     @Override
     public String solve(char firstCenterColor) {
         ArrayList<InspectMove> algorithm = new ArrayList<>();
-        firstCenterColor = 'w';
         algorithm.addAll(solveCross(firstCenterColor));
         algorithm.addAll(solveIncorrectCross());
         algorithm.addAll(solveFirstLayer());
@@ -72,6 +71,10 @@ public class LBL3X3 implements LBL {
         calculateEdges.refreshCube(cube);
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
         tempAlg.add(rotateCubeToSetCrossOnBottom(firstCenterColor));
+        cube.makeMoves(tempAlg);
+        interpretationEdges.interpretEdges(cube);
+        calculateEdges.refreshCube(cube);
+
         int i = 0;
         int side;
         int[] order = interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
@@ -99,15 +102,27 @@ public class LBL3X3 implements LBL {
                 recursiveAlg.addAll(recursiveSolveCross(crossColor, beginSide, nextCollisionSide));
             }
         }
+        if(!isAlgorithmContainsMoveEnum(MoveEnum.D, recursiveAlg))
         //calculate
-        int sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnCircumference(actualSide, crossColor);
-        if (sideEdgeNumber < 0 || sideEdgeNumber == 2) {
-            sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide, crossColor);
+        {
+            int sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnCircumference(actualSide, crossColor);
+            if (sideEdgeNumber < 0 || sideEdgeNumber == 2) {
+                sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide, crossColor);
+            }
+            ArrayList<InspectMove> tempAlg = calculateEdges.getMovesToJoinEdgeToCross(actualSide, sideEdgeNumber, crossColor);
+            updateCubeAndInterpretationAndCalculation(tempAlg);
+            recursiveAlg.addAll(tempAlg);
         }
-        ArrayList<InspectMove> tempAlg = calculateEdges.getMovesToJoinEdgeToCross(actualSide, sideEdgeNumber, crossColor);
-        updateCubeAndInterpretationAndCalculation(tempAlg);
-        recursiveAlg.addAll(tempAlg);
         return recursiveAlg;
+    }
+
+    private boolean isAlgorithmContainsMoveEnum(MoveEnum moveEnum, ArrayList<InspectMove> alg){
+        for(InspectMove move : alg){
+            if( move.getMoveEnum() == moveEnum){
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<InspectMove> solveIncorrectCross() {
