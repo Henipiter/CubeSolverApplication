@@ -1,10 +1,7 @@
 package methods.LBLs;
 
 
-import DTOs.Edge;
-import DTOs.InspectMove;
-import DTOs.MoveTypeEnum;
-import DTOs.Vertex;
+import DTOs.*;
 import calculations.CalculateEdges3x3;
 import calculations.CalculateMoves;
 import calculations.CalculateVertices3x3;
@@ -42,6 +39,10 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(solveIncorrectCross());
         algorithm.addAll(solveFirstLayer());
         algorithm.addAll(solveSecondLayer());
+        algorithm.addAll(solveUpperCross());
+        algorithm.addAll(solveIncorrectUpperCross());
+        algorithm.addAll(solveNotPermutedVertexes());
+        algorithm.addAll(solveNotOrientedVertexes());
 
         return InspectMove.algorithmToString(algorithm);
     }
@@ -247,7 +248,6 @@ public class LBL3X3 implements LBL {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
-
         while (!interpretationEdges.isCrossOnUpperSideIsComplete()) {
             tempAlg.addAll(getMovesToRotateUpperSideToCorrectPositionAndSolveUpperCross());
         }
@@ -260,33 +260,48 @@ public class LBL3X3 implements LBL {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         while (!interpretationEdges.isUpperCrossIsCorrect()) {
-
             tempAlg.add(calculateEdges.moveUpperIncorrectCrossToRightPosition());
             tempAlg.add(calculateEdges.rotateUpperIncorrectCrossToRightPosition());
-
             tempAlg.addAll(calculateEdges.incorrectUpperCrossSolveAlgorithm());
             cube.makeMoves(calculateEdges.incorrectUpperCrossSolveAlgorithm());
             interpretationEdges.interpretEdges(cube);
             calculateEdges.refreshCube(cube);
-
         }
         return tempAlg;
-
     }
 
     public ArrayList<InspectMove> solveNotPermutedVertexes() {
         ArrayList<InspectMove> tempAlg = new ArrayList<>();
         interpretation3x3Vertices.interpretVertices(cube);
         calculateVertices.refreshCube(cube);
-
-        while(!interpretation3x3Vertices.isAllVertexInRightPlace()){
+        while (!interpretation3x3Vertices.isAllVerticesInRightPlace()) {
             tempAlg.add(calculateVertices.rotateCubeToGetRightPlacedVertexInCorrectPosition());
             tempAlg.addAll(calculateVertices.permuteVertexAlgorithm());
             cube.makeMoves(calculateVertices.permuteVertexAlgorithm());
             interpretation3x3Vertices.interpretVertices(cube);
             calculateVertices.refreshCube(cube);
         }
+        return tempAlg;
+    }
 
+    public ArrayList<InspectMove> solveNotOrientedVertexes() {
+        ArrayList<InspectMove> tempAlg = new ArrayList<>();
+        int uMoveCounter = 0;
+        interpretation3x3Vertices.interpretVertices(cube);
+        calculateVertices.refreshCube(cube);
+        while (!interpretation3x3Vertices.isAllVertexesInRightOrientation()) {
+            InspectMove uMove = calculateVertices.getMoveToMoveVertexToOrientationPlace();
+            uMoveCounter = uMoveCounter + uMove.getMoveTypeEnum().getValue();
+            tempAlg.add(uMove);
+            tempAlg.addAll(calculateVertices.orientVertexAlgorithm());
+            cube.makeMoves(calculateVertices.orientVertexAlgorithm());
+            interpretation3x3Vertices.interpretVertices(cube);
+            calculateVertices.refreshCube(cube);
+        }
+        uMoveCounter = (4 - uMoveCounter%4)%4;
+        InspectMove lastMove = new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(uMoveCounter));
+        tempAlg.add(lastMove);
+        cube.move(lastMove);
 
 
         return tempAlg;

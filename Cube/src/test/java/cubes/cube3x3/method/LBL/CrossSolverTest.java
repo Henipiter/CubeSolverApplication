@@ -158,9 +158,51 @@ public class CrossSolverTest {
         interpretation3x3Vertices.interpretVertices(cube);
         System.out.println(InspectMove.algorithmToString(alg));
         Assertions.assertAll(
-                () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVertexInRightPlace()),
+                () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVerticesInRightPlace()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
         );
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "R U R' U R U2 R' U d, U R' D R D' R' D R D' R' D R D' R' D R D' U R' D R D' R' D R D' R' D R D' R' D R D' U R' D R D' R' D R D' R' D R D' R' D R D' U",
+
+    })
+    void solveNotOrientedVertexes(String scramble, String expected) {
+        cube = new Cube3x3();
+        cube.makeMovesUsingString(scramble);
+        lbl3X3 = new LBL3X3(cube);
+        //when
+        ArrayList<InspectMove> alg = lbl3X3.solveNotOrientedVertexes();
+        //then
+        interpretation3x3Vertices.interpretVertices(cube);
+        System.out.println(InspectMove.algorithmToString(alg));
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVertexesInRightOrientation()),
+                () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
+        );
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "F R B' R F2 L U F' U2 F U2 F' D2 F L2 F D2 B R' D, a",
+
+    })
+    void solve(String scramble, String expected) {
+        cube = new Cube3x3();
+        cube.makeMovesUsingString(scramble);
+        lbl3X3 = new LBL3X3(cube);
+        //when
+        String alg = lbl3X3.solve('y');
+        //then
+        interpretation3x3Vertices.interpretVertices(cube);
+        System.out.println(alg);
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVertexesInRightOrientation()),
+                () -> Assertions.assertEquals(expected, alg)
+        );
+    }
+
+
 
 }

@@ -48,7 +48,7 @@ public class Interpretation3x3Vertices {
     }
 
     public boolean isVertexHasGivenColor(Vertex vertex, char color) {
-        return getFieldWithColor(vertex,color)!=-1;
+        return getFieldWithColor(vertex, color) != -1;
     }
 
     public int getFieldWithColor(Vertex vertex, char color) {
@@ -66,7 +66,6 @@ public class Interpretation3x3Vertices {
         return isVertexHasGivenColor(vertex, firstColor) &&
                 isVertexHasGivenColor(vertex, secondColor);
     }
-
 
 
     public boolean isVertexWithGivenColorOnUpperSide(char color) {
@@ -89,7 +88,7 @@ public class Interpretation3x3Vertices {
 
     private boolean isVertexNotInRightPlaceOrHasIncorrectOrientation(int vertexIndex) {
         Vertex vertex = getVertexArrayList().get(vertexIndex);
-        return !isVertexBetweenItsCenters(vertexIndex,vertex) ||
+        return !isVertexBetweenItsCenters(vertexIndex, vertex) ||
                 vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[1];
     }
 
@@ -103,27 +102,50 @@ public class Interpretation3x3Vertices {
         return -1;
     }
 
-    public int getNumOfVertexesInRightPlace(){
+    public int getNumOfVerticesInRightPlace() {
         int counter = 0;
         for (int i = 0; i < 4; i++) {
-            if( isVertexBetweenItsCenters(i, vertexArrayList.get(i))){
+            if (isVertexBetweenItsCenters(i, vertexArrayList.get(i))) {
                 counter++;
             }
         }
         return counter;
     }
 
-    public boolean isAllVertexInRightPlace(){
-        return getNumOfVertexesInRightPlace()==4;
+    public boolean isAllVerticesInRightPlace() {
+        return getNumOfVerticesInRightPlace() == 4;
     }
 
-
-    public boolean isVertexInRightPosition(){
-        return getNumOfVertexesInRightPlace()==0 ||
-                (getNumOfVertexesInRightPlace()==1 && isVertexBetweenItsCenters(2,vertexArrayList.get(2)));
-
-
+    public boolean isVerticesInRightPosition() {
+        return getNumOfVerticesInRightPlace() == 0 ||
+                (getNumOfVerticesInRightPlace() == 1 && isVertexBetweenItsCenters(2, vertexArrayList.get(2)));
     }
 
+    public boolean isVerticesInNotRightOrientation() {
+        return vertexArrayList.get(2).getColor()[0] != centerArray[0];
+    }
+
+    public int getNumOfVerticesInRightOrientation() {
+        int counter = 0;
+        for (int i = 0; i < 4; i++) {
+            if (vertexArrayList.get(i).getColor()[0] == centerArray[0]){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public int getVertexInNotRightOrientation() {
+        for (int i = 0; i < 4; i++) {
+            if (vertexArrayList.get(i).getColor()[0] != centerArray[0]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isAllVertexesInRightOrientation() {
+        return getVertexInNotRightOrientation() == -1;
+    }
 
 }

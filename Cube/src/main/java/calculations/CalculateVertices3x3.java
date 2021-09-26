@@ -101,7 +101,7 @@ public class CalculateVertices3x3 {
 
     public InspectMove rotateCubeToGetRightPlacedVertexInCorrectPosition(){
         int movesCounter = 0;
-        while (!interpretation3x3Vertices.isVertexInRightPosition()) {
+        while (!interpretation3x3Vertices.isVerticesInRightPosition()) {
             movesCounter++;
             cube3x3.moveUsingString("y");
             refreshCube(cube3x3);
@@ -111,6 +111,20 @@ public class CalculateVertices3x3 {
 
     public ArrayList<InspectMove> permuteVertexAlgorithm(){
         return InspectMove.createAndReturnArrayListFromString("L' U R U' L U R' U'");
+    }
+
+    public InspectMove getMoveToMoveVertexToOrientationPlace(){
+        int movesCounter = 0;
+        while (!interpretation3x3Vertices.isVerticesInNotRightOrientation()) {
+            movesCounter++;
+            cube3x3.moveUsingString("U");
+            refreshCube(cube3x3);
+        }
+        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+    }
+
+    public ArrayList<InspectMove> orientVertexAlgorithm(){
+        return InspectMove.createAndReturnArrayListFromString("R' D R D' R' D R D'");
     }
 
 }
