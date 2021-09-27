@@ -2,10 +2,12 @@ package interpretations;
 
 import DTOs.Edge;
 import cubes.Cube;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@Getter
 public class Interpretation4x4Edges {
 
     private ArrayList<Edge> edgeArrayList = new ArrayList<>();
@@ -49,9 +51,7 @@ public class Interpretation4x4Edges {
         return edgeList;
     }
 
-    public ArrayList<Edge> getEdgeArrayList() {
-        return edgeArrayList;
-    }
+
 
     public boolean isChosenEdgeIsPaired(int edgeIndex){
         char[] chosenEdgeColor = edgeArrayList.get(edgeIndex).getColor();
@@ -77,18 +77,6 @@ public class Interpretation4x4Edges {
             }
         }
         return 0;
-    }
-
-    public int getUnpairedEdgeIndex() {
-        int[] order = new int[]{6, 2, 3, 4, 11, 0, 1, 10, 9, 8, 5, 7};
-        for (int i : order) {
-            for (int j = 2 * i; j <= 2 * i + 1; j++) {
-                if (!isChosenEdgeIsPaired(j)) {
-                    return j;
-                }
-            }
-        }
-        return 0; //TODO exception - cannot find
     }
 
     private boolean isTheSameContent(char[] colors1, char[] colors2) {

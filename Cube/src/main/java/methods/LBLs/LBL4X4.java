@@ -4,8 +4,10 @@ package methods.LBLs;
 import DTOs.InspectMove;
 import calculations.CalculateCenters4x4;
 import calculations.CalculateEdges4x4;
+import calculations.CalculateMoves;
 import cubes.Cube;
 import cubes.Cube4x4;
+import interpretations.Interpretation;
 import interpretations.Interpretation4x4Centers;
 import interpretations.Interpretation4x4Edges;
 
@@ -13,18 +15,18 @@ import java.util.ArrayList;
 
 public class LBL4X4 implements LBL {
 
-    private Cube cube;
-    private Interpretation4x4Centers interpretation4x4Centers;
-    private Interpretation4x4Edges interpretation4x4Edges;
-    private CalculateCenters4x4 calculateCenters4x4;
-    private CalculateEdges4x4 calculateEdges4x4;
+    private final Cube cube;
+    private final Interpretation4x4Centers interpretation4x4Centers;
+    private final Interpretation4x4Edges interpretation4x4Edges;
+    private final CalculateCenters4x4 calculateCenters4x4;
+    private final CalculateEdges4x4 calculateEdges4x4;
 
     public LBL4X4(Cube cube){
         interpretation4x4Centers = new Interpretation4x4Centers();
         interpretation4x4Edges = new Interpretation4x4Edges();
         calculateCenters4x4 = new CalculateCenters4x4();
         calculateEdges4x4 = new CalculateEdges4x4((Cube4x4) cube);
-        this.cube = new Cube4x4(cube.getCube());
+        this.cube = cube;// new Cube4x4(cube.getCube());
     }
 
     /** Here is implementation of LBL for 4x4
@@ -52,12 +54,11 @@ public class LBL4X4 implements LBL {
 
     private ArrayList<InspectMove> rotateCubeToGetMaxNumOfColoredFieldOnCenter(char color){
         ArrayList<InspectMove> algorithm = new ArrayList<>();
-        //interpret cube
         interpretation4x4Centers.interpretCenters(cube);
         //find side to rotate cube in right position
         int sideOnTop = interpretation4x4Centers.getSideWithTheMostFieldsWithGivenColor(color);
         //find alg to rotate cube
-        algorithm.add(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(sideOnTop));
+        algorithm.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideOnTop));
         return algorithm;
     }
 
@@ -66,7 +67,7 @@ public class LBL4X4 implements LBL {
         ArrayList<InspectMove> partial_alg = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
         //calculate alg to rotate to prepare to join field into upper side
-        partial_alg.add(calculateCenters4x4.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(source));
+        partial_alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(source));
         addToAlgorithmAndUpdateCubeStuff(partial_alg, algorithm);
         source = interpretation4x4Centers.inWhichSideIsGivenColorFieldsExceptUpperSide(color);
         //calculate alg to prepare both sides to join
@@ -92,7 +93,6 @@ public class LBL4X4 implements LBL {
 
     public ArrayList<InspectMove> solveFirstCenter(char baseColor){
         ArrayList<InspectMove> algorithm = new ArrayList<>();
-        ArrayList<InspectMove> alg_solve_center = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
         algorithm.addAll(rotateCubeToGetMaxNumOfColoredFieldOnCenter(baseColor));
         updateCubeAndInterpretationAndCalculation(algorithm);
@@ -105,8 +105,7 @@ public class LBL4X4 implements LBL {
     public ArrayList<InspectMove> solveSecondCenter(){
         interpretation4x4Centers.interpretCenters(cube);
         ArrayList<InspectMove> algorithm = new ArrayList<>();
-        ArrayList<InspectMove> alg_solve_center = new ArrayList<>();
-        char secondCenterColor = interpretation4x4Centers.getColorOfOppositeSide(interpretation4x4Centers.getColorOfCenter(0));
+        char secondCenterColor = Interpretation.getColorOfOppositeSide(interpretation4x4Centers.getColorOfCenter(0));
         algorithm.add(new InspectMove("x2"));
         updateCubeAndInterpretationAndCalculation(algorithm);
 
@@ -132,7 +131,7 @@ public class LBL4X4 implements LBL {
         temp_alg.clear();
         int numOfDestSide = interpretation4x4Centers.inWhichSideIsTheGreatestAmountOfCentersWithSameColor(new int[]{0, 4, 1, 5});
         char colorOfDestSide = interpretation4x4Centers.whichColorIsMostCommonInGivenSide(numOfDestSide);
-        temp_alg.add(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
+        temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg,algorithm);
 
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[] {4,1,5});
@@ -150,8 +149,10 @@ public class LBL4X4 implements LBL {
         interpretation4x4Centers.interpretCenters(cube);
 
         int numOfDestSide = 4;
-        char colorOfDestSide = interpretation4x4Centers.whichColorIsNextInOrder(numOfDestSide);
-        temp_alg.add(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
+        char colorOnLeft = interpretation4x4Centers.getCenterArrayList().get(2).getColor()[0];
+        char colorOnUp = interpretation4x4Centers.getCenterArrayList().get(0).getColor()[0];
+        char colorOfDestSide = Interpretation.whichColorIsNextInOrder(numOfDestSide,colorOnLeft,colorOnUp);
+        temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg,algorithm);
 
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[] {4,1});
@@ -169,8 +170,10 @@ public class LBL4X4 implements LBL {
         interpretation4x4Centers.interpretCenters(cube);
 
         int numOfDestSide = 4;
-        char colorOfDestSide = interpretation4x4Centers.whichColorIsNextInOrder(numOfDestSide);
-        temp_alg.add(calculateCenters4x4.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
+        char colorOnLeft = interpretation4x4Centers.getCenterArrayList().get(2).getColor()[0];
+        char colorOnUp = interpretation4x4Centers.getCenterArrayList().get(0).getColor()[0];
+        char colorOfDestSide = Interpretation.whichColorIsNextInOrder(numOfDestSide,colorOnLeft,colorOnUp);
+        temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg,algorithm);
 
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[] {5});

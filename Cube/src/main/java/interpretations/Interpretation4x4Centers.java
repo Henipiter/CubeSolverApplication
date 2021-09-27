@@ -4,9 +4,9 @@ import DTOs.*;
 import cubes.Cube;
 import cubes.Cube1x1;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
-
 
 @Data
 public class Interpretation4x4Centers {
@@ -40,15 +40,9 @@ public class Interpretation4x4Centers {
         }
     }
 
-    public char getColorOfOppositeSide(char sideColor){
-        char[] colors = new char[] {'w','y','o','r','g','b'};
-        int indexOfColor = new String(colors).indexOf(sideColor);
-        return colors[(indexOfColor%2 +1)%2+indexOfColor/2*2];
-    }
-
     public char getColorOfOppositeSide(int side){
         char sideColor = getColorOfCenter(side);
-        return getColorOfOppositeSide(sideColor);
+        return Interpretation.getColorOfOppositeSide(sideColor);
     }
 
     public char getColorOfCenter(int side){
@@ -131,15 +125,6 @@ public class Interpretation4x4Centers {
         return true;
     }
 
-    public char whichColorIsNextInOrder(int choosenSide) {
-        Cube1x1 cube1x1 = new Cube1x1();
-        Interpretation1x1 interpretation1x1 = new Interpretation1x1();
-        interpretation1x1.refreshCube(cube1x1);
-        char colorOnLeft = centerArrayList.get(2).getColor()[0];
-        char colorOnUp = centerArrayList.get(0).getColor()[0];
-        return interpretation1x1.whichColorIsNextInOrder(choosenSide,colorOnLeft, colorOnUp);
-    }
-
     public int inWhichSideIsTheGreatestAmountOfCentersWithSameColor(int[] searchingSides) {
         char color;
         int count;
@@ -165,7 +150,6 @@ public class Interpretation4x4Centers {
         }
         return count;
     }
-
 
     public boolean isStripesOnGivenSides(int sourceSide, int destinationSide, char color) {
         return isStripe(sourceSide, color) && isTwoFieldsFormBlankStripe(destinationSide, color);
@@ -246,8 +230,6 @@ public class Interpretation4x4Centers {
                 return true;
             }
         }
-
-
         return false;
     }
 

@@ -2,14 +2,12 @@ package cubes;
 
 
 import DTOs.InspectMove;
-import exceptions.IncorectMoveException;
+import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
-import static java.util.Arrays.deepEquals;
-
+@Getter
 public class Cube {
 
     private Logger logger = Logger.getLogger("Cube");
@@ -40,10 +38,6 @@ public class Cube {
         }
     }
 
-
-    public char[][] getCube() {
-        return cube;
-    }
 
 //    @Override
 //    public boolean equals(Object o) {

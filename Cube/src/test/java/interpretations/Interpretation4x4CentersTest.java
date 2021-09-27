@@ -1,7 +1,6 @@
-package cubes.cube4x4.interpretation;
+package interpretations;
 
 import cubes.Cube4x4;
-import interpretations.Interpretation4x4Centers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +21,7 @@ public class Interpretation4x4CentersTest {
     @ParameterizedTest
     @CsvSource({"w,y","y,w","g,b","b,g","o,r","r,o"})
     public void call_getColorOfOppositeSide_and_check_correctness(char input, char expected) {
-        Assertions.assertEquals(expected, interpretation4X4Centers.getColorOfOppositeSide(input));
+        Assertions.assertEquals(expected, Interpretation.getColorOfOppositeSide(input));
     }
 
     @Test

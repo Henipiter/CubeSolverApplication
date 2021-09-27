@@ -2,7 +2,6 @@ package DTOs;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Setter;
 
 import java.util.ArrayList;
 
