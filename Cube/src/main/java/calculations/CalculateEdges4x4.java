@@ -15,6 +15,14 @@ public class CalculateEdges4x4 {
         this.cube4x4 = cube4x4;
     }
 
+    public static ArrayList<InspectMove> getParityOLLAlgorithm(){
+        return InspectMove.createAndReturnArrayListFromString("r2 B2 U2 l U2 r' U2 r U2 F2 r F2 l' B2 r2");
+    }
+
+    public static ArrayList<InspectMove> getParityPLLAlgorithm(){
+        return InspectMove.createAndReturnArrayListFromString("r2 U2 r2 Uw2 r2 u2");
+    }
+
     public ArrayList<InspectMove> getMovesToPutUnpairedEdgeOn14or15Index(int edgePairIndex){
         interpretation4x4Edges.interpretEdges(cube4x4);
 
@@ -102,5 +110,7 @@ public class CalculateEdges4x4 {
     public static ArrayList<InspectMove> getAlgorithmToJoinEdges(){
         return InspectMove.createAndReturnArrayListFromString("Uw' R U R' F R' F' R Uw");
     }
+
+
 
 }

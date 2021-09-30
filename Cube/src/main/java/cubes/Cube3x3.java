@@ -2,6 +2,7 @@ package cubes;
 
 import DTOs.InspectMove;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import static DTOs.MoveTypeEnum.INVALID;
 import static java.util.Arrays.deepEquals;
 
 @Getter
+@Setter
 public class Cube3x3 extends Cube{
 
     char[][] cube = new char[6][8];
@@ -99,7 +101,7 @@ public class Cube3x3 extends Cube{
         switch (inspectMove.getMoveTypeEnum()) {
             case PRIM:
                 rotateCenter(new int[]{ 0,3,1,2 });
-                moveElementary_2(new int[]{ 0,3,1,2 }, new int[][]{ {3,4},{6,1} });
+                moveElementary_2(new int[]{ 0,3,1,2 }, new int[][]{ {3,4},{1,6} });
                 break;
             case DOUBLE:
                 moveS(new InspectMove(S, SIMPLE));
@@ -443,13 +445,6 @@ public class Cube3x3 extends Cube{
         }
     }
 
-    public char[][] getCube() {
-        return cube;
-    }
-
-    public void setCube(char[][] cube) {
-        this.cube = cube;
-    }
 
 
     @Override

@@ -4,6 +4,8 @@ import cubes.Cube4x4;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class allMovesTest {
 
@@ -25,6 +27,21 @@ public class allMovesTest {
                 {   'o','r','w','g',    'o','o','b','w',    'o','y','b','g',    'g','r','y','w'},
                 {   'w','y','r','r',    'w','w','o','b',    'r','b','y','o',    'b','y','y','o'},
                 {   'g','b','w','b',    'o','b','r','g',    'b','g','o','w',    'r','w','b','y'}
+        };
+        Assert.assertArrayEquals(expected, cube.getCube());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"D R' F' L2 D B' R2 D2 R U2 F R2 B' L2 D2 B' L2 B2 U2 F'"})
+    public void alr_random(){
+        cube.makeMovesUsingString("D R' F' L2 D B' R2 D2 R U2 F R2 B' L2 D2 B' L2 B2 U2 F' x2 L' F B' R' D' F y R D R' D' R U L' U' L U y' L' U' L y U R U' R' y R U R' U' R U R' U2 y' U' L' U L F' L F L' U' y' U' L' U L F' L F L' y2 U' L' U L F' L F L' U' F R U R' U' R U R' U' F' U y R U R' U R U2 R' U L' U R U' L U R' U' y2 L' U R U' L U R' U' L' U R U' L U R' U' U R' D R D' R' D R D' R' D R D' R' D R D' U R' D R D' R' D R D' U2");
+        char[][] expected = new char[][] {
+                {   'y','y','y','y','y','y','y','y','y','y','y','y','y','y','y','y'},
+                {   'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
+                {   'b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b'},
+                {   'g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g'},
+                {   'r','r','r','r','r','r','r','r','r','r','r','r','r','r','r','r'},
+                {   'o','o','o','o','o','o','o','o','o','o','o','o','o','o','o','o'}
         };
         Assert.assertArrayEquals(expected, cube.getCube());
     }

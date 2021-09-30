@@ -54,14 +54,11 @@ public class Interpretation4x4Edges {
 
 
     public boolean isChosenEdgeIsPaired(int edgeIndex){
-        char[] chosenEdgeColor = edgeArrayList.get(edgeIndex).getColor();
-        int pairToChosenEdge = (edgeIndex%2+1)%2 + edgeIndex/2*2;
-        char[] pairToChosenEdgeColor = edgeArrayList.get(pairToChosenEdge).getColor();
-        return Arrays.equals(chosenEdgeColor,pairToChosenEdgeColor);
+            return Arrays.equals( edgeArrayList.get(edgeIndex).getColor(), edgeArrayList.get(edgeIndex+1).getColor());
     }
 
     public boolean isAllEdgesArePaired(){
-        for (int i = 0; i < 12; i+=2) {
+        for (int i = 0; i < 24; i+=2) {
             if(!isChosenEdgeIsPaired(i)){
                 return false;
             }

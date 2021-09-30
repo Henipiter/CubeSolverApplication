@@ -38,9 +38,21 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(solveIncorrectCross());
         algorithm.addAll(solveFirstLayer());
         algorithm.addAll(solveSecondLayer());
+        try {
+            checkOllParity();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
         algorithm.addAll(solveUpperCross());
         algorithm.addAll(solveIncorrectUpperCross());
         algorithm.addAll(solveNotPermutedVertexes());
+        try {
+            checkPllParity();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
         algorithm.addAll(solveNotOrientedVertexes());
 
         return InspectMove.algorithmToString(algorithm);
@@ -91,6 +103,7 @@ public class LBL3X3 implements LBL {
                 i = 0;
             }
         }
+        System.out.println(InspectMove.algorithmToString(tempAlg));
         return tempAlg;
     }
 
@@ -128,7 +141,10 @@ public class LBL3X3 implements LBL {
     public ArrayList<InspectMove> solveIncorrectCross() {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
-        return calculateEdges.getMoveToSolveIncorrectOrderCross();
+        ArrayList<InspectMove> tempAlg = calculateEdges.getMoveToSolveIncorrectOrderCross();
+        System.out.println(InspectMove.algorithmToString(tempAlg));
+
+        return tempAlg;
     }
 
     private void addInspectMoveAndRefreshCube(ArrayList<InspectMove> tempAlg, InspectMove movement) {
@@ -195,11 +211,13 @@ public class LBL3X3 implements LBL {
             interpretation3x3Vertices.interpretVertices(cube);
             calculateVertices.refreshCube(cube);
         }
+        System.out.println(InspectMove.algorithmToString(tempAlg));
+
         return tempAlg;
     }
 
 
-    public ArrayList<InspectMove> putEdgeFromUpperSideToSecondLayer() {
+    private ArrayList<InspectMove> putEdgeFromUpperSideToSecondLayer() {
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         int edgeIndex = interpretationEdges.getSecondLayerEdgeIndexOnUpperSide();
         Edge edge = interpretationEdges.getEdgeArrayList().get(edgeIndex);
@@ -245,6 +263,8 @@ public class LBL3X3 implements LBL {
             interpretationEdges.interpretEdges(cube);
             calculateEdges.refreshCube(cube);
         }
+        System.out.println(InspectMove.algorithmToString(tempAlg));
+
         return tempAlg;
     }
 
@@ -266,7 +286,21 @@ public class LBL3X3 implements LBL {
         while (!interpretationEdges.isCrossOnUpperSideIsComplete()) {
             tempAlg.addAll(getMovesToRotateUpperSideToCorrectPositionAndSolveUpperCross());
         }
+        System.out.println(InspectMove.algorithmToString(tempAlg));
+
         return CalculateMoves.reduceRepeatingMoves(tempAlg);
+    }
+
+    public void checkOllParity() throws Exception {
+        if( interpretationEdges.getNumOfCrossEdges()%2==1){
+            throw new Exception("ParityOLL");
+        }
+    }
+
+    public void checkPllParity() throws Exception {
+        if(interpretation3x3Vertices.getNumOfVerticesInRightPlace()==2){
+            throw new Exception("PLL Parity");
+        }
     }
 
     public ArrayList<InspectMove> solveIncorrectUpperCross() {
@@ -282,6 +316,8 @@ public class LBL3X3 implements LBL {
             interpretationEdges.interpretEdges(cube);
             calculateEdges.refreshCube(cube);
         }
+        System.out.println(InspectMove.algorithmToString(tempAlg));
+
         return tempAlg;
     }
 
@@ -296,6 +332,8 @@ public class LBL3X3 implements LBL {
             interpretation3x3Vertices.interpretVertices(cube);
             calculateVertices.refreshCube(cube);
         }
+        System.out.println(InspectMove.algorithmToString(tempAlg));
+
         return tempAlg;
     }
 
@@ -317,9 +355,14 @@ public class LBL3X3 implements LBL {
         InspectMove lastMove = new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(uMoveCounter));
         tempAlg.add(lastMove);
         cube.move(lastMove);
+        System.out.println(InspectMove.algorithmToString(tempAlg));
 
 
         return tempAlg;
+    }
+
+    private void rotateVertexClockwise(){
+
     }
 
 }

@@ -113,7 +113,8 @@ public class Interpretation3x3Vertices {
     }
 
     public boolean isAllVerticesInRightPlace() {
-        return getNumOfVerticesInRightPlace() == 4;
+
+        return getNumOfVerticesInRightPlace() % 2 == 0 && getNumOfVerticesInRightPlace()>0;
     }
 
     public boolean isVerticesInRightPosition() {
@@ -128,7 +129,7 @@ public class Interpretation3x3Vertices {
     public int getNumOfVerticesInRightOrientation() {
         int counter = 0;
         for (int i = 0; i < 4; i++) {
-            if (vertexArrayList.get(i).getColor()[0] == centerArray[0]){
+            if (vertexArrayList.get(i).getColor()[0] == centerArray[0]) {
                 counter++;
             }
         }

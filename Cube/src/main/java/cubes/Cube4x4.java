@@ -299,16 +299,20 @@ public class Cube4x4 extends Cube{
     private void moveZ(InspectMove inspectMove){
         switch (inspectMove.getMoveTypeEnum()){
             case PRIM:
-                moveFTwin(new InspectMove(Fw,PRIM));
-                moveBTwin(new InspectMove(Bw, SIMPLE));
+                moveF(new InspectMove(U, PRIM));
+                moveFIn(new InspectMove(u, PRIM));
+                moveBIn(new InspectMove(d, SIMPLE));
+                moveB(new InspectMove(D,SIMPLE));
                 break;
             case DOUBLE:
                 moveZ(new InspectMove(z, SIMPLE));
                 moveZ(new InspectMove(z, SIMPLE));
                 break;
             case SIMPLE:
-                moveFTwin(new InspectMove(Fw,SIMPLE));
-                moveBTwin(new InspectMove(Bw, PRIM));
+                moveF(new InspectMove(U, SIMPLE));
+                moveFIn(new InspectMove(u, SIMPLE));
+                moveBIn(new InspectMove(d, PRIM));
+                moveB(new InspectMove(D,PRIM));
                 break;
         }
     }

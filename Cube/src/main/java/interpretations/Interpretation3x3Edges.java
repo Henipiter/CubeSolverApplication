@@ -381,13 +381,18 @@ public class Interpretation3x3Edges {
         return edge.getColor()[1] == centerArray[2 + edgeIndex];
     }
 
-    public boolean isCrossOnUpperSideIsComplete() {
+    public int getNumOfCrossEdges(){
+        int counter = 0;
         for (int i = 0; i < 4; i++) {
-            if (edgeArrayList.get(i).getColor()[0] != centerArray[0]) {
-                return false;
+            if (edgeArrayList.get(i).getColor()[0] == centerArray[0]) {
+                counter++;
             }
         }
-        return true;
+        return counter;
+    }
+
+    public boolean isCrossOnUpperSideIsComplete() {
+        return getNumOfCrossEdges() == 4;
     }
 
     public boolean isUpperCrossPositionCorrect() {
