@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 
-public class LBLTest {
+public class LBL4x4Test {
 
     Cube cube = new Cube4x4();
     Interpretation4x4Centers interpretation = new Interpretation4x4Centers();

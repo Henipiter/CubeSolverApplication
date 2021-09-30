@@ -43,11 +43,10 @@ public class Parse3x3To4x4 {
     }
 
     private void throwExceptionIf4x4HasNotPairedEdgesOrCenters() throws Exception {
-        if(!(is4x4HasPairedEdges() && is4x4HasPairedCenters())){
+        if(!(is4x4HasPairedEdges() && is4x4HasPairedCenters() && is4x4HasPairedCenters())){
             throw new Exception("Cannot parse 4x4 to 3x3, if edges are not paired");
         }
     }
-
 
     private boolean is4x4HasPairedEdges() {
         int[][] edgeOrder4x4 = new int[][]{{1, 2}, {4, 8}, {7, 11}, {13, 14}};
@@ -60,7 +59,6 @@ public class Parse3x3To4x4 {
         }
         return true;
     }
-
 
     private boolean is4x4HasPairedCenters() {
         int[] centerOrder4x4 = new int[]{5,6,9,10};

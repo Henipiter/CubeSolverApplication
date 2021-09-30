@@ -50,21 +50,9 @@ public class LBL4X4 implements LBL {
     public String solve(char firstCenterColor) {
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         algorithm.addAll(solveCenters(firstCenterColor));
-
-//        cube = getCopyOfBeginState();
-//        cube = getCubeAfterMoves(algorithm);
-
-        System.out.println(InspectMove.algorithmToString(algorithm) + "\n\n");
-
         algorithm.addAll(pairAllEdges());
-        System.out.println(InspectMove.algorithmToString(algorithm) + "\n\n");
-//        cube = getCopyOfBeginState();
-//        cube = getCubeAfterMoves(algorithm);
-
         algorithm.addAll(phase3x3(firstCenterColor));
         System.out.println(InspectMove.algorithmToString(algorithm) + "\n\n");
-
-        //TODO
         return InspectMove.algorithmToString(algorithm);
     }
 
@@ -252,16 +240,6 @@ public class LBL4X4 implements LBL {
             exception.printStackTrace();
         }
         return null;
-    }
-
-    private Cube4x4 getCubeAfterMoves(ArrayList<InspectMove> alg) {
-        Cube4x4 cube4x4 = getCopyOfBeginState();
-        cube4x4.makeMoves(alg);
-        return cube4x4;
-    }
-
-    private Cube3x3 refreshCube3x3(ArrayList<InspectMove> alg) {
-        return parseTo3x3(getCubeAfterMoves(alg));
     }
 
     private void makeOllParityOn3x3() {
