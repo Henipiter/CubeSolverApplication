@@ -30,16 +30,20 @@ public class Cube3x3 extends Cube{
 
     public void rotate(boolean clockwise, int side){
         if(clockwise) {
+            /* centers */
+            changeFourFields(cube, side, new int[]{2,5,7});
             /* vertexes */
-            changeFourFields(cube, side, new int[]{0,5,7,2});
+            changeFourFields(cube, side, new int[]{0,4,8});
             /* edges */
-            changeFourFields(cube, side, new int[]{1,3,6,4});
+            changeFourFields(cube, side, new int[]{1,6,3});
         }
         else {
+            /* centers */
+            changeFourFields(cube, side, new int[]{2,7,5});
             /* vertexes */
-            changeFourFields(cube, side, new int[]{0,2,7,5});
+            changeFourFields(cube, side, new int[]{0,8,4});
             /* edges */
-            changeFourFields(cube, side, new int[]{1,4,6,3});
+            changeFourFields(cube, side, new int[]{1,3,6});
         }
     }
 
