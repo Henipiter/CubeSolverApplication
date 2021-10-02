@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import static DTOs.MoveEnum.*;
-import static DTOs.MoveTypeEnum.*;
 import static DTOs.MoveTypeEnum.INVALID;
+import static DTOs.MoveTypeEnum.*;
 import static java.util.Arrays.deepEquals;
 
 @Getter
