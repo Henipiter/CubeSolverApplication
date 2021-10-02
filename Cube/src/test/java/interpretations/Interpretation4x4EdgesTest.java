@@ -2,11 +2,10 @@ package interpretations;
 
 import DTOs.Edge;
 import cubes.Cube4x4;
-
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.Assert;
 
 import java.util.ArrayList;
 
@@ -53,6 +52,7 @@ class Interpretation4x4EdgesTest {
         cube.makeMovesUsingString("Rw");
         interpretation4x4Edges.interpretEdges(cube);
         for(int i=0;i<24;i++){
+            System.out.println(i);
             if(i/2==0 || i/2==2 || i/2==8 || i/2==10){
                 Assertions.assertFalse(interpretation4x4Edges.isChosenEdgeIsPaired(i));
             }

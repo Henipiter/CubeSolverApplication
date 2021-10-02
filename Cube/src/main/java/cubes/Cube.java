@@ -7,6 +7,8 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import static DTOs.MoveTypeEnum.INVALID;
+
 @Getter
 public class Cube {
 
@@ -14,7 +16,15 @@ public class Cube {
     private char[][] cube;
     private char[] center;
 
-    public void moveUsingString(String direction){}
+    public void moveUsingString(String direction){
+        InspectMove inspectMove = new InspectMove(direction);
+        if(inspectMove.getMoveTypeEnum()== INVALID)
+            logger.info("Cannot do \""+direction+"\" move");
+        else {
+            move(inspectMove);
+        }
+    }
+
     public void move(InspectMove inspectMove){}
 
     protected void changeFourFields(char[][] cube, int side, int[] fieldsOrder){
@@ -48,24 +58,5 @@ public class Cube {
         }
         return true;
     }
-
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (o == this) {
-//            return true;
-//        }
-//
-//        if (o instanceof Cube2x2) {
-//            Cube2x2 c = (Cube2x2) o;
-//            return deepEquals(c.cube,this.cube);
-//        }
-//        if (o instanceof Cube4x4) {
-//            Cube4x4 c = (Cube4x4) o;
-//            return deepEquals(c.cube,this.cube);
-//        }
-//        return false;
-//
-//    }
 
 }

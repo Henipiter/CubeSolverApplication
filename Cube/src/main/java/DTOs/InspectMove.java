@@ -1,7 +1,6 @@
 package DTOs;
 
 import lombok.Data;
-import methods.BLDs.BLD;
 import org.apache.maven.shared.utils.StringUtils;
 
 import java.util.ArrayList;
