@@ -33,10 +33,12 @@ public class MoveLwTest {
                 {'y',   'r','y','y',    'g','g','g','g','g'},
                 {'b',   'r','b','b',    'r','r','y','y','y'}
         };
+        char[] expectedCenterOrder = new char[]{'r','g','y','b'};
         //when
         cubePyraminx.moveUsingString("Lw");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
+        Assert.assertArrayEquals(expectedCenterOrder, cubePyraminx.getCenter());
     }
 
     @Test
@@ -48,10 +50,12 @@ public class MoveLwTest {
                 {'b',   'g','b','b',    'b','b','r','r','r'},
                 {'y',   'b','y','y',    'b','b','r','r','r'}
         };
+        char[] expectedCenterOrder = new char[]{'y','r','g','b'};
         //when
         cubePyraminx.moveUsingString("Lw'");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
+        Assert.assertArrayEquals(expectedCenterOrder, cubePyraminx.getCenter());
     }
 
     @Test
@@ -63,12 +67,14 @@ public class MoveLwTest {
                 {'g',   'g','g','y',    'r','r','b','y','y'},
                 {'r',   'y','r','r',    'y','y','b','b','b'}
         };
+        char[] expectedCenterOrder = new char[]{'g','y','r','b'};
         //when
         cubePyraminx.moveUsingString("Lw");
         cubePyraminx.moveUsingString("Lw'");
 
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
+        Assert.assertArrayEquals(expectedCenterOrder, cubePyraminx.getCenter());
 
     }
 }

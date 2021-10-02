@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import static DTOs.MoveEnum.*;
-import static DTOs.MoveTypeEnum.*;
 import static DTOs.MoveTypeEnum.INVALID;
+import static DTOs.MoveTypeEnum.*;
 import static java.util.Arrays.deepEquals;
 
 public class CubePyraminx extends Cube {
@@ -26,7 +26,7 @@ public class CubePyraminx extends Cube {
         this.cube = cube;
     }
 
-    public void rotate(boolean clockwise, int side) {
+    public void rotateCube(boolean clockwise, int side) {
         if (clockwise) {
             changeFourFields(cube, side, new int[]{0,8,4});
             changeFourFields(cube, side, new int[]{1,3,6});
@@ -38,12 +38,12 @@ public class CubePyraminx extends Cube {
         }
     }
 
-    public void rotateCenter(int[] order) {
+    public void rotateSide(int[] order) {
         char buffer;
         buffer = center[order[0]];
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < order.length-1; i++)
             center[order[i]] = center[order[i + 1]];
-        center[order[3]] = buffer;
+        center[order[order.length-1]] = buffer;
     }
 
     public void moveElementary_1(int[] sideOrder, int[] field) {
@@ -126,14 +126,16 @@ public class CubePyraminx extends Cube {
     private void moveUw(InspectMove inspectMove) {
         switch (inspectMove.getMoveTypeEnum()) {
             case PRIM:
+                rotateSide(new int[]{0, 2, 3});
                 moveU(new InspectMove(U, PRIM));
-                rotate(false, 1);
+                rotateCube(false, 1);
                 moveElementary_3(new int[]{0, 2, 3},
                         new int[][]{{4, 5, 6, 7, 8}, {4, 5, 6, 7, 8}, {4, 5, 6, 7, 8}});
                 break;
             case SIMPLE:
+                rotateSide(new int[]{0, 3, 2});
                 moveU(new InspectMove(U, SIMPLE));
-                rotate(true, 1);
+                rotateCube(true, 1);
                 moveElementary_3(new int[]{0, 3, 2},
                         new int[][]{{4, 5, 6, 7, 8}, {4, 5, 6, 7, 8}, {4, 5, 6, 7, 8}});
                 break;
@@ -143,14 +145,16 @@ public class CubePyraminx extends Cube {
     private void moveRw(InspectMove inspectMove) {
         switch (inspectMove.getMoveTypeEnum()) {
             case PRIM:
+                rotateSide(new int[]{0, 3, 1});
                 moveR(new InspectMove(R, PRIM));
-                rotate(false, 2);
+                rotateCube(false, 2);
                 moveElementary_3(new int[]{0, 3, 1},
                         new int[][]{{0, 2, 1, 5, 4}, {8, 7, 3, 2, 0}, {8, 7, 3, 2, 0}});
                 break;
             case SIMPLE:
+                rotateSide(new int[]{0, 1, 3});
                 moveR(new InspectMove(R, SIMPLE));
-                rotate(true, 2);
+                rotateCube(true, 2);
                 moveElementary_3(new int[]{0, 1, 3},
                         new int[][]{{0, 2, 1, 5, 4}, {8, 7, 3, 2, 0}, {8, 7, 3, 2, 0}});
                 break;
@@ -160,14 +164,16 @@ public class CubePyraminx extends Cube {
     private void moveLw(InspectMove inspectMove) {
         switch (inspectMove.getMoveTypeEnum()) {
             case PRIM:
+                rotateSide(new int[]{0, 1, 2});
                 moveL(new InspectMove(l, PRIM));
-                rotate(false, 3);
+                rotateCube(false, 3);
                 moveElementary_3(new int[]{0, 1, 2},
                         new int[][]{{0, 2, 3, 7, 8}, {4, 5, 1, 2, 0}, {4, 5, 1, 2, 0}});
                 break;
             case SIMPLE:
+                rotateSide(new int[]{0, 2, 1});
                 moveL(new InspectMove(l, SIMPLE));
-                rotate(true, 3);
+                rotateCube(true, 3);
                 moveElementary_3(new int[]{0, 2, 1},
                         new int[][]{{0, 2, 3, 7, 8}, {4, 5, 1, 2, 0}, {4, 5, 1, 2, 0}});
 
@@ -178,14 +184,16 @@ public class CubePyraminx extends Cube {
     private void moveBw(InspectMove inspectMove) {
         switch (inspectMove.getMoveTypeEnum()) {
             case PRIM:
+                rotateSide(new int[]{3, 2, 1});
                 moveB(new InspectMove(B, PRIM));
-                rotate(false, 0);
+                rotateCube(false, 0);
                 moveElementary_3(new int[]{3, 2, 1},
                         new int[][]{{0, 2, 1, 5, 4}, {8, 7, 3, 2, 0}, {4, 5, 6, 7, 8},});
                 break;
             case SIMPLE:
+                rotateSide(new int[]{3, 1, 2});
                 moveB(new InspectMove(B, SIMPLE));
-                rotate(true, 0);
+                rotateCube(true, 0);
                 moveElementary_3(new int[]{3, 1, 2},
                         new int[][]{{0, 2, 1, 5, 4}, {4, 5, 6, 7, 8}, {8, 7, 3, 2, 0}});
                 break;
@@ -248,7 +256,6 @@ public class CubePyraminx extends Cube {
 
     @Override
     public void move(InspectMove inspectMove) {
-        // logger.info("Do " + inspectMove.getMove().toString() + inspectMove.getMoveTypeEnum().toString() + " move");
         switch (inspectMove.getMoveEnum()) {
             case U:
                 moveU(inspectMove);
@@ -326,5 +333,10 @@ public class CubePyraminx extends Cube {
         }
         CubePyraminx c = (CubePyraminx) o;
         return deepEquals(c.cube, this.cube);
+    }
+
+    @Override
+    public char[] getCenter() {
+        return center;
     }
 }
