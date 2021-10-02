@@ -26,7 +26,7 @@ public class CalculateVertices3x3 {
     public InspectMove getMoveToMoveVertexAboveRightDestination(int vertexIndex, Vertex vertex) {
         int movesCounter = 0;
 
-        while (!interpretation3x3Vertices.isVertexBetweenItsCenters((vertexIndex+movesCounter)%4,vertex)) {
+        while (!interpretation3x3Vertices.isVertexBetweenItsCenters((vertexIndex + movesCounter) % 4, vertex)) {
             movesCounter++;
         }
         return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
@@ -99,7 +99,7 @@ public class CalculateVertices3x3 {
         return InspectMove.createAndReturnArrayListFromString(algorithm);
     }
 
-    public InspectMove rotateCubeToGetRightPlacedVertexInCorrectPosition(){
+    public InspectMove rotateCubeToGetRightPlacedVertexInCorrectPosition() {
         int movesCounter = 0;
         while (!interpretation3x3Vertices.isVerticesInRightPosition()) {
             movesCounter++;
@@ -109,11 +109,11 @@ public class CalculateVertices3x3 {
         return new InspectMove(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public ArrayList<InspectMove> permuteVertexAlgorithm(){
+    public ArrayList<InspectMove> permuteVertexAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("L' U R U' L U R' U'");
     }
 
-    public InspectMove getMoveToMoveVertexToOrientationPlace(){
+    public InspectMove getMoveToMoveVertexToOrientationPlace() {
         int movesCounter = 0;
         while (!interpretation3x3Vertices.isVerticesInNotRightOrientation()) {
             movesCounter++;
@@ -123,8 +123,20 @@ public class CalculateVertices3x3 {
         return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public ArrayList<InspectMove> orientVertexAlgorithm(){
+    public ArrayList<InspectMove> orientVertexAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("R' D R D' R' D R D'");
     }
+
+    private char getVertexColorWithoutGiven(int vertexIndex, char firstColor, char secondColor) {
+
+        char[] colors = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex).getColor();
+        for (char color : colors) {
+            if(color!=firstColor && color!=secondColor){
+                return color;
+            }
+        }
+        return 'x';
+    }
+
 
 }

@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 
-public class CrossSolverTest {
+public class LBL3x3Test {
 
     Cube cube;
     LBL3X3 lbl3X3;
@@ -133,7 +133,7 @@ public class CrossSolverTest {
             "D2 L B R' U R L B U F2 L2 B2 U' R2 F2 D' L2 D2 F2 B B' R' D R' F' D' L y' R D R' D' R U' R U2 R' U' R U R' U' y U R U' R' U y R U R' y R U R' U' R U2 R' U' R U R' U2 y' U R U' R' F R' F' R U' y' U' L' U L F' L F L' U2 U R U' R' F R' F' R, F R U R' U' F' U2 F R U R' U' R U R' U' F'",
             "R2 U2 R2 U2 R2 U R U' R' F R' F' R U y U R U' R' F R' F' R U' y' U R U' R' F R' F' R U, U F R U R' U' F'",
     })
-    void solveUpperCross(String scramble, String expected) {
+    void solveUpperCross(String scramble, String expected) throws Exception {
         cube = new Cube3x3();
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
@@ -174,7 +174,7 @@ public class CrossSolverTest {
             "x' R U' R' D R U R' D' R U R' D R U' R' D' x, L' U R U' L U R' U' y2 L' U R U' L U R' U' L' U R U' L U R' U'",
 
     })
-    void solveNotPermutedVertexes(String scramble, String expected) {
+    void solveNotPermutedVertexes(String scramble, String expected) throws Exception {
         cube = new Cube3x3();
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
