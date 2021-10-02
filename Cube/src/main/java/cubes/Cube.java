@@ -38,6 +38,17 @@ public class Cube {
         }
     }
 
+    public static boolean isSolved(Cube cube){
+        for (int i = 0; i < cube.getCenter().length; i++) {
+            for (int j = 0; j < cube.getCube()[0].length; j++) {
+                if(cube.getCenter()[i] != cube.getCube()[i][j]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
 //    @Override
 //    public boolean equals(Object o) {

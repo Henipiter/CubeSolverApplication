@@ -23,12 +23,12 @@ public class CrossSolverTest {
 
     @ParameterizedTest
     @CsvSource({
-            "y,D R2 D2 B2 U' L2 R2 U' R2 F2 R D2 F D' B' U' L2 R F2 D2 , L' F' D' F' R B' R' D' U y' L' U' L U2 y' L' U2 L U L' U' L U' y' U' L' U L y' U R U' R' F R' F' R U' U' L' U L F' L F L' U2 y U R U' R' F R' F' R U2 y U R U' R' F R' F' R F R U R' U' F' U' R U R' U R U2 R' U R U R' U R U2 R' U L' U R U' L U R' U' y L' U R U' L U R' U' R' D R D' R' D R D' R' D R D' R' D R D' U R' D R D' R' D R D' R' D R D' R' D R D' U R' D R D' R' D R D' U R' D R D' R' D R D' U",
-            "y,L B R2 D2 F2 U2 B2 R F2 R2 B2 R' F2 R' U F L' D R2 U F',R' B' D R' U' R U R' U y' L' U2 L U L' U' L U2 U R U' R' U2 y' U' L' U L U R U' R' F R' F' R U2 y U R U' R' F R' F' R U2 y2 U' L' U L F' L F L' U' y U' L' U L F' L F L' U2 F R U R' U' R U R' U' F' y2 R U R' U R U2 R' U y' L' U R U' L U R' U' L' U R U' L U R' U' R' D R D' R' D R D' R' D R D' R' D R D' U R' D R D' R' D R D' U R' D R D' R' D R D' U R' D R D' R' D R D' R' D R D' R' D R D' U",
-            "w,L B R2 D2 F2 U2 B2 R F2 R2 B2 R' F2 R' U F L' D R2 U F',R' B' D R' U' R U R' U y' L' U2 L U L' U' L U2 U R U' R' U2 y' U' L' U L U R U' R' F R' F' R U2 y U R U' R' F R' F' R U2 y2 U' L' U L F' L F L' U' y U' L' U L F' L F L' U2 F R U R' U' R U R' U' F' y2 R U R' U R U2 R' U y' L' U R U' L U R' U' L' U R U' L U R' U' R' D R D' R' D R D' R' D R D' R' D R D' U R' D R D' R' D R D' U R' D R D' R' D R D' U R' D R D' R' D R D' R' D R D' R' D R D' U",
-            "w, x2 F B' D2 L D R M2 U2 M2 U2 y U R U' R' U y' L', a"
+            "y,D R2 D2 B2 U' L2 R2 U' R2 F2 R D2 F D' B' U' L2 R F2 D2",
+            "y,L B R2 D2 F2 U2 B2 R F2 R2 B2 R' F2 R' U F L' D R2 U F'",
+            "w,L B R2 D2 F2 U2 B2 R F2 R2 B2 R' F2 R' U F L' D R2 U F'",
+            "w, x2 F B' D2 L D R M2 U2 M2 U2 y U R U' R' U y' L'"
     })
-    void solve(char color, String scramble, String expected) {
+    void solve(char color, String scramble) {
         cube = new Cube3x3();
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
@@ -37,10 +37,7 @@ public class CrossSolverTest {
         //then
         interpretation3x3Vertices.interpretVertices(cube);
         System.out.println(alg);
-        Assertions.assertAll(
-                () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVertexesInRightOrientation()),
-                () -> Assertions.assertEquals(expected, alg)
-        );
+        Assertions.assertTrue(Cube.isSolved(cube));
     }
 
     @ParameterizedTest
