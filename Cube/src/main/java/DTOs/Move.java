@@ -4,9 +4,6 @@ import lombok.Data;
 
 import static DTOs.MoveEnum.BLANK;
 
-/**
- * Parse moves for cubes
- */
 @Data
 public class Move {
 
@@ -39,7 +36,6 @@ public class Move {
         }
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -57,6 +53,4 @@ public class Move {
     public String toString() {
         return moveEnum.toString() + moveTypeEnum.toString();
     }
-
-
 }

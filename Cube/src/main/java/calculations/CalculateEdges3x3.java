@@ -23,10 +23,8 @@ public class CalculateEdges3x3 extends CalculateMoves {
     public Move getMovesToMoveInnerEdgeOnConflictEdge(int side, char crossColor) {
         Edge edge = interpretation3x3Edges.getEdgeArrayList().get(interpretation3x3Edges.getRightCrossEdge(side));
         int sideEdgeIndex = interpretation3x3Edges.getEdgeIndexFromSideWithGivenColorOnSide(side, crossColor);
-
         if (sideEdgeIndex % 2 == 0) {
             MoveEnum moveEnum = getMoveEnumToJoinField(side);
-
             if (!interpretation3x3Edges.isGivenSideEdgeIndexHasGivenColor(edge, crossColor)) {
                 if (sideEdgeIndex == 0) {
                     return new Move(moveEnum, MoveTypeEnum.SIMPLE);
@@ -40,7 +38,6 @@ public class CalculateEdges3x3 extends CalculateMoves {
         }
         return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
-
 
     public ArrayList<Move> getMovesToJoinEdgeToCross(int side, int sideEdgeNumber, char crossColor) {
         ArrayList<Move> tempAlg = new ArrayList<>();
@@ -91,7 +88,6 @@ public class CalculateEdges3x3 extends CalculateMoves {
         if (interpretation3x3Edges.getEdgeArrayList().get(sideEdgeIndex).getColor()[0] != crossColor) {
             return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
         }
-
         Move to4thSide = getMoveToGetFreeSlotOn4thSide(crossColor);
         Move toGivenSide = getMoveToGetFreeSlotFrom4thSideToGivenSide(side);
         MoveTypeEnum moveTypeEnum = MoveTypeEnum.simplify(to4thSide.getMoveTypeEnum(), toGivenSide.getMoveTypeEnum());
@@ -131,7 +127,6 @@ public class CalculateEdges3x3 extends CalculateMoves {
                 break;
         }
         return moveEnum;
-
     }
 
     public Move getMoveToPairCrossEdgesToCenters() {
@@ -150,7 +145,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         ArrayList<Move> alg = new ArrayList<>();
         ArrayList<Move> alg2 = new ArrayList<>();
         alg.add(getMoveToPairCrossEdgesToCenters());
-        if (interpretation3x3Edges.countEdgesPairedWithCenters()==2){
+        if (interpretation3x3Edges.countEdgesPairedWithCenters() == 2) {
             int notPairedEdgeIndex = interpretation3x3Edges.getIndexOfNotPairedEdgeWithCenter();
             int sideWithNotPairedEdge = interpretation3x3Edges.getSideIndexWithGivenEdgeIndex(notPairedEdgeIndex);
             alg2.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(sideWithNotPairedEdge));
@@ -162,20 +157,11 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return alg;
     }
 
-    public ArrayList<Move> getAlgorithmToMakeCorrectOrderCross(boolean adjacentEdges){
-        if(adjacentEdges){
+    public ArrayList<Move> getAlgorithmToMakeCorrectOrderCross(boolean adjacentEdges) {
+        if (adjacentEdges) {
             return InspectMove.createAndReturnArrayListFromString("R D R' D' R");
         }
         return InspectMove.createAndReturnArrayListFromString("M2 U2 M2");
-    }
-
-    public Move getMoveToMoveEdgeAboveRightCenter(int edgeIndex, Edge edge) {
-        int movesCounter = 0;
-
-        while (!interpretation3x3Edges.isEdgeAboveRightCenters((edgeIndex+movesCounter)%4,edge)) {
-            movesCounter++;
-        }
-        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
     public Move getMoveToRotateCubeToGetEdgeOnFrontSide(int edgeIndex) {
@@ -191,8 +177,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
     }
 
     public ArrayList<Move> getMoveToJoinEdgeIntoSecondLayer(int edgeIndex, char secondCenterColor) {
-
-        if(secondCenterColor == interpretation3x3Edges.getCenterArray()[3]){
+        if (secondCenterColor == interpretation3x3Edges.getCenterArray()[3]) {
             return InspectMove.createAndReturnArrayListFromString("U R U' R' F R' F' R");
         }
         return InspectMove.createAndReturnArrayListFromString("U' L' U L F' L F L'");
@@ -211,9 +196,16 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return InspectMove.createAndReturnArrayListFromString(alg);
     }
 
-    public Move rotateUpperCrossToRightPosition(){
+    public Move getMoveToMoveEdgeAboveRightCenter(int edgeIndex, Edge edge) {
         int movesCounter = 0;
+        while (!interpretation3x3Edges.isEdgeAboveRightCenters((edgeIndex + movesCounter) % 4, edge)) {
+            movesCounter++;
+        }
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+    }
 
+    public Move rotateUpperCrossToRightPosition() {
+        int movesCounter = 0;
         while (!interpretation3x3Edges.isUpperCrossPositionCorrect()) {
             movesCounter++;
             cube3x3.moveUsingString("U");
@@ -222,9 +214,18 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public Move rotateUpperIncorrectCrossToRightPosition(){
+    public Move moveUpperIncorrectCrossToRightPosition() {
         int movesCounter = 0;
+        while (interpretation3x3Edges.getNumOfCorrectEdgesInUpperCross() < 2) {
+            movesCounter++;
+            cube3x3.moveUsingString("U");
+            refreshCube(cube3x3);
+        }
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+    }
 
+    public Move rotateUpperIncorrectCrossToRightPosition() {
+        int movesCounter = 0;
         while (!interpretation3x3Edges.isUpperIncorrectCrossPositionCorrect()) {
             movesCounter++;
             cube3x3.moveUsingString("y");
@@ -233,25 +234,13 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return new Move(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public Move moveUpperIncorrectCrossToRightPosition(){
-        int movesCounter = 0;
-
-        while (interpretation3x3Edges.getNumOfCorrectEdgesInUpperCross()<2) {
-            movesCounter++;
-            cube3x3.moveUsingString("U");
-            refreshCube(cube3x3);
-        }
-        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
-    }
-
-    public ArrayList<Move> upperCrossSolveAlgorithm(){
+    public ArrayList<Move> upperCrossSolveAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("F R U R' U' F'");
     }
 
-    public ArrayList<Move> incorrectUpperCrossSolveAlgorithm(){
+    public ArrayList<Move> incorrectUpperCrossSolveAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("R U R' U R U2 R' U");
     }
-
 }
 
 

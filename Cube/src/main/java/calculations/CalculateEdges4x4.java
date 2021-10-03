@@ -16,18 +16,18 @@ public class CalculateEdges4x4 {
         this.cube4x4 = cube4x4;
     }
 
-    public static ArrayList<Move> getParityOLLAlgorithm(){
+    public static ArrayList<Move> getParityOLLAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("Rw2 B2 U2 Lw U2 Rw' U2 Rw U2 F2 Rw F2 Lw' B2 Rw2");
     }
 
-    public static ArrayList<Move> getParityPLLAlgorithm(){
+    public static ArrayList<Move> getParityPLLAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("r2 U2 r2 Uw2 r2 u2");
     }
 
-    public ArrayList<Move> getMovesToPutUnpairedEdgeOn14or15Index(int edgePairIndex){
+    public ArrayList<Move> getMovesToPutUnpairedEdgeOn14or15Index(int edgePairIndex) {
         interpretation4x4Edges.interpretEdges(cube4x4);
 
-        switch (edgePairIndex/2){
+        switch (edgePairIndex / 2) {
             case 0:
                 return InspectMove.createAndReturnArrayListFromString("U' L");
             case 1:
@@ -58,59 +58,54 @@ public class CalculateEdges4x4 {
     public ArrayList<Move> getMovesToPutUnpairedEdgeOn12Index(int edgePairIndex) {
         String edgeFrontToRight = "F R' F' R";
         String edgeUpToRight = "R U' R'";
-        String rotateEdge = "R U R' "+edgeFrontToRight;
+        String rotateEdge = "R U R' " + edgeFrontToRight;
         interpretation4x4Edges.interpretEdges(cube4x4);
 
         String algSuffix = (edgePairIndex % 2 == 0 ? edgeUpToRight : edgeFrontToRight);
-        String algPrefix="";
-        switch (edgePairIndex/2){
+        String algPrefix = "";
+        switch (edgePairIndex / 2) {
             case 0:
-                algPrefix="U2";
+                algPrefix = "U2";
                 break;
             case 1:
-                algPrefix="U";
+                algPrefix = "U";
                 break;
             case 2:
                 break;
             case 3:
-                algPrefix="U'";
+                algPrefix = "U'";
                 break;
             case 4:
-                algPrefix="L U' L'";
+                algPrefix = "L U' L'";
                 break;
             case 5:
-                algPrefix="R' U R";
+                algPrefix = "R' U R";
                 algSuffix = (edgePairIndex % 2 == 1 ? edgeUpToRight : edgeFrontToRight);
                 break;
             case 6:
-                algPrefix="";
+                algPrefix = "";
                 algSuffix = (edgePairIndex % 2 == 0 ? "" : rotateEdge);
                 break;
             case 7:
                 return new ArrayList<>();
             case 8:
-                algPrefix="M2";
+                algPrefix = "M2";
                 algSuffix = (edgePairIndex % 2 == 1 ? edgeUpToRight : edgeFrontToRight);
                 break;
             case 9:
-                algPrefix="D' M'";
+                algPrefix = "D' M'";
                 break;
             case 10:
-                algPrefix="M'";
+                algPrefix = "M'";
                 break;
             case 11:
-                algPrefix="D M'";
+                algPrefix = "D M'";
                 break;
-
         }
-        return InspectMove.createAndReturnArrayListFromString(algPrefix+" "+algSuffix);
-
+        return InspectMove.createAndReturnArrayListFromString(algPrefix + " " + algSuffix);
     }
 
-    public static ArrayList<Move> getAlgorithmToJoinEdges(){
+    public static ArrayList<Move> getAlgorithmToJoinEdges() {
         return InspectMove.createAndReturnArrayListFromString("Uw' R U R' F R' F' R Uw");
     }
-
-
-
 }

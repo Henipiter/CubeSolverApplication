@@ -20,11 +20,6 @@ public class Cube1x1 extends Cube {
             cube[i][0] = center[i];
     }
 
-    public Cube1x1(char[][] cube) {
-        this.cube = cube;
-    }
-
-
     private void moveElementary(int[] sideOrder) {
         char buffer;
         buffer = cube[sideOrder[0]][0];

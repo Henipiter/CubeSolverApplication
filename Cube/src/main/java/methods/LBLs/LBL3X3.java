@@ -31,7 +31,7 @@ public class LBL3X3 implements LBL {
         calculateEdges = new CalculateEdges3x3((Cube3x3) cube);
     }
 
-    public ArrayList<Move> solveF2L_LBL(char firstCenterColor){
+    public ArrayList<Move> solveF2L_LBL(char firstCenterColor) {
         ArrayList<Move> algorithm = new ArrayList<>();
         algorithm.addAll(solveCross(firstCenterColor));
         algorithm.addAll(solveIncorrectCross());
@@ -64,26 +64,6 @@ public class LBL3X3 implements LBL {
         return InspectMove.algorithmToString(algorithm);
     }
 
-    private void updateCubeAndInterpretationAndCalculation(ArrayList<Move> alg) {
-        cube.makeMoves(alg);
-        interpretationEdges.interpretEdges(cube);
-        calculateEdges.refreshCube(cube);
-    }
-
-    private char[] removeIrrelevantColors(char[] colors) {
-        colors[2] = 'x';
-        colors[5] = 'x';
-        colors[7] = 'x';
-        return colors;
-    }
-
-    private Move rotateCubeToSetCrossOnBottom(char firstCenterColor) {
-        char oppositeColor = Interpretation.getColorOfOppositeSide(firstCenterColor);
-        int sideWithOppositeColor =
-                Interpretation3x3Centers.getCenterNumberWithGivenColor(cube, oppositeColor);
-        return CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideWithOppositeColor);
-    }
-
     public ArrayList<Move> solveCross(char firstCenterColor) {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
@@ -113,6 +93,26 @@ public class LBL3X3 implements LBL {
         return tempAlg;
     }
 
+    private void updateCubeAndInterpretationAndCalculation(ArrayList<Move> alg) {
+        cube.makeMoves(alg);
+        interpretationEdges.interpretEdges(cube);
+        calculateEdges.refreshCube(cube);
+    }
+
+    private char[] removeIrrelevantColors(char[] colors) {
+        colors[2] = 'x';
+        colors[5] = 'x';
+        colors[7] = 'x';
+        return colors;
+    }
+
+    private Move rotateCubeToSetCrossOnBottom(char firstCenterColor) {
+        char oppositeColor = Interpretation.getColorOfOppositeSide(firstCenterColor);
+        int sideWithOppositeColor =
+                Interpretation3x3Centers.getCenterNumberWithGivenColor(cube, oppositeColor);
+        return CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideWithOppositeColor);
+    }
+
     private ArrayList<Move> recursiveSolveCross(char crossColor, int beginSide, int actualSide) {
         ArrayList<Move> recursiveAlg = new ArrayList<>();
         if (interpretationEdges.isCollisionWithDifferentSide(actualSide, crossColor)) {
@@ -121,9 +121,7 @@ public class LBL3X3 implements LBL {
                 recursiveAlg.addAll(recursiveSolveCross(crossColor, beginSide, nextCollisionSide));
             }
         }
-        if(!isAlgorithmContainsMoveEnum(MoveEnum.D, recursiveAlg))
-        //calculate
-        {
+        if (!isAlgorithmContainsMoveEnum(MoveEnum.D, recursiveAlg)) {
             int sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnCircumference(actualSide, crossColor);
             if (sideEdgeNumber < 0 || sideEdgeNumber == 2) {
                 sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide, crossColor);
@@ -135,9 +133,9 @@ public class LBL3X3 implements LBL {
         return recursiveAlg;
     }
 
-    private boolean isAlgorithmContainsMoveEnum(MoveEnum moveEnum, ArrayList<Move> alg){
-        for(Move move : alg){
-            if( move.getMoveEnum() == moveEnum){
+    private boolean isAlgorithmContainsMoveEnum(MoveEnum moveEnum, ArrayList<Move> alg) {
+        for (Move move : alg) {
+            if (move.getMoveEnum() == moveEnum) {
                 return true;
             }
         }
@@ -296,13 +294,13 @@ public class LBL3X3 implements LBL {
     }
 
     public void checkOllParity() throws Exception {
-        if( interpretationEdges.getNumOfCrossEdges()%2==1){
+        if (interpretationEdges.getNumOfCrossEdges() % 2 == 1) {
             throw new Exception("ParityOLL");
         }
     }
 
     public void checkPllParity() throws Exception {
-        if(interpretation3x3Vertices.getNumOfVerticesInRightPlace()==2){
+        if (interpretation3x3Vertices.getNumOfVerticesInRightPlace() == 2) {
             throw new Exception("PLL Parity");
         }
     }
@@ -354,7 +352,7 @@ public class LBL3X3 implements LBL {
             interpretation3x3Vertices.interpretVertices(cube);
             calculateVertices.refreshCube(cube);
         }
-        uMoveCounter = (4 - uMoveCounter%4)%4;
+        uMoveCounter = (4 - uMoveCounter % 4) % 4;
         Move lastMove = new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(uMoveCounter));
         tempAlg.add(lastMove);
         cube.move(lastMove);
@@ -362,7 +360,7 @@ public class LBL3X3 implements LBL {
         return tempAlg;
     }
 
-    private void rotateVertexClockwise(){
+    private void rotateVertexClockwise() {
 
     }
 

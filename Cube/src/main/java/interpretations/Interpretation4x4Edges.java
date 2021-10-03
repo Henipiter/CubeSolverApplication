@@ -51,7 +51,6 @@ public class Interpretation4x4Edges {
         return edgeList;
     }
 
-
     public boolean isChosenEdgeIsPaired(int edgeIndex) {
         edgeIndex = edgeIndex / 2 * 2;
         return Arrays.equals(edgeArrayList.get(edgeIndex).getColor(), edgeArrayList.get(edgeIndex + 1).getColor());

@@ -123,17 +123,4 @@ public class CalculateVertices3x3 {
     public ArrayList<Move> orientVertexAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("R' D R D' R' D R D'");
     }
-
-    private char getVertexColorWithoutGiven(int vertexIndex, char firstColor, char secondColor) {
-
-        char[] colors = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex).getColor();
-        for (char color : colors) {
-            if(color!=firstColor && color!=secondColor){
-                return color;
-            }
-        }
-        return 'x';
-    }
-
-
 }

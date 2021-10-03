@@ -45,6 +45,4 @@ public class Interpretation1x1 {
         }
         return colorOrder;
     }
-
-
 }

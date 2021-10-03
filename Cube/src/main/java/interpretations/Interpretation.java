@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class Interpretation {
 
-
     public static char whichColorIsNextInOrder(int chosenSide, char colorOnLeft, char colorOnUp) {
         Interpretation1x1 interpretation1x1 = new Interpretation1x1();
         interpretation1x1.refreshCube(new Cube1x1());
@@ -26,7 +25,7 @@ public class Interpretation {
         return interpretation1x1.getColorOrder(colorOnUp);
     }
 
-    public static char[] getCenterArray(Cube cube){
+    public static char[] getCenterArray(Cube cube) {
         char[] centerArray = new char[6];
         int[] centerOrder = new int[]{0, 1, 5, 3, 4, 2};
         for (int i = 0; i < 6; i++) {
@@ -34,6 +33,4 @@ public class Interpretation {
         }
         return centerArray;
     }
-
-
 }

@@ -27,22 +27,22 @@ public class CubePyraminx extends Cube {
 
     public void rotateCube(boolean clockwise, int side) {
         if (clockwise) {
-            changeFourFields(cube, side, new int[]{0,8,4});
-            changeFourFields(cube, side, new int[]{1,3,6});
-            changeFourFields(cube, side, new int[]{2,7,5});
+            changeFourFields(cube, side, new int[]{0, 8, 4});
+            changeFourFields(cube, side, new int[]{1, 3, 6});
+            changeFourFields(cube, side, new int[]{2, 7, 5});
         } else {
-            changeFourFields(cube, side, new int[]{0,4,8});
-            changeFourFields(cube, side, new int[]{1,6,3});
-            changeFourFields(cube, side, new int[]{2,5,7});
+            changeFourFields(cube, side, new int[]{0, 4, 8});
+            changeFourFields(cube, side, new int[]{1, 6, 3});
+            changeFourFields(cube, side, new int[]{2, 5, 7});
         }
     }
 
     public void rotateSide(int[] order) {
         char buffer;
         buffer = center[order[0]];
-        for (int i = 0; i < order.length-1; i++)
+        for (int i = 0; i < order.length - 1; i++)
             center[order[i]] = center[order[i + 1]];
-        center[order[order.length-1]] = buffer;
+        center[order[order.length - 1]] = buffer;
     }
 
     public void moveElementary_1(int[] sideOrder, int[] field) {
@@ -95,12 +95,12 @@ public class CubePyraminx extends Cube {
     private void moveL(MoveTypeEnum moveType) {
         switch (moveType) {
             case PRIM:
-                movel( PRIM);
+                movel(PRIM);
                 moveElementary_3(new int[]{0, 1, 2},
                         new int[][]{{1, 5, 6}, {6, 7, 3}, {6, 7, 3}});
                 break;
             case SIMPLE:
-                movel( SIMPLE);
+                movel(SIMPLE);
                 moveElementary_3(new int[]{0, 2, 1},
                         new int[][]{{1, 5, 6}, {6, 7, 3}, {6, 7, 3}});
                 break;
@@ -126,7 +126,7 @@ public class CubePyraminx extends Cube {
         switch (moveType) {
             case PRIM:
                 rotateSide(new int[]{0, 2, 3});
-                moveU( PRIM);
+                moveU(PRIM);
                 rotateCube(false, 1);
                 moveElementary_3(new int[]{0, 2, 3},
                         new int[][]{{4, 5, 6, 7, 8}, {4, 5, 6, 7, 8}, {4, 5, 6, 7, 8}});
@@ -145,14 +145,14 @@ public class CubePyraminx extends Cube {
         switch (moveType) {
             case PRIM:
                 rotateSide(new int[]{0, 3, 1});
-                moveR( PRIM);
+                moveR(PRIM);
                 rotateCube(false, 2);
                 moveElementary_3(new int[]{0, 3, 1},
                         new int[][]{{0, 2, 1, 5, 4}, {8, 7, 3, 2, 0}, {8, 7, 3, 2, 0}});
                 break;
             case SIMPLE:
                 rotateSide(new int[]{0, 1, 3});
-                moveR( SIMPLE);
+                moveR(SIMPLE);
                 rotateCube(true, 2);
                 moveElementary_3(new int[]{0, 1, 3},
                         new int[][]{{0, 2, 1, 5, 4}, {8, 7, 3, 2, 0}, {8, 7, 3, 2, 0}});
@@ -184,14 +184,14 @@ public class CubePyraminx extends Cube {
         switch (moveType) {
             case PRIM:
                 rotateSide(new int[]{3, 2, 1});
-                moveB( PRIM);
+                moveB(PRIM);
                 rotateCube(false, 0);
                 moveElementary_3(new int[]{3, 2, 1},
                         new int[][]{{0, 2, 1, 5, 4}, {8, 7, 3, 2, 0}, {4, 5, 6, 7, 8},});
                 break;
             case SIMPLE:
                 rotateSide(new int[]{3, 1, 2});
-                moveB( SIMPLE);
+                moveB(SIMPLE);
                 rotateCube(true, 0);
                 moveElementary_3(new int[]{3, 1, 2},
                         new int[][]{{0, 2, 1, 5, 4}, {4, 5, 6, 7, 8}, {8, 7, 3, 2, 0}});
@@ -255,7 +255,7 @@ public class CubePyraminx extends Cube {
 
     @Override
     public void move(Move move) {
-        MoveTypeEnum moveType= move.getMoveTypeEnum();
+        MoveTypeEnum moveType = move.getMoveTypeEnum();
         switch (move.getMoveEnum()) {
             case U:
                 moveU(moveType);
@@ -299,7 +299,6 @@ public class CubePyraminx extends Cube {
                 logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");
                 break;
         }
-
     }
 
     public void makeMoves(ArrayList<Move> algorithm) {
@@ -322,7 +321,6 @@ public class CubePyraminx extends Cube {
     public void setCube(char[][] cube) {
         this.cube = cube;
     }
-
 
     @Override
     public boolean equals(Object o) {

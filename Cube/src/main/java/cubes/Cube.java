@@ -18,47 +18,47 @@ public class Cube {
     private char[][] cube;
     private char[] center;
 
-    public void moveUsingString(String direction){
+    public void moveUsingString(String direction) {
         Move move = new Move(direction);
-        if(move.getMoveTypeEnum()== INVALID)
-            logger.info("Cannot do \""+direction+"\" move");
+        if (move.getMoveTypeEnum() == INVALID)
+            logger.info("Cannot do \"" + direction + "\" move");
         else {
             move(move);
         }
     }
 
-    public void move(Move move){}
-
-    protected void changeFourFields(char[][] cube, int side, int[] fieldsOrder){
-        char buffer;
-        buffer = cube[side][fieldsOrder[0]];
-        for(int i=0;i<fieldsOrder.length-1;i++)
-            cube[side][fieldsOrder[i]] = cube[side][fieldsOrder[i+1]];
-        cube[side][fieldsOrder[fieldsOrder.length-1]] = buffer;
+    public void move(Move move) {
     }
 
-    public void makeMoves(ArrayList<Move> algorithm){
-        for( Move move : algorithm ){
+    protected void changeFourFields(char[][] cube, int side, int[] fieldsOrder) {
+        char buffer;
+        buffer = cube[side][fieldsOrder[0]];
+        for (int i = 0; i < fieldsOrder.length - 1; i++)
+            cube[side][fieldsOrder[i]] = cube[side][fieldsOrder[i + 1]];
+        cube[side][fieldsOrder[fieldsOrder.length - 1]] = buffer;
+    }
+
+    public void makeMoves(ArrayList<Move> algorithm) {
+        for (Move move : algorithm) {
             move(move);
         }
     }
 
-    public void makeMovesUsingString(String algorithm){
+    public void makeMovesUsingString(String algorithm) {
         String[] splitAlg = algorithm.split(" ");
-        for( String move : splitAlg){
+        for (String move : splitAlg) {
             moveUsingString(move);
         }
     }
 
-    public static boolean isSolved(Cube cube){
+    public static boolean isSolved(Cube cube) {
         for (int i = 0; i < cube.getCube().length; i++) {
             for (int j = 1; j < cube.getCube()[0].length; j++) {
-                if(cube.getCube()[i][0] != cube.getCube()[i][j]){
+                if (cube.getCube()[i][0] != cube.getCube()[i][j]) {
                     return false;
                 }
             }
         }
         return true;
     }
-
 }

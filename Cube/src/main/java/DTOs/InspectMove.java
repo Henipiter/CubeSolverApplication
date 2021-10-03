@@ -8,12 +8,8 @@ import java.util.ArrayList;
 import static DTOs.MoveEnum.BLANK;
 import static DTOs.MoveEnum.INVALID;
 
-/**
- * Parse moves for cubes
- */
 @Data
 public class InspectMove {
-
 
     public static ArrayList<Move> createAndReturnArrayListFromString(String alg) {
         ArrayList<Move> result = new ArrayList<>();
@@ -27,7 +23,6 @@ public class InspectMove {
         return result;
     }
 
-
     public static String algorithmToString(ArrayList<Move> alg) {
         String result = "";
         for (Move move : alg) {
@@ -40,9 +35,8 @@ public class InspectMove {
         return "";
     }
 
-
     public static Move getMove(String direction) {
-        return new Move(recogniseMove(direction),recogniseType(direction));
+        return new Move(recogniseMove(direction), recogniseType(direction));
     }
 
     private static MoveEnum recogniseMove(String direction) {

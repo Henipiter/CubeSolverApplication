@@ -36,23 +36,21 @@ public class CalculateMoves {
         return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public static ArrayList<Move> reduceRepeatingMoves(ArrayList<Move> algorithm){
-        int i=0;
-        while(i<algorithm.size()-1){
-            if(algorithm.get(i).getMoveEnum() == algorithm.get(i+1).getMoveEnum()){
+    public static ArrayList<Move> reduceRepeatingMoves(ArrayList<Move> algorithm) {
+        int i = 0;
+        while (i < algorithm.size() - 1) {
+            if (algorithm.get(i).getMoveEnum() == algorithm.get(i + 1).getMoveEnum()) {
                 MoveTypeEnum newMoveType = MoveTypeEnum.simplify(
-                        algorithm.get(i).getMoveTypeEnum(), algorithm.get(i+1).getMoveTypeEnum());
+                        algorithm.get(i).getMoveTypeEnum(), algorithm.get(i + 1).getMoveTypeEnum());
                 algorithm.get(i).setMoveTypeEnum(newMoveType);
-                algorithm.remove(i+1);
-            }
-            else if(algorithm.get(i+1).getMoveEnum()==MoveEnum.BLANK || algorithm.get(i+1).getMoveTypeEnum()==MoveTypeEnum.BLANK){
-                algorithm.remove(i+1);
-            }
-            else {
+                algorithm.remove(i + 1);
+            } else if (algorithm.get(i + 1).getMoveEnum() == MoveEnum.BLANK ||
+                    algorithm.get(i + 1).getMoveTypeEnum() == MoveTypeEnum.BLANK) {
+                algorithm.remove(i + 1);
+            } else {
                 i++;
             }
         }
         return algorithm;
     }
-
 }
