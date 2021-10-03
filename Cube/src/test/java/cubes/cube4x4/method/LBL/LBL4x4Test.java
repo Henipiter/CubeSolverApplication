@@ -251,15 +251,17 @@ public class LBL4x4Test {
     @ParameterizedTest
     @CsvSource({ "y", "b", "g", "r", "o","w"})
     public void call_solve(char firstCenterColor) {
+        //given
         cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
         LBL4X4 lbl = new LBL4X4(cube);
+        //when
         String algorithm = lbl.solve(firstCenterColor);
-        interpretation.interpretCenters(cube);
+        //then
         System.out.println(algorithm);
-
-        for (int i = 0; i < 6; i++) {
-            Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
-        }
+        cube = new Cube4x4();
+        cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
+        cube.makeMovesUsingString(algorithm);
+        Assertions.assertTrue(Cube.isSolved(cube));
     }
 
 }

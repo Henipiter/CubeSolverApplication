@@ -3,6 +3,7 @@ package cubes;
 
 import DTOs.InspectMove;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 import static DTOs.MoveTypeEnum.INVALID;
 
 @Getter
+@Setter
 public class Cube {
 
     private Logger logger = Logger.getLogger("Cube");
@@ -49,9 +51,9 @@ public class Cube {
     }
 
     public static boolean isSolved(Cube cube){
-        for (int i = 0; i < cube.getCenter().length; i++) {
-            for (int j = 0; j < cube.getCube()[0].length; j++) {
-                if(cube.getCenter()[i] != cube.getCube()[i][j]){
+        for (int i = 0; i < cube.getCube().length; i++) {
+            for (int j = 1; j < cube.getCube()[0].length; j++) {
+                if(cube.getCube()[i][0] != cube.getCube()[i][j]){
                     return false;
                 }
             }

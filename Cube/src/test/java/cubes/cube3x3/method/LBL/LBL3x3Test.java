@@ -35,7 +35,6 @@ public class LBL3x3Test {
         //when
         String alg = lbl3X3.solve(color);
         //then
-        interpretation3x3Vertices.interpretVertices(cube);
         System.out.println(alg);
         Assertions.assertTrue(Cube.isSolved(cube));
     }
