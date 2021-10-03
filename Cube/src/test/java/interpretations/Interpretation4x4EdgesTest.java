@@ -52,7 +52,6 @@ class Interpretation4x4EdgesTest {
         cube.makeMovesUsingString("Rw");
         interpretation4x4Edges.interpretEdges(cube);
         for(int i=0;i<24;i++){
-            System.out.println(i);
             if(i/2==0 || i/2==2 || i/2==8 || i/2==10){
                 Assertions.assertFalse(interpretation4x4Edges.isChosenEdgeIsPaired(i));
             }

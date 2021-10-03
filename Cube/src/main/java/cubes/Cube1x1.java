@@ -92,6 +92,8 @@ public class Cube1x1 extends Cube {
             case z:
                 moveZ(moveType);
                 break;
+            case BLANK:
+                break;
             default:
                 logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");
                 break;

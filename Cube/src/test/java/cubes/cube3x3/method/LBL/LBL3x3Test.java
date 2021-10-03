@@ -35,7 +35,7 @@ public class LBL3x3Test {
         //when
         String alg = lbl3X3.solve(color);
         //then
-        System.out.println(alg);
+        System.out.println("Soluion: "+alg);
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 
@@ -57,7 +57,8 @@ public class LBL3x3Test {
         lbl3X3 = new LBL3X3(cube);
         ArrayList<Move> alg = lbl3X3.solveCross('y');
         interpretation3x3Edges.interpretEdges(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
+
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Edges.isSolvedCross()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
@@ -80,7 +81,8 @@ public class LBL3x3Test {
         lbl3X3 = new LBL3X3(cube);
         ArrayList<Move> alg = lbl3X3.solveIncorrectCross();
         interpretation3x3Edges.interpretEdges(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
+
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Edges.isCorrectCross())
         );
@@ -99,7 +101,8 @@ public class LBL3x3Test {
         ArrayList<Move> alg = lbl3X3.solveFirstLayer();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
+
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Vertices.isFirstLayerComplete()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
@@ -120,7 +123,8 @@ public class LBL3x3Test {
         ArrayList<Move> alg = lbl3X3.solveSecondLayer();
         //then
         interpretation3x3Edges.interpretEdges(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
+
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Edges.isSecondLayerComplete()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
@@ -140,7 +144,7 @@ public class LBL3x3Test {
         ArrayList<Move> alg = lbl3X3.solveUpperCross();
         //then
         interpretation3x3Edges.interpretEdges(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Edges.isCrossOnUpperSideIsComplete()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
@@ -160,7 +164,7 @@ public class LBL3x3Test {
         ArrayList<Move> alg = lbl3X3.solveIncorrectUpperCross();
         //then
         interpretation3x3Edges.interpretEdges(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Edges.isUpperCrossIsCorrect()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
@@ -181,7 +185,7 @@ public class LBL3x3Test {
         ArrayList<Move> alg = lbl3X3.solveNotPermutedVertexes();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVerticesInRightPlace()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
@@ -201,7 +205,7 @@ public class LBL3x3Test {
         ArrayList<Move> alg = lbl3X3.solveNotOrientedVertexes();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
-        System.out.println(InspectMove.algorithmToString(alg));
+        System.out.println("Soluion: "+InspectMove.algorithmToString(alg));
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVertexesInRightOrientation()),
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))

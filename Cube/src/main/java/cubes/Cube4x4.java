@@ -545,7 +545,7 @@ public class Cube4x4 extends Cube {
             case E:
                 moveE(moveType);
                 break;
-            case BLANK: /*nothing to do*/
+            case BLANK:
                 break;
             default:
                 logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");

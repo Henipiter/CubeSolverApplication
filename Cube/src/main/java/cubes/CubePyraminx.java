@@ -293,6 +293,8 @@ public class CubePyraminx extends Cube {
             case u:
                 moveu(moveType);
                 break;
+            case BLANK:
+                break;
             default:
                 logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");
                 break;

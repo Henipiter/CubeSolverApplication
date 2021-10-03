@@ -38,24 +38,12 @@ public class LBL4X4 implements LBL {
                 .toArray(char[][]::new));
     }
 
-    private Cube4x4 getCopyOfBeginState() {
-        return new Cube4x4(Arrays.stream(beginStateCube.getCube())
-                .map(a -> Arrays.copyOf(a, a.length))
-                .toArray(char[][]::new));
-    }
-
-    /**
-     * Here is implementation of LBL for 4x4
-     *
-     * @return series of moves to solve cube
-     */
     @Override
     public String solve(char firstCenterColor) {
         ArrayList<Move> algorithm = new ArrayList<>();
         algorithm.addAll(solveCenters(firstCenterColor));
         algorithm.addAll(pairAllEdges());
         algorithm.addAll(phase3x3(firstCenterColor));
-        System.out.println(InspectMove.algorithmToString(algorithm) + "\n\n");
         return InspectMove.algorithmToString(algorithm);
     }
 
@@ -66,15 +54,14 @@ public class LBL4X4 implements LBL {
         algorithm.addAll(solveThirdCenter());
         algorithm.addAll(solveFourthCenter());
         algorithm.addAll(solveLastTwoCenters());
+        cube.getLogger().info("Centers solved!");
         return algorithm;
     }
 
     private ArrayList<Move> rotateCubeToGetMaxNumOfColoredFieldOnCenter(char color) {
         ArrayList<Move> algorithm = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
-        //find side to rotate cube in right position
         int sideOnTop = interpretation4x4Centers.getSideWithTheMostFieldsWithGivenColor(color);
-        //find alg to rotate cube
         algorithm.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideOnTop));
         return algorithm;
     }
@@ -83,11 +70,11 @@ public class LBL4X4 implements LBL {
         ArrayList<Move> algorithm = new ArrayList<>();
         ArrayList<Move> partial_alg = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
-        //calculate alg to rotate to prepare to join field into upper side
+
         partial_alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(source));
         addToAlgorithmAndUpdateCubeStuff(partial_alg, algorithm);
         source = interpretation4x4Centers.inWhichSideIsGivenColorFieldsExceptUpperSide(color);
-        //calculate alg to prepare both sides to join
+
         partial_alg = calculateCenters4x4.calculateMovesToPrepareJoining(source, dest, color);
         addToAlgorithmAndUpdateCubeStuff(partial_alg, algorithm);
         //join
@@ -115,8 +102,6 @@ public class LBL4X4 implements LBL {
         algorithm.addAll(rotateCubeToGetMaxNumOfColoredFieldOnCenter(baseColor));
         updateCubeAndInterpretationAndCalculation(algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, baseColor, new int[]{4, 1, 2, 3, 5});
-        System.out.println("To solve first center: ");
-        interpretation4x4Centers.printAlgorithm(algorithm);
         return algorithm;
     }
 
@@ -126,11 +111,7 @@ public class LBL4X4 implements LBL {
         char secondCenterColor = Interpretation.getColorOfOppositeSide(interpretation4x4Centers.getColorOfCenter(0));
         algorithm.add(new Move("x2"));
         updateCubeAndInterpretationAndCalculation(algorithm);
-
         getAlgorithmToSolveWholeCenter(algorithm, secondCenterColor, new int[]{4, 2, 3, 5});
-
-        System.out.println("To solve second center: ");
-        interpretation4x4Centers.printAlgorithm(algorithm);
         return algorithm;
     }
 
@@ -153,9 +134,6 @@ public class LBL4X4 implements LBL {
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
 
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{4, 1, 5});
-
-        System.out.println("To solve third center: ");
-        interpretation4x4Centers.printAlgorithm(algorithm);
         return algorithm;
 
     }
@@ -174,9 +152,6 @@ public class LBL4X4 implements LBL {
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
 
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{4, 1});
-
-        System.out.println("To solve fourth center: ");
-        interpretation4x4Centers.printAlgorithm(algorithm);
         return algorithm;
 
     }
@@ -195,9 +170,6 @@ public class LBL4X4 implements LBL {
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
 
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{5});
-
-        System.out.println("To solve fifth center: ");
-        interpretation4x4Centers.printAlgorithm(algorithm);
         return algorithm;
     }
 
@@ -231,7 +203,7 @@ public class LBL4X4 implements LBL {
             updateCubeAndSaveAlgorithm(temp_alg, algorithm);
 
         }
-        System.out.println(InspectMove.algorithmToString(algorithm));
+        cube.getLogger().info("Edges paired!");
         return algorithm;
     }
 
@@ -286,6 +258,7 @@ public class LBL4X4 implements LBL {
         try {
             lbl3X3.checkOllParity();
         } catch (Exception exception) {
+            cube.getLogger().info("OLL Parity");
             algorithm.addAll(resolveOLLParity());
         }
         algorithm.addAll(lbl3X3.solveUpperCross());
@@ -293,11 +266,12 @@ public class LBL4X4 implements LBL {
         algorithm.addAll(lbl3X3.solveNotPermutedVertexes());
         try {
             lbl3X3.checkPllParity();
-
         } catch (Exception exception) {
+            cube.getLogger().info("PLL Parity");
             algorithm.addAll(resolvePllParity(lbl3X3));
         }
         algorithm.addAll(lbl3X3.solveNotOrientedVertexes());
+
         return algorithm;
     }
 

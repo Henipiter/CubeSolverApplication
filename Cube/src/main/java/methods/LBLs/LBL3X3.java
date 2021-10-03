@@ -47,7 +47,7 @@ public class LBL3X3 implements LBL {
         try {
             checkOllParity();
         } catch (Exception exception) {
-            exception.printStackTrace();
+            cube.getLogger().warning("OLL Parity");
             return null;
         }
         algorithm.addAll(solveUpperCross());
@@ -56,7 +56,7 @@ public class LBL3X3 implements LBL {
         try {
             checkPllParity();
         } catch (Exception exception) {
-            exception.printStackTrace();
+            cube.getLogger().warning("PLL Parity");
             return null;
         }
         algorithm.addAll(solveNotOrientedVertexes());
@@ -109,7 +109,7 @@ public class LBL3X3 implements LBL {
                 i = 0;
             }
         }
-        System.out.println(InspectMove.algorithmToString(tempAlg));
+        cube.getLogger().info("Cross solved!");
         return tempAlg;
     }
 
@@ -148,7 +148,7 @@ public class LBL3X3 implements LBL {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<Move> tempAlg = calculateEdges.getMoveToSolveIncorrectOrderCross();
-        System.out.println(InspectMove.algorithmToString(tempAlg));
+        cube.getLogger().info("Incorrect cross solved!");
 
         return tempAlg;
     }
@@ -217,8 +217,7 @@ public class LBL3X3 implements LBL {
             interpretation3x3Vertices.interpretVertices(cube);
             calculateVertices.refreshCube(cube);
         }
-        System.out.println(InspectMove.algorithmToString(tempAlg));
-
+        cube.getLogger().info("First layer solved!");
         return tempAlg;
     }
 
@@ -269,8 +268,7 @@ public class LBL3X3 implements LBL {
             interpretationEdges.interpretEdges(cube);
             calculateEdges.refreshCube(cube);
         }
-        System.out.println(InspectMove.algorithmToString(tempAlg));
-
+        cube.getLogger().info("Second layer solved!");
         return tempAlg;
     }
 
@@ -292,7 +290,7 @@ public class LBL3X3 implements LBL {
         while (!interpretationEdges.isCrossOnUpperSideIsComplete()) {
             tempAlg.addAll(getMovesToRotateUpperSideToCorrectPositionAndSolveUpperCross());
         }
-        System.out.println(InspectMove.algorithmToString(tempAlg));
+        cube.getLogger().info("Upper cross solved!");
 
         return CalculateMoves.reduceRepeatingMoves(tempAlg);
     }
@@ -322,8 +320,7 @@ public class LBL3X3 implements LBL {
             interpretationEdges.interpretEdges(cube);
             calculateEdges.refreshCube(cube);
         }
-        System.out.println(InspectMove.algorithmToString(tempAlg));
-
+        cube.getLogger().info("Incorrect upper cross solved!");
         return tempAlg;
     }
 
@@ -338,7 +335,7 @@ public class LBL3X3 implements LBL {
             interpretation3x3Vertices.interpretVertices(cube);
             calculateVertices.refreshCube(cube);
         }
-        System.out.println(InspectMove.algorithmToString(tempAlg));
+        cube.getLogger().info("Vertex permuted!");
 
         return tempAlg;
     }
@@ -361,9 +358,7 @@ public class LBL3X3 implements LBL {
         Move lastMove = new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(uMoveCounter));
         tempAlg.add(lastMove);
         cube.move(lastMove);
-        System.out.println(InspectMove.algorithmToString(tempAlg));
-
-
+        cube.getLogger().info("Vertex oriented!");
         return tempAlg;
     }
 

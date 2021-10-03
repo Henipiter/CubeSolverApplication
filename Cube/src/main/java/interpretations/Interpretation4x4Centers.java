@@ -1,8 +1,6 @@
 package interpretations;
 
 import DTOs.Center;
-import DTOs.Move;
-import DTOs.MoveEnum;
 import cubes.Cube;
 import lombok.Data;
 
@@ -243,14 +241,6 @@ public class Interpretation4x4Centers {
 
     public boolean isFieldInGivenColor(int side, int field, char color) {
         return centerArrayList.get(side).getColor()[field] == color;
-    }
-
-    public void printAlgorithm(ArrayList<Move> alg) {
-        for (Move i : alg) {
-            if (i.getMoveEnum() != MoveEnum.BLANK)
-                System.out.print(i + " ");
-        }
-        System.out.println(" ");
     }
 
     public ArrayList<Center> getCenterArrayList() {

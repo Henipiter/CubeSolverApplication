@@ -111,8 +111,8 @@ public class MoveXTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.moveUsingString("X2");
-        cube2x2.moveUsingString("X2");
+        cube2x2.moveUsingString("x2");
+        cube2x2.moveUsingString("x2");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
 
