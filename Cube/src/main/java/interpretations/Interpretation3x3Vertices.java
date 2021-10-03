@@ -67,7 +67,6 @@ public class Interpretation3x3Vertices {
                 isVertexHasGivenColor(vertex, secondColor);
     }
 
-
     public boolean isVertexWithGivenColorOnUpperSide(char color) {
         return getVertexWithGivenColorOnUpperSide(color) != -1;
     }
@@ -92,7 +91,6 @@ public class Interpretation3x3Vertices {
                 vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[1];
     }
 
-
     public int getIncorrectVertexInFirstLayer() {
         for (int i = 7; i >= 4; i--) {
             if (isVertexNotInRightPlaceOrHasIncorrectOrientation(i)) {
@@ -113,8 +111,7 @@ public class Interpretation3x3Vertices {
     }
 
     public boolean isAllVerticesInRightPlace() {
-
-        return getNumOfVerticesInRightPlace() % 2 == 0 && getNumOfVerticesInRightPlace()>0;
+        return getNumOfVerticesInRightPlace() % 2 == 0 && getNumOfVerticesInRightPlace() > 0;
     }
 
     public boolean isVerticesInRightPosition() {
@@ -124,16 +121,6 @@ public class Interpretation3x3Vertices {
 
     public boolean isVerticesInNotRightOrientation() {
         return vertexArrayList.get(2).getColor()[0] != centerArray[0];
-    }
-
-    public int getNumOfVerticesInRightOrientation() {
-        int counter = 0;
-        for (int i = 0; i < 4; i++) {
-            if (vertexArrayList.get(i).getColor()[0] == centerArray[0]) {
-                counter++;
-            }
-        }
-        return counter;
     }
 
     public int getVertexInNotRightOrientation() {
@@ -148,5 +135,4 @@ public class Interpretation3x3Vertices {
     public boolean isAllVertexesInRightOrientation() {
         return getVertexInNotRightOrientation() == -1;
     }
-
 }

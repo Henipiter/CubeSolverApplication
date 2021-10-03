@@ -1,18 +1,13 @@
 package calculations;
 
-import DTOs.InspectMove;
-import DTOs.MoveEnum;
-import DTOs.MoveTypeEnum;
+import DTOs.Move;
 import DTOs.Vertex;
 import cubes.Cube3x3;
-import interpretations.Interpretation3x3Edges;
 import interpretations.Interpretation3x3Vertices;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.ArrayList;
 
 public class CalculateVertices3x3Test {
 
@@ -38,7 +33,7 @@ public class CalculateVertices3x3Test {
         interpretation3x3Vertices.interpretVertices(cube);
         Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(2);
 
-        InspectMove result = calculateVertices3x3.getMoveToMoveVertexAboveRightDestination(2,vertex);
+        Move result = calculateVertices3x3.getMoveToMoveVertexAboveRightDestination(2,vertex);
         Assertions.assertEquals(expect, result.toString());
     }
 

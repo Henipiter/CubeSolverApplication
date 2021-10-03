@@ -51,15 +51,14 @@ public class Interpretation4x4Edges {
         return edgeList;
     }
 
-
-
-    public boolean isChosenEdgeIsPaired(int edgeIndex){
-            return Arrays.equals( edgeArrayList.get(edgeIndex).getColor(), edgeArrayList.get(edgeIndex+1).getColor());
+    public boolean isChosenEdgeIsPaired(int edgeIndex) {
+        edgeIndex = edgeIndex / 2 * 2;
+        return Arrays.equals(edgeArrayList.get(edgeIndex).getColor(), edgeArrayList.get(edgeIndex + 1).getColor());
     }
 
-    public boolean isAllEdgesArePaired(){
-        for (int i = 0; i < 24; i+=2) {
-            if(!isChosenEdgeIsPaired(i)){
+    public boolean isAllEdgesArePaired() {
+        for (int i = 0; i < 24; i += 2) {
+            if (!isChosenEdgeIsPaired(i)) {
                 return false;
             }
         }
@@ -81,25 +80,24 @@ public class Interpretation4x4Edges {
                 (colors1[0] == colors2[1] && colors1[1] == colors2[0]);
     }
 
-    public boolean isGivenEdgesHaveTheSameContent(int edge1, int edge2){
+    public boolean isGivenEdgesHaveTheSameContent(int edge1, int edge2) {
         char[] colorsOnEdge1 = edgeArrayList.get(edge1).getColor();
         char[] colorsOnEdge2 = edgeArrayList.get(edge2).getColor();
         return isTheSameContent(colorsOnEdge1, colorsOnEdge2);
     }
 
-    public boolean isGivenEdgeHasItsPairOnGivenEdgePair(int edge, int pairEdge){
-        return isGivenEdgesHaveTheSameContent(edge, pairEdge*2) ||
-                isGivenEdgesHaveTheSameContent(edge, pairEdge*2+1);
+    public boolean isGivenEdgeHasItsPairOnGivenEdgePair(int edge, int pairEdge) {
+        return isGivenEdgesHaveTheSameContent(edge, pairEdge * 2) ||
+                isGivenEdgesHaveTheSameContent(edge, pairEdge * 2 + 1);
     }
 
-    public int getEdgeIndexWithTheSameColorsLikeInGivenEdge(int sourceEdge){
+    public int getEdgeIndexWithTheSameColorsLikeInGivenEdge(int sourceEdge) {
         int[] order = new int[]{6, 2, 3, 4, 11, 0, 1, 10, 9, 8, 5, 7};
         for (int i : order) {
             for (int checkingEdge = 2 * i; checkingEdge <= 2 * i + 1; checkingEdge++) {
-                if( isGivenEdgesHaveTheSameContent(sourceEdge, checkingEdge)){
+                if (isGivenEdgesHaveTheSameContent(sourceEdge, checkingEdge)) {
                     return checkingEdge;
                 }
-
             }
         }
         return 0;

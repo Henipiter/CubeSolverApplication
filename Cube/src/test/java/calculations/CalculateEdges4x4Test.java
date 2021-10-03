@@ -1,7 +1,7 @@
 package calculations;
 
 import DTOs.InspectMove;
-import calculations.CalculateEdges4x4;
+import DTOs.Move;
 import cubes.Cube4x4;
 import interpretations.Interpretation4x4Edges;
 import methods.LBLs.LBL4X4;
@@ -33,7 +33,7 @@ public class CalculateEdges4x4Test {
         String fullScramble = initScramble+" "+scramble;
         cube.makeMovesUsingString(fullScramble);
         interpretation4x4Edges.interpretEdges(cube);
-        ArrayList<InspectMove> alg= calculateEdges4x4.getMovesToPutUnpairedEdgeOn12Index(Integer.parseInt(edgeNum));
+        ArrayList<Move> alg= calculateEdges4x4.getMovesToPutUnpairedEdgeOn12Index(Integer.parseInt(edgeNum));
         cube.makeMoves(alg);
         cube.makeMovesUsingString(initScramble);
         interpretation4x4Edges.interpretEdges(cube);
@@ -51,7 +51,7 @@ public class CalculateEdges4x4Test {
         String fullScramble = initScramble+" "+scramble;
         cube.makeMovesUsingString(fullScramble);
         interpretation4x4Edges.interpretEdges(cube);
-        ArrayList<InspectMove> alg= calculateEdges4x4.getMovesToPutUnpairedEdgeOn14or15Index(Integer.parseInt(edgeNum));
+        ArrayList<Move> alg= calculateEdges4x4.getMovesToPutUnpairedEdgeOn14or15Index(Integer.parseInt(edgeNum));
         cube.makeMoves(alg);
         if(edgeNum.equals("10") || edgeNum.equals("11")){
             cube.makeMovesUsingString("R2");
@@ -72,7 +72,7 @@ public class CalculateEdges4x4Test {
 
         cube.makeMovesUsingString("r u l d");
         LBL4X4 lbl = new LBL4X4(cube);
-        ArrayList<InspectMove> algorithm = lbl.pairAllEdges();
+        ArrayList<Move> algorithm = lbl.pairAllEdges();
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
         System.out.println(algorithm.toString());
 
@@ -84,7 +84,7 @@ public class CalculateEdges4x4Test {
         cube.makeMovesUsingString("r' d R D2 U' B' r' B' D' d");
         cube.makeMovesUsingString("Lw2 U Lw2 y U' Rw U Rw' y U2 Lw' U' Lw x2 Rw U' Rw' y F Rw U2 Rw' y U Rw U Rw' z x U Rw U' Rw' x Rw U Rw' D Lw2 U2 Lw2 x U2 Rw U2 Rw' U' Lw' U' Lw");
         LBL4X4 lbl = new LBL4X4(cube);
-        ArrayList<InspectMove> algorithm = lbl.pairAllEdges();
+        ArrayList<Move> algorithm = lbl.pairAllEdges();
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
         System.out.println(algorithm.toString());
 
@@ -96,7 +96,7 @@ public class CalculateEdges4x4Test {
     void call_pairAllEdge_with_random_scramble1_with_solved_centers(){
         cube.makeMovesUsingString("r u l d");
         LBL4X4 lbl = new LBL4X4(cube);
-        ArrayList<InspectMove> algorithm = lbl.pairAllEdges();
+        ArrayList<Move> algorithm = lbl.pairAllEdges();
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
         System.out.println(algorithm.toString());
     }

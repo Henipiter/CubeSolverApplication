@@ -13,6 +13,4 @@ public class Vertex {
     int[] wall;
     int[] field;
     ArrayList<MoveEnum> algorithm;
-
-
 }

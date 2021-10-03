@@ -1,10 +1,9 @@
 package cubes;
 
-import DTOs.InspectMove;
+import DTOs.Move;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,35 +45,35 @@ public class MakeMovesTest {
 
     @Test
     public void alg_RULD_test(){
-        ArrayList<InspectMove> alg = new ArrayList<>();
-        alg.add(new InspectMove(MoveEnum.R, MoveTypeEnum.SIMPLE));
-        alg.add(new InspectMove(MoveEnum.U, MoveTypeEnum.SIMPLE));
-        alg.add(new InspectMove(MoveEnum.L, MoveTypeEnum.SIMPLE));
-        alg.add(new InspectMove(MoveEnum.D, MoveTypeEnum.SIMPLE));
+        ArrayList<Move> alg = new ArrayList<>();
+        alg.add(new Move(MoveEnum.R, MoveTypeEnum.SIMPLE));
+        alg.add(new Move(MoveEnum.U, MoveTypeEnum.SIMPLE));
+        alg.add(new Move(MoveEnum.L, MoveTypeEnum.SIMPLE));
+        alg.add(new Move(MoveEnum.D, MoveTypeEnum.SIMPLE));
 
         cube.makeMoves(alg);
 
-        cubeExpected.move(new InspectMove(MoveEnum.R, MoveTypeEnum.SIMPLE));
-        cubeExpected.move(new InspectMove(MoveEnum.U, MoveTypeEnum.SIMPLE));
-        cubeExpected.move(new InspectMove(MoveEnum.L, MoveTypeEnum.SIMPLE));
-        cubeExpected.move(new InspectMove(MoveEnum.D, MoveTypeEnum.SIMPLE));
+        cubeExpected.move(new Move(MoveEnum.R, MoveTypeEnum.SIMPLE));
+        cubeExpected.move(new Move(MoveEnum.U, MoveTypeEnum.SIMPLE));
+        cubeExpected.move(new Move(MoveEnum.L, MoveTypeEnum.SIMPLE));
+        cubeExpected.move(new Move(MoveEnum.D, MoveTypeEnum.SIMPLE));
 
         Assert.assertArrayEquals(cube.getCube(), cubeExpected.getCube());
     }
 
     @Test
     public void alg_RprimUdoubleLD_test(){
-        ArrayList<InspectMove> alg = new ArrayList<>();
-        alg.add(new InspectMove(MoveEnum.R, MoveTypeEnum.PRIM));
-        alg.add(new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE));
-        alg.add(new InspectMove(MoveEnum.L, MoveTypeEnum.SIMPLE));
-        alg.add(new InspectMove(MoveEnum.D, MoveTypeEnum.SIMPLE));
+        ArrayList<Move> alg = new ArrayList<>();
+        alg.add(new Move(MoveEnum.R, MoveTypeEnum.PRIM));
+        alg.add(new Move(MoveEnum.U, MoveTypeEnum.DOUBLE));
+        alg.add(new Move(MoveEnum.L, MoveTypeEnum.SIMPLE));
+        alg.add(new Move(MoveEnum.D, MoveTypeEnum.SIMPLE));
         cube.makeMoves(alg);
 
-        cubeExpected.move(new InspectMove(MoveEnum.R, MoveTypeEnum.PRIM));
-        cubeExpected.move(new InspectMove(MoveEnum.U, MoveTypeEnum.DOUBLE));
-        cubeExpected.move(new InspectMove(MoveEnum.L, MoveTypeEnum.SIMPLE));
-        cubeExpected.move(new InspectMove(MoveEnum.D, MoveTypeEnum.SIMPLE));
+        cubeExpected.move(new Move(MoveEnum.R, MoveTypeEnum.PRIM));
+        cubeExpected.move(new Move(MoveEnum.U, MoveTypeEnum.DOUBLE));
+        cubeExpected.move(new Move(MoveEnum.L, MoveTypeEnum.SIMPLE));
+        cubeExpected.move(new Move(MoveEnum.D, MoveTypeEnum.SIMPLE));
 
         Assert.assertArrayEquals(cube.getCube(), cubeExpected.getCube());
     }

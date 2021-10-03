@@ -1,10 +1,8 @@
 package interpretations;
 
-import DTOs.*;
+import DTOs.Center;
 import cubes.Cube;
-import cubes.Cube1x1;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 
@@ -40,16 +38,15 @@ public class Interpretation4x4Centers {
         }
     }
 
-    public char getColorOfOppositeSide(int side){
+    public char getColorOfOppositeSide(int side) {
         char sideColor = getColorOfCenter(side);
         return Interpretation.getColorOfOppositeSide(sideColor);
     }
 
-    public char getColorOfCenter(int side){
-        if(isWholeCenterInOneColor(side)){
+    public char getColorOfCenter(int side) {
+        if (isWholeCenterInOneColor(side)) {
             return centerArrayList.get(side).getColor()[0];
         }
-        //TODO exception
         return '-';
     }
 
@@ -71,8 +68,7 @@ public class Interpretation4x4Centers {
         int max = 0;
         int whichSide = 0;
         int countField;
-        for(int wall : sides){
-       // for (int wall = 0; wall < 6; wall++) {
+        for (int wall : sides) {
             countField = countFieldWithGivenColor(wall, color);
             if (countField > max) {
                 whichSide = wall;
@@ -80,7 +76,6 @@ public class Interpretation4x4Centers {
             }
         }
         return whichSide;
-
     }
 
     public int inWhichSideIsGivenColorFieldsExceptUpperSide(char color) {
@@ -94,8 +89,8 @@ public class Interpretation4x4Centers {
         return 0;
     }
 
-    public char getMostCompleteCenterColor(){
-        int firstSide = inWhichSideIsTheGreatestAmountOfCentersWithSameColor(new int[]{0,1,2,3,4,5});
+    public char getMostCompleteCenterColor() {
+        int firstSide = inWhichSideIsTheGreatestAmountOfCentersWithSameColor(new int[]{0, 1, 2, 3, 4, 5});
         return whichColorIsMostCommonInGivenSide(firstSide);
     }
 
@@ -219,9 +214,9 @@ public class Interpretation4x4Centers {
 
     public boolean isStripesAreNotInOneLine(int sideSource, int sideDestination, int color) {
         int[][] pairs = new int[][]{{0, 3}, {1, 2}};
-        for (int i =0;i<2;i++){
+        for (int i = 0; i < 2; i++) {
             int[] pair = pairs[i];
-            int[] secondPair = pairs[(i+1)%2];
+            int[] secondPair = pairs[(i + 1) % 2];
             if (centerArrayList.get(sideSource).getColor()[pair[0]] == centerArrayList.get(sideSource).getColor()[pair[1]]
                     && centerArrayList.get(sideSource).getColor()[pair[0]] == color
                     && centerArrayList.get(sideDestination).getColor()[secondPair[0]] != color
@@ -245,16 +240,7 @@ public class Interpretation4x4Centers {
         return centerArrayList.get(side).getColor()[field] == color;
     }
 
-    public void printAlgorithm(ArrayList<InspectMove> alg) {
-        for (InspectMove i : alg) {
-            if (i.getMoveEnum() != MoveEnum.BLANK)
-                System.out.print(i + " ");
-        }
-        System.out.println(" ");
-    }
-
     public ArrayList<Center> getCenterArrayList() {
         return centerArrayList;
     }
-
 }

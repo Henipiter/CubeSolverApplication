@@ -26,7 +26,6 @@ public class Interpretation3x3Edges {
         centerArray = Interpretation.getCenterArray(cube);
     }
 
-
     public int[] getOrderSolvingCrossEdges(char color) {
         int[] order = new int[4];
         int[] sides = new int[]{2, 4, 3, 5};
@@ -146,7 +145,6 @@ public class Interpretation3x3Edges {
                 return 9;
             case 5:
                 return 11;
-
         }
         return -1;
     }
@@ -185,7 +183,6 @@ public class Interpretation3x3Edges {
         }
         return -1;
     }
-
 
     public boolean isSecondLayerComplete() {
         return getIncorrectEdgeInSecondLayer() == -1;
@@ -334,7 +331,7 @@ public class Interpretation3x3Edges {
 
         for (int i = 3; i >= 0; i--) {
             if (centerArray[i + 2] != edgeArrayList.get(i + 8).getColor()[1] &&
-                    centerArray[(i + 1) % 4 + 2] == edgeArrayList.get((i + 1) %4 +8).getColor()[1]
+                    centerArray[(i + 1) % 4 + 2] == edgeArrayList.get((i + 1) % 4 + 8).getColor()[1]
             ) {
                 return i + 8;
             }
@@ -377,11 +374,10 @@ public class Interpretation3x3Edges {
     }
 
     public boolean isEdgeAboveRightCenters(int edgeIndex, Edge edge) {
-
         return edge.getColor()[1] == centerArray[2 + edgeIndex];
     }
 
-    public int getNumOfCrossEdges(){
+    public int getNumOfCrossEdges() {
         int counter = 0;
         for (int i = 0; i < 4; i++) {
             if (edgeArrayList.get(i).getColor()[0] == centerArray[0]) {
@@ -422,13 +418,4 @@ public class Interpretation3x3Edges {
     public boolean isUpperCrossIsCorrect() {
         return getNumOfCorrectEdgesInUpperCross() == 4;
     }
-
-//    public boolean isAllEdgesAreSolved(){
-//        int[] indexes = new int[]{1,3,4,6};
-//        for (int i = 0; i < 6; i++) {
-//
-//        }
-//    }
-
-
 }

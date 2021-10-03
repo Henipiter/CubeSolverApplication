@@ -2,11 +2,10 @@ package interpretations;
 
 import DTOs.Edge;
 import cubes.Cube4x4;
-
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.Assert;
 
 import java.util.ArrayList;
 

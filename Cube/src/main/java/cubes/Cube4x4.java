@@ -1,57 +1,54 @@
 package cubes;
 
-import DTOs.InspectMove;
+import DTOs.Move;
 import DTOs.MoveTypeEnum;
-import static DTOs.MoveTypeEnum.*;
-import static DTOs.MoveEnum.*;
-import static java.util.Arrays.deepEquals;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class Cube4x4 extends Cube{
+import static DTOs.MoveTypeEnum.PRIM;
+import static DTOs.MoveTypeEnum.SIMPLE;
+import static java.util.Arrays.deepEquals;
+
+public class Cube4x4 extends Cube {
 
     char[][] cube = new char[6][16];
-    char[] center = new char[]{ 'w','y','o','r','g','b' };
+    char[] center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     private Logger logger = Logger.getLogger("Cube4x4");
 
-    public void printLog(String msg){
-        logger.info(msg);
-    }
-
-    public Cube4x4(){
+    public Cube4x4() {
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 16; j++)
                 cube[i][j] = center[i];
     }
 
-    public Cube4x4(char[][] cube){
+    public Cube4x4(char[][] cube) {
         this.cube = cube;
     }
 
-    private void rotateSide(boolean clockwise, int side){
-        if(clockwise){
-            /* vertexes */
-            changeFourFields(cube, side, new int[]{0,12,15,3});
-            /* edges */
-            changeFourFields(cube, side, new int[]{1,8,14,7});
-            changeFourFields(cube, side, new int[]{2,4,13,11});
-            /* centers */
-            changeFourFields(cube, side, new int[]{5,9,10,6});
-        }
-        else{
-            /* vertexes */
-            changeFourFields(cube, side, new int[]{0,3,15,12});
-            /* edges */
-            changeFourFields(cube, side, new int[]{1,7,14,8});
-            changeFourFields(cube, side, new int[]{2,11,13,4});
-            /* centers */
-            changeFourFields(cube, side, new int[]{5,6,10,9});
+    private void rotateSide(boolean clockwise, int side) {
+        if (clockwise) {
+            changeFourFields(cube, side, new int[]{0, 12, 15, 3});
+            changeFourFields(cube, side, new int[]{1, 8, 14, 7});
+            changeFourFields(cube, side, new int[]{2, 4, 13, 11});
+            changeFourFields(cube, side, new int[]{5, 9, 10, 6});
+        } else {
+            changeFourFields(cube, side, new int[]{0, 3, 15, 12});
+            changeFourFields(cube, side, new int[]{1, 7, 14, 8});
+            changeFourFields(cube, side, new int[]{2, 11, 13, 4});
+            changeFourFields(cube, side, new int[]{5, 6, 10, 9});
         }
     }
 
-    private void moveElementary(int[] sideOrder, int[][] field){
-        char[] buffer =new char[4];
+    public void rotateCenter(int[] order) {
+        char buffer;
+        buffer = center[order[0]];
+        for (int i = 0; i < 3; i++)
+            center[order[i]] = center[order[i + 1]];
+        center[order[3]] = buffer;
+    }
+
+    private void moveElementary(int[] sideOrder, int[][] field) {
+        char[] buffer = new char[4];
         for (int i = 0; i < 4; i++)
             buffer[i] = cube[sideOrder[0]][field[1][i]];
         for (int i = 0; i < 4; i++)
@@ -64,467 +61,495 @@ public class Cube4x4 extends Cube{
             cube[sideOrder[3]][field[0][3 - i]] = buffer[i];
     }
 
-    private void moveR(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()) {
+    private void moveR(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                rotateSide(true,3);
-                moveElementary( new int[]{4,0,5,1},new int[][]{{3,7,11,15},{3,7,11,15}});
+                rotateSide(true, 3);
+                moveElementary(new int[]{4, 0, 5, 1}, new int[][]{{3, 7, 11, 15}, {3, 7, 11, 15}});
                 break;
             case DOUBLE:
-                moveR(new InspectMove(R, SIMPLE));
-                moveR(new InspectMove(R, SIMPLE));
+                moveR(SIMPLE);
+                moveR(SIMPLE);
                 break;
             case SIMPLE:
                 rotateSide(false, 3);
-                moveElementary(new int[]{ 0,4,1,5 }, new int[][]{ {3,7,11,15}, {3,7,11,15} });
+                moveElementary(new int[]{0, 4, 1, 5}, new int[][]{{3, 7, 11, 15}, {3, 7, 11, 15}});
                 break;
         }
     }
 
-    private void moveRIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()) {
+    private void moveRIn(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveElementary( new int[]{4,0,5,1},new int[][]{{2,6,10,14},{2,6,10,14}});
+                moveElementary(new int[]{4, 0, 5, 1}, new int[][]{{2, 6, 10, 14}, {2, 6, 10, 14}});
                 break;
             case DOUBLE:
-                moveRIn(new InspectMove(r, SIMPLE));
-                moveRIn(new InspectMove(r, SIMPLE));
+                moveRIn(SIMPLE);
+                moveRIn(SIMPLE);
                 break;
             case SIMPLE:
-                moveElementary(new int[]{ 0,4,1,5 }, new int[][]{ {2,6,10,14}, {2,6,10,14} });
+                moveElementary(new int[]{0, 4, 1, 5}, new int[][]{{2, 6, 10, 14}, {2, 6, 10, 14}});
                 break;
         }
     }
 
-    private void moveL(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveL(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                rotateSide(false,2);
-                moveElementary( new int[]{0,4,1,5},new int[][]{{0,4,8,12},{0,4,8,12}});
+                rotateSide(false, 2);
+                moveElementary(new int[]{0, 4, 1, 5}, new int[][]{{0, 4, 8, 12}, {0, 4, 8, 12}});
                 break;
             case DOUBLE:
-                moveL(new InspectMove(L, SIMPLE));
-                moveL(new InspectMove(L, SIMPLE));
+                moveL(SIMPLE);
+                moveL(SIMPLE);
                 break;
             case SIMPLE:
                 rotateSide(true, 2);
-                moveElementary(new int[]{ 4,0,5,1}, new int[][]{ {0,4,8,12}, {0,4,8,12} });
+                moveElementary(new int[]{4, 0, 5, 1}, new int[][]{{0, 4, 8, 12}, {0, 4, 8, 12}});
                 break;
         }
     }
 
-    private void moveLIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveLIn(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveElementary( new int[]{0,4,1,5},new int[][]{{1,5,9,13},{1,5,9,13}});
+                moveElementary(new int[]{0, 4, 1, 5}, new int[][]{{1, 5, 9, 13}, {1, 5, 9, 13}});
                 break;
             case DOUBLE:
-                moveLIn(new InspectMove(l, SIMPLE));
-                moveLIn(new InspectMove(l, SIMPLE));
+                moveLIn(SIMPLE);
+                moveLIn(SIMPLE);
                 break;
             case SIMPLE:
-                moveElementary(new int[]{ 4,0,5,1}, new int[][]{ {1,5,9,13}, {1,5,9,13} });
+                moveElementary(new int[]{4, 0, 5, 1}, new int[][]{{1, 5, 9, 13}, {1, 5, 9, 13}});
                 break;
         }
     }
 
-    private void moveU(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveU(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                rotateSide(false,0);
-                moveElementary( new int[]{4,2,5,3},new int[][]{{0,1,2,3},{0,1,2,3}});
+                rotateSide(false, 0);
+                moveElementary(new int[]{4, 2, 5, 3}, new int[][]{{0, 1, 2, 3}, {0, 1, 2, 3}});
                 break;
             case DOUBLE:
-                moveU(new InspectMove(U, SIMPLE));
-                moveU(new InspectMove(U, SIMPLE));
+                moveU(SIMPLE);
+                moveU(SIMPLE);
                 break;
             case SIMPLE:
                 rotateSide(true, 0);
-                moveElementary(new int[]{ 2,4,3,5}, new int[][]{ {0,1,2,3}, {0,1,2,3} });
+                moveElementary(new int[]{2, 4, 3, 5}, new int[][]{{0, 1, 2, 3}, {0, 1, 2, 3}});
                 break;
         }
     }
 
-    private void moveUIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveUIn(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveElementary( new int[]{4,2,5,3},new int[][]{{4,5,6,7},{4,5,6,7}});
+                moveElementary(new int[]{4, 2, 5, 3}, new int[][]{{4, 5, 6, 7}, {4, 5, 6, 7}});
                 break;
             case DOUBLE:
-                moveUIn(new InspectMove(u, SIMPLE));
-                moveUIn(new InspectMove(u, SIMPLE));
+                moveUIn(SIMPLE);
+                moveUIn(SIMPLE);
                 break;
             case SIMPLE:
-                moveElementary(new int[]{ 2,4,3,5}, new int[][]{ {4,5,6,7}, {4,5,6,7} });
+                moveElementary(new int[]{2, 4, 3, 5}, new int[][]{{4, 5, 6, 7}, {4, 5, 6, 7}});
                 break;
         }
     }
 
-    private void moveD(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveD(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                rotateSide(true,1);
-                moveElementary( new int[]{2,4,3,5},new int[][]{{12,13,14,15},{12,13,14,15}});
+                rotateSide(true, 1);
+                moveElementary(new int[]{2, 4, 3, 5}, new int[][]{{12, 13, 14, 15}, {12, 13, 14, 15}});
                 break;
             case DOUBLE:
-                moveD(new InspectMove(D, SIMPLE));
-                moveD(new InspectMove(D, SIMPLE));
+                moveD(SIMPLE);
+                moveD(SIMPLE);
                 break;
             case SIMPLE:
                 rotateSide(false, 1);
-                moveElementary(new int[]{ 4,2,5,3}, new int[][]{ {12,13,14,15}, {12,13,14,15} });
+                moveElementary(new int[]{4, 2, 5, 3}, new int[][]{{12, 13, 14, 15}, {12, 13, 14, 15}});
                 break;
         }
     }
 
-    private void moveDIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveDIn(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveElementary( new int[]{2,4,3,5},new int[][]{{8,9,10,11},{8,9,10,11}});
+                moveElementary(new int[]{2, 4, 3, 5}, new int[][]{{8, 9, 10, 11}, {8, 9, 10, 11}});
                 break;
             case DOUBLE:
-                moveDIn(new InspectMove(d, SIMPLE));
-                moveDIn(new InspectMove(d, SIMPLE));
+                moveDIn(SIMPLE);
+                moveDIn(SIMPLE);
                 break;
             case SIMPLE:
-                moveElementary(new int[]{ 4,2,5,3}, new int[][]{ {8,9,10,11}, {8,9,10,11} });
+                moveElementary(new int[]{4, 2, 5, 3}, new int[][]{{8, 9, 10, 11}, {8, 9, 10, 11}});
                 break;
         }
     }
 
-    private void moveF(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveF(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                rotateSide(false,4);
-                moveElementary( new int[]{2,0,3,1},new int[][]{{15,14,13,12},{3,7,11,15}});
+                rotateSide(false, 4);
+                moveElementary(new int[]{2, 0, 3, 1}, new int[][]{{15, 14, 13, 12}, {3, 7, 11, 15}});
                 break;
             case DOUBLE:
-                moveF(new InspectMove(F, SIMPLE));
-                moveF(new InspectMove(F, SIMPLE));
+                moveF(SIMPLE);
+                moveF(SIMPLE);
                 break;
             case SIMPLE:
                 rotateSide(true, 4);
-                moveElementary(new int[]{ 0,2,1,3 }, new int[][]{ {3,7,11,15}, {15,14,13,12} });
+                moveElementary(new int[]{0, 2, 1, 3}, new int[][]{{3, 7, 11, 15}, {15, 14, 13, 12}});
                 break;
         }
     }
 
-    private void moveFIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveFIn(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveElementary( new int[]{2,0,3,1},new int[][]{{11,10,9,8},{2,6,10,14}});
+                moveElementary(new int[]{2, 0, 3, 1}, new int[][]{{11, 10, 9, 8}, {2, 6, 10, 14}});
                 break;
             case DOUBLE:
-                moveFIn(new InspectMove(f, SIMPLE));
-                moveFIn(new InspectMove(f, SIMPLE));
+                moveFIn(SIMPLE);
+                moveFIn(SIMPLE);
                 break;
             case SIMPLE:
-                moveElementary(new int[]{ 0,2,1,3 }, new int[][]{ {2,6,10,14}, {11,10,9,8} });
+                moveElementary(new int[]{0, 2, 1, 3}, new int[][]{{2, 6, 10, 14}, {11, 10, 9, 8}});
                 break;
         }
     }
-    private void moveB(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+
+    private void moveB(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                rotateSide(true,5);
-                moveElementary( new int[]{0,2,1,3},new int[][]{{12,8,4,0},{0,1,2,3}});
+                rotateSide(true, 5);
+                moveElementary(new int[]{0, 2, 1, 3}, new int[][]{{12, 8, 4, 0}, {0, 1, 2, 3}});
                 break;
             case DOUBLE:
-                moveB(new InspectMove(B, SIMPLE));
-                moveB(new InspectMove(B, SIMPLE));
+                moveB(SIMPLE);
+                moveB(SIMPLE);
                 break;
             case SIMPLE:
                 rotateSide(false, 5);
-                moveElementary(new int[]{ 2,0,3,1 }, new int[][]{ {0,1,2,3}, {12,8,4,0} });
+                moveElementary(new int[]{2, 0, 3, 1}, new int[][]{{0, 1, 2, 3}, {12, 8, 4, 0}});
                 break;
         }
     }
 
-    private void moveBIn(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveBIn(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveElementary( new int[]{0,2,1,3},new int[][]{{13,9,5,1},{4,5,6,7}});
+                moveElementary(new int[]{0, 2, 1, 3}, new int[][]{{13, 9, 5, 1}, {4, 5, 6, 7}});
                 break;
             case DOUBLE:
-                moveBIn(new InspectMove(b, SIMPLE));
-                moveBIn(new InspectMove(b, SIMPLE));
+                moveBIn(SIMPLE);
+                moveBIn(SIMPLE);
                 break;
             case SIMPLE:
-                moveElementary(new int[]{ 2,0,3,1 }, new int[][]{ {4,5,6,7}, {13,9,5,1} });
-                break;
-        }
-    }
-    private void moveX(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
-            case PRIM:
-                moveR(new InspectMove(R,PRIM));
-                moveRIn(new InspectMove(r, PRIM));
-                moveLIn(new InspectMove(l,SIMPLE));
-                moveL(new InspectMove(L,SIMPLE));
-                break;
-            case DOUBLE:
-                moveX(new InspectMove(x, SIMPLE));
-                moveX(new InspectMove(x, SIMPLE));
-                break;
-            case SIMPLE:
-                moveR(new InspectMove(R,SIMPLE));
-                moveRIn(new InspectMove(r, SIMPLE));
-                moveLIn(new InspectMove(l, PRIM));
-                moveL(new InspectMove(L, PRIM));
+                moveElementary(new int[]{2, 0, 3, 1}, new int[][]{{4, 5, 6, 7}, {13, 9, 5, 1}});
                 break;
         }
     }
 
-    private void moveY(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveX(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveU(new InspectMove(U, PRIM));
-                moveUIn(new InspectMove(u, PRIM));
-                moveDIn(new InspectMove(d, SIMPLE));
-                moveD(new InspectMove(D,SIMPLE));
+                moveR(PRIM);
+                moveM(SIMPLE);
+                moveL(SIMPLE);
                 break;
             case DOUBLE:
-                moveY(new InspectMove(y, SIMPLE));
-                moveY(new InspectMove(y, SIMPLE));
+                moveX(SIMPLE);
+                moveX(SIMPLE);
                 break;
             case SIMPLE:
-                moveU(new InspectMove(U, SIMPLE));
-                moveUIn(new InspectMove(u, SIMPLE));
-                moveDIn(new InspectMove(d, PRIM));
-                moveD(new InspectMove(D, PRIM));
+                moveR(SIMPLE);
+                moveM(PRIM);
+                moveL(PRIM);
                 break;
         }
     }
 
-    private void moveZ(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveY(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveF(new InspectMove(U, PRIM));
-                moveFIn(new InspectMove(u, PRIM));
-                moveBIn(new InspectMove(d, SIMPLE));
-                moveB(new InspectMove(D,SIMPLE));
+                moveU(PRIM);
+                moveE(SIMPLE);
+                moveD(SIMPLE);
                 break;
             case DOUBLE:
-                moveZ(new InspectMove(z, SIMPLE));
-                moveZ(new InspectMove(z, SIMPLE));
+                moveY(SIMPLE);
+                moveY(SIMPLE);
                 break;
             case SIMPLE:
-                moveF(new InspectMove(U, SIMPLE));
-                moveFIn(new InspectMove(u, SIMPLE));
-                moveBIn(new InspectMove(d, PRIM));
-                moveB(new InspectMove(D,PRIM));
+                moveU(SIMPLE);
+                moveE(PRIM);
+                moveD(PRIM);
                 break;
         }
     }
 
-    private void moveRTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveZ(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveR(new InspectMove(R, PRIM));
-                moveRIn(new InspectMove(r, PRIM));
+                moveF(PRIM);
+                moveS(PRIM);
+                moveB(SIMPLE);
                 break;
             case DOUBLE:
-                moveRTwin(new InspectMove(Rw, SIMPLE));
-                moveRTwin(new InspectMove(Rw, SIMPLE));
+                moveZ(SIMPLE);
+                moveZ(SIMPLE);
                 break;
             case SIMPLE:
-                moveR(new InspectMove(R, SIMPLE));
-                moveRIn(new InspectMove(r, SIMPLE));
+                moveF(SIMPLE);
+                moveS(SIMPLE);
+                moveB(PRIM);
                 break;
         }
     }
 
-    private void moveLTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveRTwin(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveL(new InspectMove(L, PRIM));
-                moveLIn(new InspectMove(l, PRIM));
+                moveR(PRIM);
+                moveRIn(PRIM);
                 break;
             case DOUBLE:
-                moveLTwin(new InspectMove(Lw, SIMPLE));
-                moveLTwin(new InspectMove(Lw, SIMPLE));
+                moveRTwin(SIMPLE);
+                moveRTwin(SIMPLE);
                 break;
             case SIMPLE:
-                moveL(new InspectMove(L, SIMPLE));
-                moveLIn(new InspectMove(l, SIMPLE));
+                moveR(SIMPLE);
+                moveRIn(SIMPLE);
                 break;
         }
     }
 
-    private void moveUTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveLTwin(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveU(new InspectMove(U, PRIM));
-                moveUIn(new InspectMove(u, PRIM));
+                moveL(PRIM);
+                moveLIn(PRIM);
                 break;
             case DOUBLE:
-                moveUTwin(new InspectMove(Uw, SIMPLE));
-                moveUTwin(new InspectMove(Uw, SIMPLE));
+                moveLTwin(SIMPLE);
+                moveLTwin(SIMPLE);
                 break;
             case SIMPLE:
-                moveU(new InspectMove(U, SIMPLE));
-                moveUIn(new InspectMove(u, SIMPLE));
+                moveL(SIMPLE);
+                moveLIn(SIMPLE);
                 break;
         }
     }
 
-    private void moveDTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveUTwin(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveD(new InspectMove(D,PRIM));
-                moveDIn(new InspectMove(d, PRIM));
+                moveU(PRIM);
+                moveUIn(PRIM);
                 break;
             case DOUBLE:
-                moveDTwin(new InspectMove(Dw, SIMPLE));
-                moveDTwin(new InspectMove(Dw, SIMPLE));
+                moveUTwin(SIMPLE);
+                moveUTwin(SIMPLE);
                 break;
             case SIMPLE:
-                moveD(new InspectMove(D, SIMPLE));
-                moveDIn(new InspectMove(d, SIMPLE));
+                moveU(SIMPLE);
+                moveUIn(SIMPLE);
                 break;
         }
     }
 
-    private void moveFTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveDTwin(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveF(new InspectMove(F, PRIM));
-                moveFIn(new InspectMove(f, PRIM));
+                moveD(PRIM);
+                moveDIn(PRIM);
                 break;
             case DOUBLE:
-                moveFTwin(new InspectMove(Fw, SIMPLE));
-                moveFTwin(new InspectMove(Fw, SIMPLE));
+                moveDTwin(SIMPLE);
+                moveDTwin(SIMPLE);
                 break;
             case SIMPLE:
-                moveF(new InspectMove(F, SIMPLE));
-                moveFIn(new InspectMove(f, SIMPLE));
+                moveD(SIMPLE);
+                moveDIn(SIMPLE);
                 break;
         }
     }
 
-    private void moveBTwin(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveFTwin(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveB(new InspectMove(B, PRIM));
-                moveBIn(new InspectMove(b, PRIM));
+                moveF(PRIM);
+                moveFIn(PRIM);
                 break;
             case DOUBLE:
-                moveBTwin(new InspectMove(Bw, SIMPLE));
-                moveBTwin(new InspectMove(Bw, SIMPLE));
+                moveFTwin(SIMPLE);
+                moveFTwin(SIMPLE);
                 break;
             case SIMPLE:
-                moveB(new InspectMove(B, SIMPLE));
-                moveBIn(new InspectMove(b, SIMPLE));
+                moveF(SIMPLE);
+                moveFIn(SIMPLE);
                 break;
         }
     }
 
-    private void moveM(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveBTwin(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveRIn(new InspectMove(r, SIMPLE));
-                moveLIn(new InspectMove(l, PRIM));
+                moveB(PRIM);
+                moveBIn(PRIM);
                 break;
             case DOUBLE:
-                moveM(new InspectMove(M, SIMPLE));
-                moveM(new InspectMove(M, SIMPLE));
+                moveBTwin(SIMPLE);
+                moveBTwin(SIMPLE);
                 break;
             case SIMPLE:
-                moveRIn(new InspectMove(r, PRIM));
-                moveLIn(new InspectMove(l, SIMPLE));
+                moveB(SIMPLE);
+                moveBIn(SIMPLE);
                 break;
         }
     }
 
-    private void moveS(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveM(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveFIn(new InspectMove(f, PRIM));
-                moveBIn(new InspectMove(b, SIMPLE));
+                rotateCenter(new int[]{0, 4, 1, 5});
+                moveRIn(SIMPLE);
+                moveLIn(PRIM);
                 break;
             case DOUBLE:
-                moveS(new InspectMove(S, SIMPLE));
-                moveS(new InspectMove(S, SIMPLE));
+                moveM(SIMPLE);
+                moveM(SIMPLE);
                 break;
             case SIMPLE:
-                moveFIn(new InspectMove(f, SIMPLE));
-                moveBIn(new InspectMove(b, PRIM));
+                rotateCenter(new int[]{0, 5, 1, 4});
+                moveRIn(PRIM);
+                moveLIn(SIMPLE);
                 break;
         }
     }
 
-    private void moveE(InspectMove inspectMove){
-        switch (inspectMove.getMoveTypeEnum()){
+    private void moveS(MoveTypeEnum moveType) {
+        switch (moveType) {
             case PRIM:
-                moveUIn(new InspectMove(u, SIMPLE));
-                moveDIn(new InspectMove(d, PRIM));
+                rotateCenter(new int[]{0, 3, 1, 2});
+                moveFIn(PRIM);
+                moveBIn(SIMPLE);
                 break;
             case DOUBLE:
-                moveE(new InspectMove(E, SIMPLE));
-                moveE(new InspectMove(E, SIMPLE));
+                moveS(SIMPLE);
+                moveS(SIMPLE);
                 break;
             case SIMPLE:
-                moveUIn(new InspectMove(u, PRIM));
-                moveDIn(new InspectMove(d, SIMPLE));
+                rotateCenter(new int[]{3, 0, 2, 1});
+                moveFIn(SIMPLE);
+                moveBIn(PRIM);
+                break;
+        }
+    }
+
+    private void moveE(MoveTypeEnum moveType) {
+        switch (moveType) {
+            case PRIM:
+                rotateCenter(new int[]{2, 4, 3, 5});
+                moveUIn(SIMPLE);
+                moveDIn(PRIM);
+                break;
+            case DOUBLE:
+                moveE(SIMPLE);
+                moveE(SIMPLE);
+                break;
+            case SIMPLE:
+                rotateCenter(new int[]{4, 2, 5, 3});
+                moveUIn(PRIM);
+                moveDIn(SIMPLE);
                 break;
         }
     }
 
     @Override
-    public void moveUsingString(String direction){
-        InspectMove inspectMove = new InspectMove(direction);
-        if(inspectMove.getMoveTypeEnum()== MoveTypeEnum.INVALID)
-            logger.info("Cannot do \""+direction+"\" move");
-        else {
-            move(inspectMove);
-        }
-    }
-
-    @Override
-    public void move(InspectMove inspectMove){
-       // logger.info("Do " + inspectMove.getMove().toString() + inspectMove.getMoveType().toString() + " move");
-        switch (inspectMove.getMoveEnum()) {
-            case R: moveR(inspectMove); break;
-            case L: moveL(inspectMove); break;
-            case U: moveU(inspectMove); break;
-            case D: moveD(inspectMove); break;
-            case F: moveF(inspectMove); break;
-            case B: moveB(inspectMove); break;
-            case r: moveRIn(inspectMove); break;
-            case l: moveLIn(inspectMove); break;
-            case u: moveUIn(inspectMove); break;
-            case d: moveDIn(inspectMove); break;
-            case f: moveFIn(inspectMove); break;
-            case b: moveBIn(inspectMove); break;
-            case Rw: moveRTwin(inspectMove); break;
-            case Lw: moveLTwin(inspectMove); break;
-            case Uw: moveUTwin(inspectMove); break;
-            case Dw: moveDTwin(inspectMove); break;
-            case Fw: moveFTwin(inspectMove); break;
-            case Bw: moveBTwin(inspectMove); break;
-            case x: moveX(inspectMove); break;
-            case y: moveY(inspectMove); break;
-            case z: moveZ(inspectMove); break;
-            case M: moveM(inspectMove); break;
-            case S: moveS(inspectMove); break;
-            case E: moveE(inspectMove); break;
-            case BLANK: /*nothing to do*/ break;
+    public void move(Move move) {
+        MoveTypeEnum moveType = move.getMoveTypeEnum();
+        switch (move.getMoveEnum()) {
+            case R:
+                moveR(moveType);
+                break;
+            case L:
+                moveL(moveType);
+                break;
+            case U:
+                moveU(moveType);
+                break;
+            case D:
+                moveD(moveType);
+                break;
+            case F:
+                moveF(moveType);
+                break;
+            case B:
+                moveB(moveType);
+                break;
+            case r:
+                moveRIn(moveType);
+                break;
+            case l:
+                moveLIn(moveType);
+                break;
+            case u:
+                moveUIn(moveType);
+                break;
+            case d:
+                moveDIn(moveType);
+                break;
+            case f:
+                moveFIn(moveType);
+                break;
+            case b:
+                moveBIn(moveType);
+                break;
+            case Rw:
+                moveRTwin(moveType);
+                break;
+            case Lw:
+                moveLTwin(moveType);
+                break;
+            case Uw:
+                moveUTwin(moveType);
+                break;
+            case Dw:
+                moveDTwin(moveType);
+                break;
+            case Fw:
+                moveFTwin(moveType);
+                break;
+            case Bw:
+                moveBTwin(moveType);
+                break;
+            case x:
+                moveX(moveType);
+                break;
+            case y:
+                moveY(moveType);
+                break;
+            case z:
+                moveZ(moveType);
+                break;
+            case M:
+                moveM(moveType);
+                break;
+            case S:
+                moveS(moveType);
+                break;
+            case E:
+                moveE(moveType);
+                break;
+            case BLANK:
+                break;
             default:
-                logger.info("Cannot do \"" + inspectMove.getMoveEnum().toString() + "\" move");
+                logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");
                 break;
-        }
-
-    }
-    public void makeMoves(ArrayList<InspectMove> algorithm){
-        for( InspectMove move : algorithm ){
-            move(move);
-        }
-    }
-
-    public void makeMovesUsingString(String algorithm){
-        String[] splitAlg = algorithm.split(" ");
-        for( String move : splitAlg){
-            moveUsingString(move);
         }
     }
 
@@ -541,11 +566,10 @@ public class Cube4x4 extends Cube{
         if (o == this) {
             return true;
         }
-
         if (!(o instanceof Cube4x4)) {
             return false;
         }
         Cube4x4 c = (Cube4x4) o;
-        return deepEquals(c.cube,this.cube);
+        return deepEquals(c.cube, this.cube);
     }
 }

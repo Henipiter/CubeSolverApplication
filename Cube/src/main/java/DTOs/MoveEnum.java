@@ -11,7 +11,4 @@ public enum MoveEnum {
     x, y, z,
     INVALID,
     BLANK
-
-
-
 }

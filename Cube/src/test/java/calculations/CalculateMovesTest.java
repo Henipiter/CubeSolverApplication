@@ -1,6 +1,7 @@
 package calculations;
 
 import DTOs.InspectMove;
+import DTOs.Move;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +12,10 @@ public class CalculateMovesTest {
     @Test
     void reduceRepeatingMoves(){
         //given
-        ArrayList<InspectMove> input = InspectMove.createAndReturnArrayListFromString("F F2 R R2 R'");
+        ArrayList<Move> input = InspectMove.createAndReturnArrayListFromString("F F2 R R2 R'");
         String expected = "F' R2";
         //when
-        ArrayList<InspectMove> result = CalculateMoves.reduceRepeatingMoves(input);
+        ArrayList<Move> result = CalculateMoves.reduceRepeatingMoves(input);
         //then
         Assertions.assertEquals(expected, InspectMove.algorithmToString(result));
     }

@@ -1,13 +1,13 @@
 package calculations;
 
 import DTOs.InspectMove;
+import DTOs.Move;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
 import cubes.Cube3x3;
 import interpretations.Interpretation3x3Edges;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -37,9 +37,9 @@ public class CalculateEdges3x3Test {
         cube.makeMovesUsingString(alg);
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
-        InspectMove expected = new InspectMove(moveEnum, moveTypeEnum);
+        Move expected = new Move(moveEnum, moveTypeEnum);
         //when
-        InspectMove result = calculateEdges3x3.getMoveToGetFreeSlotOnGivenSide(side,'y');
+        Move result = calculateEdges3x3.getMoveToGetFreeSlotOnGivenSide(side,'y');
         //then
         Assertions.assertEquals(expected,result);
     }
@@ -66,9 +66,9 @@ public class CalculateEdges3x3Test {
             case 2:moveTypeEnum=MoveTypeEnum.BLANK; break;
             case 3:moveTypeEnum=MoveTypeEnum.PRIM;  break;
         }
-        InspectMove expected = new InspectMove(moveEnum, moveTypeEnum);
+        Move expected = new Move(moveEnum, moveTypeEnum);
         //when
-        InspectMove result = calculateEdges3x3.getInspectMoveToJoinCircumferenceField(side,sideEdge);
+        Move result = calculateEdges3x3.getMoveToJoinCircumferenceField(side,sideEdge);
         //then
         Assertions.assertEquals(expected,result);
     }
@@ -79,9 +79,9 @@ public class CalculateEdges3x3Test {
         cube.makeMovesUsingString(scramble);
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
-        InspectMove expected = new InspectMove(expectedAlg);
+        Move expected = new Move(expectedAlg);
         //when
-        InspectMove result = calculateEdges3x3.getInspectMoveToJoinCircumferenceField(side,sideEdge);
+        Move result = calculateEdges3x3.getMoveToJoinCircumferenceField(side,sideEdge);
         //then
         Assertions.assertEquals(expected,result);
     }
@@ -94,7 +94,7 @@ public class CalculateEdges3x3Test {
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
         //when
-        InspectMove result = calculateEdges3x3.getMovesToMoveInnerEdgeOnConflictEdge(4,'y');
+        Move result = calculateEdges3x3.getMovesToMoveInnerEdgeOnConflictEdge(4,'y');
         //then
         Assertions.assertEquals(expected,result.toString());
     }
@@ -109,9 +109,9 @@ public class CalculateEdges3x3Test {
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
         //when
-        ArrayList<InspectMove> result = calculateEdges3x3.getMovesToJoinEdgeToCross(side,sideEdgeNumber,'y');
+        ArrayList<Move> result = calculateEdges3x3.getMovesToJoinEdgeToCross(side,sideEdgeNumber,'y');
         //then
-        Assertions.assertEquals(expected,InspectMove.algorithmToString(result));
+        Assertions.assertEquals(expected, InspectMove.algorithmToString(result));
     }
 
 
@@ -123,7 +123,7 @@ public class CalculateEdges3x3Test {
         cube.makeMovesUsingString(scramble);
         calculateEdges3x3.refreshCube(cube);
         //when
-        InspectMove result = calculateEdges3x3.getMoveToPairCrossEdgesToCenters();
+        Move result = calculateEdges3x3.getMoveToPairCrossEdgesToCenters();
         //then
         Assertions.assertEquals(expected,result.getMoveTypeEnum());
     }
