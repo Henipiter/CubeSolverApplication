@@ -39,6 +39,14 @@ public class Cube4x4 extends Cube {
         }
     }
 
+    public void rotateCenter(int[] order) {
+        char buffer;
+        buffer = center[order[0]];
+        for (int i = 0; i < 3; i++)
+            center[order[i]] = center[order[i + 1]];
+        center[order[3]] = buffer;
+    }
+
     private void moveElementary(int[] sideOrder, int[][] field) {
         char[] buffer = new char[4];
         for (int i = 0; i < 4; i++)
@@ -249,8 +257,7 @@ public class Cube4x4 extends Cube {
         switch (moveType) {
             case PRIM:
                 moveR(PRIM);
-                moveRIn(PRIM);
-                moveLIn(SIMPLE);
+                moveM(SIMPLE);
                 moveL(SIMPLE);
                 break;
             case DOUBLE:
@@ -259,8 +266,7 @@ public class Cube4x4 extends Cube {
                 break;
             case SIMPLE:
                 moveR(SIMPLE);
-                moveRIn(SIMPLE);
-                moveLIn(PRIM);
+                moveM(PRIM);
                 moveL(PRIM);
                 break;
         }
@@ -270,8 +276,7 @@ public class Cube4x4 extends Cube {
         switch (moveType) {
             case PRIM:
                 moveU(PRIM);
-                moveUIn(PRIM);
-                moveDIn(SIMPLE);
+                moveE(SIMPLE);
                 moveD(SIMPLE);
                 break;
             case DOUBLE:
@@ -280,8 +285,7 @@ public class Cube4x4 extends Cube {
                 break;
             case SIMPLE:
                 moveU(SIMPLE);
-                moveUIn(SIMPLE);
-                moveDIn(PRIM);
+                moveE(PRIM);
                 moveD(PRIM);
                 break;
         }
@@ -291,8 +295,7 @@ public class Cube4x4 extends Cube {
         switch (moveType) {
             case PRIM:
                 moveF(PRIM);
-                moveFIn(PRIM);
-                moveBIn(SIMPLE);
+                moveS(PRIM);
                 moveB(SIMPLE);
                 break;
             case DOUBLE:
@@ -301,8 +304,7 @@ public class Cube4x4 extends Cube {
                 break;
             case SIMPLE:
                 moveF(SIMPLE);
-                moveFIn(SIMPLE);
-                moveBIn(PRIM);
+                moveS(SIMPLE);
                 moveB(PRIM);
                 break;
         }
@@ -413,6 +415,7 @@ public class Cube4x4 extends Cube {
     private void moveM(MoveTypeEnum moveType) {
         switch (moveType) {
             case PRIM:
+                rotateCenter(new int[]{0, 4, 1, 5});
                 moveRIn(SIMPLE);
                 moveLIn(PRIM);
                 break;
@@ -421,6 +424,7 @@ public class Cube4x4 extends Cube {
                 moveM(SIMPLE);
                 break;
             case SIMPLE:
+                rotateCenter(new int[]{0, 5, 1, 4});
                 moveRIn(PRIM);
                 moveLIn(SIMPLE);
                 break;
@@ -430,6 +434,7 @@ public class Cube4x4 extends Cube {
     private void moveS(MoveTypeEnum moveType) {
         switch (moveType) {
             case PRIM:
+                rotateCenter(new int[]{0, 3, 1, 2});
                 moveFIn(PRIM);
                 moveBIn(SIMPLE);
                 break;
@@ -438,6 +443,7 @@ public class Cube4x4 extends Cube {
                 moveS(SIMPLE);
                 break;
             case SIMPLE:
+                rotateCenter(new int[]{3, 0, 2, 1});
                 moveFIn(SIMPLE);
                 moveBIn(PRIM);
                 break;
@@ -447,6 +453,7 @@ public class Cube4x4 extends Cube {
     private void moveE(MoveTypeEnum moveType) {
         switch (moveType) {
             case PRIM:
+                rotateCenter(new int[]{2, 4, 3, 5});
                 moveUIn(SIMPLE);
                 moveDIn(PRIM);
                 break;
@@ -455,6 +462,7 @@ public class Cube4x4 extends Cube {
                 moveE(SIMPLE);
                 break;
             case SIMPLE:
+                rotateCenter(new int[]{4, 2, 5, 3});
                 moveUIn(PRIM);
                 moveDIn(SIMPLE);
                 break;
