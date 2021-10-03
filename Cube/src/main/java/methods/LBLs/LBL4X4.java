@@ -8,8 +8,10 @@ import calculations.CalculateMoves;
 import cubes.Cube;
 import cubes.Cube3x3;
 import cubes.Cube4x4;
-import interpretations.*;
-import parsers.Parse3x3To4x4;
+import interpretations.Interpretation;
+import interpretations.Interpretation4x4Centers;
+import interpretations.Interpretation4x4Edges;
+import parsers.Parse4x4To3x3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -233,7 +235,7 @@ public class LBL4X4 implements LBL {
     }
 
     private Cube3x3 parseTo3x3(Cube4x4 cube4x4) {
-        Parse3x3To4x4 parser = new Parse3x3To4x4(cube4x4);
+        Parse4x4To3x3 parser = new Parse4x4To3x3(cube4x4);
         try {
             return parser.parseTo3x3();
         } catch (Exception exception) {
@@ -256,43 +258,46 @@ public class LBL4X4 implements LBL {
         cube3x3.getCube()[5][1] = buffer;
     }
 
+    private ArrayList<InspectMove> resolveOLLParity(){
+        cube.getLogger().info("OLL Parity");
+        makeOllParityOn3x3();
+        cube3x3.makeMovesUsingString("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
+        return CalculateEdges4x4.getParityOLLAlgorithm();
+    }
+
+    private ArrayList<InspectMove> resolvePllParity(LBL3X3 lbl3X3){
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        cube.getLogger().info("PLL Parity");
+        algorithm.addAll(CalculateEdges4x4.getParityPLLAlgorithm());
+        makePllParityOn3x3();
+        algorithm.addAll(lbl3X3.solveIncorrectUpperCross());
+        algorithm.addAll(lbl3X3.solveNotPermutedVertexes());
+        return algorithm;
+    }
+
     public ArrayList<InspectMove> phase3x3(char firstCenterColor) {
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         cube3x3 = parseTo3x3((Cube4x4) cube);
+        cube.setCenter(Parse4x4To3x3.copyCentersColors((Cube4x4)cube));
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
-        algorithm.addAll(lbl3X3.solveCross(firstCenterColor));
-        algorithm.addAll(lbl3X3.solveIncorrectCross());
-        algorithm.addAll(lbl3X3.solveFirstLayer());
-        algorithm.addAll(lbl3X3.solveSecondLayer());
+        algorithm.addAll(lbl3X3.solveF2L_LBL(firstCenterColor));
 
         try {
             lbl3X3.checkOllParity();
         } catch (Exception exception) {
-            System.out.println("OLL Parity");
-            algorithm.addAll(CalculateEdges4x4.getParityOLLAlgorithm());
-            makeOllParityOn3x3();
-            cube3x3.makeMovesUsingString("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
-            System.out.println(InspectMove.algorithmToString(CalculateEdges4x4.getParityOLLAlgorithm()));
+            algorithm.addAll(resolveOLLParity());
         }
         algorithm.addAll(lbl3X3.solveUpperCross());
         algorithm.addAll(lbl3X3.solveIncorrectUpperCross());
         algorithm.addAll(lbl3X3.solveNotPermutedVertexes());
-
         try {
             lbl3X3.checkPllParity();
 
         } catch (Exception exception) {
-            System.out.println("PLL Parity");
-            algorithm.addAll(CalculateEdges4x4.getParityPLLAlgorithm());
-            makePllParityOn3x3();
-            algorithm.addAll(lbl3X3.solveIncorrectUpperCross());
-            algorithm.addAll(lbl3X3.solveNotPermutedVertexes());
+            algorithm.addAll(resolvePllParity(lbl3X3));
         }
-
         algorithm.addAll(lbl3X3.solveNotOrientedVertexes());
         return algorithm;
     }
-
-
 
 }

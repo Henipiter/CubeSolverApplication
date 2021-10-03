@@ -16,7 +16,7 @@ public class CalculateEdges4x4 {
     }
 
     public static ArrayList<InspectMove> getParityOLLAlgorithm(){
-        return InspectMove.createAndReturnArrayListFromString("r2 B2 U2 l U2 r' U2 r U2 F2 r F2 l' B2 r2");
+        return InspectMove.createAndReturnArrayListFromString("Rw2 B2 U2 Lw U2 Rw' U2 Rw U2 F2 Rw F2 Lw' B2 Rw2");
     }
 
     public static ArrayList<InspectMove> getParityPLLAlgorithm(){
@@ -50,7 +50,6 @@ public class CalculateEdges4x4 {
                 return InspectMove.createAndReturnArrayListFromString("D' L'");
             case 11:
                 return InspectMove.createAndReturnArrayListFromString("L'");
-
         }
         return new ArrayList<>();
     }
@@ -58,10 +57,10 @@ public class CalculateEdges4x4 {
     public ArrayList<InspectMove> getMovesToPutUnpairedEdgeOn12Index(int edgePairIndex) {
         String edgeFrontToRight = "F R' F' R";
         String edgeUpToRight = "R U' R'";
-        String rotateEdge = "R U R'"+" "+edgeFrontToRight;
+        String rotateEdge = "R U R' "+edgeFrontToRight;
         interpretation4x4Edges.interpretEdges(cube4x4);
 
-        String algPostfix = (edgePairIndex % 2 == 0 ? edgeUpToRight : edgeFrontToRight);
+        String algSuffix = (edgePairIndex % 2 == 0 ? edgeUpToRight : edgeFrontToRight);
         String algPrefix="";
         switch (edgePairIndex/2){
             case 0:
@@ -80,17 +79,17 @@ public class CalculateEdges4x4 {
                 break;
             case 5:
                 algPrefix="R' U R";
-                algPostfix = (edgePairIndex % 2 == 1 ? edgeUpToRight : edgeFrontToRight);
+                algSuffix = (edgePairIndex % 2 == 1 ? edgeUpToRight : edgeFrontToRight);
                 break;
             case 6:
                 algPrefix="";
-                algPostfix = (edgePairIndex % 2 == 0 ? "" : rotateEdge);
+                algSuffix = (edgePairIndex % 2 == 0 ? "" : rotateEdge);
                 break;
             case 7:
                 return new ArrayList<>();
             case 8:
                 algPrefix="M2";
-                algPostfix = (edgePairIndex % 2 == 1 ? edgeUpToRight : edgeFrontToRight);
+                algSuffix = (edgePairIndex % 2 == 1 ? edgeUpToRight : edgeFrontToRight);
                 break;
             case 9:
                 algPrefix="D' M'";
@@ -103,7 +102,7 @@ public class CalculateEdges4x4 {
                 break;
 
         }
-        return InspectMove.createAndReturnArrayListFromString(algPrefix+" "+algPostfix);
+        return InspectMove.createAndReturnArrayListFromString(algPrefix+" "+algSuffix);
 
     }
 

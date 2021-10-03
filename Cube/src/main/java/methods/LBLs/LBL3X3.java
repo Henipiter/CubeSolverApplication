@@ -31,13 +31,19 @@ public class LBL3X3 implements LBL {
         calculateEdges = new CalculateEdges3x3((Cube3x3) cube);
     }
 
-    @Override
-    public String solve(char firstCenterColor) {
+    public ArrayList<InspectMove> solveF2L_LBL(char firstCenterColor){
         ArrayList<InspectMove> algorithm = new ArrayList<>();
         algorithm.addAll(solveCross(firstCenterColor));
         algorithm.addAll(solveIncorrectCross());
         algorithm.addAll(solveFirstLayer());
         algorithm.addAll(solveSecondLayer());
+        return algorithm;
+    }
+
+    @Override
+    public String solve(char firstCenterColor) {
+        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        algorithm.addAll(solveF2L_LBL(firstCenterColor));
         try {
             checkOllParity();
         } catch (Exception exception) {
