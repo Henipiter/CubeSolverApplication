@@ -1,7 +1,7 @@
 package cubes;
 
 
-import DTOs.InspectMove;
+import DTOs.Move;
 import DTOs.MoveTypeEnum;
 
 import java.util.logging.Logger;
@@ -80,9 +80,9 @@ public class Cube1x1 extends Cube {
     }
 
     @Override
-    public void move(InspectMove inspectMove) {
-        MoveTypeEnum moveType = inspectMove.getMoveTypeEnum();
-        switch (inspectMove.getMoveEnum()) {
+    public void move(Move move) {
+        MoveTypeEnum moveType = move.getMoveTypeEnum();
+        switch (move.getMoveEnum()) {
             case x:
                 moveX(moveType);
                 break;
@@ -93,7 +93,7 @@ public class Cube1x1 extends Cube {
                 moveZ(moveType);
                 break;
             default:
-                logger.info("Cannot do \"" + inspectMove.getMoveEnum().toString() + "\" move");
+                logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");
                 break;
         }
     }

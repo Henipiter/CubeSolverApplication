@@ -1,6 +1,6 @@
 package cubes;
 
-import DTOs.InspectMove;
+import DTOs.Move;
 import DTOs.MoveTypeEnum;
 
 import java.util.ArrayList;
@@ -245,18 +245,18 @@ public class CubePyraminx extends Cube {
 
     @Override
     public void moveUsingString(String direction) {
-        InspectMove inspectMove = new InspectMove(direction);
-        if (inspectMove.getMoveTypeEnum() == INVALID)
+        Move move = new Move(direction);
+        if (move.getMoveTypeEnum() == INVALID)
             logger.info("Cannot do \"" + direction + "\" move");
         else {
-            move(inspectMove);
+            move(move);
         }
     }
 
     @Override
-    public void move(InspectMove inspectMove) {
-        MoveTypeEnum moveType= inspectMove.getMoveTypeEnum();
-        switch (inspectMove.getMoveEnum()) {
+    public void move(Move move) {
+        MoveTypeEnum moveType= move.getMoveTypeEnum();
+        switch (move.getMoveEnum()) {
             case U:
                 moveU(moveType);
                 break;
@@ -294,14 +294,14 @@ public class CubePyraminx extends Cube {
                 moveu(moveType);
                 break;
             default:
-                logger.info("Cannot do \"" + inspectMove.getMoveEnum().toString() + "\" move");
+                logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");
                 break;
         }
 
     }
 
-    public void makeMoves(ArrayList<InspectMove> algorithm) {
-        for (InspectMove move : algorithm) {
+    public void makeMoves(ArrayList<Move> algorithm) {
+        for (Move move : algorithm) {
             move(move);
         }
     }

@@ -2,6 +2,7 @@ package methods.LBLs;
 
 
 import DTOs.InspectMove;
+import DTOs.Move;
 import calculations.CalculateCenters4x4;
 import calculations.CalculateEdges4x4;
 import calculations.CalculateMoves;
@@ -50,7 +51,7 @@ public class LBL4X4 implements LBL {
      */
     @Override
     public String solve(char firstCenterColor) {
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        ArrayList<Move> algorithm = new ArrayList<>();
         algorithm.addAll(solveCenters(firstCenterColor));
         algorithm.addAll(pairAllEdges());
         algorithm.addAll(phase3x3(firstCenterColor));
@@ -58,8 +59,8 @@ public class LBL4X4 implements LBL {
         return InspectMove.algorithmToString(algorithm);
     }
 
-    public ArrayList<InspectMove> solveCenters(char firstCenterColor) {
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+    public ArrayList<Move> solveCenters(char firstCenterColor) {
+        ArrayList<Move> algorithm = new ArrayList<>();
         algorithm.addAll(solveFirstCenter(firstCenterColor));
         algorithm.addAll(solveSecondCenter());
         algorithm.addAll(solveThirdCenter());
@@ -68,8 +69,8 @@ public class LBL4X4 implements LBL {
         return algorithm;
     }
 
-    private ArrayList<InspectMove> rotateCubeToGetMaxNumOfColoredFieldOnCenter(char color) {
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+    private ArrayList<Move> rotateCubeToGetMaxNumOfColoredFieldOnCenter(char color) {
+        ArrayList<Move> algorithm = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
         //find side to rotate cube in right position
         int sideOnTop = interpretation4x4Centers.getSideWithTheMostFieldsWithGivenColor(color);
@@ -78,9 +79,9 @@ public class LBL4X4 implements LBL {
         return algorithm;
     }
 
-    private ArrayList<InspectMove> setupFieldAndJoinToDestSide(int source, int dest, char color) {
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
-        ArrayList<InspectMove> partial_alg = new ArrayList<>();
+    private ArrayList<Move> setupFieldAndJoinToDestSide(int source, int dest, char color) {
+        ArrayList<Move> algorithm = new ArrayList<>();
+        ArrayList<Move> partial_alg = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
         //calculate alg to rotate to prepare to join field into upper side
         partial_alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(source));
@@ -95,21 +96,21 @@ public class LBL4X4 implements LBL {
         return algorithm;
     }
 
-    public void updateCubeAndInterpretationAndCalculation(ArrayList<InspectMove> alg) {
+    public void updateCubeAndInterpretationAndCalculation(ArrayList<Move> alg) {
         cube.makeMoves(alg);
         interpretation4x4Centers.interpretCenters(cube);
         interpretation4x4Edges.interpretEdges(cube);
         calculateCenters4x4.refreshCube(cube);
     }
 
-    public void updateCubeAndSaveAlgorithm(ArrayList<InspectMove> temp_alg, ArrayList<InspectMove> final_alg) {
+    public void updateCubeAndSaveAlgorithm(ArrayList<Move> temp_alg, ArrayList<Move> final_alg) {
         updateCubeAndInterpretationAndCalculation(temp_alg);
         final_alg.addAll(temp_alg);
         temp_alg.clear();
     }
 
-    public ArrayList<InspectMove> solveFirstCenter(char baseColor) {
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+    public ArrayList<Move> solveFirstCenter(char baseColor) {
+        ArrayList<Move> algorithm = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
         algorithm.addAll(rotateCubeToGetMaxNumOfColoredFieldOnCenter(baseColor));
         updateCubeAndInterpretationAndCalculation(algorithm);
@@ -119,11 +120,11 @@ public class LBL4X4 implements LBL {
         return algorithm;
     }
 
-    public ArrayList<InspectMove> solveSecondCenter() {
+    public ArrayList<Move> solveSecondCenter() {
         interpretation4x4Centers.interpretCenters(cube);
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        ArrayList<Move> algorithm = new ArrayList<>();
         char secondCenterColor = Interpretation.getColorOfOppositeSide(interpretation4x4Centers.getColorOfCenter(0));
-        algorithm.add(new InspectMove("x2"));
+        algorithm.add(new Move("x2"));
         updateCubeAndInterpretationAndCalculation(algorithm);
 
         getAlgorithmToSolveWholeCenter(algorithm, secondCenterColor, new int[]{4, 2, 3, 5});
@@ -133,17 +134,17 @@ public class LBL4X4 implements LBL {
         return algorithm;
     }
 
-    public void addToAlgorithmAndUpdateCubeStuff(ArrayList<InspectMove> algToSet, ArrayList<InspectMove> finalAlg) {
+    public void addToAlgorithmAndUpdateCubeStuff(ArrayList<Move> algToSet, ArrayList<Move> finalAlg) {
         updateCubeAndInterpretationAndCalculation(algToSet);
         finalAlg.addAll(algToSet);
     }
 
-    public ArrayList<InspectMove> solveThirdCenter() {
+    public ArrayList<Move> solveThirdCenter() {
 
-        ArrayList<InspectMove> temp_alg = new ArrayList<>();
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        ArrayList<Move> temp_alg = new ArrayList<>();
+        ArrayList<Move> algorithm = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
-        temp_alg.add(new InspectMove("z"));
+        temp_alg.add(new Move("z"));
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
         temp_alg.clear();
         int numOfDestSide = interpretation4x4Centers.inWhichSideIsTheGreatestAmountOfCentersWithSameColor(new int[]{0, 4, 1, 5});
@@ -159,10 +160,10 @@ public class LBL4X4 implements LBL {
 
     }
 
-    public ArrayList<InspectMove> solveFourthCenter() {
+    public ArrayList<Move> solveFourthCenter() {
 
-        ArrayList<InspectMove> temp_alg = new ArrayList<>();
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        ArrayList<Move> temp_alg = new ArrayList<>();
+        ArrayList<Move> algorithm = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
 
         int numOfDestSide = 4;
@@ -180,10 +181,10 @@ public class LBL4X4 implements LBL {
 
     }
 
-    public ArrayList<InspectMove> solveLastTwoCenters() {
+    public ArrayList<Move> solveLastTwoCenters() {
 
-        ArrayList<InspectMove> temp_alg = new ArrayList<>();
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+        ArrayList<Move> temp_alg = new ArrayList<>();
+        ArrayList<Move> algorithm = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
 
         int numOfDestSide = 4;
@@ -200,8 +201,8 @@ public class LBL4X4 implements LBL {
         return algorithm;
     }
 
-    public void getAlgorithmToSolveWholeCenter(ArrayList<InspectMove> algorithm, char colorOfDestSide, int[] sideWhereSearchFields) {
-        ArrayList<InspectMove> temp_alg;
+    public void getAlgorithmToSolveWholeCenter(ArrayList<Move> algorithm, char colorOfDestSide, int[] sideWhereSearchFields) {
+        ArrayList<Move> temp_alg;
         while (!interpretation4x4Centers.isWholeCenterInOneColor(0)) {
             int sideWithWhiteField = interpretation4x4Centers.getSideWithTheMostFieldsWithGivenColorFromGivenSides(colorOfDestSide, sideWhereSearchFields);
             temp_alg = setupFieldAndJoinToDestSide(sideWithWhiteField, 0, colorOfDestSide);
@@ -211,9 +212,9 @@ public class LBL4X4 implements LBL {
 
     //////////////////////////////////////////////////////
 
-    public ArrayList<InspectMove> pairAllEdges() {
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
-        ArrayList<InspectMove> temp_alg;
+    public ArrayList<Move> pairAllEdges() {
+        ArrayList<Move> algorithm = new ArrayList<>();
+        ArrayList<Move> temp_alg;
 
         interpretation4x4Edges.interpretEdges(cube);
 
@@ -258,15 +259,15 @@ public class LBL4X4 implements LBL {
         cube3x3.getCube()[5][1] = buffer;
     }
 
-    private ArrayList<InspectMove> resolveOLLParity(){
+    private ArrayList<Move> resolveOLLParity(){
         cube.getLogger().info("OLL Parity");
         makeOllParityOn3x3();
         cube3x3.makeMovesUsingString("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
         return CalculateEdges4x4.getParityOLLAlgorithm();
     }
 
-    private ArrayList<InspectMove> resolvePllParity(LBL3X3 lbl3X3){
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+    private ArrayList<Move> resolvePllParity(LBL3X3 lbl3X3){
+        ArrayList<Move> algorithm = new ArrayList<>();
         cube.getLogger().info("PLL Parity");
         algorithm.addAll(CalculateEdges4x4.getParityPLLAlgorithm());
         makePllParityOn3x3();
@@ -275,8 +276,8 @@ public class LBL4X4 implements LBL {
         return algorithm;
     }
 
-    public ArrayList<InspectMove> phase3x3(char firstCenterColor) {
-        ArrayList<InspectMove> algorithm = new ArrayList<>();
+    public ArrayList<Move> phase3x3(char firstCenterColor) {
+        ArrayList<Move> algorithm = new ArrayList<>();
         cube3x3 = parseTo3x3((Cube4x4) cube);
         cube.setCenter(Parse4x4To3x3.copyCentersColors((Cube4x4)cube));
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);

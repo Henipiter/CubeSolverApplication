@@ -13,25 +13,24 @@ import static DTOs.MoveEnum.INVALID;
  */
 @Data
 public class InspectMove {
-    private MoveTypeEnum moveTypeEnum;
-    private MoveEnum moveEnum;
 
-    public static ArrayList<InspectMove> createAndReturnArrayListFromString(String alg) {
-        ArrayList<InspectMove> result = new ArrayList<>();
+
+    public static ArrayList<Move> createAndReturnArrayListFromString(String alg) {
+        ArrayList<Move> result = new ArrayList<>();
         if (!alg.trim().isEmpty()) {
             alg = StringUtils.stripStart(alg, null);
             String[] splitAlg = alg.split(" ");
             for (String move : splitAlg) {
-                result.add(new InspectMove(move));
+                result.add(new Move(InspectMove.getMove(move)));
             }
         }
         return result;
     }
 
 
-    public static String algorithmToString(ArrayList<InspectMove> alg) {
+    public static String algorithmToString(ArrayList<Move> alg) {
         String result = "";
-        for (InspectMove move : alg) {
+        for (Move move : alg) {
             if (move.getMoveEnum() != BLANK && move.getMoveTypeEnum() != MoveTypeEnum.BLANK) {
                 result = result.concat(move.toString() + " ");
             }
@@ -41,28 +40,13 @@ public class InspectMove {
         return "";
     }
 
-    public InspectMove(MoveEnum moveEnum, MoveTypeEnum moveTypeEnum) {
-        if (moveEnum == BLANK || moveTypeEnum == MoveTypeEnum.BLANK) {
-            this.moveEnum = BLANK;
-            this.moveTypeEnum = MoveTypeEnum.BLANK;
-        } else {
-            this.moveEnum = moveEnum;
-            this.moveTypeEnum = moveTypeEnum;
-        }
+
+    public static Move getMove(String direction) {
+        return new Move(recogniseMove(direction),recogniseType(direction));
     }
 
-    public InspectMove(String direction) {
-        recogniseType(direction);
-        recogniseMove(direction);
-    }
-
-    public InspectMove(InspectMove inspectMove) {
-        this.moveEnum = inspectMove.getMoveEnum();
-        this.moveTypeEnum = inspectMove.getMoveTypeEnum();
-    }
-
-    private void recogniseMove(String direction) {
-        moveEnum = INVALID;
+    private static MoveEnum recogniseMove(String direction) {
+        MoveEnum moveEnum = INVALID;
         if (direction.contains("'") || direction.contains("2"))
             direction = direction.substring(0, direction.length() - 1);
         for (MoveEnum i : MoveEnum.values()) {
@@ -71,10 +55,11 @@ public class InspectMove {
                 break;
             }
         }
+        return moveEnum;
     }
 
-    private void recogniseType(String direction) {
-        moveTypeEnum = MoveTypeEnum.INVALID;
+    private static MoveTypeEnum recogniseType(String direction) {
+        MoveTypeEnum moveTypeEnum = MoveTypeEnum.INVALID;
         if (direction.length() == 2 || direction.length() == 3) {
             if (direction.charAt(direction.length() - 1) == '2')
                 moveTypeEnum = MoveTypeEnum.DOUBLE;
@@ -83,23 +68,6 @@ public class InspectMove {
         }
         if ((direction.length() == 2 && direction.charAt(1) == 'w') || direction.length() == 1)
             moveTypeEnum = MoveTypeEnum.SIMPLE;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof InspectMove)) {
-            return false;
-        }
-        InspectMove c = (InspectMove) o;
-        return c.getMoveEnum() == this.getMoveEnum() &&
-                c.getMoveTypeEnum() == this.getMoveTypeEnum();
-    }
-
-    @Override
-    public String toString() {
-        return moveEnum.toString() + moveTypeEnum.toString();
+        return moveTypeEnum;
     }
 }

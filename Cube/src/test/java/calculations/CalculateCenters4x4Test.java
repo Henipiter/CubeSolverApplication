@@ -1,9 +1,8 @@
 package calculations;
 
-import DTOs.InspectMove;
+import DTOs.Move;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
-import calculations.CalculateCenters4x4;
 import cubes.Cube4x4;
 import interpretations.Interpretation4x4Centers;
 import org.junit.jupiter.api.Assertions;
@@ -96,7 +95,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw'");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -110,7 +109,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -124,7 +123,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -138,7 +137,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2 D' U");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -152,7 +151,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw' F' U");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -166,7 +165,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw' F' U y2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -180,7 +179,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2 D' U y2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -194,7 +193,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw' F'");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -208,7 +207,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw' U");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(4,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -222,7 +221,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw' F' y2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -236,7 +235,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw' U y2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(5,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -250,7 +249,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2 D");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -264,7 +263,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2 U");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
+        ArrayList<Move> alg =calculateCenters4x4.prepareJoiningIfOnBothSidesAreStripes(1,0,'w');
         cube.makeMoves(alg);
         //then
         interpretation4X4Centers.interpretCenters(cube);
@@ -513,10 +512,10 @@ public class CalculateCenters4x4Test {
     @Test
     public void call_getReverseSetupMoveToJoin_should_return_r(){
         //given
-        InspectMove inspectMove=new InspectMove("r'");
-        InspectMove expected = new InspectMove("r");
+        Move move =new Move("r'");
+        Move expected = new Move("r");
         //when
-        InspectMove result =calculateCenters4x4.getReverseSetupMoveToJoin(inspectMove);
+        Move result =calculateCenters4x4.getReverseSetupMoveToJoin(move);
         //then
         Assertions.assertEquals(expected, result);
     }
@@ -527,8 +526,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side4_should_return_Uprim(){
         cube.makeMovesUsingString("Rw' F Rw");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(4,'w');
-        InspectMove expected = new InspectMove("U'");
+        Move result = calculateCenters4x4.getMoveToJoin(4,'w');
+        Move expected = new Move("U'");
         Assertions.assertEquals(expected,result);
     }
 
@@ -536,8 +535,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side4_should_return_U(){
         cube.makeMovesUsingString("Rw' F' Rw");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(4,'w');
-        InspectMove expected = new InspectMove("U");
+        Move result = calculateCenters4x4.getMoveToJoin(4,'w');
+        Move expected = new Move("U");
         Assertions.assertEquals(expected,result);
     }
 
@@ -545,8 +544,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side4_should_return_Udouble(){
         cube.makeMovesUsingString("Rw' F2 Rw");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(4,'w');
-        InspectMove expected = new InspectMove("U2");
+        Move result = calculateCenters4x4.getMoveToJoin(4,'w');
+        Move expected = new Move("U2");
         Assertions.assertEquals(expected,result);
     }
 
@@ -554,8 +553,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side5_should_return_Uprim(){
         cube.makeMovesUsingString("Rw' F Rw y2");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(5,'w');
-        InspectMove expected = new InspectMove("U'");
+        Move result = calculateCenters4x4.getMoveToJoin(5,'w');
+        Move expected = new Move("U'");
         Assertions.assertEquals(expected,result);
     }
 
@@ -563,8 +562,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side5_should_return_U(){
         cube.makeMovesUsingString("Rw' F' Rw y2");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(5,'w');
-        InspectMove expected = new InspectMove("U");
+        Move result = calculateCenters4x4.getMoveToJoin(5,'w');
+        Move expected = new Move("U");
         Assertions.assertEquals(expected,result);
     }
 
@@ -572,8 +571,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side5_should_return_Udouble(){
         cube.makeMovesUsingString("Rw' F2 Rw y2");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(5,'w');
-        InspectMove expected = new InspectMove("U2");
+        Move result = calculateCenters4x4.getMoveToJoin(5,'w');
+        Move expected = new Move("U2");
         Assertions.assertEquals(expected,result);
     }
 
@@ -581,8 +580,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side1_should_return_Uprim(){
         cube.makeMovesUsingString("Rw2 D Rw2 y2");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(1,'w');
-        InspectMove expected = new InspectMove("U'");
+        Move result = calculateCenters4x4.getMoveToJoin(1,'w');
+        Move expected = new Move("U'");
         Assertions.assertEquals(expected,result);
     }
 
@@ -590,8 +589,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side1_should_return_U(){
         cube.makeMovesUsingString("Rw2 D' Rw2 y2");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(1,'w');
-        InspectMove expected = new InspectMove("U");
+        Move result = calculateCenters4x4.getMoveToJoin(1,'w');
+        Move expected = new Move("U");
         Assertions.assertEquals(expected,result);
     }
 
@@ -599,8 +598,8 @@ public class CalculateCenters4x4Test {
     public void call_getMoveToJoin_from_side1_should_return_Udouble(){
         cube.makeMovesUsingString("Rw2 D2 Rw2 y2");
         calculateCenters4x4.refreshCube(cube);
-        InspectMove result = calculateCenters4x4.getMoveToJoin(1,'w');
-        InspectMove expected = new InspectMove("U2");
+        Move result = calculateCenters4x4.getMoveToJoin(1,'w');
+        Move expected = new Move("U2");
         Assertions.assertEquals(expected,result);
     }
 
@@ -611,7 +610,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2 D2 Rw2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
+        ArrayList<Move> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
         interpretation4X4Centers.interpretCenters(cube);
@@ -625,7 +624,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2 D2 Rw2 D2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
+        ArrayList<Move> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
         interpretation4X4Centers.interpretCenters(cube);
@@ -639,7 +638,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw2 D2 Rw2 U2");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
+        ArrayList<Move> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
         interpretation4X4Centers.interpretCenters(cube);
@@ -653,7 +652,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw' d Rw' U");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
+        ArrayList<Move> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(1,0,'w');
         //then
         cube.makeMoves(result);
         interpretation4X4Centers.interpretCenters(cube);
@@ -667,7 +666,7 @@ public class CalculateCenters4x4Test {
         cube.makeMovesUsingString("Rw'");
         calculateCenters4x4.refreshCube(cube);
         //when
-        ArrayList<InspectMove> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(4,0,'w');
+        ArrayList<Move> result = calculateCenters4x4.calculateMovesToJoinFromSourceSideToDestinationSide(4,0,'w');
         //then
         cube.makeMoves(result);
         interpretation4X4Centers.interpretCenters(cube);

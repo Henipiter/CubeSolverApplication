@@ -1,9 +1,6 @@
 package calculations;
 
-import DTOs.Edge;
-import DTOs.InspectMove;
-import DTOs.MoveEnum;
-import DTOs.MoveTypeEnum;
+import DTOs.*;
 import cubes.Cube;
 import cubes.Cube3x3;
 import interpretations.Interpretation3x3Edges;
@@ -23,7 +20,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         interpretation3x3Edges.interpretEdges(cube);
     }
 
-    public InspectMove getMovesToMoveInnerEdgeOnConflictEdge(int side, char crossColor) {
+    public Move getMovesToMoveInnerEdgeOnConflictEdge(int side, char crossColor) {
         Edge edge = interpretation3x3Edges.getEdgeArrayList().get(interpretation3x3Edges.getRightCrossEdge(side));
         int sideEdgeIndex = interpretation3x3Edges.getEdgeIndexFromSideWithGivenColorOnSide(side, crossColor);
 
@@ -32,73 +29,73 @@ public class CalculateEdges3x3 extends CalculateMoves {
 
             if (!interpretation3x3Edges.isGivenSideEdgeIndexHasGivenColor(edge, crossColor)) {
                 if (sideEdgeIndex == 0) {
-                    return new InspectMove(moveEnum, MoveTypeEnum.SIMPLE);
+                    return new Move(moveEnum, MoveTypeEnum.SIMPLE);
                 }
-                return new InspectMove(moveEnum, MoveTypeEnum.PRIM);
+                return new Move(moveEnum, MoveTypeEnum.PRIM);
             }
             if (sideEdgeIndex == 0) {
-                return new InspectMove(moveEnum, MoveTypeEnum.PRIM);
+                return new Move(moveEnum, MoveTypeEnum.PRIM);
             }
-            return new InspectMove(moveEnum, MoveTypeEnum.SIMPLE);
+            return new Move(moveEnum, MoveTypeEnum.SIMPLE);
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+        return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
 
-    public ArrayList<InspectMove> getMovesToJoinEdgeToCross(int side, int sideEdgeNumber, char crossColor) {
-        ArrayList<InspectMove> tempAlg = new ArrayList<>();
+    public ArrayList<Move> getMovesToJoinEdgeToCross(int side, int sideEdgeNumber, char crossColor) {
+        ArrayList<Move> tempAlg = new ArrayList<>();
         int edgeIndex = interpretation3x3Edges.getIndexesOfEdgesOnGivenSide(side)[sideEdgeNumber];
         int edgeFieldIndex = interpretation3x3Edges.getIndexFieldOfEdgeWithGivenColor(edgeIndex, crossColor);
         if (interpretation3x3Edges.isFieldOnCircumference(side, sideEdgeNumber, edgeFieldIndex)) {
             tempAlg.add(getMoveToGetFreeSlotOnGivenSide(side, crossColor));
-            tempAlg.add(getInspectMoveToJoinCircumferenceField(side, sideEdgeNumber));
+            tempAlg.add(getMoveToJoinCircumferenceField(side, sideEdgeNumber));
         } else {
             tempAlg.add(getMovesToMoveInnerEdgeOnConflictEdge(side, crossColor));
         }
         return tempAlg;
     }
 
-    public InspectMove getInspectMoveToJoinCircumferenceField(int side, int sideEdgeNumber) {
+    public Move getMoveToJoinCircumferenceField(int side, int sideEdgeNumber) {
         MoveTypeEnum moveTypeEnum = getMoveTypeEnumToJoinCircumferenceField(side, sideEdgeNumber);
-        return new InspectMove(getMoveEnumToJoinField(side), moveTypeEnum);
+        return new Move(getMoveEnumToJoinField(side), moveTypeEnum);
     }
 
-    private InspectMove getMoveToGetFreeSlotOn4thSide(char crossColor) {
+    private Move getMoveToGetFreeSlotOn4thSide(char crossColor) {
         int edgeIndex = interpretation3x3Edges.getFreeSlotOnCross(crossColor);
         switch (edgeIndex) {
             case 9:
-                return new InspectMove(MoveEnum.D, MoveTypeEnum.PRIM);
+                return new Move(MoveEnum.D, MoveTypeEnum.PRIM);
             case 11:
-                return new InspectMove(MoveEnum.D, MoveTypeEnum.SIMPLE);
+                return new Move(MoveEnum.D, MoveTypeEnum.SIMPLE);
             case 8:
-                return new InspectMove(MoveEnum.D, MoveTypeEnum.DOUBLE);
+                return new Move(MoveEnum.D, MoveTypeEnum.DOUBLE);
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+        return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    private InspectMove getMoveToGetFreeSlotFrom4thSideToGivenSide(int side) {
+    private Move getMoveToGetFreeSlotFrom4thSideToGivenSide(int side) {
 
         switch (side) {
             case 2:
-                return new InspectMove(MoveEnum.D, MoveTypeEnum.PRIM);
+                return new Move(MoveEnum.D, MoveTypeEnum.PRIM);
             case 3:
-                return new InspectMove(MoveEnum.D, MoveTypeEnum.SIMPLE);
+                return new Move(MoveEnum.D, MoveTypeEnum.SIMPLE);
             case 5:
-                return new InspectMove(MoveEnum.D, MoveTypeEnum.DOUBLE);
+                return new Move(MoveEnum.D, MoveTypeEnum.DOUBLE);
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+        return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public InspectMove getMoveToGetFreeSlotOnGivenSide(int side, char crossColor) {
+    public Move getMoveToGetFreeSlotOnGivenSide(int side, char crossColor) {
         int sideEdgeIndex = interpretation3x3Edges.getIndexesOfEdgesOnGivenSide(side)[2];
         if (interpretation3x3Edges.getEdgeArrayList().get(sideEdgeIndex).getColor()[0] != crossColor) {
-            return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+            return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
         }
 
-        InspectMove to4thSide = getMoveToGetFreeSlotOn4thSide(crossColor);
-        InspectMove toGivenSide = getMoveToGetFreeSlotFrom4thSideToGivenSide(side);
+        Move to4thSide = getMoveToGetFreeSlotOn4thSide(crossColor);
+        Move toGivenSide = getMoveToGetFreeSlotFrom4thSideToGivenSide(side);
         MoveTypeEnum moveTypeEnum = MoveTypeEnum.simplify(to4thSide.getMoveTypeEnum(), toGivenSide.getMoveTypeEnum());
-        return new InspectMove(MoveEnum.D, moveTypeEnum);
+        return new Move(MoveEnum.D, moveTypeEnum);
     }
 
     private MoveTypeEnum getMoveTypeEnumToJoinCircumferenceField(int side, int sideEdgeNumber) {
@@ -137,7 +134,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
 
     }
 
-    public InspectMove getMoveToPairCrossEdgesToCenters() {
+    public Move getMoveToPairCrossEdgesToCenters() {
         int movesCounter = 0;
         int pairedEdges = interpretation3x3Edges.countEdgesPairedWithCenters();
         while (pairedEdges != 2 && pairedEdges != 4) {
@@ -146,12 +143,12 @@ public class CalculateEdges3x3 extends CalculateMoves {
             refreshCube(cube3x3);
             pairedEdges = interpretation3x3Edges.countEdgesPairedWithCenters();
         }
-        return new InspectMove(MoveEnum.D, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.D, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public ArrayList<InspectMove> getMoveToSolveIncorrectOrderCross() {
-        ArrayList<InspectMove> alg = new ArrayList<>();
-        ArrayList<InspectMove> alg2 = new ArrayList<>();
+    public ArrayList<Move> getMoveToSolveIncorrectOrderCross() {
+        ArrayList<Move> alg = new ArrayList<>();
+        ArrayList<Move> alg2 = new ArrayList<>();
         alg.add(getMoveToPairCrossEdgesToCenters());
         if (interpretation3x3Edges.countEdgesPairedWithCenters()==2){
             int notPairedEdgeIndex = interpretation3x3Edges.getIndexOfNotPairedEdgeWithCenter();
@@ -165,35 +162,35 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return alg;
     }
 
-    public ArrayList<InspectMove> getAlgorithmToMakeCorrectOrderCross(boolean adjacentEdges){
+    public ArrayList<Move> getAlgorithmToMakeCorrectOrderCross(boolean adjacentEdges){
         if(adjacentEdges){
             return InspectMove.createAndReturnArrayListFromString("R D R' D' R");
         }
         return InspectMove.createAndReturnArrayListFromString("M2 U2 M2");
     }
 
-    public InspectMove getMoveToMoveEdgeAboveRightCenter(int edgeIndex, Edge edge) {
+    public Move getMoveToMoveEdgeAboveRightCenter(int edgeIndex, Edge edge) {
         int movesCounter = 0;
 
         while (!interpretation3x3Edges.isEdgeAboveRightCenters((edgeIndex+movesCounter)%4,edge)) {
             movesCounter++;
         }
-        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public InspectMove getMoveToRotateCubeToGetEdgeOnFrontSide(int edgeIndex) {
+    public Move getMoveToRotateCubeToGetEdgeOnFrontSide(int edgeIndex) {
         switch (edgeIndex) {
             case 3:
-                return new InspectMove("y'");
+                return new Move("y'");
             case 1:
-                return new InspectMove("y");
+                return new Move("y");
             case 0:
-                return new InspectMove("y2");
+                return new Move("y2");
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+        return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public ArrayList<InspectMove> getMoveToJoinEdgeIntoSecondLayer(int edgeIndex, char secondCenterColor) {
+    public ArrayList<Move> getMoveToJoinEdgeIntoSecondLayer(int edgeIndex, char secondCenterColor) {
 
         if(secondCenterColor == interpretation3x3Edges.getCenterArray()[3]){
             return InspectMove.createAndReturnArrayListFromString("U R U' R' F R' F' R");
@@ -201,7 +198,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return InspectMove.createAndReturnArrayListFromString("U' L' U L F' L F L'");
     }
 
-    public ArrayList<InspectMove> getMoveToMoveOutEdgeFromSecondLayer(int edgeIndex) {
+    public ArrayList<Move> getMoveToMoveOutEdgeFromSecondLayer(int edgeIndex) {
         String alg = "";
         switch (edgeIndex) {
             case 2:
@@ -214,7 +211,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return InspectMove.createAndReturnArrayListFromString(alg);
     }
 
-    public InspectMove rotateUpperCrossToRightPosition(){
+    public Move rotateUpperCrossToRightPosition(){
         int movesCounter = 0;
 
         while (!interpretation3x3Edges.isUpperCrossPositionCorrect()) {
@@ -222,10 +219,10 @@ public class CalculateEdges3x3 extends CalculateMoves {
             cube3x3.moveUsingString("U");
             refreshCube(cube3x3);
         }
-        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public InspectMove rotateUpperIncorrectCrossToRightPosition(){
+    public Move rotateUpperIncorrectCrossToRightPosition(){
         int movesCounter = 0;
 
         while (!interpretation3x3Edges.isUpperIncorrectCrossPositionCorrect()) {
@@ -233,10 +230,10 @@ public class CalculateEdges3x3 extends CalculateMoves {
             cube3x3.moveUsingString("y");
             refreshCube(cube3x3);
         }
-        return new InspectMove(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public InspectMove moveUpperIncorrectCrossToRightPosition(){
+    public Move moveUpperIncorrectCrossToRightPosition(){
         int movesCounter = 0;
 
         while (interpretation3x3Edges.getNumOfCorrectEdgesInUpperCross()<2) {
@@ -244,14 +241,14 @@ public class CalculateEdges3x3 extends CalculateMoves {
             cube3x3.moveUsingString("U");
             refreshCube(cube3x3);
         }
-        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public ArrayList<InspectMove> upperCrossSolveAlgorithm(){
+    public ArrayList<Move> upperCrossSolveAlgorithm(){
         return InspectMove.createAndReturnArrayListFromString("F R U R' U' F'");
     }
 
-    public ArrayList<InspectMove> incorrectUpperCrossSolveAlgorithm(){
+    public ArrayList<Move> incorrectUpperCrossSolveAlgorithm(){
         return InspectMove.createAndReturnArrayListFromString("R U R' U R U2 R' U");
     }
 

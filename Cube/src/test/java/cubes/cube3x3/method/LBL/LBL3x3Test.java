@@ -1,6 +1,7 @@
 package cubes.cube3x3.method.LBL;
 
 import DTOs.InspectMove;
+import DTOs.Move;
 import cubes.Cube;
 import cubes.Cube3x3;
 import interpretations.Interpretation3x3Edges;
@@ -18,7 +19,6 @@ public class LBL3x3Test {
     LBL3X3 lbl3X3;
     Interpretation3x3Edges interpretation3x3Edges = new Interpretation3x3Edges();
     Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
-
 
 
     @ParameterizedTest
@@ -55,7 +55,7 @@ public class LBL3x3Test {
         cube = new Cube3x3();
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
-        ArrayList<InspectMove> alg = lbl3X3.solveCross('y');
+        ArrayList<Move> alg = lbl3X3.solveCross('y');
         interpretation3x3Edges.interpretEdges(cube);
         System.out.println(InspectMove.algorithmToString(alg));
         Assertions.assertAll(
@@ -78,7 +78,7 @@ public class LBL3x3Test {
         cube = new Cube3x3();
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
-        ArrayList<InspectMove> alg = lbl3X3.solveIncorrectCross();
+        ArrayList<Move> alg = lbl3X3.solveIncorrectCross();
         interpretation3x3Edges.interpretEdges(cube);
         System.out.println(InspectMove.algorithmToString(alg));
         Assertions.assertAll(
@@ -96,7 +96,7 @@ public class LBL3x3Test {
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
         //when
-        ArrayList<InspectMove> alg = lbl3X3.solveFirstLayer();
+        ArrayList<Move> alg = lbl3X3.solveFirstLayer();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
         System.out.println(InspectMove.algorithmToString(alg));
@@ -117,7 +117,7 @@ public class LBL3x3Test {
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
         //when
-        ArrayList<InspectMove> alg = lbl3X3.solveSecondLayer();
+        ArrayList<Move> alg = lbl3X3.solveSecondLayer();
         //then
         interpretation3x3Edges.interpretEdges(cube);
         System.out.println(InspectMove.algorithmToString(alg));
@@ -132,12 +132,12 @@ public class LBL3x3Test {
             "D2 L B R' U R L B U F2 L2 B2 U' R2 F2 D' L2 D2 F2 B B' R' D R' F' D' L y' R D R' D' R U' R U2 R' U' R U R' U' y U R U' R' U y R U R' y R U R' U' R U2 R' U' R U R' U2 y' U R U' R' F R' F' R U' y' U' L' U L F' L F L' U2 U R U' R' F R' F' R, F R U R' U' F' U2 F R U R' U' R U R' U' F'",
             "R2 U2 R2 U2 R2 U R U' R' F R' F' R U y U R U' R' F R' F' R U' y' U R U' R' F R' F' R U, U F R U R' U' F'",
     })
-    void solveUpperCross(String scramble, String expected) throws Exception {
+    void solveUpperCross(String scramble, String expected) {
         cube = new Cube3x3();
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
         //when
-        ArrayList<InspectMove> alg = lbl3X3.solveUpperCross();
+        ArrayList<Move> alg = lbl3X3.solveUpperCross();
         //then
         interpretation3x3Edges.interpretEdges(cube);
         System.out.println(InspectMove.algorithmToString(alg));
@@ -157,7 +157,7 @@ public class LBL3x3Test {
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
         //when
-        ArrayList<InspectMove> alg = lbl3X3.solveIncorrectUpperCross();
+        ArrayList<Move> alg = lbl3X3.solveIncorrectUpperCross();
         //then
         interpretation3x3Edges.interpretEdges(cube);
         System.out.println(InspectMove.algorithmToString(alg));
@@ -173,12 +173,12 @@ public class LBL3x3Test {
             "x' R U' R' D R U R' D' R U R' D R U' R' D' x, L' U R U' L U R' U' y2 L' U R U' L U R' U' L' U R U' L U R' U'",
 
     })
-    void solveNotPermutedVertexes(String scramble, String expected) throws Exception {
+    void solveNotPermutedVertexes(String scramble, String expected) {
         cube = new Cube3x3();
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
         //when
-        ArrayList<InspectMove> alg = lbl3X3.solveNotPermutedVertexes();
+        ArrayList<Move> alg = lbl3X3.solveNotPermutedVertexes();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
         System.out.println(InspectMove.algorithmToString(alg));
@@ -198,7 +198,7 @@ public class LBL3x3Test {
         cube.makeMovesUsingString(scramble);
         lbl3X3 = new LBL3X3(cube);
         //when
-        ArrayList<InspectMove> alg = lbl3X3.solveNotOrientedVertexes();
+        ArrayList<Move> alg = lbl3X3.solveNotOrientedVertexes();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
         System.out.println(InspectMove.algorithmToString(alg));
@@ -207,7 +207,6 @@ public class LBL3x3Test {
                 () -> Assertions.assertEquals(expected, InspectMove.algorithmToString(alg))
         );
     }
-
 
 
 }

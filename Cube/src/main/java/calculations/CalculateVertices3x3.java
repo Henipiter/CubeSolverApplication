@@ -1,9 +1,6 @@
 package calculations;
 
-import DTOs.InspectMove;
-import DTOs.MoveEnum;
-import DTOs.MoveTypeEnum;
-import DTOs.Vertex;
+import DTOs.*;
 import cubes.Cube;
 import cubes.Cube3x3;
 import interpretations.Interpretation3x3Vertices;
@@ -23,26 +20,26 @@ public class CalculateVertices3x3 {
         interpretation3x3Vertices.interpretVertices(cube);
     }
 
-    public InspectMove getMoveToMoveVertexAboveRightDestination(int vertexIndex, Vertex vertex) {
+    public Move getMoveToMoveVertexAboveRightDestination(int vertexIndex, Vertex vertex) {
         int movesCounter = 0;
 
         while (!interpretation3x3Vertices.isVertexBetweenItsCenters((vertexIndex + movesCounter) % 4, vertex)) {
             movesCounter++;
         }
-        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public InspectMove getMoveToRotateCubeToGetVertexOnFrontSide(int vertexIndex) {
+    public Move getMoveToRotateCubeToGetVertexOnFrontSide(int vertexIndex) {
         switch (vertexIndex) {
             case 1:
-                return new InspectMove("y");
+                return new Move("y");
             case 0:
-                return new InspectMove("y'");
+                return new Move("y'");
         }
-        return new InspectMove(MoveEnum.BLANK, MoveTypeEnum.BLANK);
+        return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public ArrayList<InspectMove> getMoveToMoveOutVertexFromFirstLayer(int vertexIndex) {
+    public ArrayList<Move> getMoveToMoveOutVertexFromFirstLayer(int vertexIndex) {
         String alg = "";
         switch (vertexIndex) {
             case 2:
@@ -55,7 +52,7 @@ public class CalculateVertices3x3 {
         return InspectMove.createAndReturnArrayListFromString(alg);
     }
 
-    public ArrayList<InspectMove> getMoveToJoinVertexIntoFirstLayer(int vertexIndex, char color) {
+    public ArrayList<Move> getMoveToJoinVertexIntoFirstLayer(int vertexIndex, char color) {
         Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex);
         int field = interpretation3x3Vertices.getFieldWithColor(vertex, color);
         switch (vertexIndex) {
@@ -67,7 +64,7 @@ public class CalculateVertices3x3 {
         return new ArrayList<>();
     }
 
-    private ArrayList<InspectMove> getMoveToSolveVertexIntoFirstLayerOnRightHand(int field) {
+    private ArrayList<Move> getMoveToSolveVertexIntoFirstLayerOnRightHand(int field) {
         String algorithm = "";
         switch (field) {
             case 0:
@@ -83,7 +80,7 @@ public class CalculateVertices3x3 {
         return InspectMove.createAndReturnArrayListFromString(algorithm);
     }
 
-    private ArrayList<InspectMove> getMoveToSolveVertexIntoFirstLayerOnLeftHand(int field) {
+    private ArrayList<Move> getMoveToSolveVertexIntoFirstLayerOnLeftHand(int field) {
         String algorithm = "";
         switch (field) {
             case 0:
@@ -99,31 +96,31 @@ public class CalculateVertices3x3 {
         return InspectMove.createAndReturnArrayListFromString(algorithm);
     }
 
-    public InspectMove rotateCubeToGetRightPlacedVertexInCorrectPosition() {
+    public Move rotateCubeToGetRightPlacedVertexInCorrectPosition() {
         int movesCounter = 0;
         while (!interpretation3x3Vertices.isVerticesInRightPosition()) {
             movesCounter++;
             cube3x3.moveUsingString("y");
             refreshCube(cube3x3);
         }
-        return new InspectMove(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public ArrayList<InspectMove> permuteVertexAlgorithm() {
+    public ArrayList<Move> permuteVertexAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("L' U R U' L U R' U'");
     }
 
-    public InspectMove getMoveToMoveVertexToOrientationPlace() {
+    public Move getMoveToMoveVertexToOrientationPlace() {
         int movesCounter = 0;
         while (!interpretation3x3Vertices.isVerticesInNotRightOrientation()) {
             movesCounter++;
             cube3x3.moveUsingString("U");
             refreshCube(cube3x3);
         }
-        return new InspectMove(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
-    public ArrayList<InspectMove> orientVertexAlgorithm() {
+    public ArrayList<Move> orientVertexAlgorithm() {
         return InspectMove.createAndReturnArrayListFromString("R' D R D' R' D R D'");
     }
 

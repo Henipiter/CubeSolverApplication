@@ -1,10 +1,10 @@
 package interpretations;
 
-import DTOs.*;
+import DTOs.Center;
+import DTOs.Move;
+import DTOs.MoveEnum;
 import cubes.Cube;
-import cubes.Cube1x1;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 
@@ -245,8 +245,8 @@ public class Interpretation4x4Centers {
         return centerArrayList.get(side).getColor()[field] == color;
     }
 
-    public void printAlgorithm(ArrayList<InspectMove> alg) {
-        for (InspectMove i : alg) {
+    public void printAlgorithm(ArrayList<Move> alg) {
+        for (Move i : alg) {
             if (i.getMoveEnum() != MoveEnum.BLANK)
                 System.out.print(i + " ");
         }

@@ -1,7 +1,7 @@
 package cubes;
 
 
-import DTOs.InspectMove;
+import DTOs.Move;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,15 +19,15 @@ public class Cube {
     private char[] center;
 
     public void moveUsingString(String direction){
-        InspectMove inspectMove = new InspectMove(direction);
-        if(inspectMove.getMoveTypeEnum()== INVALID)
+        Move move = new Move(direction);
+        if(move.getMoveTypeEnum()== INVALID)
             logger.info("Cannot do \""+direction+"\" move");
         else {
-            move(inspectMove);
+            move(move);
         }
     }
 
-    public void move(InspectMove inspectMove){}
+    public void move(Move move){}
 
     protected void changeFourFields(char[][] cube, int side, int[] fieldsOrder){
         char buffer;
@@ -37,8 +37,8 @@ public class Cube {
         cube[side][fieldsOrder[fieldsOrder.length-1]] = buffer;
     }
 
-    public void makeMoves(ArrayList<InspectMove> algorithm){
-        for( InspectMove move : algorithm ){
+    public void makeMoves(ArrayList<Move> algorithm){
+        for( Move move : algorithm ){
             move(move);
         }
     }

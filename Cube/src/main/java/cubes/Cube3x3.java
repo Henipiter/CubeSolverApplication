@@ -1,6 +1,6 @@
 package cubes;
 
-import DTOs.InspectMove;
+import DTOs.Move;
 import DTOs.MoveTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -387,9 +387,9 @@ public class Cube3x3 extends Cube {
     }
 
     @Override
-    public void move(InspectMove inspectMove) {
-        MoveTypeEnum moveType = inspectMove.getMoveTypeEnum();
-        switch (inspectMove.getMoveEnum()) {
+    public void move(Move move) {
+        MoveTypeEnum moveType = move.getMoveTypeEnum();
+        switch (move.getMoveEnum()) {
             case M:
                 moveM(moveType);
                 break;
@@ -445,7 +445,7 @@ public class Cube3x3 extends Cube {
                 moved(moveType);
                 break;
             default:
-                logger.info("Cannot do \"" + inspectMove.getMoveEnum().toString() + "\" move");
+                logger.info("Cannot do \"" + move.getMoveEnum().toString() + "\" move");
                 break;
         }
     }

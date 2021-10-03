@@ -1,6 +1,7 @@
 package calculations;
 
 import DTOs.InspectMove;
+import DTOs.Move;
 import cubes.Cube4x4;
 import interpretations.Interpretation4x4Edges;
 
@@ -15,15 +16,15 @@ public class CalculateEdges4x4 {
         this.cube4x4 = cube4x4;
     }
 
-    public static ArrayList<InspectMove> getParityOLLAlgorithm(){
+    public static ArrayList<Move> getParityOLLAlgorithm(){
         return InspectMove.createAndReturnArrayListFromString("Rw2 B2 U2 Lw U2 Rw' U2 Rw U2 F2 Rw F2 Lw' B2 Rw2");
     }
 
-    public static ArrayList<InspectMove> getParityPLLAlgorithm(){
+    public static ArrayList<Move> getParityPLLAlgorithm(){
         return InspectMove.createAndReturnArrayListFromString("r2 U2 r2 Uw2 r2 u2");
     }
 
-    public ArrayList<InspectMove> getMovesToPutUnpairedEdgeOn14or15Index(int edgePairIndex){
+    public ArrayList<Move> getMovesToPutUnpairedEdgeOn14or15Index(int edgePairIndex){
         interpretation4x4Edges.interpretEdges(cube4x4);
 
         switch (edgePairIndex/2){
@@ -54,7 +55,7 @@ public class CalculateEdges4x4 {
         return new ArrayList<>();
     }
 
-    public ArrayList<InspectMove> getMovesToPutUnpairedEdgeOn12Index(int edgePairIndex) {
+    public ArrayList<Move> getMovesToPutUnpairedEdgeOn12Index(int edgePairIndex) {
         String edgeFrontToRight = "F R' F' R";
         String edgeUpToRight = "R U' R'";
         String rotateEdge = "R U R' "+edgeFrontToRight;
@@ -106,7 +107,7 @@ public class CalculateEdges4x4 {
 
     }
 
-    public static ArrayList<InspectMove> getAlgorithmToJoinEdges(){
+    public static ArrayList<Move> getAlgorithmToJoinEdges(){
         return InspectMove.createAndReturnArrayListFromString("Uw' R U R' F R' F' R Uw");
     }
 
