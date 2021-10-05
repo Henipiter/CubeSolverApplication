@@ -16,26 +16,21 @@ public class Interpretation4x4Centers {
 
     public void interpretCenters(Cube cube) {
         centerArrayList = new ArrayList<>();
-        Center center;
-        for (int i = 0; i < 6; i++) {
-            if (i == 1 || i == 5) {
-                center = new Center(new char[]{
-                        cube.getCube()[i][9], cube.getCube()[i][10],
-                        cube.getCube()[i][6], cube.getCube()[i][5]
-                });
-            } else if (i == 3) {
-                center = new Center(new char[]{
-                        cube.getCube()[i][6], cube.getCube()[i][5],
-                        cube.getCube()[i][9], cube.getCube()[i][10]
-                });
-            } else {
-                center = new Center(new char[]{
-                        cube.getCube()[i][5], cube.getCube()[i][6],
-                        cube.getCube()[i][10], cube.getCube()[i][9]
-                });
-            }
-            centerArrayList.add(center);
+        centerArrayList.add(addSingleCenter(cube, 0, new int[]{5, 6, 10, 9}));
+        centerArrayList.add(addSingleCenter(cube, 1, new int[]{9, 10, 6, 5}));
+        centerArrayList.add(addSingleCenter(cube, 2, new int[]{5, 6, 10, 9}));
+        centerArrayList.add(addSingleCenter(cube, 3, new int[]{6, 5, 9, 10}));
+        centerArrayList.add(addSingleCenter(cube, 4, new int[]{5, 6, 10, 9}));
+        centerArrayList.add(addSingleCenter(cube, 5, new int[]{9, 10, 6, 5}));
+
+    }
+
+    private Center addSingleCenter(Cube cube, int side, int[] fields) {
+        char[] centerColors = new char[4];
+        for (int i = 0; i < 4; i++) {
+            centerColors[i] = cube.getCube()[side][fields[i]];
         }
+        return new Center(centerColors);
     }
 
     public char getColorOfOppositeSide(int side) {

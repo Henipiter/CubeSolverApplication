@@ -9,6 +9,7 @@ public class Interpretation1x1 {
     private Cube1x1 cube;
 
     public Interpretation1x1() {
+        cube = new Cube1x1();
     }
 
     public void refreshCube(Cube1x1 cube) {

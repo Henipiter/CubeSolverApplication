@@ -28,23 +28,19 @@ public class Interpretation3x3Vertices {
     }
 
     private void saveVertexPositionOnWallsAndFields() {
-        vertexArrayList.addAll(addSingleVertex(new int[]{0, 2, 5}, new int[]{0, 0, 0}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{0, 3, 5}, new int[]{2, 0, 2}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{0, 3, 4}, new int[]{7, 2, 2}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{0, 2, 4}, new int[]{5, 2, 0}));
+        vertexArrayList.add(addSingleVertex(new int[]{0, 2, 5}, new int[]{0, 0, 0}));
+        vertexArrayList.add(addSingleVertex(new int[]{0, 3, 5}, new int[]{2, 0, 2}));
+        vertexArrayList.add(addSingleVertex(new int[]{0, 3, 4}, new int[]{7, 2, 2}));
+        vertexArrayList.add(addSingleVertex(new int[]{0, 2, 4}, new int[]{5, 2, 0}));
 
-        vertexArrayList.addAll(addSingleVertex(new int[]{1, 2, 5}, new int[]{0, 5, 5}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{1, 3, 5}, new int[]{2, 5, 7}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{1, 3, 4}, new int[]{7, 7, 7}));
-        vertexArrayList.addAll(addSingleVertex(new int[]{1, 2, 4}, new int[]{5, 7, 5}));
+        vertexArrayList.add(addSingleVertex(new int[]{1, 2, 5}, new int[]{0, 5, 5}));
+        vertexArrayList.add(addSingleVertex(new int[]{1, 3, 5}, new int[]{2, 5, 7}));
+        vertexArrayList.add(addSingleVertex(new int[]{1, 3, 4}, new int[]{7, 7, 7}));
+        vertexArrayList.add(addSingleVertex(new int[]{1, 2, 4}, new int[]{5, 7, 5}));
     }
 
-    private ArrayList<Vertex> addSingleVertex(int[] sides, int[] fields) {
-        ArrayList<Vertex> vertexList = new ArrayList<>();
-        Vertex vertex;
-        vertex = Vertex.builder().wall(sides).field(fields).build();
-        vertexList.add(vertex);
-        return vertexList;
+    private Vertex addSingleVertex(int[] sides, int[] fields) {
+        return Vertex.builder().wall(sides).field(fields).build();
     }
 
     public boolean isVertexHasGivenColor(Vertex vertex, char color) {

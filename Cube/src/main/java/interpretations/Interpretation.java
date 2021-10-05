@@ -1,7 +1,6 @@
 package interpretations;
 
 import cubes.Cube;
-import cubes.Cube1x1;
 import lombok.Data;
 
 @Data
@@ -9,7 +8,6 @@ public class Interpretation {
 
     public static char whichColorIsNextInOrder(int chosenSide, char colorOnLeft, char colorOnUp) {
         Interpretation1x1 interpretation1x1 = new Interpretation1x1();
-        interpretation1x1.refreshCube(new Cube1x1());
         return interpretation1x1.whichColorIsNextInOrder(chosenSide, colorOnLeft, colorOnUp);
     }
 
@@ -21,7 +19,6 @@ public class Interpretation {
 
     public static char[] getColorOrder(char colorOnUp) {
         Interpretation1x1 interpretation1x1 = new Interpretation1x1();
-        interpretation1x1.refreshCube(new Cube1x1());
         return interpretation1x1.getColorOrder(colorOnUp);
     }
 
