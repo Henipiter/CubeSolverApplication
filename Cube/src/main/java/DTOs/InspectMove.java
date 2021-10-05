@@ -64,4 +64,12 @@ public class InspectMove {
             moveTypeEnum = MoveTypeEnum.SIMPLE;
         return moveTypeEnum;
     }
+
+    public static Move getReverseMove(Move setup) {
+        if (setup.getMoveTypeEnum() == MoveTypeEnum.PRIM)
+            return new Move(setup.getMoveEnum(), MoveTypeEnum.SIMPLE);
+        else if (setup.getMoveTypeEnum() == MoveTypeEnum.SIMPLE)
+            return new Move(setup.getMoveEnum(), MoveTypeEnum.PRIM);
+        return new Move(setup);
+    }
 }

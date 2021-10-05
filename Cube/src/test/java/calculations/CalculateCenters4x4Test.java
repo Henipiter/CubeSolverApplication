@@ -1,5 +1,6 @@
 package calculations;
 
+import DTOs.InspectMove;
 import DTOs.Move;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
@@ -515,7 +516,7 @@ public class CalculateCenters4x4Test {
         Move move =new Move("r'");
         Move expected = new Move("r");
         //when
-        Move result =calculateCenters4x4.getReverseSetupMoveToJoin(move);
+        Move result = InspectMove.getReverseMove(move);
         //then
         Assertions.assertEquals(expected, result);
     }

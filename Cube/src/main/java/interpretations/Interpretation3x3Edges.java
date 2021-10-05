@@ -44,28 +44,24 @@ public class Interpretation3x3Edges {
     }
 
     private void saveEdgePositionOnWallsAndFields() {
-        edgeArrayList.addAll(addSingleEdge(new int[]{0, 5}, new int[]{1, 1}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{0, 3}, new int[]{4, 1}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{0, 4}, new int[]{6, 1}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{0, 2}, new int[]{3, 1}));
+        edgeArrayList.add(addSingleEdge(new int[]{0, 5}, new int[]{1, 1}));
+        edgeArrayList.add(addSingleEdge(new int[]{0, 3}, new int[]{4, 1}));
+        edgeArrayList.add(addSingleEdge(new int[]{0, 4}, new int[]{6, 1}));
+        edgeArrayList.add(addSingleEdge(new int[]{0, 2}, new int[]{3, 1}));
 
-        edgeArrayList.addAll(addSingleEdge(new int[]{2, 5}, new int[]{3, 3}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{3, 5}, new int[]{3, 4}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{3, 4}, new int[]{4, 4}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{2, 4}, new int[]{4, 3}));
+        edgeArrayList.add(addSingleEdge(new int[]{2, 5}, new int[]{3, 3}));
+        edgeArrayList.add(addSingleEdge(new int[]{3, 5}, new int[]{3, 4}));
+        edgeArrayList.add(addSingleEdge(new int[]{3, 4}, new int[]{4, 4}));
+        edgeArrayList.add(addSingleEdge(new int[]{2, 4}, new int[]{4, 3}));
 
-        edgeArrayList.addAll(addSingleEdge(new int[]{1, 5}, new int[]{1, 6}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{1, 3}, new int[]{4, 6}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{1, 4}, new int[]{6, 6}));
-        edgeArrayList.addAll(addSingleEdge(new int[]{1, 2}, new int[]{3, 6}));
+        edgeArrayList.add(addSingleEdge(new int[]{1, 5}, new int[]{1, 6}));
+        edgeArrayList.add(addSingleEdge(new int[]{1, 3}, new int[]{4, 6}));
+        edgeArrayList.add(addSingleEdge(new int[]{1, 4}, new int[]{6, 6}));
+        edgeArrayList.add(addSingleEdge(new int[]{1, 2}, new int[]{3, 6}));
     }
 
-    private ArrayList<Edge> addSingleEdge(int[] sides, int[] fieldsFirstEdge) {
-        ArrayList<Edge> edgeList = new ArrayList<>();
-        Edge edge;
-        edge = Edge.builder().wall(sides).field(fieldsFirstEdge).build();
-        edgeList.add(edge);
-        return edgeList;
+    private Edge addSingleEdge(int[] sides, int[] fieldsFirstEdge) {
+        return Edge.builder().wall(sides).field(fieldsFirstEdge).build();
     }
 
     public int countFieldsWithGivenColor(char color, char[] colors) {

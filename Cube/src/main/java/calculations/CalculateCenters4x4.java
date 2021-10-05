@@ -1,5 +1,6 @@
 package calculations;
 
+import DTOs.InspectMove;
 import DTOs.Move;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
@@ -109,14 +110,6 @@ public class CalculateCenters4x4 extends CalculateMoves {
         return new Move(getMoveEnumToSetup(sideSource, color), getMoveEnumTypeToSetup(sideSource, color));
     }
 
-    public Move getReverseSetupMoveToJoin(Move setup) {
-        if (setup.getMoveTypeEnum() == MoveTypeEnum.PRIM)
-            return new Move(setup.getMoveEnum(), MoveTypeEnum.SIMPLE);
-        else if (setup.getMoveTypeEnum() == MoveTypeEnum.SIMPLE)
-            return new Move(setup.getMoveEnum(), MoveTypeEnum.PRIM);
-        return new Move(setup);
-    }
-
     public Move getMoveToJoin(int sideSource, char color) {
         if (interpretation4X4Centers.isStripe(sideSource, color)) {
             return new Move(MoveEnum.U, MoveTypeEnum.DOUBLE);
@@ -138,7 +131,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
         Move setup = getSetupMoveToJoinSingleField(sourceSide, color);
         alg.add(setup);
         alg.add(getMoveToJoin(sourceSide, color));
-        alg.add(getReverseSetupMoveToJoin(setup));
+        alg.add(InspectMove.getReverseMove(setup));
         return alg;
     }
 }
