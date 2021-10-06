@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ScramblerFactory {
 
-    public ArrayList<Move> getScrambleAlgorithm(Cube cube){
+    public ArrayList<Move> getScramble(Cube cube){
         Scrambler scrambler = getScrambler(cube);
         return scrambler.getScramble();
     }

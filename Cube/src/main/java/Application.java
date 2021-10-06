@@ -15,7 +15,7 @@ public class Application {
         Cube3x3 cube3x3 = new Cube3x3();
 
         ScramblerFactory scramblerFactory = new ScramblerFactory();
-        ArrayList<Move> scrambleAlg = scramblerFactory.getScrambleAlgorithm(cube2x2);
+        ArrayList<Move> scrambleAlg = scramblerFactory.getScramble(cube2x2);
 
         MethodStrategy methodStrategy;
         String solveAlgorithm;
