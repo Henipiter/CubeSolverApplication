@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public interface Scrambler {
 
-    int MOVE_TYPE_ENUM_RANGE = 3;
     ArrayList<Move> getScramble();
 
     default boolean isMovesOpposite(int moveValue1, int moveValue2) {
@@ -21,22 +20,28 @@ public interface Scrambler {
         return (int) (Math.random() * upperBound);
     }
 
-    default ArrayList<Move> getScramble(int algLength, int moveEnumRange) {
+    default ArrayList<Move> intsToMoves(ArrayList<Integer> array, int enumRange) {
         ArrayList<Move> scramble = new ArrayList<>();
+        for (int i : array) {
+            MoveEnum moveEnum = MoveEnum.returnEnumByInt(i);
+            MoveTypeEnum moveTypeEnum = MoveTypeEnum.
+                    returnEnumByInt(getRandomValue(enumRange) + 1);
+            scramble.add(new Move(moveEnum, moveTypeEnum));
+        }
+        return scramble;
+    }
+
+    default ArrayList<Integer> getRandomInts(int algLength, int moveEnumRange) {
+        ArrayList<Integer> ints = new ArrayList<>();
         int lastMoveValue = -1;
         int currentMoveValue = 0;
-        MoveEnum moveEnum;
-        MoveTypeEnum moveTypeEnum;
         for (int i = 0; i < algLength; i++) {
             while (isMovesOpposite(lastMoveValue, currentMoveValue)) {
                 currentMoveValue = getRandomValue(moveEnumRange);
             }
-            moveEnum = MoveEnum.returnEnumByInt(currentMoveValue);
-            moveTypeEnum = MoveTypeEnum.returnEnumByInt(getRandomValue(MOVE_TYPE_ENUM_RANGE)+1);
-            scramble.add(new Move(moveEnum, moveTypeEnum));
+            ints.add(currentMoveValue);
             lastMoveValue = currentMoveValue;
         }
-        return scramble;
-
+        return ints;
     }
 }
