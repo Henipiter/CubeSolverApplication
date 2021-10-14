@@ -15,7 +15,7 @@ public class twinMovesTest {
 
     @Test
     public void alg_ruld_test(){
-        cube.makeMovesUsingString("z2 y Rw Uw Lw Dw Rw");
+        cube.makeMoves("z2 y Rw Uw Lw Dw Rw");
 
         char[][] expected = new char[][] {
                 {   'r','r','b','b',    'r','r','b','b',    'g','g','w','w',    'g','g','w','w'},

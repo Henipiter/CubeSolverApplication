@@ -27,7 +27,7 @@ public class MoveRandomTest {
                 {'g',   'b','b','b',    'g','b','b','r','b'}
         };
         //when
-        cubePyraminx.makeMovesUsingString("R' B R' B' L B' L R' l' r b u'");
+        cubePyraminx.makeMoves("R' B R' B' L B' L R' l' r b u'");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
     }
@@ -42,7 +42,7 @@ public class MoveRandomTest {
                 {'g',   'y','g','g',    'b','b','r','r','r'}
         };
         //when
-        cubePyraminx.makeMovesUsingString("R L R U R' B' U L' U' R U R' B' L' B' U' R B' U L R' B R' B' L'");
+        cubePyraminx.makeMoves("R L R U R' B' U L' U' R U R' B' L' B' U' R B' U L R' B R' B' L'");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
     }

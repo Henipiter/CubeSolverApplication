@@ -25,7 +25,7 @@ public class MoveExternRTest {
                 {'b',   'b','b','b',    'g','b','b','b','b'}
         };
         //when
-        cubePyraminx.moveUsingString("r");
+        cubePyraminx.move("r");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
     }
@@ -40,7 +40,7 @@ public class MoveExternRTest {
                 {'b',   'b','b','b',    'y','b','b','b','b'}
         };
         //when
-        cubePyraminx.moveUsingString("r'");
+        cubePyraminx.move("r'");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
     }
@@ -55,8 +55,8 @@ public class MoveExternRTest {
                 {'b',   'b','b','b',    'b','b','b','b','b'}
         };
         //when
-        cubePyraminx.moveUsingString("r");
-        cubePyraminx.moveUsingString("r'");
+        cubePyraminx.move("r");
+        cubePyraminx.move("r'");
 
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());

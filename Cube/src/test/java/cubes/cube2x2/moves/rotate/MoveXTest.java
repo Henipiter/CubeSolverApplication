@@ -38,7 +38,7 @@ public class MoveXTest {
                 {'g','w','r','b'}
         };
         //when
-        cube2x2.moveUsingString("x");
+        cube2x2.move("x");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }
@@ -55,7 +55,7 @@ public class MoveXTest {
                 {'r','g','o','b'}
         };
         //when
-        cube2x2.moveUsingString("x'");
+        cube2x2.move("x'");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }
@@ -72,7 +72,7 @@ public class MoveXTest {
                 {'g','r','y','b'}
         };
         //when
-        cube2x2.moveUsingString("x2");
+        cube2x2.move("x2");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -91,8 +91,8 @@ public class MoveXTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.moveUsingString("x");
-        cube2x2.moveUsingString("x'");
+        cube2x2.move("x");
+        cube2x2.move("x'");
 
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
@@ -111,8 +111,8 @@ public class MoveXTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.moveUsingString("x2");
-        cube2x2.moveUsingString("x2");
+        cube2x2.move("x2");
+        cube2x2.move("x2");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
 

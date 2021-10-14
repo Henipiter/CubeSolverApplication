@@ -110,7 +110,7 @@ public class MoveTest {
                 new Move("R"),
                 new Move("U")
         ));
-        ArrayList<Move> result = InspectMove.createAndReturnArrayListFromString("R U R U");
+        ArrayList<Move> result = InspectMove.stringToMoveList("R U R U");
         Assertions.assertEquals(expected, result);
     }
 
@@ -122,14 +122,14 @@ public class MoveTest {
                 new Move("R"),
                 new Move("U")
         ));
-        String result = InspectMove.algorithmToString(alg);
+        String result = InspectMove.moveListToString(alg);
         Assertions.assertEquals("R U R U", result);
     }
 
     @Test
     void call_algToString_and_should_return_empty_string(){
         ArrayList<Move> alg = new ArrayList<>();
-        String result = InspectMove.algorithmToString(alg);
+        String result = InspectMove.moveListToString(alg);
         Assertions.assertEquals("", result);
     }
 }

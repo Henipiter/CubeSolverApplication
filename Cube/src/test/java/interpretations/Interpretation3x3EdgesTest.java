@@ -25,7 +25,7 @@ class Interpretation3x3EdgesTest {
     @Test
     public void call_interpretEdges() {
         //given
-        cube.makeMovesUsingString("R U L D R");
+        cube.makeMoves("R U L D R");
         interpretation3x3Edges.interpretEdges(cube);
         char[][] expected = new char[][]{
                 {'w', 'o'}, {'y', 'r'}, {'g', 'r'}, {'b', 'o'},
@@ -72,7 +72,7 @@ class Interpretation3x3EdgesTest {
     @ParameterizedTest
     @CsvSource({"R, false","R D R' D' R, true" })
     public void call_isSolvedCross_should_return_expected_values(String alg, boolean expected){
-        cube.makeMovesUsingString(alg);
+        cube.makeMoves(alg);
         interpretation3x3Edges.interpretEdges(cube);
         Assertions.assertEquals(expected,interpretation3x3Edges.isSolvedCross());
     }
@@ -81,7 +81,7 @@ class Interpretation3x3EdgesTest {
     @CsvSource({"R,3, false","R,4, true","R',3,false","R',5,true",
             "L',2, false","L',4, true","L,2,false","L,5,true"})
     public void isCollisionWithDifferentSide(String alg,int side ,boolean expected){
-        cube.makeMovesUsingString(alg);
+        cube.makeMoves(alg);
         interpretation3x3Edges.interpretEdges(cube);
         Assertions.assertEquals(expected,interpretation3x3Edges.isCollisionWithDifferentSide(side,'y'));
     }
@@ -89,14 +89,14 @@ class Interpretation3x3EdgesTest {
     @ParameterizedTest
     @CsvSource({"R,4, 3","R',5,3","L',4, 2","L,5,2"})
     public void getSideWhichHaveCollisionWithGivenSide(String alg,int side ,int expected){
-        cube.makeMovesUsingString(alg);
+        cube.makeMoves(alg);
         interpretation3x3Edges.interpretEdges(cube);
         Assertions.assertEquals(expected,interpretation3x3Edges.getSideWhichHaveCollisionWithGivenSide(side,'y'));
     }
 
     @Test
     public  void call_getColorOnCircumferenceFromGivenSide(){
-        cube.makeMovesUsingString("F B U D");
+        cube.makeMoves("F B U D");
         interpretation3x3Edges.interpretEdges(cube);
         char[] expected= new char[]{'r','b','r','g'};
         char[] result = interpretation3x3Edges.getColorOnCircumferenceFromGivenSide(3);
@@ -105,7 +105,7 @@ class Interpretation3x3EdgesTest {
 
     @Test
     public  void getColorOnInnerSideFromGivenSide(){
-        cube.makeMovesUsingString("F B U D");
+        cube.makeMoves("F B U D");
         interpretation3x3Edges.interpretEdges(cube);
         char[] expected= new char[]{'b','y','g','w'};
         char[] result = interpretation3x3Edges.getColorOnInnerSideFromGivenSide(3);
@@ -114,7 +114,7 @@ class Interpretation3x3EdgesTest {
 
     @Test
     public  void getColorFromAllEdgesFromGivenSide(){
-        cube.makeMovesUsingString("F B U D");
+        cube.makeMoves("F B U D");
         interpretation3x3Edges.interpretEdges(cube);
         char[] expected= new char[]{'r','b','r','g','b','y','g','w'};
         char[] result = interpretation3x3Edges.getColorFromAllEdgesFromGivenSide(3);
@@ -132,7 +132,7 @@ class Interpretation3x3EdgesTest {
     @ParameterizedTest
     @CsvSource({"D,true", "R D R' D' R, false", "M2 U2 M2, false" })
     void call_isCrossInCorrectOrder(String alg, boolean expected){
-        cube.makeMovesUsingString(alg);
+        cube.makeMoves(alg);
         interpretation3x3Edges.interpretEdges(cube);
         boolean result = interpretation3x3Edges.isCrossInCorrectOrder('y');
         Assertions.assertEquals(expected,result);
@@ -141,7 +141,7 @@ class Interpretation3x3EdgesTest {
     @ParameterizedTest
     @CsvSource({"D,0", "D2 D2,4", "R D R' D' R, 2", "R D R' D' R D, 1","M2 U2 M2, 2" })
     void call_countEdgesPairedWithCenters(String alg, int expected){
-        cube.makeMovesUsingString(alg);
+        cube.makeMoves(alg);
         interpretation3x3Edges.interpretEdges(cube);
         int result = interpretation3x3Edges.countEdgesPairedWithCenters();
         Assertions.assertEquals(expected,result);
@@ -150,7 +150,7 @@ class Interpretation3x3EdgesTest {
     @ParameterizedTest
     @CsvSource({"R R', true","R U R' F R' F' R, false" })
     void call_isSecondLayerComplete(String alg, boolean expected){
-        cube.makeMovesUsingString(alg);
+        cube.makeMoves(alg);
         interpretation3x3Edges.interpretEdges(cube);
         boolean result = interpretation3x3Edges.isSecondLayerComplete();
         Assertions.assertEquals(expected,result);

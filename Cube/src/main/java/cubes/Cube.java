@@ -18,7 +18,7 @@ public class Cube {
     private char[][] cube;
     private char[] center;
 
-    public void moveUsingString(String direction) {
+    public void move(String direction) {
         Move move = new Move(direction);
         if (move.getMoveTypeEnum() == INVALID)
             logger.info("Cannot do \"" + direction + "\" move");
@@ -44,10 +44,10 @@ public class Cube {
         }
     }
 
-    public void makeMovesUsingString(String algorithm) {
+    public void makeMoves(String algorithm) {
         String[] splitAlg = algorithm.split(" ");
         for (String move : splitAlg) {
-            moveUsingString(move);
+            move(move);
         }
     }
 

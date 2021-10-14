@@ -51,11 +51,11 @@ public class LBL2X2 implements LBL {
 
         addAlgAndMoveCube(algorithm,lbl3X3.solveFirstLayer());
         addAlgAndMoveCube(algorithm,lbl3X3.solveNotOrientedVertexes());
-        System.out.println(InspectMove.algorithmToString(algorithm));
+        System.out.println(InspectMove.moveListToString(algorithm));
         algorithm.addAll(solvePll());
 
 
-        return InspectMove.algorithmToString(algorithm);
+        return InspectMove.moveListToString(algorithm);
     }
 
     public ArrayList<Move> solvePll() {
@@ -168,7 +168,7 @@ public class LBL2X2 implements LBL {
 
     public Move rotateCubeToGetColorOnBottomSide(char bottomColor) {
         interpretation2x2Vertices.interpretVertices(cube);
-        ArrayList<Move> moves = InspectMove.createAndReturnArrayListFromString("BLANK x x' z z' x2");
+        ArrayList<Move> moves = InspectMove.stringToMoveList("BLANK x x' z z' x2");
         int indexMove = 1;
         while (!interpretation2x2Vertices.isBottomSideHasColor(bottomColor)) {
             cube.move(InspectMove.getReverseMove(moves.get(indexMove-1)));

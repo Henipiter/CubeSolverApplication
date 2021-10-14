@@ -21,7 +21,7 @@ public class ScrambleTest {
         //when
         ArrayList<Move> scrambleAlg = scramblerFactory.getScramble(new Cube2x2());
         //then
-        System.out.println(InspectMove.algorithmToString(scrambleAlg));
+        System.out.println(InspectMove.moveListToString(scrambleAlg));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ScrambleTest {
         //when
         ArrayList<Move> scrambleAlg = scramblerFactory.getScramble(new Cube4x4());
         //then
-        System.out.println(InspectMove.algorithmToString(scrambleAlg));
+        System.out.println(InspectMove.moveListToString(scrambleAlg));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class ScrambleTest {
         //when
         ArrayList<Move> scrambleAlg = scramblerFactory.getScramble(new CubePyraminx());
         //then
-        System.out.println(InspectMove.algorithmToString(scrambleAlg));
+        System.out.println(InspectMove.moveListToString(scrambleAlg));
     }
 
     @ParameterizedTest

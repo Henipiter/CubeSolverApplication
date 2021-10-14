@@ -15,7 +15,7 @@ public class outerMovesTest {
 
     @Test
     public void alg_RULD_test(){
-        cube.makeMovesUsingString("R U L D");
+        cube.makeMoves("R U L D");
 
         char[][] expected = new char[][] {
                 {   'b','w','w','w',    'b','w','w','w',    'b','w','w','w',    'o','g','g','g'},
@@ -30,7 +30,7 @@ public class outerMovesTest {
 
     @Test
     public void alg_Tperm_test(){
-        cube.makeMovesUsingString("R U R' U' R' F R2 U' R' U' R U R' F'");
+        cube.makeMoves("R U R' U' R' F R2 U' R' U' R U R' F'");
 
         char[][] expected = new char[][] {
                 {   'w','w','w','w',    'w','w','w','w',    'w','w','w','w',    'w','w','w','w'},
@@ -45,7 +45,7 @@ public class outerMovesTest {
 
     @Test
     public void alg_Gperm_test(){
-        cube.makeMovesUsingString("R' U' R U D' R2 U R' U R U' R U' R2 D");
+        cube.makeMoves("R' U' R U D' R2 U R' U R U' R U' R2 D");
 
         char[][] expected = new char[][] {
                 {   'w','w','w','w',    'w','w','w','w',    'w','w','w','w',    'w','w','w','w'},

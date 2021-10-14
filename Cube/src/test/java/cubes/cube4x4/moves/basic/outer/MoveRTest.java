@@ -38,7 +38,7 @@ public class MoveRTest {
                 {   'w','w','o','w',    'w','w','o','w',    'b','b','y','b',    'b','b','y','b'}
         };
         //when
-        cube4x4.moveUsingString("R");
+        cube4x4.move("R");
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
     }
@@ -55,7 +55,7 @@ public class MoveRTest {
                 {   'w','w','o','g',    'w','w','o','g',    'b','b','y','b',    'b','b','y','b'}
         };
         //when
-        cube4x4.moveUsingString("R'");
+        cube4x4.move("R'");
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
     }
@@ -72,7 +72,7 @@ public class MoveRTest {
                 {   'w','w','o','r',    'w','w','o','r',    'b','b','y','b',    'b','b','y','b'}
         };
         //when
-        cube4x4.moveUsingString("R2");
+        cube4x4.move("R2");
 
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
@@ -91,8 +91,8 @@ public class MoveRTest {
                 {   'w','w','o','o',    'w','w','o','o',    'b','b','y','y',    'b','b','y','y'}
         };
         //when
-        cube4x4.moveUsingString("R");
-        cube4x4.moveUsingString("R'");
+        cube4x4.move("R");
+        cube4x4.move("R'");
 
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
@@ -111,8 +111,8 @@ public class MoveRTest {
                 {   'w','w','o','o',    'w','w','o','o',    'b','b','y','y',    'b','b','y','y'}
         };
         //when
-        cube4x4.moveUsingString("R2");
-        cube4x4.moveUsingString("R2");
+        cube4x4.move("R2");
+        cube4x4.move("R2");
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
 

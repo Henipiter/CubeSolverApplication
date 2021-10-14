@@ -19,8 +19,8 @@ public class Application {
 
         MethodStrategy methodStrategy;
         String solveAlgorithm;
-        String scramble = "D R' F' L2 D B' R2 D2 R U2 F R2 B' L2 D2 B' L2 B2 U2 F'";
-        cube3x3.makeMovesUsingString(scramble);
+        String scramble = "R D2 F' U2 L D2 L D2 U2 R F2 L' F2 R2 B R F2 L U R F";
+        cube3x3.makeMoves(scramble);
         methodStrategy = new MethodStrategy(new LBLSolver());
         solveAlgorithm = methodStrategy.solve(cube3x3);
         System.out.println(solveAlgorithm);

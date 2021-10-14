@@ -34,7 +34,7 @@ public class CalculateEdges3x3Test {
             "B,5, BLANK, BLANK", "B,2, D, SIMPLE","B,3,D,PRIM","B,4,D,DOUBLE"})
     void call_getMoveToGetFreeSlotOnGivenSide(String alg, int side, MoveEnum moveEnum, MoveTypeEnum moveTypeEnum){
         //given
-        cube.makeMovesUsingString(alg);
+        cube.makeMoves(alg);
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
         Move expected = new Move(moveEnum, moveTypeEnum);
@@ -76,7 +76,7 @@ public class CalculateEdges3x3Test {
     @ParameterizedTest
     @CsvSource({"F, F',4,3","F', F,4,1", "F2, F2,4,0"})
     void getInspectMoveToJoinCircumferenceField(String scramble, String expectedAlg, int side, int sideEdge){
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
         Move expected = new Move(expectedAlg);
@@ -90,7 +90,7 @@ public class CalculateEdges3x3Test {
     @ParameterizedTest
     @CsvSource({"M' U M U',F'","M' U M U' F2,F", "M' U M U' R2,F","M' U M U' F2 R2,F'"})
     void getMovesToMoveInnerEdgeOnConflictEdge(String scramble, String expected){
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
         //when
@@ -105,13 +105,13 @@ public class CalculateEdges3x3Test {
             "M' U M U' F',D' L,2,1"
     })
     void getMovesToJoinEdgeToCross(String scramble, String expected,int side, int sideEdgeNumber){
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Edges.interpretEdges(cube);
         calculateEdges3x3.refreshCube(cube);
         //when
         ArrayList<Move> result = calculateEdges3x3.getMovesToJoinEdgeToCross(side,sideEdgeNumber,'y');
         //then
-        Assertions.assertEquals(expected, InspectMove.algorithmToString(result));
+        Assertions.assertEquals(expected, InspectMove.moveListToString(result));
     }
 
 
@@ -120,7 +120,7 @@ public class CalculateEdges3x3Test {
             "D, PRIM", "D2, DOUBLE", "D', SIMPLE", "D2 D2, BLANK"
     })
     void getMoveToPairCrossEdgesToCenters(String scramble, MoveTypeEnum expected){
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         calculateEdges3x3.refreshCube(cube);
         //when
         Move result = calculateEdges3x3.getMoveToPairCrossEdgesToCenters();
@@ -135,7 +135,7 @@ public class CalculateEdges3x3Test {
     })
     void isCorrectCross(String scramble){
         //given
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         calculateEdges3x3.refreshCube(cube);
         //when
         calculateEdges3x3.getMoveToSolveIncorrectOrderCross();

@@ -22,7 +22,7 @@ class Interpretation4x4EdgesTest {
     @Test
     public void call_interpretEdges() {
 
-        cube.makeMovesUsingString("Rw Uw Lw Dw Rw");
+        cube.makeMoves("Rw Uw Lw Dw Rw");
         interpretation4x4Edges.interpretEdges(cube);
         ArrayList<Edge> result = interpretation4x4Edges.getEdgeArrayList();
         char[][] expected = new char[][]{
@@ -49,7 +49,7 @@ class Interpretation4x4EdgesTest {
 
     @Test
     public void call_isChosenEdgeIsPaired(){
-        cube.makeMovesUsingString("Rw");
+        cube.makeMoves("Rw");
         interpretation4x4Edges.interpretEdges(cube);
         for(int i=0;i<24;i++){
             if(i/2==0 || i/2==2 || i/2==8 || i/2==10){
@@ -63,7 +63,7 @@ class Interpretation4x4EdgesTest {
 
     @Test
     public void call_isChosenEdgeIsPairedw(){
-        cube.makeMovesUsingString("Rw Uw Rw");
+        cube.makeMoves("Rw Uw Rw");
         interpretation4x4Edges.interpretEdges(cube);
         for(int i=0;i<24;i++){
             if(i/2==6 || i/2==11){
