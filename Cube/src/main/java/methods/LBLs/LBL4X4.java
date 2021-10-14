@@ -39,7 +39,7 @@ public class LBL4X4 implements LBL {
         algorithm.addAll(solveCenters(firstCenterColor));
         algorithm.addAll(pairAllEdges());
         algorithm.addAll(phase3x3(firstCenterColor));
-        return InspectMove.algorithmToString(algorithm);
+        return InspectMove.moveListToString(algorithm);
     }
 
     public ArrayList<Move> solveCenters(char firstCenterColor) {
@@ -223,7 +223,7 @@ public class LBL4X4 implements LBL {
     private ArrayList<Move> resolveOLLParity() {
         cube.getLogger().info("OLL Parity");
         makeOllParityOn3x3();
-        cube3x3.makeMovesUsingString("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
+        cube3x3.makeMoves("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
         return CalculateEdges4x4.getParityOLLAlgorithm();
     }
 

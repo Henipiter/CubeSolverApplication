@@ -27,7 +27,7 @@ public class RandomScrambles {
                 {'g','g','g','r','w','o','w','b'}
         };
         //when
-        cube3x3.makeMovesUsingString("D F' L' B' L' F' D' R' U' R2 D' R2 D2 F2 B2 R2 F2 U' R2 F'");
+        cube3x3.makeMoves("D F' L' B' L' F' D' R' U' R2 D' R2 D2 F2 B2 R2 F2 U' R2 F'");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
     }
@@ -44,7 +44,7 @@ public class RandomScrambles {
                 {'w','b','r','y','r','y','r','y'}
         };
         //when
-        cube3x3.makeMovesUsingString("L2 F B2 R' F2 L D2 U2 L F2 L2 R' B2 R' D L2 U' L U' R D'");
+        cube3x3.makeMoves("L2 F B2 R' F2 L D2 U2 L F2 L2 R' B2 R' D L2 U' L U' R D'");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
     }

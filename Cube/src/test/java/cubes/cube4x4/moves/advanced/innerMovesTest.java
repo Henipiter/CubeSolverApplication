@@ -1,6 +1,5 @@
 package cubes.cube4x4.moves.advanced;
 
-import cubes.Cube2x2;
 import cubes.Cube4x4;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,7 @@ public class innerMovesTest {
 
     @Test
     public void alg_ruld_test(){
-        cube.makeMovesUsingString("r u l d");
+        cube.makeMoves("r u l d");
 
         char[][] expected = new char[][] {
                 {   'w','b','g','w',    'w','b','g','w',    'w','o','g','w',    'w','b','g','w'},

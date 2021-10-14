@@ -25,7 +25,7 @@ class Interpretation3x3VerticesTest {
     @Test
     void call_interpretEdges() {
         //given
-        cube.makeMovesUsingString("R U L D R");
+        cube.makeMoves("R U L D R");
         interpretation3x3Vertices.interpretVertices(cube);
         char[][] expected = new char[][]{
                 {'b', 'o', 'y'}, {'r', 'w', 'g'}, {'y', 'g', 'r'}, {'o', 'g', 'w'},
@@ -43,7 +43,7 @@ class Interpretation3x3VerticesTest {
     @CsvSource({"U U', true", "R U, true", "U' R', true", "R,false"})
     void isVertexHasGivenColor(String scramble, boolean expected) {
         //when
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(2);
         //when
@@ -56,7 +56,7 @@ class Interpretation3x3VerticesTest {
     @CsvSource({"U U', 0", "R U, 1", "U' R', 2", "R,-1"})
     void getFieldWithColor(String scramble, int expected) {
         //when
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         //when
         int result = interpretation3x3Vertices.getFieldWithColor(interpretation3x3Vertices.getVertexArrayList().get(2), 'w');
@@ -71,7 +71,7 @@ class Interpretation3x3VerticesTest {
     })
     void isVertexBetweenItsCenters(String scramble, int vertexIndex, boolean expected) {
         //when
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex);
         //when
@@ -90,7 +90,7 @@ class Interpretation3x3VerticesTest {
     })
     void isVertexWithGivenColorOnUpperSide(String scramble, boolean expected) {
         //when
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         //when
         boolean result = interpretation3x3Vertices.isVertexWithGivenColorOnUpperSide('y');
@@ -108,7 +108,7 @@ class Interpretation3x3VerticesTest {
     })
     void getVertexWithGivenColorOnUpperSide(String scramble, int expected) {
         //when
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         //when
         int result = interpretation3x3Vertices.getVertexWithGivenColorOnUpperSide('y');
@@ -126,7 +126,7 @@ class Interpretation3x3VerticesTest {
     })
     void isFirstLayerComplete(String scramble, boolean expected) {
         //when
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         //when
         boolean result = interpretation3x3Vertices.isFirstLayerComplete();
@@ -146,7 +146,7 @@ class Interpretation3x3VerticesTest {
     })
     void getIncorrectVertexInFirstLayer(String scramble, int expected) {
         //when
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         interpretation3x3Vertices.interpretVertices(cube);
         //when
         int result = interpretation3x3Vertices.getIncorrectVertexInFirstLayer();

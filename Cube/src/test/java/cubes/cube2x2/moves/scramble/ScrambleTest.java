@@ -30,13 +30,13 @@ public class ScrambleTest {
                 {'w','o','b','y'}
         };
         //when
-        cube2x2.moveUsingString("x2");
-        cube2x2.moveUsingString("y'");
-        cube2x2.moveUsingString("R");
-        cube2x2.moveUsingString("U");
-        cube2x2.moveUsingString("L");
-        cube2x2.moveUsingString("D");
-        cube2x2.moveUsingString("R");
+        cube2x2.move("x2");
+        cube2x2.move("y'");
+        cube2x2.move("R");
+        cube2x2.move("U");
+        cube2x2.move("L");
+        cube2x2.move("D");
+        cube2x2.move("R");
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
     }

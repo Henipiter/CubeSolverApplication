@@ -43,15 +43,15 @@ public class LBL4x4Test {
             "r, x2 Lw' U Lw Rw2 U' Rw2",
             "o, Lw' U' Lw Rw2 U Rw2"})
     public void call_solveFirstCenter_with_short_scramble(char firstCenterColor, String expectedAlg) {
-        cube.makeMovesUsingString("r u l d r");
+        cube.makeMoves("r u l d r");
 
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveFirstCenter(firstCenterColor);
         interpretation.interpretCenters(cube);
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation.isWholeCenterInOneColor(0)),
-                () -> Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm))
+                () -> Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm))
         );
 
     }
@@ -64,15 +64,15 @@ public class LBL4x4Test {
             "r, x' y Lw' U Lw ",
             "o, z U2 Lw2 U Lw2 y' U' Rw U Rw'"})
     public void call_solveFirstCenter_with_random_scramble1(char firstCenterColor, String expectedAlg) {
-        cube.makeMovesUsingString("r' d R D2 U' B' r' B' D' d");
+        cube.makeMoves("r' d R D2 U' B' r' B' D' d");
 
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveFirstCenter(firstCenterColor);
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         interpretation.interpretCenters(cube);
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation.isWholeCenterInOneColor(0)),
-                () -> Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm))
+                () -> Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm))
         );
     }
 
@@ -84,14 +84,14 @@ public class LBL4x4Test {
             "r, x y U2 Rw U' Rw' y U2 Lw' U Lw ",
             "o, z y2 U2 Lw' U2 Lw"})
     public void call_solveFirstCenter__with_random_scramble2(char firstCenterColor, String expectedAlg) {
-        cube.makeMovesUsingString("d B' d l D U' b2 d L2 B2");
+        cube.makeMoves("d B' d l D U' b2 d L2 B2");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveFirstCenter(firstCenterColor);
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         interpretation.interpretCenters(cube);
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation.isWholeCenterInOneColor(0)),
-                () -> Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm))
+                () -> Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm))
         );
     }
 
@@ -103,26 +103,26 @@ public class LBL4x4Test {
             "r, z Lw' U Lw U' Rw2 U' Rw2 y2 U2 Lw' U' Lw",
             "o, Rw U Rw' Rw2 U Rw2 y2 U' Rw U' Rw'"})
     public void call_solveFirstCenter__with_random_scramble3(char firstCenterColor, String expectedAlg) {
-        cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
+        cube.makeMoves("b2 l U2 F2 L2 d' B' b' L B'");
 
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveFirstCenter(firstCenterColor);
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         interpretation.interpretCenters(cube);
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation.isWholeCenterInOneColor(0)),
-                () -> Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm))
+                () -> Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm))
         );
     }
 
     @Test
     public void call_solveSecondCenter_with_short_scramble() {
-        cube.makeMovesUsingString("r u l d r");
-        cube.makeMovesUsingString("z' Lw' U' Lw Rw2 U Rw2");
+        cube.makeMoves("r u l d r");
+        cube.makeMoves("z' Lw' U' Lw Rw2 U Rw2");
 
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveSecondCenter();
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         interpretation.interpretCenters(cube);
         int countWhiteFields = interpretation.countFieldWithGivenColor(0, interpretation.getColorOfOppositeSide(1));
         Assertions.assertEquals(4, countWhiteFields);
@@ -130,13 +130,13 @@ public class LBL4x4Test {
 
     @Test
     public void call_solveThirdCenter_with_short_scramble() {
-        cube.makeMovesUsingString("r u l d r");
-        cube.makeMovesUsingString("z' Lw' U' Lw Rw2 U Rw2");
-        cube.makeMovesUsingString("x2 U' Lw' U Lw y2 U2 Rw U Rw'");
+        cube.makeMoves("r u l d r");
+        cube.makeMoves("z' Lw' U' Lw Rw2 U Rw2");
+        cube.makeMoves("x2 U' Lw' U Lw y2 U2 Rw U Rw'");
 
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveThirdCenter();
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         interpretation.interpretCenters(cube);
         boolean result = interpretation.isWholeCenterInOneColor(0);
         Assertions.assertTrue(result);
@@ -144,14 +144,14 @@ public class LBL4x4Test {
 
     @Test
     public void call_solveFourthCenter_with_short_scramble() {
-        cube.makeMovesUsingString("r u l d r");
-        cube.makeMovesUsingString("z' Lw' U' Lw Rw2 U Rw2");
-        cube.makeMovesUsingString("x2 U' Lw' U Lw y2 U2 Rw U Rw'");
-        cube.makeMovesUsingString("z x U' Rw U Rw'");
+        cube.makeMoves("r u l d r");
+        cube.makeMoves("z' Lw' U' Lw Rw2 U Rw2");
+        cube.makeMoves("x2 U' Lw' U Lw y2 U2 Rw U Rw'");
+        cube.makeMoves("z x U' Rw U Rw'");
 
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveFourthCenter();
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         interpretation.interpretCenters(cube);
         boolean result = interpretation.isWholeCenterInOneColor(0);
         Assertions.assertTrue(result);
@@ -159,15 +159,15 @@ public class LBL4x4Test {
 
     @Test
     public void call_solveFifthCenter_with_short_scramble() {
-        cube.makeMovesUsingString("r u l d r");
-        cube.makeMovesUsingString("z' Lw' U' Lw Rw2 U Rw2");
-        cube.makeMovesUsingString("x2 U' Lw' U Lw y2 U2 Rw U Rw'");
-        cube.makeMovesUsingString("z x U' Rw U Rw'");
-        cube.makeMovesUsingString("x Rw U Rw' D Lw2 U2 Lw2");
+        cube.makeMoves("r u l d r");
+        cube.makeMoves("z' Lw' U' Lw Rw2 U Rw2");
+        cube.makeMoves("x2 U' Lw' U Lw y2 U2 Rw U Rw'");
+        cube.makeMoves("z x U' Rw U Rw'");
+        cube.makeMoves("x Rw U Rw' D Lw2 U2 Lw2");
 
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveLastTwoCenters();
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         interpretation.interpretCenters(cube);
         boolean result = interpretation.isWholeCenterInOneColor(0);
         Assertions.assertTrue(result);
@@ -182,15 +182,15 @@ public class LBL4x4Test {
             "o, Lw' U' Lw Rw2 U Rw2 x2 U' Lw' U Lw y2 U2 Rw U Rw' z x y2 U' Rw U Rw' x Lw' U' Lw U D Lw2 U2 Lw2 x Rw U Rw'"})
     public void call_solveWholeCenters_with_short_scramble(char firstCenterColor, String expectedAlg) {
 
-        cube.makeMovesUsingString("r u l d r");
+        cube.makeMoves("r u l d r");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm));
     }
 
 
@@ -202,16 +202,16 @@ public class LBL4x4Test {
             "r,x' y Lw' U Lw x2 Lw' U2 Lw y U2 Rw U' Rw' y U' Lw' U Lw z x' y2 U2 Rw U Rw' x U' Rw2 U' Rw2 x F Lw' U2 Lw",
             "o, z U2 Lw2 U Lw2 y' U' Rw U Rw' x2 y' Rw U2 Rw' Lw' U' Lw z U2 Rw U' Rw' y2 Rw U Rw' x Rw U' Rw' U2 Rw2 U2 Rw2 U Lw2 U Lw2 x U2 Lw' U' Lw"})
     public void call_solveWholeCenters_with_random1_scramble(char firstCenterColor, String expectedAlg) {
-        cube.makeMovesUsingString("r' d R D2 U' B' r' B' D' d");
+        cube.makeMoves("r' d R D2 U' B' r' B' D' d");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
 
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm));
     }
 
     @ParameterizedTest
@@ -223,17 +223,17 @@ public class LBL4x4Test {
             "o,z y2 U2 Lw' U2 Lw x2 U2 Rw U2 Rw' y' U2 Rw U' Rw' z F Rw U2 Rw' x U' Rw U Rw' Lw2 U Lw2 x Lw' U Lw U2 Rw U Rw'"})
     public void call_solveWholeCenters_with_random2_scramble(char firstCenterColor, String expectedAlg) {
 
-        cube.makeMovesUsingString("d B' d l D U' b2 d L2 B2");
+        cube.makeMoves("d B' d l D U' b2 d L2 B2");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
 
 
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm));
     }
 
     @ParameterizedTest
@@ -245,16 +245,16 @@ public class LBL4x4Test {
             "o,Rw U Rw' Rw2 U Rw2 y2 U' Rw U' Rw' x2 Rw U' Rw' y' Rw U Rw' y' Rw U Rw' y' U2 Lw' U Lw z Rw U' Rw' U' Rw2 U Rw2 x U Rw2 U Rw2 x U' Rw U2 Rw' Rw U' Rw' U' Lw' U' Lw"})
     public void call_solveWholeCenters_with_random3_scramble(char firstCenterColor, String expectedAlg) {
 
-        cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
+        cube.makeMoves("b2 l U2 F2 L2 d' B' b' L B'");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<Move> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
 
-        System.out.println("Solution: "+InspectMove.algorithmToString(algorithm));
+        System.out.println("Solution: "+InspectMove.moveListToString(algorithm));
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.algorithmToString(algorithm));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(algorithm));
     }
 
 
@@ -262,15 +262,15 @@ public class LBL4x4Test {
     @CsvSource({"y", "b", "g", "r", "o", "w"})
     public void call_solve(char firstCenterColor) {
         //given
-        cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
+        cube.makeMoves("b2 l U2 F2 L2 d' B' b' L B'");
         LBL4X4 lbl = new LBL4X4(cube);
         //when
         String algorithm = lbl.solve(firstCenterColor);
         //then
         System.out.println("Solution: " + algorithm);
         cube = new Cube4x4();
-        cube.makeMovesUsingString("b2 l U2 F2 L2 d' B' b' L B'");
-        cube.makeMovesUsingString(algorithm);
+        cube.makeMoves("b2 l U2 F2 L2 d' B' b' L B'");
+        cube.makeMoves(algorithm);
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 

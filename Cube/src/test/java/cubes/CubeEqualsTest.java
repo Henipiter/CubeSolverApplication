@@ -16,7 +16,7 @@ public class CubeEqualsTest {
     public void cube2x2_is_equal_should_return_false(){
         Cube2x2 cube2x2 = new Cube2x2();
         Cube2x2 cube2x2_2 = new Cube2x2();
-        cube2x2.moveUsingString("R");
+        cube2x2.move("R");
         Assertions.assertNotEquals(cube2x2_2, cube2x2);
     }
 
@@ -31,7 +31,7 @@ public class CubeEqualsTest {
     public void cube4x4_is_equal_should_return_false(){
         Cube4x4 cube4x4 = new Cube4x4();
         Cube4x4 cube4x4_2 = new Cube4x4();
-        cube4x4.moveUsingString("R");
+        cube4x4.move("R");
         Assertions.assertNotEquals(cube4x4_2, cube4x4);
     }
 }

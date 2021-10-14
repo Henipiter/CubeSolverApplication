@@ -61,7 +61,7 @@ public class LBL3X3 implements LBL {
         }
         algorithm.addAll(solveNotOrientedVertexes());
 
-        return InspectMove.algorithmToString(algorithm);
+        return InspectMove.moveListToString(algorithm);
     }
 
     public ArrayList<Move> solveCross(char firstCenterColor) {

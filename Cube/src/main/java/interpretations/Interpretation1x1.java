@@ -30,7 +30,7 @@ public class Interpretation1x1 {
     public char whichColorIsNextInOrder(int chosenSide, char leftSideColor, char upperSideColor) {
         int leftSide = getSideWithGivenColor(leftSideColor);
         cube.move(rotateSideToGetItOnTopAlgorithm(leftSide));
-        cube.moveUsingString("z'");
+        cube.move("z'");
         int upperSide = getSideWithGivenColor(upperSideColor);
         cube.move(rotateSideToGetItOnTopAlgorithm(upperSide));
         return cube.getCube()[chosenSide][0];

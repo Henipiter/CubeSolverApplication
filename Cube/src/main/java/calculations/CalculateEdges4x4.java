@@ -17,11 +17,11 @@ public class CalculateEdges4x4 {
     }
 
     public static ArrayList<Move> getParityOLLAlgorithm() {
-        return InspectMove.createAndReturnArrayListFromString("Rw2 B2 U2 Lw U2 Rw' U2 Rw U2 F2 Rw F2 Lw' B2 Rw2");
+        return InspectMove.stringToMoveList("Rw2 B2 U2 Lw U2 Rw' U2 Rw U2 F2 Rw F2 Lw' B2 Rw2");
     }
 
     public static ArrayList<Move> getParityPLLAlgorithm() {
-        return InspectMove.createAndReturnArrayListFromString("r2 U2 r2 Uw2 r2 u2");
+        return InspectMove.stringToMoveList("r2 U2 r2 Uw2 r2 u2");
     }
 
     public ArrayList<Move> getMovesToPutUnpairedEdgeOn14or15Index(int edgePairIndex) {
@@ -29,28 +29,28 @@ public class CalculateEdges4x4 {
 
         switch (edgePairIndex / 2) {
             case 0:
-                return InspectMove.createAndReturnArrayListFromString("U' L");
+                return InspectMove.stringToMoveList("U' L");
             case 1:
-                return InspectMove.createAndReturnArrayListFromString("U2 L");
+                return InspectMove.stringToMoveList("U2 L");
             case 2:
-                return InspectMove.createAndReturnArrayListFromString("U L");
+                return InspectMove.stringToMoveList("U L");
             case 3:
-                return InspectMove.createAndReturnArrayListFromString("L");
+                return InspectMove.stringToMoveList("L");
             case 4:
-                return InspectMove.createAndReturnArrayListFromString("L2");
+                return InspectMove.stringToMoveList("L2");
             case 5:
-                return InspectMove.createAndReturnArrayListFromString("R2 F2");
+                return InspectMove.stringToMoveList("R2 F2");
             case 6:
             case 7:
                 break;
             case 8:
-                return InspectMove.createAndReturnArrayListFromString("D L'");
+                return InspectMove.stringToMoveList("D L'");
             case 9:
-                return InspectMove.createAndReturnArrayListFromString("D2 L'");
+                return InspectMove.stringToMoveList("D2 L'");
             case 10:
-                return InspectMove.createAndReturnArrayListFromString("D' L'");
+                return InspectMove.stringToMoveList("D' L'");
             case 11:
-                return InspectMove.createAndReturnArrayListFromString("L'");
+                return InspectMove.stringToMoveList("L'");
         }
         return new ArrayList<>();
     }
@@ -102,10 +102,10 @@ public class CalculateEdges4x4 {
                 algPrefix = "D M'";
                 break;
         }
-        return InspectMove.createAndReturnArrayListFromString(algPrefix + " " + algSuffix);
+        return InspectMove.stringToMoveList(algPrefix + " " + algSuffix);
     }
 
     public static ArrayList<Move> getAlgorithmToJoinEdges() {
-        return InspectMove.createAndReturnArrayListFromString("Uw' R U R' F R' F' R Uw");
+        return InspectMove.stringToMoveList("Uw' R U R' F R' F' R Uw");
     }
 }

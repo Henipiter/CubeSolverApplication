@@ -27,7 +27,7 @@ public class LBL2x2Test {
     @CsvSource({"U F' R' U' F' R2 U R F2,7", "U2 F U' F' R U2 F2 R' U' D,6", "U,3"})
     void getVertexOfBegin(String scramble, int expected){
         //given
-        cube2x2.makeMovesUsingString(scramble);
+        cube2x2.makeMoves(scramble);
         lbl2x2 = new LBL2X2(cube2x2);
         //when
         int result = lbl2x2.getVertexOfBegin('w');
@@ -49,12 +49,12 @@ public class LBL2x2Test {
     })
     void solvePll(String scramble){
         //given
-        cube2x2.makeMovesUsingString(scramble);
+        cube2x2.makeMoves(scramble);
         lbl2x2 = new LBL2X2(cube2x2);
         //when
         ArrayList<Move> result = lbl2x2.solvePll();
         //then
-        System.out.println(InspectMove.algorithmToString(result));
+        System.out.println(InspectMove.moveListToString(result));
         Assertions.assertTrue(Cube.isSolved(cube2x2));
     }
 
@@ -62,7 +62,7 @@ public class LBL2x2Test {
     @CsvSource({"BLANK,x2", "x,x", "x',x'", "z,z","z,z" })
     void rotateCubeToGetColorOnBottomSide(String scramble, Move expected){
         //given
-        cube2x2.makeMovesUsingString(scramble);
+        cube2x2.makeMoves(scramble);
         lbl2x2 = new LBL2X2(cube2x2);
         //when
         Move result = lbl2x2.rotateCubeToGetColorOnBottomSide('w');
@@ -74,7 +74,7 @@ public class LBL2x2Test {
     @CsvSource({"4","5","6","7"})
     void setCentersByVertex(int vertex){
         //given
-        cube2x2.makeMovesUsingString("x2");
+        cube2x2.makeMoves("x2");
         lbl2x2 = new LBL2X2(cube2x2);
         char[] expected = new char[]{'y','w','o','r','b','g'};
         //when
@@ -88,7 +88,7 @@ public class LBL2x2Test {
     @ParameterizedTest
     @CsvSource({"U2 F U' F' R U2 F2 R' U' D","U F' R' U' F' R2 U R F2",  "U"})
     void solve(String scramble){
-        cube2x2.makeMovesUsingString(scramble);
+        cube2x2.makeMoves(scramble);
         lbl2x2 = new LBL2X2(cube2x2);
         String alg = lbl2x2.solve('w');
         System.out.println(alg);

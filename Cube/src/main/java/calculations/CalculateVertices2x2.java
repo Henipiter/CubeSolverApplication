@@ -27,7 +27,7 @@ public class CalculateVertices2x2 {
         int movesCounter = 0;
         while (!interpretation2x2Vertices.isVerticesInRightPosition()) {
             movesCounter++;
-            cube2x2.moveUsingString("D");
+            cube2x2.move("D");
             refreshCube(cube2x2);
         }
         return new Move(MoveEnum.D, MoveTypeEnum.returnEnumByInt(movesCounter));
@@ -37,7 +37,7 @@ public class CalculateVertices2x2 {
         int movesCounter = 0;
         while (!interpretation2x2Vertices.isVerticesPairedInRightPosition()) {
             movesCounter++;
-            cube2x2.moveUsingString("U");
+            cube2x2.move("U");
             refreshCube(cube2x2);
         }
         return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
@@ -47,7 +47,7 @@ public class CalculateVertices2x2 {
         int movesCounter = 0;
         while (!interpretation2x2Vertices.isVerticesAcrossInRightPosition()) {
             movesCounter++;
-            cube2x2.moveUsingString("U");
+            cube2x2.move("U");
             refreshCube(cube2x2);
         }
         return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
@@ -65,10 +65,10 @@ public class CalculateVertices2x2 {
         if(!interpretation2x2Vertices.isVerticesPermuted()) {
 
             if (interpretation2x2Vertices.isVerticesNotPairedInLine()) {
-                return InspectMove.createAndReturnArrayListFromString("R' F R' F2 R U' R' F2 R2 U'");
+                return InspectMove.stringToMoveList("R' F R' F2 R U' R' F2 R2 U'");
             }
-            return InspectMove.createAndReturnArrayListFromString("R' U' R U' L R U2 R' U' R U2 L' U R2 U R");
+            return InspectMove.stringToMoveList("R' U' R U' L R U2 R' U' R U2 L' U R2 U R");
         }
-        return InspectMove.createAndReturnArrayListFromString("BLANK");
+        return InspectMove.stringToMoveList("BLANK");
     }
 }
