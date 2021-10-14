@@ -11,7 +11,7 @@ import static DTOs.MoveEnum.INVALID;
 @Data
 public class InspectMove {
 
-    public static ArrayList<Move> createAndReturnArrayListFromString(String alg) {
+    public static ArrayList<Move> stringToMoveList(String alg) {
         ArrayList<Move> result = new ArrayList<>();
         if (!alg.trim().isEmpty()) {
             alg = StringUtils.stripStart(alg, null);
@@ -23,7 +23,7 @@ public class InspectMove {
         return result;
     }
 
-    public static String algorithmToString(ArrayList<Move> alg) {
+    public static String moveListToString(ArrayList<Move> alg) {
         String result = "";
         for (Move move : alg) {
             if (move.getMoveEnum() != BLANK && move.getMoveTypeEnum() != MoveTypeEnum.BLANK) {
@@ -37,6 +37,14 @@ public class InspectMove {
 
     public static Move getMove(String direction) {
         return new Move(recogniseMove(direction), recogniseType(direction));
+    }
+
+    public static Move getReverseMove(Move setup) {
+        if (setup.getMoveTypeEnum() == MoveTypeEnum.PRIM)
+            return new Move(setup.getMoveEnum(), MoveTypeEnum.SIMPLE);
+        else if (setup.getMoveTypeEnum() == MoveTypeEnum.SIMPLE)
+            return new Move(setup.getMoveEnum(), MoveTypeEnum.PRIM);
+        return new Move(setup);
     }
 
     private static MoveEnum recogniseMove(String direction) {
@@ -63,13 +71,5 @@ public class InspectMove {
         if ((direction.length() == 2 && direction.charAt(1) == 'w') || direction.length() == 1)
             moveTypeEnum = MoveTypeEnum.SIMPLE;
         return moveTypeEnum;
-    }
-
-    public static Move getReverseMove(Move setup) {
-        if (setup.getMoveTypeEnum() == MoveTypeEnum.PRIM)
-            return new Move(setup.getMoveEnum(), MoveTypeEnum.SIMPLE);
-        else if (setup.getMoveTypeEnum() == MoveTypeEnum.SIMPLE)
-            return new Move(setup.getMoveEnum(), MoveTypeEnum.PRIM);
-        return new Move(setup);
     }
 }

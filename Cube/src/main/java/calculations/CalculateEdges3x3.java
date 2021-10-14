@@ -134,7 +134,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         int pairedEdges = interpretation3x3Edges.countEdgesPairedWithCenters();
         while (pairedEdges != 2 && pairedEdges != 4) {
             movesCounter++;
-            cube3x3.moveUsingString("D");
+            cube3x3.move("D");
             refreshCube(cube3x3);
             pairedEdges = interpretation3x3Edges.countEdgesPairedWithCenters();
         }
@@ -159,16 +159,18 @@ public class CalculateEdges3x3 extends CalculateMoves {
 
     public ArrayList<Move> getAlgorithmToMakeCorrectOrderCross(boolean adjacentEdges) {
         if (adjacentEdges) {
-            return InspectMove.createAndReturnArrayListFromString("R D R' D' R");
+            return InspectMove.stringToMoveList("R D R' D' R");
         }
-        return InspectMove.createAndReturnArrayListFromString("M2 U2 M2");
+        return InspectMove.stringToMoveList("M2 U2 M2");
     }
 
     public Move getMoveToRotateCubeToGetEdgeOnFrontSide(int edgeIndex) {
         switch (edgeIndex) {
             case 3:
+            case 4:
                 return new Move("y'");
             case 1:
+            case 5:
                 return new Move("y");
             case 0:
                 return new Move("y2");
@@ -178,9 +180,9 @@ public class CalculateEdges3x3 extends CalculateMoves {
 
     public ArrayList<Move> getMoveToJoinEdgeIntoSecondLayer(int edgeIndex, char secondCenterColor) {
         if (secondCenterColor == interpretation3x3Edges.getCenterArray()[3]) {
-            return InspectMove.createAndReturnArrayListFromString("U R U' R' F R' F' R");
+            return InspectMove.stringToMoveList("U R U' R' F R' F' R");
         }
-        return InspectMove.createAndReturnArrayListFromString("U' L' U L F' L F L'");
+        return InspectMove.stringToMoveList("U' L' U L F' L F L'");
     }
 
     public ArrayList<Move> getMoveToMoveOutEdgeFromSecondLayer(int edgeIndex) {
@@ -193,7 +195,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
                 alg = "U' L' U L F' L F L'";
                 break;
         }
-        return InspectMove.createAndReturnArrayListFromString(alg);
+        return InspectMove.stringToMoveList(alg);
     }
 
     public Move getMoveToMoveEdgeAboveRightCenter(int edgeIndex, Edge edge) {
@@ -208,7 +210,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         int movesCounter = 0;
         while (!interpretation3x3Edges.isUpperCrossPositionCorrect()) {
             movesCounter++;
-            cube3x3.moveUsingString("U");
+            cube3x3.move("U");
             refreshCube(cube3x3);
         }
         return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
@@ -218,7 +220,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         int movesCounter = 0;
         while (interpretation3x3Edges.getNumOfCorrectEdgesInUpperCross() < 2) {
             movesCounter++;
-            cube3x3.moveUsingString("U");
+            cube3x3.move("U");
             refreshCube(cube3x3);
         }
         return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
@@ -228,18 +230,18 @@ public class CalculateEdges3x3 extends CalculateMoves {
         int movesCounter = 0;
         while (!interpretation3x3Edges.isUpperIncorrectCrossPositionCorrect()) {
             movesCounter++;
-            cube3x3.moveUsingString("y");
+            cube3x3.move("y");
             refreshCube(cube3x3);
         }
         return new Move(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
     public ArrayList<Move> upperCrossSolveAlgorithm() {
-        return InspectMove.createAndReturnArrayListFromString("F R U R' U' F'");
+        return InspectMove.stringToMoveList("F R U R' U' F'");
     }
 
     public ArrayList<Move> incorrectUpperCrossSolveAlgorithm() {
-        return InspectMove.createAndReturnArrayListFromString("R U R' U R U2 R' U");
+        return InspectMove.stringToMoveList("R U R' U R U2 R' U");
     }
 }
 

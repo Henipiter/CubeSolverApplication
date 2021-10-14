@@ -21,24 +21,24 @@ public class MakeMovesTest {
 
     @Test
     public void alg_RULD_string_test(){
-        cube.makeMovesUsingString("R U L D");
+        cube.makeMoves("R U L D");
 
-        cubeExpected.moveUsingString("R");
-        cubeExpected.moveUsingString("U");
-        cubeExpected.moveUsingString("L");
-        cubeExpected.moveUsingString("D");
+        cubeExpected.move("R");
+        cubeExpected.move("U");
+        cubeExpected.move("L");
+        cubeExpected.move("D");
 
         Assert.assertArrayEquals(cube.getCube(), cubeExpected.getCube());
     }
 
     @Test
     public void alg_RprimUdoubleLD_string_test(){
-        cube.makeMovesUsingString("R' U2 L D");
+        cube.makeMoves("R' U2 L D");
 
-        cubeExpected.moveUsingString("R'");
-        cubeExpected.moveUsingString("U2");
-        cubeExpected.moveUsingString("L");
-        cubeExpected.moveUsingString("D");
+        cubeExpected.move("R'");
+        cubeExpected.move("U2");
+        cubeExpected.move("L");
+        cubeExpected.move("D");
 
         Assert.assertArrayEquals(cube.getCube(), cubeExpected.getCube());
     }

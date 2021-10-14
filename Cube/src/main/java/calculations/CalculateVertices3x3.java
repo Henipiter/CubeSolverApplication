@@ -49,7 +49,7 @@ public class CalculateVertices3x3 {
                 alg = "L' U' L";
                 break;
         }
-        return InspectMove.createAndReturnArrayListFromString(alg);
+        return InspectMove.stringToMoveList(alg);
     }
 
     public ArrayList<Move> getMoveToJoinVertexIntoFirstLayer(int vertexIndex, char color) {
@@ -77,7 +77,7 @@ public class CalculateVertices3x3 {
                 algorithm = "U R U' R'";
                 break;
         }
-        return InspectMove.createAndReturnArrayListFromString(algorithm);
+        return InspectMove.stringToMoveList(algorithm);
     }
 
     private ArrayList<Move> getMoveToSolveVertexIntoFirstLayerOnLeftHand(int field) {
@@ -93,34 +93,34 @@ public class CalculateVertices3x3 {
                 algorithm = "U' L' U L";
                 break;
         }
-        return InspectMove.createAndReturnArrayListFromString(algorithm);
+        return InspectMove.stringToMoveList(algorithm);
     }
 
     public Move rotateCubeToGetRightPlacedVertexInCorrectPosition() {
         int movesCounter = 0;
         while (!interpretation3x3Vertices.isVerticesInRightPosition()) {
             movesCounter++;
-            cube3x3.moveUsingString("y");
+            cube3x3.move("y");
             refreshCube(cube3x3);
         }
         return new Move(MoveEnum.y, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
     public ArrayList<Move> permuteVertexAlgorithm() {
-        return InspectMove.createAndReturnArrayListFromString("L' U R U' L U R' U'");
+        return InspectMove.stringToMoveList("L' U R U' L U R' U'");
     }
 
     public Move getMoveToMoveVertexToOrientationPlace() {
         int movesCounter = 0;
         while (!interpretation3x3Vertices.isVerticesInNotRightOrientation()) {
             movesCounter++;
-            cube3x3.moveUsingString("U");
+            cube3x3.move("U");
             refreshCube(cube3x3);
         }
         return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
     public ArrayList<Move> orientVertexAlgorithm() {
-        return InspectMove.createAndReturnArrayListFromString("R' D R D' R' D R D'");
+        return InspectMove.stringToMoveList("R' D R D' R' D R D'");
     }
 }

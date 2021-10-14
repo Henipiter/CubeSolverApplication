@@ -28,7 +28,7 @@ public class CalculateVertices3x3Test {
     })
     void getMoveToMoveVertexAboveRightDestination(String scramble, String expect){
 
-        cube.makeMovesUsingString(scramble);
+        cube.makeMoves(scramble);
         calculateVertices3x3.refreshCube(cube);
         interpretation3x3Vertices.interpretVertices(cube);
         Vertex vertex = interpretation3x3Vertices.getVertexArrayList().get(2);

@@ -34,7 +34,7 @@ public class MoveUTest {
                 {'g',   'g','g','y',    'y','y','b','b','b'}
         };
         //when
-        cubePyraminx.moveUsingString("U");
+        cubePyraminx.move("U");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
     }
@@ -49,7 +49,7 @@ public class MoveUTest {
                 {'b',   'r','b','g',    'y','y','b','b','b'}
         };
         //when
-        cubePyraminx.moveUsingString("U'");
+        cubePyraminx.move("U'");
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());
     }
@@ -64,8 +64,8 @@ public class MoveUTest {
                 {'r',   'y','r','r',    'y','y','b','b','b'}
         };
         //when
-        cubePyraminx.moveUsingString("U");
-        cubePyraminx.moveUsingString("U'");
+        cubePyraminx.move("U");
+        cubePyraminx.move("U'");
 
         //then
         Assert.assertArrayEquals(expected, cubePyraminx.getCube());

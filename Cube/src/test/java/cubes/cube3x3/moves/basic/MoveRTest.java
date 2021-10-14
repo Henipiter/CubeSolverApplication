@@ -1,6 +1,5 @@
 package cubes.cube3x3.moves.basic;
 
-import cubes.Cube2x2;
 import cubes.Cube3x3;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +38,7 @@ public class MoveRTest {
                 {'y','o','y','y','y','r','r','r'}
         };
         //when
-        cube3x3.moveUsingString("R");
+        cube3x3.move("R");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
     }
@@ -56,7 +55,7 @@ public class MoveRTest {
                 {'y','o','o','y','w','r','r','r'}
         };
         //when
-        cube3x3.moveUsingString("R'");
+        cube3x3.move("R'");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
     }
@@ -73,7 +72,7 @@ public class MoveRTest {
                 {'y','o','b','y','y','r','r','r'}
         };
         //when
-        cube3x3.moveUsingString("R2");
+        cube3x3.move("R2");
 
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
@@ -92,8 +91,8 @@ public class MoveRTest {
                 {'y','o','g','y','w','r','r','w'}
         };
         //when
-        cube3x3.moveUsingString("R");
-        cube3x3.moveUsingString("R'");
+        cube3x3.move("R");
+        cube3x3.move("R'");
 
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
@@ -112,8 +111,8 @@ public class MoveRTest {
                 {'y','o','g','y','w','r','r','w'}
         };
         //when
-        cube3x3.moveUsingString("R2");
-        cube3x3.moveUsingString("R2");
+        cube3x3.move("R2");
+        cube3x3.move("R2");
         //then
         Assert.assertArrayEquals(expected, cube3x3.getCube());
 
