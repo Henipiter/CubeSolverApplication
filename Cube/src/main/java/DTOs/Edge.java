@@ -1,18 +1,12 @@
 package DTOs;
 
-import lombok.Builder;
 import lombok.Data;
-
-import java.util.ArrayList;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 public class Edge {
-    private String[] name;
     private char[] color;
     private int[] wall;
     private int[] field;
-    private  ArrayList<MoveEnum> algorithm;
-
-
 }

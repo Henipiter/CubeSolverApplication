@@ -1,7 +1,10 @@
 package methods.BLDs;
 
 
+import DTOs.Move;
 import cubes.Cube;
+
+import java.util.ArrayList;
 
 public class BLD3X3 implements BLD {
 
@@ -10,15 +13,15 @@ public class BLD3X3 implements BLD {
         this.cube = cube;
     }
 
-    /** Here is implementation of BLD for 3x3
-     *
-     * @return series of moves to solve cube
-     */
     @Override
     public String solve(){
 
         return null;
     }
 
+    public ArrayList<Move> solveVertices(){
+
+        return null;
+    }
 
 }
