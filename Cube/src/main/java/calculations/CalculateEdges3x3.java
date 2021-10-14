@@ -167,8 +167,10 @@ public class CalculateEdges3x3 extends CalculateMoves {
     public Move getMoveToRotateCubeToGetEdgeOnFrontSide(int edgeIndex) {
         switch (edgeIndex) {
             case 3:
+            case 4:
                 return new Move("y'");
             case 1:
+            case 5:
                 return new Move("y");
             case 0:
                 return new Move("y2");
