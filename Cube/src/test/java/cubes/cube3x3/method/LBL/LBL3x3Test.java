@@ -27,7 +27,8 @@ public class LBL3x3Test {
             "y,D R2 D2 B2 U' L2 R2 U' R2 F2 R D2 F D' B' U' L2 R F2 D2",
             "y,L B R2 D2 F2 U2 B2 R F2 R2 B2 R' F2 R' U F L' D R2 U F'",
             "w,L B R2 D2 F2 U2 B2 R F2 R2 B2 R' F2 R' U F L' D R2 U F'",
-            "w, x2 F B' D2 L D R M2 U2 M2 U2 y U R U' R' U y' L'"
+            "w, x2 F B' D2 L D R M2 U2 M2 U2 y U R U' R' U y' L'",
+            "y, R D2 F' U2 L D2 L D2 U2 R F2 L' F2 R2 B R F2 L U R F"
     })
     void solve(char color, String scramble) {
         cube = new Cube3x3();
