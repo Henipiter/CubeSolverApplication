@@ -10,6 +10,7 @@ import java.util.ArrayList;
 @SuperBuilder
 @Data
 public class EdgeExt extends Edge {
-    private String[] name;
-    private  ArrayList<MoveEnum> algorithm;
+    ArrayList<String> name;
+    ArrayList<String> algorithm;
+    ArrayList<ArrayList<Move>> setup;
 }

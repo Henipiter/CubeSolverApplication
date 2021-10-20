@@ -11,6 +11,6 @@ import java.util.ArrayList;
 @SuperBuilder
 
 public class VertexExt extends Vertex {
-    String[] name;
-    ArrayList<MoveEnum> algorithm;
+    ArrayList<String> name;
+    ArrayList<ArrayList<Move>> setup;
 }

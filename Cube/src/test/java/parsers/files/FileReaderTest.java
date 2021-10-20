@@ -2,6 +2,7 @@ package parsers.files;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import parsers.FileReader;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,11 +10,7 @@ import java.util.List;
 
 class FileReaderTest {
 
-    @Test
-    void a() throws IOException {
-        String a = FileReader.readFile("src/main/resources/vertexSetup.txt");
-        Assertions.assertEquals("setup", a);
-    }
+    
 
     @Test
     void getFileLines() throws IOException {

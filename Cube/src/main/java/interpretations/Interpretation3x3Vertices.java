@@ -84,7 +84,7 @@ public class Interpretation3x3Vertices {
     private boolean isVertexNotInRightPlaceOrHasIncorrectOrientation(int vertexIndex) {
         Vertex vertex = getVertexArrayList().get(vertexIndex);
         return !isVertexBetweenItsCenters(vertexIndex, vertex) ||
-                vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[1];
+                vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[vertexIndex/4];
     }
 
     public int getIncorrectVertexInFirstLayer() {
