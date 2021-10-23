@@ -1,5 +1,6 @@
 package cubes;
 
+import DTOs.Vertex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -33,5 +34,19 @@ public class CubeEqualsTest {
         Cube4x4 cube4x4_2 = new Cube4x4();
         cube4x4.move("R");
         Assertions.assertNotEquals(cube4x4_2, cube4x4);
+    }
+
+    @Test
+    public void vertexEqual(){
+        Vertex vertexExt1 = Vertex.builder().color(new char[]{'o','w','b'}).build();
+        Vertex vertexExt2 = Vertex.builder().color(new char[]{'o','w','b'}).build();
+        Assertions.assertEquals(vertexExt1,vertexExt2);
+    }
+
+    @Test
+    public void vertexEqual2(){
+        Vertex vertexExt1 = Vertex.builder().color(new char[]{'w','o','b'}).build();
+        Vertex vertexExt2 = Vertex.builder().color(new char[]{'o','w','b'}).build();
+        Assertions.assertNotEquals(vertexExt1,vertexExt2);
     }
 }

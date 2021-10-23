@@ -16,6 +16,8 @@ public class Interpretation3x3Vertices {
         saveVertexPositionOnWallsAndFields();
     }
 
+
+
     public void interpretVertices(Cube cube) {
         for (Vertex vertex : vertexArrayList) {
             char[] vertexColor = new char[3];

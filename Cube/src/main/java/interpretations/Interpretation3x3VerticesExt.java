@@ -4,37 +4,41 @@ import DTOs.FileElement;
 import DTOs.Vertex;
 import DTOs.VertexExt;
 import cubes.Cube;
+import lombok.Getter;
 import parsers.ParseCodeToElement;
+import parsers.ParseElementToElementExt;
 import parsers.ParseFileElementToElement;
-import parsers.ParseVertexToVertexExt;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Getter
 public class Interpretation3x3VerticesExt extends Interpretation3x3Vertices {
-
 
     private static final String VERTEX_MARKS_FILE = "src/main/resources/vertexMarks.txt";
     private static final String VERTEX_SETUP_FILE = "src/main/resources/vertexSetup.txt";
 
     private boolean[] vertexCorrect = new boolean[8];
-    private ArrayList<VertexExt> vertexArrayList = new ArrayList<>(Collections.nCopies(8, null));
-
+    private ArrayList<VertexExt> vertexExtArrayList = new ArrayList<>(Collections.nCopies(8, null));
 
     public Interpretation3x3VerticesExt() {
         super();
-        vertexArrayList = ParseVertexToVertexExt.convertToVertexExtList(vertexArrayList, super.getVertexArrayList());
+        vertexExtArrayList = ParseElementToElementExt.convertToVertexExtList(vertexExtArrayList, super.getVertexArrayList());
         initNamesAndSetups();
-
         saveVertexMarks();
         saveVertexSetups();
+    }
+
+    public VertexExt rotateVertexColor(VertexExt vertex) {
+        char[] colors = vertex.getColor();
+        return VertexExt.builder().color(new char[]{colors[1], colors[2], colors[0]}).build();
     }
 
     @Override
     public void interpretVertices(Cube cube) {
         super.interpretVertices(cube);
-        ParseVertexToVertexExt.convertToVertexExtList(vertexArrayList, super.getVertexArrayList());
+        ParseElementToElementExt.convertToVertexExtList(vertexExtArrayList, super.getVertexArrayList());
         setVertexCorrect();
     }
 
@@ -49,7 +53,7 @@ public class Interpretation3x3VerticesExt extends Interpretation3x3Vertices {
     }
 
     private void initNamesAndSetups() {
-        for (VertexExt vertexExt : vertexArrayList) {
+        for (VertexExt vertexExt : vertexExtArrayList) {
             vertexExt.setSetup(new ArrayList<>(Collections.nCopies(3, null)));
             vertexExt.setName(new ArrayList<>(Collections.nCopies(3, null)));
         }
@@ -66,19 +70,17 @@ public class Interpretation3x3VerticesExt extends Interpretation3x3Vertices {
 
     private void saveVertexMarks() {
         List<FileElement> elementList = ParseCodeToElement.getElementsFromFile(VERTEX_MARKS_FILE);
-        ParseFileElementToElement.getVertexName(vertexArrayList, elementList);
+        ParseFileElementToElement.getVertexName(vertexExtArrayList, elementList);
     }
 
     private void saveVertexSetups() {
         List<FileElement> elementList = ParseCodeToElement.getElementsFromFile(VERTEX_SETUP_FILE);
-        ParseFileElementToElement.getVertexSetup(vertexArrayList, elementList);
+        ParseFileElementToElement.getVertexSetup(vertexExtArrayList, elementList);
     }
 
     private boolean isVertexNotInRightPlaceOrHasIncorrectOrientation(int vertexIndex) {
         Vertex vertex = getVertexArrayList().get(vertexIndex);
         return !isVertexBetweenItsCenters(vertexIndex, vertex) ||
-                vertexArrayList.get(vertexIndex).getColor()[0] != super.getCenterArray()[vertexIndex / 4];
+                vertexExtArrayList.get(vertexIndex).getColor()[0] != super.getCenterArray()[vertexIndex / 4];
     }
-
-
 }
