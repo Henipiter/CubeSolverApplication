@@ -16,10 +16,12 @@ public class BLD3x3Test {
 
     @Test
     void solveAllVertices() {
+        String expectedSolution = "B C A";
         cube = new Cube3x3();
         cube.makeMoves("U");
         bld3X3 = new BLD3X3(cube);
-        bld3X3.solveAllVertices();
+        ArrayList<String> solution = bld3X3.solveAllVertices();
+        Assertions.assertEquals(Arrays.asList(expectedSolution.split(" ")), solution);
     }
 
     @Test
@@ -29,6 +31,27 @@ public class BLD3x3Test {
         cube.makeMoves("B' L D L2 U' R2 B2 D' R2 U' R2 D' B2 L' B' D U R' U2 B");
         bld3X3 = new BLD3X3(cube);
         ArrayList<String> solution = bld3X3.solveAllVertices();
+        Assertions.assertEquals(Arrays.asList(expectedSolution.split(" ")), solution);
+    }
+
+    @Test
+    void solveAllEdges() {
+        String expectedSolution = "A B C";
+        cube = new Cube3x3();
+        cube.makeMoves("U");
+        bld3X3 = new BLD3X3(cube);
+        bld3X3.solveAllEdges();
+        ArrayList<String> solution = bld3X3.solveAllEdges();
+        Assertions.assertEquals(Arrays.asList(expectedSolution.split(" ")), solution);
+    }
+
+    @Test
+    void solveAllEdges1() {
+        String expectedSolution = "J W B I D P G S A L T";
+        cube = new Cube3x3();
+        cube.makeMoves("B' L D L2 U' R2 B2 D' R2 U' R2 D' B2 L' B' D U R' U2 B");
+        bld3X3 = new BLD3X3(cube);
+        ArrayList<String> solution = bld3X3.solveAllEdges();
         Assertions.assertEquals(Arrays.asList(expectedSolution.split(" ")), solution);
     }
 }

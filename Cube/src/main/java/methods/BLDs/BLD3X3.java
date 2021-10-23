@@ -1,10 +1,12 @@
 package methods.BLDs;
 
 
+import DTOs.EdgeExt;
 import DTOs.VertexExt;
 import calculations.CalculateMoves;
 import cubes.Cube;
 import cubes.Cube3x3;
+import interpretations.Interpretation3x3EdgesExt;
 import interpretations.Interpretation3x3VerticesExt;
 
 import java.util.ArrayList;
@@ -13,10 +15,13 @@ import java.util.Arrays;
 public class BLD3X3 implements BLD {
 
     private boolean[] vertexCorrect = new boolean[8];
+    private boolean[] edgeCorrect = new boolean[12];
     private boolean parity;
 
-    private Interpretation3x3VerticesExt interpretationCube = new Interpretation3x3VerticesExt();
-    private Interpretation3x3VerticesExt interpretationPatternCube = new Interpretation3x3VerticesExt();
+    private Interpretation3x3VerticesExt interpretationCubeVertex = new Interpretation3x3VerticesExt();
+    private Interpretation3x3VerticesExt interpretationPatternCubeVertex = new Interpretation3x3VerticesExt();
+    private Interpretation3x3EdgesExt interpretationCubeEdge = new Interpretation3x3EdgesExt();
+    private Interpretation3x3EdgesExt interpretationPatternCubeEdge = new Interpretation3x3EdgesExt();
 
     private Cube cube;
     private Cube patternCube;
@@ -25,22 +30,25 @@ public class BLD3X3 implements BLD {
         this.cube = cube;
         patternCube = new Cube3x3();
         rotatePatternCube();
-        interpretationPatternCube.interpretVertices(patternCube);
+        interpretationPatternCubeVertex.interpretVertices(patternCube);
+        interpretationPatternCubeEdge.interpretEdges(patternCube);
     }
 
     @Override
     public String solve() {
-        solveAllVertices();
+        //TODO orient cube
+        ArrayList<String> vertexSolution = solveAllVertices();
+        ArrayList<String> edgeSolution = solveAllEdges();
+
         return null;
     }
 
     public ArrayList<String> solveAllVertices() {
         ArrayList<String> solution = new ArrayList<>();
-        interpretationCube.interpretVertices(cube);
+        interpretationCubeVertex.interpretVertices(cube);
         parity = false;
-        noteUnsolvedVertex();
-        //TODO orient cube
-        while (countSolvedVertex() < 8) {
+        noteUnsolvedVertices();
+        while (countSolvedVertices() < 8) {
             int vertexIndex = getUnresolvedVertex();
             if (vertexIndex != -1) {
                 solution.addAll(solveSingleVertex(vertexIndex, 0, true));
@@ -49,20 +57,50 @@ public class BLD3X3 implements BLD {
         return solution;
     }
 
+    public ArrayList<String> solveAllEdges() {
+        ArrayList<String> solution = new ArrayList<>();
+        interpretationCubeEdge.interpretEdges(cube);
+        noteUnsolvedEdges();
+        while (countSolvedEdges() < 12) {
+            int edgeIndex = getUnresolvedEdge();
+            if (edgeIndex != -1) {
+                solution.addAll(solveSingleEdge(edgeIndex, 0, true));
+            }
+        }
+        return solution;
+    }
+
     private ArrayList<String> solveSingleVertex(int vertexIndex, int fieldIndex, boolean start) {
         ArrayList<String> solution = new ArrayList<>();
-        VertexExt cubeVertex = interpretationCube.getVertexExtArrayList().get(vertexIndex);
+        VertexExt cubeVertex = interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex);
         int destinationVertexIndex = searchRightPlaceForVertex(cubeVertex);
-        int destinationFieldIndex = getRightField(destinationVertexIndex, cubeVertex.getColor()[fieldIndex]);
+        int destinationFieldIndex = getRightVertexField(destinationVertexIndex, cubeVertex.getColor()[fieldIndex]);
         if (!start) {
             vertexCorrect[vertexIndex] = true;
         }
         if (vertexIndex != 0) {
-            solution.add(interpretationCube.getVertexExtArrayList().get(vertexIndex).getName().get(fieldIndex));
+            solution.add(interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex).getName().get(fieldIndex));
         }
         parity = !parity;
         if (!vertexCorrect[destinationVertexIndex]) {
             solution.addAll(solveSingleVertex(destinationVertexIndex, destinationFieldIndex, false));
+        }
+        return solution;
+    }
+
+    private ArrayList<String> solveSingleEdge(int edgeIndex, int fieldIndex, boolean start) {
+        ArrayList<String> solution = new ArrayList<>();
+        EdgeExt cubeEdge = interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex);
+        int destinationEdgeIndex = searchRightPlaceForEdge(cubeEdge);
+        int destinationFieldIndex = getRightEdgeField(destinationEdgeIndex, cubeEdge.getColor()[fieldIndex]);
+        if (!start) {
+            edgeCorrect[edgeIndex] = true;
+        }
+        if (edgeIndex != 1) {
+            solution.add(interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex).getName().get(fieldIndex));
+        }
+        if (!edgeCorrect[destinationEdgeIndex]) {
+            solution.addAll(solveSingleEdge(destinationEdgeIndex, destinationFieldIndex, false));
         }
         return solution;
     }
@@ -76,10 +114,29 @@ public class BLD3X3 implements BLD {
         return -1;
     }
 
-    public int getRightField(int vertexIndex, char fieldColor) {
+    public int searchRightPlaceForEdge(EdgeExt cubeEdge) {
+        for (int i = 0; i < 12; i++) {
+            if (checkRotatedEdge(cubeEdge, i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getRightVertexField(int vertexIndex, char fieldColor) {
         for (int i = 0; i < 3; i++) {
-            if (fieldColor == interpretationPatternCube.getVertexArrayList()
+            if (fieldColor == interpretationPatternCubeVertex.getVertexArrayList()
                     .get(vertexIndex).getColor()[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getRightEdgeField(int edgeIndex, char fieldColor) {
+        for (int i = 0; i < 2; i++) {
+            if (fieldColor == interpretationPatternCubeEdge.getEdgeArrayList()
+                    .get(edgeIndex).getColor()[i]) {
                 return i;
             }
         }
@@ -100,7 +157,17 @@ public class BLD3X3 implements BLD {
         return -1;
     }
 
-    private int countSolvedVertex() {
+    private int getUnresolvedEdge() {
+        int[] order = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+        for (int i : order) {
+            if (!edgeCorrect[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int countSolvedVertices() {
         int counter = 0;
         for (int i = 0; i < 8; i++) {
             if (vertexCorrect[i]) {
@@ -110,21 +177,44 @@ public class BLD3X3 implements BLD {
         return counter;
     }
 
-    private void noteUnsolvedVertex() {
+    private int countSolvedEdges() {
+        int counter = 0;
+        for (int i = 0; i < 12; i++) {
+            if (edgeCorrect[i]) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    private void noteUnsolvedVertices() {
         for (int i = 0; i < 8; i++) {
-            vertexCorrect[i] = Arrays.equals(interpretationCube.getVertexArrayList().get(i).getColor(),
-                    interpretationPatternCube.getVertexArrayList().get(i).getColor());
+            vertexCorrect[i] = Arrays.equals(interpretationCubeVertex.getVertexArrayList().get(i).getColor(),
+                    interpretationPatternCubeVertex.getVertexArrayList().get(i).getColor());
+        }
+    }
+
+    private void noteUnsolvedEdges() {
+        for (int i = 0; i < 12; i++) {
+            edgeCorrect[i] = Arrays.equals(interpretationCubeEdge.getEdgeExtArrayList().get(i).getColor(),
+                    interpretationPatternCubeEdge.getEdgeExtArrayList().get(i).getColor());
         }
     }
 
     public boolean checkRotatedVertex(VertexExt cubeVertex, int patternVertexIndex) {
-        VertexExt rotatedVertex = interpretationCube.rotateVertexColor(cubeVertex);
-        VertexExt twiceRotatedVertex = interpretationCube.rotateVertexColor(rotatedVertex);
-        VertexExt patternVertex = interpretationPatternCube.getVertexExtArrayList().get(patternVertexIndex);
+        VertexExt rotatedVertex = interpretationCubeVertex.rotateVertexColor(cubeVertex);
+        VertexExt twiceRotatedVertex = interpretationCubeVertex.rotateVertexColor(rotatedVertex);
+        VertexExt patternVertex = interpretationPatternCubeVertex.getVertexExtArrayList().get(patternVertexIndex);
         return isVertexInRightPlace(patternVertex, cubeVertex) ||
                 isVertexInRightPlace(patternVertex, rotatedVertex) ||
                 isVertexInRightPlace(patternVertex, twiceRotatedVertex);
+    }
 
+    public boolean checkRotatedEdge(EdgeExt cubeEdge, int patternEdgeIndex) {
+        EdgeExt rotatedEdge = interpretationCubeEdge.rotateEdgeColor(cubeEdge);
+        EdgeExt patternEdge = interpretationPatternCubeEdge.getEdgeExtArrayList().get(patternEdgeIndex);
+        return isEdgeInRightPlace(patternEdge, cubeEdge) ||
+                isEdgeInRightPlace(patternEdge, rotatedEdge);
     }
 
     private boolean isVertexInRightPlace(VertexExt cubeVertex, VertexExt patternCubeVertex) {
@@ -132,6 +222,12 @@ public class BLD3X3 implements BLD {
         return charArrayContainsChar(colors, cubeVertex.getColor()[0]) &&
                 charArrayContainsChar(colors, cubeVertex.getColor()[1]) &&
                 charArrayContainsChar(colors, cubeVertex.getColor()[2]);
+    }
+
+    private boolean isEdgeInRightPlace(EdgeExt cubeEdge, EdgeExt patternCubeEdge) {
+        char[] colors = patternCubeEdge.getColor();
+        return charArrayContainsChar(colors, cubeEdge.getColor()[0]) &&
+                charArrayContainsChar(colors, cubeEdge.getColor()[1]);
     }
 
     private boolean charArrayContainsChar(char[] array, char character) {
