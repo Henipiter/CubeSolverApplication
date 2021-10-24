@@ -12,5 +12,5 @@ import java.util.ArrayList;
 public class EdgeExt extends Edge {
     ArrayList<String> name;
     ArrayList<String> algorithm;
-    ArrayList<ArrayList<Move>> setup;
+    ArrayList<String> setup;
 }

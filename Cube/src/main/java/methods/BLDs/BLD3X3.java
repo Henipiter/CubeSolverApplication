@@ -1,8 +1,7 @@
 package methods.BLDs;
 
 
-import DTOs.EdgeExt;
-import DTOs.VertexExt;
+import DTOs.*;
 import calculations.CalculateMoves;
 import cubes.Cube;
 import cubes.Cube3x3;
@@ -14,17 +13,17 @@ import java.util.Arrays;
 
 public class BLD3X3 implements BLD {
 
-    private boolean[] vertexCorrect = new boolean[8];
-    private boolean[] edgeCorrect = new boolean[12];
+    private final boolean[] vertexCorrect = new boolean[8];
+    private final boolean[] edgeCorrect = new boolean[12];
     private boolean parity;
 
-    private Interpretation3x3VerticesExt interpretationCubeVertex = new Interpretation3x3VerticesExt();
-    private Interpretation3x3VerticesExt interpretationPatternCubeVertex = new Interpretation3x3VerticesExt();
-    private Interpretation3x3EdgesExt interpretationCubeEdge = new Interpretation3x3EdgesExt();
-    private Interpretation3x3EdgesExt interpretationPatternCubeEdge = new Interpretation3x3EdgesExt();
+    private final Interpretation3x3VerticesExt interpretationCubeVertex = new Interpretation3x3VerticesExt();
+    private final Interpretation3x3VerticesExt interpretationPatternCubeVertex = new Interpretation3x3VerticesExt();
+    private final Interpretation3x3EdgesExt interpretationCubeEdge = new Interpretation3x3EdgesExt();
+    private final Interpretation3x3EdgesExt interpretationPatternCubeEdge = new Interpretation3x3EdgesExt();
 
-    private Cube cube;
-    private Cube patternCube;
+    private final Cube cube;
+    private final Cube patternCube;
 
     public BLD3X3(Cube cube) {
         this.cube = cube;
@@ -36,15 +35,29 @@ public class BLD3X3 implements BLD {
 
     @Override
     public String solve() {
+        ArrayList<SolutionBLD> solutionBLDs = new ArrayList<>();
         //TODO orient cube
-        ArrayList<String> vertexSolution = solveAllVertices();
-        ArrayList<String> edgeSolution = solveAllEdges();
+        solutionBLDs.addAll(solveAllVertices());
+        if (parity) {
+            solutionBLDs.add(solveParity());
+        }
+        solutionBLDs.addAll(solveAllEdges());
 
         return null;
     }
 
-    public ArrayList<String> solveAllVertices() {
-        ArrayList<String> solution = new ArrayList<>();
+    public SolutionBLD solveParity() {
+        SolutionBLD solutionBLD = new SolutionBLD();
+        if (parity) {
+            Algorithm algorithm = new Algorithm();
+            solutionBLD.setMarks("<PARITY>");
+            solutionBLD.setAlgorithm(InspectMove.stringToMoveList(algorithm.getPerm("R")));
+        }
+        return solutionBLD;
+    }
+
+    public ArrayList<SolutionBLD> solveAllVertices() {
+        ArrayList<SolutionBLD> solution = new ArrayList<>();
         interpretationCubeVertex.interpretVertices(cube);
         parity = false;
         noteUnsolvedVertices();
@@ -57,8 +70,8 @@ public class BLD3X3 implements BLD {
         return solution;
     }
 
-    public ArrayList<String> solveAllEdges() {
-        ArrayList<String> solution = new ArrayList<>();
+    public ArrayList<SolutionBLD> solveAllEdges() {
+        ArrayList<SolutionBLD> solution = new ArrayList<>();
         interpretationCubeEdge.interpretEdges(cube);
         noteUnsolvedEdges();
         while (countSolvedEdges() < 12) {
@@ -70,8 +83,8 @@ public class BLD3X3 implements BLD {
         return solution;
     }
 
-    private ArrayList<String> solveSingleVertex(int vertexIndex, int fieldIndex, boolean start) {
-        ArrayList<String> solution = new ArrayList<>();
+    private ArrayList<SolutionBLD> solveSingleVertex(int vertexIndex, int fieldIndex, boolean start) {
+        ArrayList<SolutionBLD> solution = new ArrayList<>();
         VertexExt cubeVertex = interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex);
         int destinationVertexIndex = searchRightPlaceForVertex(cubeVertex);
         int destinationFieldIndex = getRightVertexField(destinationVertexIndex, cubeVertex.getColor()[fieldIndex]);
@@ -79,7 +92,7 @@ public class BLD3X3 implements BLD {
             vertexCorrect[vertexIndex] = true;
         }
         if (vertexIndex != 0) {
-            solution.add(interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex).getName().get(fieldIndex));
+            solution.add(addToSolutionVertex(vertexIndex, fieldIndex));
         }
         parity = !parity;
         if (!vertexCorrect[destinationVertexIndex]) {
@@ -88,8 +101,8 @@ public class BLD3X3 implements BLD {
         return solution;
     }
 
-    private ArrayList<String> solveSingleEdge(int edgeIndex, int fieldIndex, boolean start) {
-        ArrayList<String> solution = new ArrayList<>();
+    private ArrayList<SolutionBLD> solveSingleEdge(int edgeIndex, int fieldIndex, boolean start) {
+        ArrayList<SolutionBLD> solution = new ArrayList<>();
         EdgeExt cubeEdge = interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex);
         int destinationEdgeIndex = searchRightPlaceForEdge(cubeEdge);
         int destinationFieldIndex = getRightEdgeField(destinationEdgeIndex, cubeEdge.getColor()[fieldIndex]);
@@ -97,12 +110,41 @@ public class BLD3X3 implements BLD {
             edgeCorrect[edgeIndex] = true;
         }
         if (edgeIndex != 1) {
-            solution.add(interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex).getName().get(fieldIndex));
+            solution.add(addToSolutionEdge(edgeIndex, fieldIndex));
         }
         if (!edgeCorrect[destinationEdgeIndex]) {
             solution.addAll(solveSingleEdge(destinationEdgeIndex, destinationFieldIndex, false));
         }
         return solution;
+    }
+
+    private SolutionBLD addToSolutionVertex(int vertexIndex, int fieldIndex) {
+        SolutionBLD solution = new SolutionBLD();
+        VertexExt vertexExt = interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex);
+        solution.setAlgorithm(
+                getSetupAndAlgorithmAndReverseSetup("Y", vertexExt.getSetup().get(fieldIndex)));
+        solution.setElementIndexes(vertexIndex);
+        solution.setMarks(vertexExt.getName().get(fieldIndex));
+        return solution;
+    }
+
+    private SolutionBLD addToSolutionEdge(int edgeIndex, int fieldIndex) {
+        SolutionBLD solution = new SolutionBLD();
+        EdgeExt edgeExt = interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex);
+        solution.setAlgorithm(getSetupAndAlgorithmAndReverseSetup(
+                edgeExt.getAlgorithm().get(fieldIndex), edgeExt.getSetup().get(fieldIndex)));
+        solution.setElementIndexes(edgeIndex);
+        solution.setMarks(edgeExt.getName().get(fieldIndex));
+        return solution;
+    }
+
+    private ArrayList<Move> getSetupAndAlgorithmAndReverseSetup(String permutation, String setup) {
+        final Algorithm algorithm = new Algorithm();
+        ArrayList<Move> alg = new ArrayList<>();
+        alg.addAll(InspectMove.stringToMoveList(setup));
+        alg.addAll(InspectMove.stringToMoveList(algorithm.getPerm(permutation)));
+        alg.addAll(InspectMove.getReverseAlgorithm(InspectMove.stringToMoveList(permutation)));
+        return alg;
     }
 
     public int searchRightPlaceForVertex(VertexExt cubeVertex) {

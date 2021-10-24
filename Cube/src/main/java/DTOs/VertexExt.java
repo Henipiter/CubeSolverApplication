@@ -12,5 +12,5 @@ import java.util.ArrayList;
 
 public class VertexExt extends Vertex {
     ArrayList<String> name;
-    ArrayList<ArrayList<Move>> setup;
+    ArrayList<String> setup;
 }
