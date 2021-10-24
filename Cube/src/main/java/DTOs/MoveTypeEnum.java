@@ -1,7 +1,11 @@
 package DTOs;
 
 public enum MoveTypeEnum {
-    BLANK(0), SIMPLE(1), DOUBLE(2), PRIM(3), INVALID(-2);
+    BLANK(0),
+    SIMPLE(1),
+    DOUBLE(2),
+    PRIM(3),
+    INVALID(-2);
 
     private final int value;
 
