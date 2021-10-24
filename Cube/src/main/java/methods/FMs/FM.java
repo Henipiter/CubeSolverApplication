@@ -1,9 +1,9 @@
 package methods.FMs;
 
+import DTOs.Solution;
 
-/**
- * Fewest moves method
- */
+import java.util.ArrayList;
+
 public interface FM {
-    String solve();
+    ArrayList<Solution> solve();
 }

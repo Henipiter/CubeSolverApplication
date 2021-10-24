@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 @Setter
 @Getter
-public class SolutionBLD {
+public class SolutionBLD implements Solution {
     private ArrayList<Move> algorithm;
     private String marks;
-    private Integer elementIndexes;
+    private ArrayList<Integer> elementIndexes;
 }

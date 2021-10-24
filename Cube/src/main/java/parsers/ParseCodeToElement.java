@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ParseCodeToElement {
 
-    public static List<FileElement> getElementsFromFile(String filePath){
+    public static List<FileElement> getElementsFromFile(String filePath) {
         return getElements(FileReader.getFileLines(filePath));
     }
 
@@ -16,7 +16,7 @@ public class ParseCodeToElement {
         List<FileElement> fileElements = new ArrayList<>();
         ParseTxtCodeToIndices parseTxtCodeToIndices;
         for (String mark : elementMarks) {
-            if(mark.equals("")){
+            if (mark.equals("") || mark.equals("\r")) {
                 continue;
             }
             parseTxtCodeToIndices = new ParseTxtCodeToIndices(mark);

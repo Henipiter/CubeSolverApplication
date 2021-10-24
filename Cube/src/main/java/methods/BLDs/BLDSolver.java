@@ -1,18 +1,18 @@
 package methods.BLDs;
 
+import DTOs.Solution;
 import cubes.Cube;
 import methods.SolvingMethod;
 
-public class BLDSolver implements SolvingMethod {
-    public String solve(Cube cube) {
-        BLDFactory bldFactory = new BLDFactory();
-        BLD bld =  bldFactory.getBLD(cube);
+import java.util.ArrayList;
 
-        String solution=null;
-        solution = bld.solve();
+public class BLDSolver implements SolvingMethod {
+    public ArrayList<Solution> solve(Cube cube) {
+        BLDFactory bldFactory = new BLDFactory();
+        BLD bld = bldFactory.getBLD(cube);
+
+        ArrayList<Solution> solution = bld.solve();
 
         return solution;
-
-
     }
 }

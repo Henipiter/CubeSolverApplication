@@ -1,11 +1,9 @@
 package methods.BLDs;
 
-import cubes.Cube;
+import DTOs.Solution;
 
+import java.util.ArrayList;
 
-/**
- * Blindfold method
- */
 public interface BLD {
-    String solve();
+    <T extends Solution> ArrayList<T> solve();
 }
