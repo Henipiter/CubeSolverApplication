@@ -11,11 +11,9 @@ import java.util.ArrayList;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SolutionLBL implements Solution {
-    private ArrayList<Move> algorithm = new ArrayList<>();
+public class SolutionLBL extends Solution {
     private String message;
     private char color;
-    private ArrayList<Integer> elementIndexes;
     private InfoType infoType;
 
     public SolutionLBL(ArrayList<Move> algorithm, String message) {
@@ -50,9 +48,17 @@ public class SolutionLBL implements Solution {
         this.infoType = infoType;
     }
 
-    public static ArrayList<Move> getWholeAlg(ArrayList<SolutionLBL> solution) {
+    public static ArrayList<Move> getWholeAlgLBL(ArrayList<SolutionLBL> solution) {
         ArrayList<Move> alg = new ArrayList<>();
         solution.forEach(moves -> alg.addAll(moves.algorithm));
         return alg;
+    }
+
+    public void setElementIndexes(ArrayList<Integer> elementIndexes){
+        this.elementIndexes = elementIndexes;
+    }
+
+    public ArrayList<Move> getAlgorithm(){
+        return algorithm;
     }
 }

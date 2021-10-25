@@ -82,9 +82,7 @@ public class LBL2x2Test {
         lbl2x2.setCentersByVertex(vertex);
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCenter());
-
     }
-
 
     @ParameterizedTest
     @CsvSource({"U2 F U' F' R U2 F2 R' U' D", "U F' R' U' F' R2 U R F2", "U"})

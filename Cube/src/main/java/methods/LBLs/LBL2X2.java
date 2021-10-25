@@ -1,10 +1,7 @@
 package methods.LBLs;
 
 
-import DTOs.InspectMove;
-import DTOs.Move;
-import DTOs.SolutionLBL;
-import DTOs.Vertex;
+import DTOs.*;
 import calculations.CalculateMoves;
 import calculations.CalculateVertices2x2;
 import cubes.Cube;
@@ -53,7 +50,7 @@ public class LBL2X2 implements LBL {
         Cube3x3 cube3x3 = parser.parseTo3x3();
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
         ArrayList<SolutionLBL> tempAlg = lbl3X3.solveFirstLayer();
-        cube.makeMoves(SolutionLBL.getWholeAlg(tempAlg));
+        cube.makeMoves(Solution.getWholeAlg(tempAlg));
         algorithm.addAll(tempAlg);
         SolutionLBL tempSolution = lbl3X3.solveNotOrientedVertexes();
         cube.makeMoves(tempSolution.getAlgorithm());

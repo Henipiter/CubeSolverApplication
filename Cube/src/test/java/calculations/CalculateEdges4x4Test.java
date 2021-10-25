@@ -2,6 +2,7 @@ package calculations;
 
 import DTOs.InspectMove;
 import DTOs.Move;
+import DTOs.Solution;
 import DTOs.SolutionLBL;
 import cubes.Cube4x4;
 import interpretations.Interpretation4x4Edges;
@@ -75,7 +76,7 @@ public class CalculateEdges4x4Test {
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<SolutionLBL> algorithm = lbl.pairAllEdges();
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
-        System.out.println(InspectMove.moveListToString(SolutionLBL.getWholeAlg(algorithm)));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
 
     }
 
@@ -90,7 +91,7 @@ public class CalculateEdges4x4Test {
         System.out.println(algorithm.toString());
 
         String expectedAlg = "R U R' F R' F' R Uw' R U R' F R' F' R Uw M' R U' R' Uw' R U R' F R' F' R Uw D M' R U' R' Uw' R U R' F R' F' R Uw D' M' F R' F' R Uw' R U R' F R' F' R Uw D' M' R U' R' Uw' R U R' F R' F' R Uw M2 F R' F' R Uw' R U R' F R' F' R Uw U R U' R' Uw' R U R' F R' F' R Uw L U' L' R U' R' Uw' R U R' F R' F' R Uw L' D' M' F R' F' R Uw' R U R' F R' F' R Uw R' U R R U' R' Uw' R U R' F R' F' R Uw";
-        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(SolutionLBL.getWholeAlg(algorithm)));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
     }
 
     @Test
@@ -99,7 +100,7 @@ public class CalculateEdges4x4Test {
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<SolutionLBL> algorithm = lbl.pairAllEdges();
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
-        System.out.println(InspectMove.moveListToString(SolutionLBL.getWholeAlg(algorithm)));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
     }
 
 }

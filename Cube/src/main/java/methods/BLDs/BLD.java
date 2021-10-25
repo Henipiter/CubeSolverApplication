@@ -5,5 +5,5 @@ import DTOs.Solution;
 import java.util.ArrayList;
 
 public interface BLD {
-    <T extends Solution> ArrayList<T> solve();
+    ArrayList<Solution> solve();
 }

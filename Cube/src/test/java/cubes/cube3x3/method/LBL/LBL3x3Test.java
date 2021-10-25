@@ -1,6 +1,7 @@
 package cubes.cube3x3.method.LBL;
 
 import DTOs.InspectMove;
+import DTOs.Solution;
 import DTOs.SolutionLBL;
 import cubes.Cube;
 import cubes.Cube3x3;
@@ -37,7 +38,7 @@ public class LBL3x3Test {
         //when
         ArrayList<SolutionLBL> alg = lbl3X3.solve(color);
         //then
-        System.out.println("Soluion: " + InspectMove.moveListToString(SolutionLBL.getWholeAlg(alg)));
+        System.out.println("Soluion: " + InspectMove.moveListToString(Solution.getWholeAlg(alg)));
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 
@@ -103,11 +104,11 @@ public class LBL3x3Test {
         ArrayList<SolutionLBL> alg = lbl3X3.solveFirstLayer();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
-        System.out.println("Soluion: " + InspectMove.moveListToString(SolutionLBL.getWholeAlg(alg)));
+        System.out.println("Soluion: " + InspectMove.moveListToString(Solution.getWholeAlg(alg)));
 
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Vertices.isFirstLayerComplete()),
-                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(SolutionLBL.getWholeAlg(alg)))
+                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(Solution.getWholeAlg(alg)))
         );
     }
 
@@ -125,11 +126,11 @@ public class LBL3x3Test {
         ArrayList<SolutionLBL> alg = lbl3X3.solveSecondLayer();
         //then
         interpretation3x3Edges.interpretEdges(cube);
-        System.out.println("Soluion: " + InspectMove.moveListToString(SolutionLBL.getWholeAlg(alg)));
+        System.out.println("Soluion: " + InspectMove.moveListToString(Solution.getWholeAlg(alg)));
 
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Edges.isSecondLayerComplete()),
-                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(SolutionLBL.getWholeAlg(alg)))
+                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(Solution.getWholeAlg(alg)))
         );
     }
 
