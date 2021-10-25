@@ -1,10 +1,11 @@
 package methods;
 
 
+import DTOs.Solution;
 import cubes.Cube;
 
+import java.util.ArrayList;
+
 public interface SolvingMethod {
-    String solve(Cube cube);
-
-
+    ArrayList<Solution> solve(Cube cube);
 }

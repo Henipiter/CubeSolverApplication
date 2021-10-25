@@ -1,8 +1,9 @@
 package methods.LBLs;
 
-/**
- * Layer-by-layer method
- */
+import DTOs.Solution;
+
+import java.util.ArrayList;
+
 public interface LBL {
-    String solve(char firstCenterColor);
+    ArrayList<Solution> solve(char firstCenterColor);
 }

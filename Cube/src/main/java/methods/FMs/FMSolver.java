@@ -1,19 +1,18 @@
 package methods.FMs;
 
+import DTOs.Solution;
 import cubes.Cube;
-import methods.BLDs.BLD;
-import methods.BLDs.BLDFactory;
 import methods.SolvingMethod;
+
+import java.util.ArrayList;
 
 public class FMSolver implements SolvingMethod {
 
-    public String solve(Cube cube) {
+    public ArrayList<Solution> solve(Cube cube) {
         FMFactory fmFactory = new FMFactory();
-        FM fm =  fmFactory.getFM(cube);
+        FM fm = fmFactory.getFM(cube);
 
-        String solution=null;
-        solution = fm.solve();
+        ArrayList<Solution> solution = fm.solve();
         return solution;
-
     }
 }

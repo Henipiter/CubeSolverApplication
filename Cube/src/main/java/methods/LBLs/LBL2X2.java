@@ -1,9 +1,7 @@
 package methods.LBLs;
 
 
-import DTOs.InspectMove;
-import DTOs.Move;
-import DTOs.Vertex;
+import DTOs.*;
 import calculations.CalculateMoves;
 import calculations.CalculateVertices2x2;
 import cubes.Cube;
@@ -16,6 +14,8 @@ import interpretations.Interpretation3x3Centers;
 import parsers.Parse2x2To3x3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class LBL2X2 implements LBL {
 
@@ -31,34 +31,37 @@ public class LBL2X2 implements LBL {
         calculateVertices2x2 = new CalculateVertices2x2((Cube2x2) cube);
     }
 
-    private void addAlgAndMoveCube( ArrayList<Move> finalAlg,ArrayList<Move> alg){
+    private void addAlgAndMoveCube(ArrayList<Move> finalAlg, ArrayList<Move> alg) {
         cube.makeMoves(alg);
         finalAlg.addAll(alg);
     }
 
 
     @Override
-    public String solve(char firstCenterColor) {
-        ArrayList<Move> algorithm = new ArrayList<>();
+    public ArrayList solve(char firstCenterColor) {
+        ArrayList<SolutionLBL> algorithm = new ArrayList<>();
         interpretation2x2Vertices.interpretVertices(cube);
-        algorithm.add(rotateCubeToGetColorOnBottomSide(firstCenterColor));
+        algorithm.add(new SolutionLBL(new ArrayList(Collections.singletonList(
+                rotateCubeToGetColorOnBottomSide(firstCenterColor))), "Rotate"));
         int vertOfBegin = interpretation2x2Vertices.getIndexVertexFromBottomHasColor(firstCenterColor);
         setCentersByVertex(vertOfBegin);
 
         Parse2x2To3x3 parser = new Parse2x2To3x3(cube);
         Cube3x3 cube3x3 = parser.parseTo3x3();
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
+        ArrayList<SolutionLBL> tempAlg = lbl3X3.solveFirstLayer();
+        cube.makeMoves(Solution.getWholeAlg(tempAlg));
+        algorithm.addAll(tempAlg);
+        SolutionLBL tempSolution = lbl3X3.solveNotOrientedVertexes();
+        cube.makeMoves(tempSolution.getAlgorithm());
+        algorithm.add(tempSolution);
 
-        addAlgAndMoveCube(algorithm,lbl3X3.solveFirstLayer());
-        addAlgAndMoveCube(algorithm,lbl3X3.solveNotOrientedVertexes());
-        System.out.println(InspectMove.moveListToString(algorithm));
-        algorithm.addAll(solvePll());
+        algorithm.add(solvePll());
 
-
-        return InspectMove.moveListToString(algorithm);
+        return algorithm;
     }
 
-    public ArrayList<Move> solvePll() {
+    public SolutionLBL solvePll() {
         calculateVertices2x2.refreshCube(cube);
         interpretation2x2Vertices.interpretVertices(cube);
         ArrayList<Move> alg = new ArrayList<>();
@@ -67,16 +70,17 @@ public class LBL2X2 implements LBL {
         alg.add(calculateVertices2x2.moveBottomSideToGetRightPlacedVertexInCorrectPosition());
         alg.addAll(calculateVertices2x2.permuteVertexAlgorithm());
         cube.makeMoves(calculateVertices2x2.permuteVertexAlgorithm());
-        return alg;
+        return new SolutionLBL(alg, "Permute",
+                new ArrayList(Arrays.asList(1, 2, 3, 4)));
     }
 
-    public void setCentersByVertex(int indexVertex){
+    public void setCentersByVertex(int indexVertex) {
         char[] centerArray = setBottomLeftBackCenters(indexVertex);
         setUpperRightFrontCenters(centerArray);
         cube.setCenter(centerArray);
     }
 
-    private char[] setUpperRightFrontCenters(char[] centerArray){
+    private char[] setUpperRightFrontCenters(char[] centerArray) {
         interpretation2x2Vertices.interpretVertices(cube);
         centerArray[0] = Interpretation.getColorOfOppositeSide(centerArray[1]);
         centerArray[3] = Interpretation.getColorOfOppositeSide(centerArray[2]);
@@ -84,8 +88,8 @@ public class LBL2X2 implements LBL {
         return centerArray;
     }
 
-    private char getLeftCenterColor(int indexVertex, char[] vertexColors){
-        switch (indexVertex){
+    private char getLeftCenterColor(int indexVertex, char[] vertexColors) {
+        switch (indexVertex) {
             case 4:
             case 7:
                 return vertexColors[1];
@@ -96,8 +100,8 @@ public class LBL2X2 implements LBL {
         return 'x';
     }
 
-    private char getBackCenterColor(int indexVertex, char[] vertexColors){
-        switch (indexVertex){
+    private char getBackCenterColor(int indexVertex, char[] vertexColors) {
+        switch (indexVertex) {
             case 6:
             case 7:
                 return Interpretation.getColorOfOppositeSide(vertexColors[2]);
@@ -108,14 +112,14 @@ public class LBL2X2 implements LBL {
         return 'x';
     }
 
-    private char[] setBottomLeftBackCenters(int indexVertex){
+    private char[] setBottomLeftBackCenters(int indexVertex) {
         interpretation2x2Vertices.interpretVertices(cube);
         char[] centerArray = new char[6];
         char[] vertexColors = interpretation2x2Vertices.getVertexArrayList().get(indexVertex).getColor();
 
         centerArray[1] = interpretation2x2Vertices.getVertexArrayList().get(indexVertex).getColor()[0];
-        centerArray[2] = getLeftCenterColor(indexVertex,vertexColors);
-        centerArray[5] = getBackCenterColor(indexVertex,vertexColors);
+        centerArray[2] = getLeftCenterColor(indexVertex, vertexColors);
+        centerArray[5] = getBackCenterColor(indexVertex, vertexColors);
         return centerArray;
     }
 
@@ -171,12 +175,12 @@ public class LBL2X2 implements LBL {
         ArrayList<Move> moves = InspectMove.stringToMoveList("BLANK x x' z z' x2");
         int indexMove = 1;
         while (!interpretation2x2Vertices.isBottomSideHasColor(bottomColor)) {
-            cube.move(InspectMove.getReverseMove(moves.get(indexMove-1)));
+            cube.move(InspectMove.getReverseMove(moves.get(indexMove - 1)));
             cube.move(moves.get(indexMove));
             interpretation2x2Vertices.interpretVertices(cube);
             indexMove++;
         }
-        return moves.get(indexMove-1);
+        return moves.get(indexMove - 1);
     }
 
 }

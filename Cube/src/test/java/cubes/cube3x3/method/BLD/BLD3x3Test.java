@@ -16,48 +16,42 @@ public class BLD3x3Test {
 
     @Test
     void solveAllVertices() {
-        String expectedSolution = "B C A ";
+        String expectedSolution = "B C A";
         cube = new Cube3x3();
         cube.makeMoves("U");
         bld3X3 = new BLD3X3(cube);
         ArrayList<SolutionBLD> solution = bld3X3.solveAllVertices();
-        Assertions.assertEquals(expectedSolution, marksFromList(solution));
+        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
     }
 
     @Test
     void solveAllVertices1() {
-        String expectedSolution = "R O U M C B J ";
+        String expectedSolution = "R O U M C B J";
         cube = new Cube3x3();
         cube.makeMoves("B' L D L2 U' R2 B2 D' R2 U' R2 D' B2 L' B' D U R' U2 B");
         bld3X3 = new BLD3X3(cube);
         ArrayList<SolutionBLD> solution = bld3X3.solveAllVertices();
-        Assertions.assertEquals(expectedSolution, marksFromList(solution));
+        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
     }
 
     @Test
     void solveAllEdges() {
-        String expectedSolution = "A B C ";
+        String expectedSolution = "A B C";
         cube = new Cube3x3();
         cube.makeMoves("U");
         bld3X3 = new BLD3X3(cube);
         bld3X3.solveAllEdges();
         ArrayList<SolutionBLD> solution = bld3X3.solveAllEdges();
-        Assertions.assertEquals(expectedSolution, marksFromList(solution));
+        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
     }
 
     @Test
     void solveAllEdges1() {
-        String expectedSolution = "J W B I D P G S A L T ";
+        String expectedSolution = "J W B I D P G S A L T";
         cube = new Cube3x3();
         cube.makeMoves("B' L D L2 U' R2 B2 D' R2 U' R2 D' B2 L' B' D U R' U2 B");
         bld3X3 = new BLD3X3(cube);
         ArrayList<SolutionBLD> solution = bld3X3.solveAllEdges();
-        Assertions.assertEquals(expectedSolution, marksFromList(solution));
-    }
-
-    private String marksFromList(ArrayList<SolutionBLD> solution) {
-        StringBuilder stringBuilder = new StringBuilder();
-        solution.forEach(step -> stringBuilder.append(step.getMarks()).append(" "));
-        return stringBuilder.toString();
+        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
     }
 }

@@ -34,7 +34,7 @@ public class BLD3X3 implements BLD {
     }
 
     @Override
-    public String solve() {
+    public ArrayList solve() {
         ArrayList<SolutionBLD> solutionBLDs = new ArrayList<>();
         //TODO orient cube
         solutionBLDs.addAll(solveAllVertices());
@@ -43,7 +43,7 @@ public class BLD3X3 implements BLD {
         }
         solutionBLDs.addAll(solveAllEdges());
 
-        return null;
+        return solutionBLDs;
     }
 
     public SolutionBLD solveParity() {
@@ -123,7 +123,7 @@ public class BLD3X3 implements BLD {
         VertexExt vertexExt = interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex);
         solution.setAlgorithm(
                 getSetupAndAlgorithmAndReverseSetup("Y", vertexExt.getSetup().get(fieldIndex)));
-        solution.setElementIndexes(vertexIndex);
+        solution.setElementIndexes(new ArrayList<>(Arrays.asList(0, vertexIndex)));
         solution.setMarks(vertexExt.getName().get(fieldIndex));
         return solution;
     }
@@ -133,7 +133,7 @@ public class BLD3X3 implements BLD {
         EdgeExt edgeExt = interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex);
         solution.setAlgorithm(getSetupAndAlgorithmAndReverseSetup(
                 edgeExt.getAlgorithm().get(fieldIndex), edgeExt.getSetup().get(fieldIndex)));
-        solution.setElementIndexes(edgeIndex);
+        solution.setElementIndexes(new ArrayList<>(Arrays.asList(1, edgeIndex)));
         solution.setMarks(edgeExt.getName().get(fieldIndex));
         return solution;
     }

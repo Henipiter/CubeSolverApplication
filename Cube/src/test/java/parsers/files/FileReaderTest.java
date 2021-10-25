@@ -4,17 +4,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import parsers.FileReader;
 
-import java.io.IOException;
 import java.util.List;
 
 
 class FileReaderTest {
 
-    
 
     @Test
-    void getFileLines() throws IOException {
+    void getFileLines() {
         List<String> a = FileReader.getFileLines("src/main/resources/vertexSetup.txt");
-        Assertions.assertEquals(5, a.size());
+        Assertions.assertEquals(31, a.size());
     }
 }

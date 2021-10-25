@@ -1,28 +1,21 @@
 package methods.FMs;
 
 
+import DTOs.Solution;
 import cubes.Cube;
-import cubes.Cube3x3;
-import cubes.CubePyraminx;
+
+import java.util.ArrayList;
 
 public class FMPyraminx implements FM {
 
     private Cube cube;
 
-    public FMPyraminx(Cube cube){
+    public FMPyraminx(Cube cube) {
         this.cube = cube;
     }
 
-    /** Here is implementation of FM for Pyraminx
-     *
-     * @return series of moves to solve cube
-     */
     @Override
-    public String solve(){
-
-
+    public ArrayList<Solution> solve() {
         return null;
     }
-
-
 }
