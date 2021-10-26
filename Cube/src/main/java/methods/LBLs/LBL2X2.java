@@ -31,12 +31,6 @@ public class LBL2X2 implements LBL {
         calculateVertices2x2 = new CalculateVertices2x2((Cube2x2) cube);
     }
 
-    private void addAlgAndMoveCube(ArrayList<Move> finalAlg, ArrayList<Move> alg) {
-        cube.makeMoves(alg);
-        finalAlg.addAll(alg);
-    }
-
-
     @Override
     public ArrayList solve(char firstCenterColor) {
         ArrayList<SolutionLBL> algorithm = new ArrayList<>();
@@ -57,7 +51,6 @@ public class LBL2X2 implements LBL {
         algorithm.add(tempSolution);
 
         algorithm.add(solvePll());
-
         return algorithm;
     }
 

@@ -12,7 +12,7 @@ public class Parse2x2To3x3 {
         this.cube2x2 = (Cube2x2) cube2x2;
     }
 
-    public Cube3x3 parseTo3x3(){
+    public Cube3x3 parseTo3x3() {
         Cube3x3 cube3x3 = new Cube3x3(copyFieldsColors(cube2x2));
         cube3x3.setCenter(copyCentersColors(cube2x2));
         return cube3x3;

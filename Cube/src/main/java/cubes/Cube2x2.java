@@ -249,6 +249,11 @@ public class Cube2x2 extends Cube {
     }
 
     @Override
+    public char[] getCenter() {
+        return center;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
