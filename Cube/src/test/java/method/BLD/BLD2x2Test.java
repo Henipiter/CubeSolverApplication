@@ -1,4 +1,4 @@
-package cubes.cube3x3.method.BLD;
+package method.BLD;
 
 import DTOs.SolutionBLD;
 import cubes.Cube2x2;

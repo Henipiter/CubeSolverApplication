@@ -1,4 +1,4 @@
-package cubes.cube4x4.method.LBL;
+package method.LBL;
 
 import DTOs.InspectMove;
 import DTOs.Move;
