@@ -14,18 +14,23 @@ import static java.util.Arrays.deepEquals;
 @Setter
 public class Cube3x3 extends Cube {
 
-    char[][] cube = new char[6][8];
-    char[] center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     private Logger logger = Logger.getLogger("Cube3x3");
 
     public Cube3x3() {
+        this.cube = new char[6][8];
+        initCenters();
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 8; j++)
                 cube[i][j] = center[i];
     }
 
+    private void initCenters() {
+        this.center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
+    }
+
     public Cube3x3(char[][] cube) {
         this.cube = cube;
+        initCenters();
     }
 
     public void rotate(boolean clockwise, int side) {

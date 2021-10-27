@@ -18,14 +18,14 @@ import java.util.Collections;
 
 public class LBL3X3 implements LBL {
 
-    private Cube cube;
+    private Cube3x3 cube;
     private final Interpretation3x3Edges interpretationEdges;
     private final Interpretation3x3Vertices interpretation3x3Vertices;
     private final CalculateEdges3x3 calculateEdges;
     private final CalculateVertices3x3 calculateVertices;
 
     public LBL3X3(Cube cube) {
-        this.cube = cube;
+        this.cube = (Cube3x3) cube;
         interpretationEdges = new Interpretation3x3Edges();
         interpretation3x3Vertices = new Interpretation3x3Vertices();
         calculateVertices = new CalculateVertices3x3((Cube3x3) cube);

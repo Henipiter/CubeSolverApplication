@@ -19,14 +19,13 @@ import java.util.Collections;
 
 public class LBL2X2 implements LBL {
 
-    private Cube cube;
-    private char[] center;
+    private Cube2x2 cube;
 
     private Interpretation2x2Vertices interpretation2x2Vertices;
     private CalculateVertices2x2 calculateVertices2x2;
 
     public LBL2X2(Cube cube) {
-        this.cube = cube;
+        this.cube = (Cube2x2) cube;
         interpretation2x2Vertices = new Interpretation2x2Vertices();
         calculateVertices2x2 = new CalculateVertices2x2((Cube2x2) cube);
     }

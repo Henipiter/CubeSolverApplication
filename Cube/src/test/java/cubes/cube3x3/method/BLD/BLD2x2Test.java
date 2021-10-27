@@ -32,7 +32,7 @@ public class BLD2x2Test {
     @Test
     void solve1(){
 
-        String expectedSolution = "B C A";
+        String expectedSolution = "N M Z U J B D";
         cube2x2.makeMoves("U2 R U2 R F' R2 U2 F2 D2");
         bld2X2 = new BLD2X2(cube2x2);
         ArrayList<SolutionBLD> solution = bld2X2.solve();

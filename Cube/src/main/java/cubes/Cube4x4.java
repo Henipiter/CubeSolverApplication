@@ -2,6 +2,8 @@ package cubes;
 
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.logging.Logger;
 
@@ -9,13 +11,20 @@ import static DTOs.MoveTypeEnum.PRIM;
 import static DTOs.MoveTypeEnum.SIMPLE;
 import static java.util.Arrays.deepEquals;
 
+@Setter
+@Getter
 public class Cube4x4 extends Cube {
 
-    char[][] cube = new char[6][16];
-    char[] center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     private Logger logger = Logger.getLogger("Cube4x4");
 
+    private void initCenters() {
+        this.center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
+    }
+
     public Cube4x4() {
+
+        this.cube = new char[6][16];
+        initCenters();
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 16; j++)
                 cube[i][j] = center[i];
@@ -23,6 +32,7 @@ public class Cube4x4 extends Cube {
 
     public Cube4x4(char[][] cube) {
         this.cube = cube;
+        initCenters();
     }
 
     private void rotateSide(boolean clockwise, int side) {

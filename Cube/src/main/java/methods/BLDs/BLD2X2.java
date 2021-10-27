@@ -2,6 +2,7 @@ package methods.BLDs;
 
 import DTOs.SolutionBLD;
 import cubes.Cube;
+import cubes.Cube2x2;
 import cubes.Cube3x3;
 import parsers.Parse2x2To3x3;
 
@@ -9,10 +10,10 @@ import java.util.ArrayList;
 
 public class BLD2X2 implements BLD {
 
-    private Cube cube;
+    private Cube2x2 cube;
 
     public BLD2X2(Cube cube) {
-        this.cube = cube;
+        this.cube = (Cube2x2) cube;
     }
 
     @Override
