@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class LBL4X4 implements LBL {
 
-    private Cube cube;
+    private Cube4x4 cube;
     private final Interpretation4x4Centers interpretation4x4Centers;
     private final Interpretation4x4Edges interpretation4x4Edges;
     private final CalculateCenters4x4 calculateCenters4x4;
@@ -31,7 +31,7 @@ public class LBL4X4 implements LBL {
         interpretation4x4Edges = new Interpretation4x4Edges();
         calculateCenters4x4 = new CalculateCenters4x4();
         calculateEdges4x4 = new CalculateEdges4x4((Cube4x4) cube);
-        this.cube = cube;
+        this.cube = (Cube4x4) cube;
     }
 
     @Override

@@ -14,9 +14,9 @@ import static DTOs.MoveTypeEnum.INVALID;
 @Setter
 public class Cube {
 
-    private Logger logger = Logger.getLogger("Cube");
-    private char[][] cube;
-    private char[] center;
+    private static Logger logger = Logger.getLogger("Cube");
+    protected char[][] cube;
+    protected char[] center;
 
     public void move(String direction) {
         Move move = new Move(direction);
