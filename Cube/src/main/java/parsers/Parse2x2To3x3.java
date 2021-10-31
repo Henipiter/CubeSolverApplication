@@ -1,22 +1,8 @@
 package parsers;
 
-import cubes.Cube;
 import cubes.Cube2x2;
-import cubes.Cube3x3;
 
 public class Parse2x2To3x3 {
-
-    private Cube2x2 cube2x2;
-
-    public Parse2x2To3x3(Cube cube2x2) {
-        this.cube2x2 = (Cube2x2) cube2x2;
-    }
-
-    public Cube3x3 parseTo3x3() {
-        Cube3x3 cube3x3 = new Cube3x3(copyFieldsColors(cube2x2));
-        cube3x3.setCenter(copyCentersColors(cube2x2));
-        return cube3x3;
-    }
 
     public static char[][] copyFieldsColors(Cube2x2 cube2x2) {
         char[][] cubeArray = new char[6][8];

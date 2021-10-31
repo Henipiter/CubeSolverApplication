@@ -11,10 +11,17 @@ public class Interpretation {
         return interpretation1x1.whichColorIsNextInOrder(chosenSide, colorOnLeft, colorOnUp);
     }
 
+    public static int getIndexOfColor(char sideColor){
+        return new String(getColorOrder()).indexOf(sideColor);
+    }
+
     public static char getColorOfOppositeSide(char sideColor) {
-        char[] colors = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
-        int indexOfColor = new String(colors).indexOf(sideColor);
-        return colors[(indexOfColor % 2 + 1) % 2 + indexOfColor / 2 * 2];
+        int indexOfColor = getIndexOfColor(sideColor);
+        return getColorOrder()[(indexOfColor % 2 + 1) % 2 + indexOfColor / 2 * 2];
+    }
+
+    private static char[] getColorOrder(){
+        return new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     }
 
     public static char[] getColorOrder(char colorOnUp) {

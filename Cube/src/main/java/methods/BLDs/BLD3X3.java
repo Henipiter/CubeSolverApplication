@@ -15,7 +15,6 @@ public class BLD3X3 implements BLD {
 
     private final boolean[] vertexCorrect = new boolean[8];
     private final boolean[] edgeCorrect = new boolean[12];
-    private boolean parity;
 
     private final Interpretation3x3VerticesExt interpretationCubeVertex = new Interpretation3x3VerticesExt();
     private final Interpretation3x3VerticesExt interpretationPatternCubeVertex = new Interpretation3x3VerticesExt();
@@ -38,20 +37,21 @@ public class BLD3X3 implements BLD {
         ArrayList<SolutionBLD> solutionBLDs = new ArrayList<>();
         //TODO orient cube
         solutionBLDs.addAll(solveAllVertices());
-        if (parity) {
-            solutionBLDs.add(solveParity());
-        }
+        solutionBLDs.add(solveParity(solutionBLDs.size()));
         solutionBLDs.addAll(solveAllEdges());
 
         return solutionBLDs;
     }
 
-    public SolutionBLD solveParity() {
+    public SolutionBLD solveParity(int size) {
         SolutionBLD solutionBLD = new SolutionBLD();
-        if (parity) {
+        if (size % 2 == 1) {
             Algorithm algorithm = new Algorithm();
             solutionBLD.setMarks("<PARITY>");
             solutionBLD.setAlgorithm(InspectMove.stringToMoveList(algorithm.getPerm("R")));
+        } else {
+            solutionBLD.setMarks("<->");
+            solutionBLD.setAlgorithm(InspectMove.stringToMoveList("BLANK"));
         }
         return solutionBLD;
     }
@@ -59,7 +59,6 @@ public class BLD3X3 implements BLD {
     public ArrayList<SolutionBLD> solveAllVertices() {
         ArrayList<SolutionBLD> solution = new ArrayList<>();
         interpretationCubeVertex.interpretVertices(cube);
-        parity = false;
         noteUnsolvedVertices();
         while (countSolvedVertices() < 8) {
             int vertexIndex = getUnresolvedVertex();
@@ -94,7 +93,6 @@ public class BLD3X3 implements BLD {
         if (vertexIndex != 0) {
             solution.add(addToSolutionVertex(vertexIndex, fieldIndex));
         }
-        parity = !parity;
         if (!vertexCorrect[destinationVertexIndex]) {
             solution.addAll(solveSingleVertex(destinationVertexIndex, destinationFieldIndex, false));
         }
@@ -143,7 +141,7 @@ public class BLD3X3 implements BLD {
         ArrayList<Move> alg = new ArrayList<>();
         alg.addAll(InspectMove.stringToMoveList(setup));
         alg.addAll(InspectMove.stringToMoveList(algorithm.getPerm(permutation)));
-        alg.addAll(InspectMove.getReverseAlgorithm(InspectMove.stringToMoveList(permutation)));
+        alg.addAll(InspectMove.getReverseAlgorithm(InspectMove.stringToMoveList(setup)));
         return alg;
     }
 

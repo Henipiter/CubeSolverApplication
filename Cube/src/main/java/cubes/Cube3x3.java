@@ -4,6 +4,9 @@ import DTOs.Move;
 import DTOs.MoveTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
+import parsers.Parse2x2To3x3;
+import parsers.Parse4x4To3x3;
+import validations.ElementsValidator;
 
 import java.util.logging.Logger;
 
@@ -24,6 +27,21 @@ public class Cube3x3 extends Cube {
                 cube[i][j] = center[i];
     }
 
+    public Cube3x3(Cube2x2 cube2x2){
+        this.cube = Parse2x2To3x3.copyFieldsColors(cube2x2);
+        this.center = Parse2x2To3x3.copyCentersColors(cube2x2);
+    }
+
+    public Cube3x3(Cube4x4 cube4x4){
+        this.cube = Parse4x4To3x3.copyFieldsColors(cube4x4);
+        this.center = Parse4x4To3x3.copyCentersColors(cube4x4);
+    }
+
+    public void validate(Cube3x3 cube) throws Exception {
+        ElementsValidator elementsValidator = new ElementsValidator(cube);
+        elementsValidator.throwExceptions();
+    }
+
     private void initCenters() {
         this.center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     }
@@ -33,7 +51,7 @@ public class Cube3x3 extends Cube {
         initCenters();
     }
 
-    public void rotate(boolean clockwise, int side) {
+    private void rotate(boolean clockwise, int side) {
         if (clockwise) {
             changeFourFields(cube, side, new int[]{0, 5, 7, 2});
             changeFourFields(cube, side, new int[]{1, 3, 6, 4});
@@ -43,7 +61,7 @@ public class Cube3x3 extends Cube {
         }
     }
 
-    public void rotateCenter(int[] order) {
+    private void rotateCenter(int[] order) {
         char buffer;
         buffer = center[order[0]];
         for (int i = 0; i < 3; i++)
@@ -51,7 +69,7 @@ public class Cube3x3 extends Cube {
         center[order[3]] = buffer;
     }
 
-    public void moveElementary_2(int[] sideOrder, int[][] field) {
+    private void moveElementary_2(int[] sideOrder, int[][] field) {
         char[] buffer = new char[2];
         for (int i = 0; i < 2; i++)
             buffer[i] = cube[sideOrder[0]][field[0][i]];
@@ -65,7 +83,7 @@ public class Cube3x3 extends Cube {
             cube[sideOrder[3]][field[1][1 - i]] = buffer[i];
     }
 
-    public void moveElementary_3(int[] sideOrder, int[][] field) {
+    private void moveElementary_3(int[] sideOrder, int[][] field) {
         char[] buffer = new char[3];
         for (int i = 0; i < 3; i++)
             buffer[i] = cube[sideOrder[0]][field[1][i]];
