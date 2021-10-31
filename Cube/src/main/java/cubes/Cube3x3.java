@@ -2,11 +2,11 @@ package cubes;
 
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
-import interpretations.Validator;
 import lombok.Getter;
 import lombok.Setter;
 import parsers.Parse2x2To3x3;
 import parsers.Parse4x4To3x3;
+import validations.ElementsValidator;
 
 import java.util.logging.Logger;
 
@@ -38,8 +38,8 @@ public class Cube3x3 extends Cube {
     }
 
     public void validate(Cube3x3 cube) throws Exception {
-        Validator validator = new Validator(cube);
-        validator.throwExceptions();
+        ElementsValidator elementsValidator = new ElementsValidator(cube);
+        elementsValidator.throwExceptions();
     }
 
     private void initCenters() {

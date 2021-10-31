@@ -1,4 +1,4 @@
-package interpretations;
+package validations;
 
 import DTOs.SolutionBLD;
 import cubes.Cube3x3;
@@ -8,7 +8,7 @@ import methods.BLDs.BLD3X3;
 import java.util.ArrayList;
 
 @Getter
-public class Validator {
+public class ElementsValidator {
 
     private boolean rollingPop;
     private boolean ollParity;
@@ -16,7 +16,7 @@ public class Validator {
 
     private Cube3x3 cube3x3;
 
-    public Validator(Cube3x3 cube3x3) {
+    public ElementsValidator(Cube3x3 cube3x3) {
         this.cube3x3 = cube3x3;
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
         ArrayList<SolutionBLD> solution = bld3X3.solve();

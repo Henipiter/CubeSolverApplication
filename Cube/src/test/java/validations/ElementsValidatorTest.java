@@ -1,15 +1,15 @@
-package interpretations;
+package validations;
 
 import cubes.Cube3x3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ValidatorTest {
+public class ElementsValidatorTest {
 
     private static final String ALG1 = "U2 R2 B2 U F2 L2 F2 D' F2 L2 R' B2 U2 R' U L' B' F' D2";
 
-    private Validator validator;
+    private ElementsValidator elementsValidator;
     private Cube3x3 cube3x3;
 
     @BeforeEach
@@ -24,9 +24,9 @@ public class ValidatorTest {
         cube3x3.makeMoves(ALG1);
         rotateVertex();
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isRollingPop());
+        Assertions.assertTrue(elementsValidator.isRollingPop());
     }
 
     @Test
@@ -35,9 +35,9 @@ public class ValidatorTest {
         rotateVertex();
         cube3x3.makeMoves(ALG1);
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isRollingPop());
+        Assertions.assertTrue(elementsValidator.isRollingPop());
     }
 
     @Test
@@ -46,9 +46,9 @@ public class ValidatorTest {
         cube3x3.makeMoves(ALG1);
         rotateVertex();
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isRollingPop());
+        Assertions.assertTrue(elementsValidator.isRollingPop());
     }
 
     @Test
@@ -56,9 +56,9 @@ public class ValidatorTest {
         //given
         cube3x3.makeMoves(ALG1);
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertFalse(validator.isRollingPop());
+        Assertions.assertFalse(elementsValidator.isRollingPop());
     }
 
     @Test
@@ -66,9 +66,9 @@ public class ValidatorTest {
         //given
         cube3x3.makeMoves(ALG1);
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertFalse(validator.isOllParity());
+        Assertions.assertFalse(elementsValidator.isOllParity());
     }
 
     @Test
@@ -77,9 +77,9 @@ public class ValidatorTest {
         rotateEdge();
         cube3x3.makeMoves(ALG1);
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isOllParity());
+        Assertions.assertTrue(elementsValidator.isOllParity());
     }
 
     @Test
@@ -88,9 +88,9 @@ public class ValidatorTest {
         cube3x3.makeMoves(ALG1);
         rotateEdge();
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isOllParity());
+        Assertions.assertTrue(elementsValidator.isOllParity());
     }
 
     @Test
@@ -99,9 +99,9 @@ public class ValidatorTest {
         switchTwoEdges();
         cube3x3.makeMoves(ALG1);
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isPllParity());
+        Assertions.assertTrue(elementsValidator.isPllParity());
     }
 
     @Test
@@ -110,9 +110,9 @@ public class ValidatorTest {
         cube3x3.makeMoves(ALG1);
         switchTwoEdges();
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isPllParity());
+        Assertions.assertTrue(elementsValidator.isPllParity());
     }
 
     @Test
@@ -121,9 +121,9 @@ public class ValidatorTest {
         switchTwoVertices();
         cube3x3.makeMoves(ALG1);
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isPllParity());
+        Assertions.assertTrue(elementsValidator.isPllParity());
     }
 
     @Test
@@ -132,9 +132,9 @@ public class ValidatorTest {
         cube3x3.makeMoves(ALG1);
         switchTwoVertices();
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertTrue(validator.isPllParity());
+        Assertions.assertTrue(elementsValidator.isPllParity());
     }
 
     @Test
@@ -144,9 +144,9 @@ public class ValidatorTest {
         cube3x3.makeMoves(ALG1);
         switchTwoVertices();
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertFalse(validator.isPllParity());
+        Assertions.assertFalse(elementsValidator.isPllParity());
     }
 
     @Test
@@ -154,9 +154,9 @@ public class ValidatorTest {
         //given
         cube3x3.makeMoves(ALG1);
         //when
-        validator = new Validator(cube3x3);
+        elementsValidator = new ElementsValidator(cube3x3);
         //then
-        Assertions.assertFalse(validator.isPllParity());
+        Assertions.assertFalse(elementsValidator.isPllParity());
     }
 
     private void rotateVertex() {
