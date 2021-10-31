@@ -11,7 +11,6 @@ import interpretations.Interpretation;
 import interpretations.Interpretation1x1;
 import interpretations.Interpretation2x2Vertices;
 import interpretations.Interpretation3x3Centers;
-import parsers.Parse2x2To3x3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,8 +38,7 @@ public class LBL2X2 implements LBL {
         int vertOfBegin = interpretation2x2Vertices.getIndexVertexFromBottomHasColor(firstCenterColor);
         setCentersByVertex(vertOfBegin);
 
-        Parse2x2To3x3 parser = new Parse2x2To3x3(cube);
-        Cube3x3 cube3x3 = parser.parseTo3x3();
+        Cube3x3 cube3x3 = new Cube3x3(cube);
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
         ArrayList<SolutionLBL> tempAlg = lbl3X3.solveFirstLayer();
         cube.makeMoves(Solution.getWholeAlg(tempAlg));
