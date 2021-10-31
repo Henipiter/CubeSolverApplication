@@ -2,6 +2,7 @@ package cubes;
 
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
+import interpretations.Validator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +23,6 @@ public class Cube4x4 extends Cube {
     }
 
     public Cube4x4() {
-
         this.cube = new char[6][16];
         initCenters();
         for (int i = 0; i < 6; i++)
@@ -33,6 +33,11 @@ public class Cube4x4 extends Cube {
     public Cube4x4(char[][] cube) {
         this.cube = cube;
         initCenters();
+    }
+
+    public void validate(Cube4x4 cube) throws Exception {
+        Validator validator = new Validator(new Cube3x3(cube));
+        validator.throwExceptions();
     }
 
     private void rotateSide(boolean clockwise, int side) {

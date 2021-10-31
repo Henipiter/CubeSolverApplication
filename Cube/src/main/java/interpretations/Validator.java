@@ -20,7 +20,6 @@ public class Validator {
         this.cube3x3 = cube3x3;
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
         ArrayList<SolutionBLD> solution = bld3X3.solve();
-        System.out.println(SolutionBLD.getWholeMarks(solution));
         cube3x3.makeMoves(SolutionBLD.getWholeAlgBLD(solution));
         validateRollingPop();
         validateOllParity();
@@ -40,6 +39,18 @@ public class Validator {
         int vertexSolutionSize = bld3X3.solveAllVertices().size();
         int edgeSolutionSize = bld3X3.solveAllEdges().size();
         pllParity = vertexSolutionSize != edgeSolutionSize;
+    }
+
+    public void throwExceptions() throws Exception {
+        if (rollingPop) {
+            throw new Exception("RollingPop");
+        }
+        if (ollParity) {
+            throw new Exception("OllParity");
+        }
+        if (pllParity) {
+            throw new Exception("PllParity");
+        }
     }
 
 }

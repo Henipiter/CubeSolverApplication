@@ -2,6 +2,7 @@ package cubes;
 
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
+import interpretations.Validator;
 import lombok.Getter;
 import lombok.Setter;
 import parsers.Parse2x2To3x3;
@@ -34,7 +35,11 @@ public class Cube3x3 extends Cube {
     public Cube3x3(Cube4x4 cube4x4){
         this.cube = Parse4x4To3x3.copyFieldsColors(cube4x4);
         this.center = Parse4x4To3x3.copyCentersColors(cube4x4);
+    }
 
+    public void validate(Cube3x3 cube) throws Exception {
+        Validator validator = new Validator(cube);
+        validator.throwExceptions();
     }
 
     private void initCenters() {
