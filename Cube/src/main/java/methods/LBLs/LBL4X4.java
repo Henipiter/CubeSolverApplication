@@ -12,7 +12,6 @@ import cubes.Cube4x4;
 import interpretations.Interpretation;
 import interpretations.Interpretation4x4Centers;
 import interpretations.Interpretation4x4Edges;
-import parsers.Parse4x4To3x3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -187,7 +186,6 @@ public class LBL4X4 implements LBL {
                 firstEdgePairIndex = interpretation4x4Edges.getUnpairedPairEdgeIndex();
                 temp_alg = calculateEdges4x4.getMovesToPutUnpairedEdgeOn14or15Index(firstEdgePairIndex);
                 updateCubeAndSaveAlgorithm(temp_alg, solutionLBL.getAlgorithm());
-
             }
             secondEdgePairIndex = interpretation4x4Edges.
                     getEdgeIndexWithTheSameColorsLikeInGivenEdge(14);
@@ -196,20 +194,9 @@ public class LBL4X4 implements LBL {
             updateCubeAndSaveAlgorithm(temp_alg, solutionLBL.getAlgorithm());
             solutionLBL.setElementIndexes(new ArrayList<>(Arrays.asList(firstEdgePairIndex, secondEdgePairIndex)));
             solution.add(solutionLBL);
-
         }
         cube.getLogger().info("Edges paired!");
         return solution;
-    }
-
-    private Cube3x3 parseTo3x3(Cube4x4 cube4x4) {
-        Parse4x4To3x3 parser = new Parse4x4To3x3(cube4x4);
-        try {
-            return parser.parseTo3x3();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        return null;
     }
 
     private void makeOllParityOn3x3() {
@@ -246,8 +233,7 @@ public class LBL4X4 implements LBL {
 
     public ArrayList<SolutionLBL> phase3x3(char firstCenterColor) {
         ArrayList<SolutionLBL> algorithm = new ArrayList<>();
-        cube3x3 = parseTo3x3((Cube4x4) cube);
-        cube.setCenter(Parse4x4To3x3.copyCentersColors((Cube4x4) cube));
+        cube3x3 = new Cube3x3(cube);
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
         algorithm.addAll(lbl3X3.solveF2L_LBL(firstCenterColor));
 
