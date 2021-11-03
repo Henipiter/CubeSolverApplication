@@ -26,6 +26,15 @@ public class ColorValidator {
         sameColorEdgesCounter = new HashMap<>();
     }
 
+    public void throwExceptions() throws Exception {
+        if (vertexColorCorrectness) {
+            throw new Exception("VertexColorError");
+        }
+        if (edgeColorCorrectness) {
+            throw new Exception("EdgeColorError");
+        }
+    }
+
     protected String createKey(char[] edgeColors){
         Arrays.sort(edgeColors);
         return String.valueOf(edgeColors);

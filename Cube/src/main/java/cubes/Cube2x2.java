@@ -5,6 +5,8 @@ import DTOs.Move;
 import DTOs.MoveTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
+import validations.ColorValidation2x2;
+import validations.ColorValidator;
 import validations.ElementsValidator;
 
 import java.util.logging.Logger;
@@ -26,9 +28,11 @@ public class Cube2x2 extends Cube {
     public Cube2x2() {
         this.cube = new char[6][4];
         initCenters();
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++)
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
                 cube[i][j] = center[i];
+            }
+        }
     }
 
     public Cube2x2(char[][] cube) {
@@ -37,6 +41,8 @@ public class Cube2x2 extends Cube {
     }
 
     public void validate(Cube2x2 cube) throws Exception {
+        ColorValidator colorValidator = new ColorValidation2x2(cube);
+        colorValidator.throwExceptions();
         ElementsValidator elementsValidator = new ElementsValidator(new Cube3x3(cube));
         elementsValidator.throwExceptions();
     }
