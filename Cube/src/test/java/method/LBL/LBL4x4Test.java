@@ -270,7 +270,7 @@ public class LBL4x4Test {
         //when
         ArrayList<SolutionLBL> algorithm = lbl.solve(firstCenterColor);
         //then
-        System.out.println("Solution: " + algorithm);
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
         cube = new Cube4x4();
         cube.makeMoves("b2 l U2 F2 L2 d' B' b' L B'");
         cube.makeMoves(InspectMove.moveListToString(solution.getWholeAlg(algorithm)));

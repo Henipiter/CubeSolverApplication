@@ -411,6 +411,10 @@ public class Interpretation3x3Edges {
         return counter;
     }
 
+    public boolean isCorrectPositionBeforeOllParity() {
+        return edgeArrayList.get(2).getColor()[0] != getCenterArray()[0];
+    }
+
     public boolean isUpperCrossIsCorrect() {
         return getNumOfCorrectEdgesInUpperCross() == 4;
     }

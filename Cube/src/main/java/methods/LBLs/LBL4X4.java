@@ -2,6 +2,7 @@ package methods.LBLs;
 
 import DTOs.*;
 import calculations.CalculateCenters4x4;
+import calculations.CalculateEdges3x3;
 import calculations.CalculateEdges4x4;
 import calculations.CalculateMoves;
 import cubes.Cube;
@@ -212,18 +213,28 @@ public class LBL4X4 implements LBL {
     }
 
     private SolutionLBL resolveOLLParity() {
-        //TODO rotate upper side before OLL
+        Algorithm algorithmParity = new Algorithm();
+        ArrayList<Move> alg = new ArrayList<>();
+        alg.add(prepareBeforeOllParity());
+        alg.addAll(algorithmParity.getPermAlg("OLL"));
         cube.getLogger().info("OLL Parity");
         makeOllParityOn3x3();
         cube3x3.makeMoves("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
-        return new SolutionLBL(CalculateEdges4x4.getParityOLLAlgorithm(), "OLL Parity",
+        return new SolutionLBL(alg, "OLL Parity",
                 new ArrayList(Arrays.asList(4, 5)), ElementType.EDGE, ProgressInfo.NONE);
     }
 
+    private Move prepareBeforeOllParity() {
+        CalculateEdges3x3 calculateEdges3x3 = new CalculateEdges3x3(cube3x3);
+        calculateEdges3x3.refreshCube(cube3x3);
+        return calculateEdges3x3.moveUpperCrossToRightPositionBeforeOllParity();
+    }
+
     private ArrayList<SolutionLBL> resolvePllParity(LBL3X3 lbl3X3) {
+        Algorithm algorithmParity = new Algorithm();
         ArrayList<SolutionLBL> algorithm = new ArrayList<>();
         cube.getLogger().info("PLL Parity");
-        algorithm.add(new SolutionLBL(CalculateEdges4x4.getParityPLLAlgorithm(), "PLL Parity",
+        algorithm.add(new SolutionLBL(algorithmParity.getPermAlg("PLL"), "PLL Parity",
                 new ArrayList(Arrays.asList(0, 1, 4, 5)), ElementType.EDGE, ProgressInfo.NONE));
         makePllParityOn3x3();
         algorithm.add(lbl3X3.solveIncorrectUpperCross());
