@@ -11,6 +11,15 @@ public class Interpretation {
         return interpretation1x1.whichColorIsNextInOrder(chosenSide, colorOnLeft, colorOnUp);
     }
 
+    public static int getSideWithColor(char color, char[] centerArray){
+        for (int i = 0; i < 6; i++) {
+            if( centerArray[i]==color){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static int getIndexOfColor(char sideColor){
         return new String(getColorOrder()).indexOf(sideColor);
     }

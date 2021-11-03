@@ -5,6 +5,7 @@ import DTOs.*;
 import calculations.CalculateMoves;
 import cubes.Cube;
 import cubes.Cube3x3;
+import interpretations.Interpretation;
 import interpretations.Interpretation3x3EdgesExt;
 import interpretations.Interpretation3x3VerticesExt;
 
@@ -21,6 +22,8 @@ public class BLD3X3 implements BLD {
     private final Interpretation3x3EdgesExt interpretationCubeEdge = new Interpretation3x3EdgesExt();
     private final Interpretation3x3EdgesExt interpretationPatternCubeEdge = new Interpretation3x3EdgesExt();
 
+    private final BlindOrientation blindOrientation = new BlindOrientation();
+
     private final Cube3x3 cube;
     private final Cube3x3 patternCube;
 
@@ -35,12 +38,21 @@ public class BLD3X3 implements BLD {
     @Override
     public ArrayList solve() {
         ArrayList<SolutionBLD> solutionBLDs = new ArrayList<>();
-        //TODO orient cube
+        solutionBLDs.add(solveOrientation());
         solutionBLDs.addAll(solveAllVertices());
         solutionBLDs.add(solveParity(solutionBLDs.size()));
         solutionBLDs.addAll(solveAllEdges());
-
         return solutionBLDs;
+    }
+
+    public SolutionBLD solveOrientation() {
+        ArrayList<Move> alg = new ArrayList<>();
+        alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(Interpretation.getSideWithColor(
+                blindOrientation.getUpperColor(), interpretationPatternCubeEdge.getCenterArray())));
+        alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(
+                Interpretation.getSideWithColor(blindOrientation.getFrontColor(),
+                        interpretationPatternCubeEdge.getCenterArray())));
+        return new SolutionBLD(alg, null, null, ElementType.ALL);
     }
 
     public SolutionBLD solveParity(int size) {
@@ -129,7 +141,7 @@ public class BLD3X3 implements BLD {
         final Algorithm algorithm = new Algorithm();
         ArrayList<Move> alg = new ArrayList<>();
         alg.addAll(InspectMove.stringToMoveList(setup));
-        alg.addAll(InspectMove.stringToMoveList(algorithm.getPerm(permutation)));
+        alg.addAll(algorithm.getPermAlg(permutation));
         alg.addAll(InspectMove.getReverseAlgorithm(InspectMove.stringToMoveList(setup)));
         return alg;
     }
