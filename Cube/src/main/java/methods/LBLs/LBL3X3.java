@@ -18,7 +18,7 @@ import java.util.Collections;
 
 public class LBL3X3 implements LBL {
 
-    private Cube3x3 cube;
+    private final Cube3x3 cube;
     private final Interpretation3x3Edges interpretationEdges;
     private final Interpretation3x3Vertices interpretation3x3Vertices;
     private final CalculateEdges3x3 calculateEdges;
@@ -91,7 +91,7 @@ public class LBL3X3 implements LBL {
         }
         cube.getLogger().info("Cross solved!");
 
-        return new SolutionLBL(tempAlg, "Bottom cross", firstCenterColor);
+        return new SolutionLBL(tempAlg, "Bottom cross", firstCenterColor, ElementType.EDGE, ProgressInfo.NONE);
     }
 
     private void updateCubeAndInterpretationAndCalculation(ArrayList<Move> alg) {
@@ -184,7 +184,7 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(joinAlg);
         cube.makeMoves(joinAlg);
         return new SolutionLBL(algorithm, "First layer",
-                new ArrayList<>(Collections.singletonList(vertexIndex)));
+                new ArrayList<>(Collections.singletonList(vertexIndex)), ElementType.VERTEX, ProgressInfo.CROSS);
     }
 
     private SolutionLBL putVertexFromBottomLayerToUpperSide() {
@@ -201,7 +201,7 @@ public class LBL3X3 implements LBL {
 
         cube.makeMoves(joinAlg);
         return new SolutionLBL(algorithm, "First layer",
-                new ArrayList<>(Collections.singletonList(vertexIndex)));
+                new ArrayList<>(Collections.singletonList(vertexIndex)), ElementType.VERTEX, ProgressInfo.CROSS);
     }
 
     public ArrayList<SolutionLBL> solveFirstLayer() {
@@ -237,7 +237,7 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(joinAlg);
         cube.makeMoves(joinAlg);
         return new SolutionLBL(algorithm, "Second layer",
-                new ArrayList<>(Collections.singletonList(edgeIndex)));
+                new ArrayList<>(Collections.singletonList(edgeIndex)), ElementType.EDGE, ProgressInfo.FIRST_LAYER);
     }
 
     private SolutionLBL putEdgeFromSecondLayerToUpperSide() {
@@ -254,7 +254,7 @@ public class LBL3X3 implements LBL {
 
         cube.makeMoves(joinAlg);
         return new SolutionLBL(algorithm, "Second layer",
-                new ArrayList<>(Collections.singletonList(edgeIndex)));
+                new ArrayList<>(Collections.singletonList(edgeIndex)), ElementType.EDGE, ProgressInfo.FIRST_LAYER);
     }
 
     public ArrayList<SolutionLBL> solveSecondLayer() {
@@ -295,7 +295,7 @@ public class LBL3X3 implements LBL {
         cube.getLogger().info("Upper cross solved!");
         CalculateMoves.reduceRepeatingMoves(tempAlg);
         return new SolutionLBL(tempAlg, "Upper cross",
-                interpretationEdges.getCenterArray()[1]);
+                interpretationEdges.getCenterArray()[1], ElementType.EDGE, ProgressInfo.NONE);
     }
 
     public void checkOllParity() throws Exception {
@@ -325,7 +325,7 @@ public class LBL3X3 implements LBL {
         }
         cube.getLogger().info("Incorrect upper cross solved!");
         return new SolutionLBL(tempAlg, "Correct upper cross",
-                interpretationEdges.getCenterArray()[1]);
+                new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.EDGE, ProgressInfo.TWO_LAYERS);
     }
 
     public SolutionLBL solveNotPermutedVertexes() {
@@ -342,7 +342,7 @@ public class LBL3X3 implements LBL {
         cube.getLogger().info("Vertex permuted!");
 
         return new SolutionLBL(tempAlg, "Permute vertices",
-                new ArrayList<>(Arrays.asList(0, 1, 2, 3)));
+                new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.VERTEX, ProgressInfo.TWO_LAYERS);
     }
 
     public SolutionLBL solveNotOrientedVertexes() {
@@ -366,8 +366,7 @@ public class LBL3X3 implements LBL {
         cube.getLogger().info("Vertex oriented!");
 
 
-        return new SolutionLBL(tempAlg, "Correct upper cross",
-                interpretationEdges.getCenterArray()[1],
-                new ArrayList<>(Arrays.asList(0, 1, 2, 3)));
+        return new SolutionLBL(tempAlg, "Orient vertices",
+                interpretationEdges.getCenterArray()[1], ElementType.ALL, ProgressInfo.NONE);
     }
 }

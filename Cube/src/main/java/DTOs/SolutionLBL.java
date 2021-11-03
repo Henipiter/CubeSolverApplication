@@ -22,26 +22,24 @@ public class SolutionLBL extends Solution {
         this.infoType = InfoType.DEFAULT;
     }
 
-    public SolutionLBL(ArrayList<Move> algorithm, String message, char color) {
+    public SolutionLBL(ArrayList<Move> algorithm, String message, char color,
+                       ElementType elementType, ProgressInfo progressInfo) {
         this.algorithm = algorithm;
         this.color = color;
         this.message = message;
         this.infoType = InfoType.COLOR;
+        this.elementType = elementType;
+        this.progressInfo = progressInfo;
     }
 
-    public SolutionLBL(ArrayList<Move> algorithm, String message, ArrayList<Integer> elementIndexes) {
+    public SolutionLBL(ArrayList<Move> algorithm, String message, ArrayList<Integer> elementIndexes,
+                       ElementType elementType, ProgressInfo progressInfo) {
         this.algorithm = algorithm;
         this.elementIndexes = elementIndexes;
         this.message = message;
         this.infoType = InfoType.INDEX;
-    }
-
-    public SolutionLBL(ArrayList<Move> algorithm, String message, char color, ArrayList<Integer> elementIndexes) {
-        this.algorithm = algorithm;
-        this.elementIndexes = elementIndexes;
-        this.color = color;
-        this.message = message;
-        this.infoType = InfoType.ALL;
+        this.elementType = elementType;
+        this.progressInfo = progressInfo;
     }
 
     public SolutionLBL(InfoType infoType) {
@@ -54,11 +52,11 @@ public class SolutionLBL extends Solution {
         return alg;
     }
 
-    public void setElementIndexes(ArrayList<Integer> elementIndexes){
+    public void setElementIndexes(ArrayList<Integer> elementIndexes) {
         this.elementIndexes = elementIndexes;
     }
 
-    public ArrayList<Move> getAlgorithm(){
+    public ArrayList<Move> getAlgorithm() {
         return algorithm;
     }
 }

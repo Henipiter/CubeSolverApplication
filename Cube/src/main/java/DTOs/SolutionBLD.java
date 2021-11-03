@@ -23,6 +23,14 @@ public class SolutionBLD extends Solution {
         solution.forEach(moves -> alg.addAll(moves.algorithm));
         return alg;
     }
+
+    public SolutionBLD(ArrayList<Move> algorithm, String marks, ArrayList<Integer> elementIndexes,
+                       ElementType elementType){
+        this.algorithm = algorithm;
+        this.elementIndexes = elementIndexes;
+        this.elementType = elementType;
+        this.progressInfo = ProgressInfo.NONE;
+    }
 }
 
 

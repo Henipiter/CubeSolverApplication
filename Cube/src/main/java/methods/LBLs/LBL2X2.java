@@ -61,7 +61,7 @@ public class LBL2X2 implements LBL {
         alg.addAll(calculateVertices2x2.permuteVertexAlgorithm());
         cube.makeMoves(calculateVertices2x2.permuteVertexAlgorithm());
         return new SolutionLBL(alg, "Permute",
-                new ArrayList(Arrays.asList(1, 2, 3, 4)));
+                new ArrayList(Arrays.asList(1, 2, 3, 4)), ElementType.VERTEX, ProgressInfo.NONE);
     }
 
     public void setCentersByVertex(int indexVertex) {

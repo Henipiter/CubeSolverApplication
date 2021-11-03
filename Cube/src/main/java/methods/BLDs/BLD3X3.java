@@ -44,16 +44,12 @@ public class BLD3X3 implements BLD {
     }
 
     public SolutionBLD solveParity(int size) {
-        SolutionBLD solutionBLD = new SolutionBLD();
         if (size % 2 == 1) {
             Algorithm algorithm = new Algorithm();
-            solutionBLD.setMarks("<PARITY>");
-            solutionBLD.setAlgorithm(InspectMove.stringToMoveList(algorithm.getPerm("R")));
+            return new SolutionBLD(algorithm.getPermAlg("R"), "<PARITY>", null, null);
         } else {
-            solutionBLD.setMarks("<->");
-            solutionBLD.setAlgorithm(InspectMove.stringToMoveList("BLANK"));
+            return new SolutionBLD(InspectMove.stringToMoveList("BLANK"), "<->", null, null);
         }
-        return solutionBLD;
     }
 
     public ArrayList<SolutionBLD> solveAllVertices() {
@@ -117,23 +113,16 @@ public class BLD3X3 implements BLD {
     }
 
     private SolutionBLD addToSolutionVertex(int vertexIndex, int fieldIndex) {
-        SolutionBLD solution = new SolutionBLD();
         VertexExt vertexExt = interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex);
-        solution.setAlgorithm(
-                getSetupAndAlgorithmAndReverseSetup("Y", vertexExt.getSetup().get(fieldIndex)));
-        solution.setElementIndexes(new ArrayList<>(Arrays.asList(0, vertexIndex)));
-        solution.setMarks(vertexExt.getName().get(fieldIndex));
-        return solution;
+        return new SolutionBLD(getSetupAndAlgorithmAndReverseSetup("Y", vertexExt.getSetup().get(fieldIndex)),
+                vertexExt.getName().get(fieldIndex), new ArrayList<>(Arrays.asList(0, vertexIndex)), ElementType.VERTEX);
     }
 
     private SolutionBLD addToSolutionEdge(int edgeIndex, int fieldIndex) {
-        SolutionBLD solution = new SolutionBLD();
         EdgeExt edgeExt = interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex);
-        solution.setAlgorithm(getSetupAndAlgorithmAndReverseSetup(
-                edgeExt.getAlgorithm().get(fieldIndex), edgeExt.getSetup().get(fieldIndex)));
-        solution.setElementIndexes(new ArrayList<>(Arrays.asList(1, edgeIndex)));
-        solution.setMarks(edgeExt.getName().get(fieldIndex));
-        return solution;
+        return new SolutionBLD(getSetupAndAlgorithmAndReverseSetup(
+                edgeExt.getAlgorithm().get(fieldIndex), edgeExt.getSetup().get(fieldIndex)),
+                edgeExt.getName().get(fieldIndex), new ArrayList<>(Arrays.asList(1, edgeIndex)), ElementType.EDGE);
     }
 
     private ArrayList<Move> getSetupAndAlgorithmAndReverseSetup(String permutation, String setup) {

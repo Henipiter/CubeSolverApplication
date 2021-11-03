@@ -6,6 +6,8 @@ public class Solution {
 
     protected ArrayList<Move> algorithm = new ArrayList<>();
     protected ArrayList<Integer> elementIndexes;
+    protected ElementType elementType;
+    protected ProgressInfo progressInfo;
 
     public static ArrayList<Move> getWholeAlg(ArrayList solution) {
         if (solution.size() == 0) {

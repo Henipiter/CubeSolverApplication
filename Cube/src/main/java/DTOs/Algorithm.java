@@ -1,5 +1,6 @@
 package DTOs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ public class Algorithm {
 
     private static final Map<String, String> permutations = new HashMap<>();
 
-    public Algorithm(){
+    public Algorithm() {
         permutations.put("Y", PermY);
         permutations.put("T", PermT);
         permutations.put("J", PermJ);
@@ -20,8 +21,12 @@ public class Algorithm {
         permutations.put("R", PermR);
     }
 
-    public String getPerm(String permutation){
+    public String getPerm(String permutation) {
         return permutations.get(permutation);
+    }
+
+    public ArrayList<Move> getPermAlg(String permutation) {
+        return InspectMove.stringToMoveList(permutations.get(permutation));
     }
 }
 
