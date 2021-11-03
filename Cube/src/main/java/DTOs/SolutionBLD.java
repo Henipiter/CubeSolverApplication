@@ -1,12 +1,14 @@
 package DTOs;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class SolutionBLD extends Solution {
     private ArrayList<Move> algorithm;
     private String marks;
@@ -18,15 +20,18 @@ public class SolutionBLD extends Solution {
         return stringBuilder.deleteCharAt(stringBuilder.length()-1).toString();
     }
 
-    public static ArrayList<Move> getWholeAlgBLD(ArrayList<SolutionBLD> solution) {
+    @Override
+    public ArrayList<Move> getWholeAlg(Object solution) {
+        ArrayList<SolutionBLD> solutionBLD = (ArrayList<SolutionBLD>) solution;
         ArrayList<Move> alg = new ArrayList<>();
-        solution.forEach(moves -> alg.addAll(moves.algorithm));
+        solutionBLD.forEach(moves -> alg.addAll(moves.algorithm));
         return alg;
     }
 
     public SolutionBLD(ArrayList<Move> algorithm, String marks, ArrayList<Integer> elementIndexes,
                        ElementType elementType){
         this.algorithm = algorithm;
+        this.marks = marks;
         this.elementIndexes = elementIndexes;
         this.elementType = elementType;
         this.progressInfo = ProgressInfo.NONE;

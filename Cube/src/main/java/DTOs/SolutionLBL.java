@@ -46,9 +46,11 @@ public class SolutionLBL extends Solution {
         this.infoType = infoType;
     }
 
-    public static ArrayList<Move> getWholeAlgLBL(ArrayList<SolutionLBL> solution) {
+    @Override
+    public ArrayList<Move> getWholeAlg(Object solution) {
+        ArrayList<SolutionLBL> solutionLBL = (ArrayList<SolutionLBL>) solution;
         ArrayList<Move> alg = new ArrayList<>();
-        solution.forEach(moves -> alg.addAll(moves.algorithm));
+        solutionLBL.forEach(moves -> alg.addAll(moves.algorithm));
         return alg;
     }
 

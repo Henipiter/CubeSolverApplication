@@ -18,6 +18,7 @@ import java.util.Collections;
 
 public class LBL2X2 implements LBL {
 
+    Solution solution = new SolutionLBL();
     private Cube2x2 cube;
 
     private Interpretation2x2Vertices interpretation2x2Vertices;
@@ -33,7 +34,7 @@ public class LBL2X2 implements LBL {
     public ArrayList solve(char firstCenterColor) {
         ArrayList<SolutionLBL> algorithm = new ArrayList<>();
         interpretation2x2Vertices.interpretVertices(cube);
-        algorithm.add(new SolutionLBL(new ArrayList(Collections.singletonList(
+        algorithm.add(new SolutionLBL(new ArrayList<>(Collections.singletonList(
                 rotateCubeToGetColorOnBottomSide(firstCenterColor))), "Rotate"));
         int vertOfBegin = interpretation2x2Vertices.getIndexVertexFromBottomHasColor(firstCenterColor);
         setCentersByVertex(vertOfBegin);
@@ -41,7 +42,7 @@ public class LBL2X2 implements LBL {
         Cube3x3 cube3x3 = new Cube3x3(cube);
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
         ArrayList<SolutionLBL> tempAlg = lbl3X3.solveFirstLayer();
-        cube.makeMoves(Solution.getWholeAlg(tempAlg));
+        cube.makeMoves(solution.getWholeAlg(tempAlg));
         algorithm.addAll(tempAlg);
         SolutionLBL tempSolution = lbl3X3.solveNotOrientedVertexes();
         cube.makeMoves(tempSolution.getAlgorithm());
@@ -61,7 +62,7 @@ public class LBL2X2 implements LBL {
         alg.addAll(calculateVertices2x2.permuteVertexAlgorithm());
         cube.makeMoves(calculateVertices2x2.permuteVertexAlgorithm());
         return new SolutionLBL(alg, "Permute",
-                new ArrayList(Arrays.asList(1, 2, 3, 4)), ElementType.VERTEX, ProgressInfo.NONE);
+                new ArrayList<>(Arrays.asList(1, 2, 3, 4)), ElementType.VERTEX, ProgressInfo.NONE);
     }
 
     public void setCentersByVertex(int indexVertex) {
