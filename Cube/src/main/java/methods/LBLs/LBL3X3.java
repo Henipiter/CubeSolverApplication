@@ -127,6 +127,9 @@ public class LBL3X3 implements LBL {
             if (sideEdgeNumber < 0 || sideEdgeNumber == 2) {
                 sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide, crossColor);
             }
+            if(sideEdgeNumber==-1){
+                return recursiveAlg;
+            }
             ArrayList<Move> tempAlg = calculateEdges.getMovesToJoinEdgeToCross(actualSide, sideEdgeNumber, crossColor);
             updateCubeAndInterpretationAndCalculation(tempAlg);
             recursiveAlg.addAll(tempAlg);

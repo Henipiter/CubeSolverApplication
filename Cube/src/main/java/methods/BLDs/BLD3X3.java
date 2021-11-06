@@ -39,8 +39,14 @@ public class BLD3X3 implements BLD {
     public ArrayList solve() {
         ArrayList<SolutionBLD> solutionBLDs = new ArrayList<>();
         solutionBLDs.add(solveOrientation());
+
+        cube.makeMoves(solutionBLDs.get(0).getAlgorithm());
+        rotatePatternCube();
+        interpretationPatternCubeVertex.interpretVertices(patternCube);
+        interpretationPatternCubeEdge.interpretEdges(patternCube);
+
         solutionBLDs.addAll(solveAllVertices());
-        solutionBLDs.add(solveParity(solutionBLDs.size()));
+        solutionBLDs.add(solveParity(solutionBLDs.size()-1));
         solutionBLDs.addAll(solveAllEdges());
         return solutionBLDs;
     }
@@ -48,10 +54,10 @@ public class BLD3X3 implements BLD {
     public SolutionBLD solveOrientation() {
         ArrayList<Move> alg = new ArrayList<>();
         alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(Interpretation.getSideWithColor(
-                blindOrientation.getUpperColor(), interpretationPatternCubeEdge.getCenterArray())));
+                blindOrientation.getUpperColor(), cube.getCenter())));
         alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(
                 Interpretation.getSideWithColor(blindOrientation.getFrontColor(),
-                        interpretationPatternCubeEdge.getCenterArray())));
+                        cube.getCenter())));
         return new SolutionBLD(alg, null, null, ElementType.ALL);
     }
 
@@ -185,8 +191,11 @@ public class BLD3X3 implements BLD {
     }
 
     private void rotatePatternCube() {
-        patternCube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(cube.getCenter()[0]));
-        patternCube.move(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(cube.getCenter()[4]));
+
+        patternCube.move(CalculateMoves.rotateSideToGetItOnTopAlgorithm(Interpretation.getSideWithColor(
+                cube.getCenter()[0], patternCube.getCenter())));
+        patternCube.move(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(Interpretation.getSideWithColor(
+                cube.getCenter()[4], patternCube.getCenter())));
     }
 
     private int getUnresolvedVertex() {

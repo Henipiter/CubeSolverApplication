@@ -164,7 +164,8 @@ public class LBL4X4 implements LBL {
 
     public void getAlgorithmToSolveWholeCenter(ArrayList<Move> algorithm, char colorOfDestSide, int[] sideWhereSearchFields) {
         ArrayList<Move> temp_alg;
-        while (!interpretation4x4Centers.isWholeCenterInOneColor(0)) {
+        while (interpretation4x4Centers.getCenterArrayList().get(0).getColor()[0] != colorOfDestSide ||
+                !interpretation4x4Centers.isWholeCenterInOneColor(0)) {
             int sideWithWhiteField = interpretation4x4Centers.getSideWithTheMostFieldsWithGivenColorFromGivenSides(colorOfDestSide, sideWhereSearchFields);
             temp_alg = setupFieldAndJoinToDestSide(sideWithWhiteField, 0, colorOfDestSide);
             algorithm.addAll(temp_alg);
