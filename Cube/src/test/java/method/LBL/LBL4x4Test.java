@@ -260,7 +260,6 @@ public class LBL4x4Test {
         Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
     }
 
-
     @ParameterizedTest
     @CsvSource({"y", "b", "g", "r", "o", "w"})
     public void call_solve(char firstCenterColor) {
@@ -273,6 +272,22 @@ public class LBL4x4Test {
         System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
         cube = new Cube4x4();
         cube.makeMoves("b2 l U2 F2 L2 d' B' b' L B'");
+        cube.makeMoves(InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
+        Assertions.assertTrue(Cube.isSolved(cube));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"w"})
+    public void call_solve1(char firstCenterColor) {
+        //given
+        cube.makeMoves("Uw2 R' U2 Rw' Dw2 Fw' U2 R D' Lw2 F' D' Lw' Dw' Fw2 D' Rw2 F Dw Lw D2 L Dw' L U' Rw Fw2 L F2 R Bw L' B2 R2 Fw2 Rw2 Fw2 L' B2 R2 Fw Uw2 Fw Uw2");
+        LBL4X4 lbl = new LBL4X4(cube);
+        //when
+        ArrayList<SolutionLBL> algorithm = lbl.solve(firstCenterColor);
+        //then
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
+        cube = new Cube4x4();
+        cube.makeMoves("Uw2 R' U2 Rw' Dw2 Fw' U2 R D' Lw2 F' D' Lw' Dw' Fw2 D' Rw2 F Dw Lw D2 L Dw' L U' Rw Fw2 L F2 R Bw L' B2 R2 Fw2 Rw2 Fw2 L' B2 R2 Fw Uw2 Fw Uw2");
         cube.makeMoves(InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
         Assertions.assertTrue(Cube.isSolved(cube));
     }

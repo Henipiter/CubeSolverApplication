@@ -1,5 +1,7 @@
 package method.BLD;
 
+import DTOs.InspectMove;
+import DTOs.Solution;
 import DTOs.SolutionBLD;
 import cubes.Cube;
 import cubes.Cube3x3;
@@ -53,5 +55,20 @@ public class BLD3x3Test {
         bld3X3 = new BLD3X3(cube);
         ArrayList<SolutionBLD> solution = bld3X3.solveAllEdges();
         Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
+    }
+
+    @Test
+    void solveAllCube() {
+        cube = new Cube3x3();
+        Solution solutionBLD = new SolutionBLD();
+        cube.makeMoves("B R' B' R' U' F' L' D L'");
+        bld3X3 = new BLD3X3(cube);
+        ArrayList<SolutionBLD> solution = bld3X3.solve();
+        cube.makeMoves(solutionBLD.getWholeAlg(solution));
+        System.out.println(InspectMove.moveListToString(solutionBLD.getWholeAlg(solution)));
+        cube = new Cube3x3();
+        cube.makeMoves("B R' B' R' U' F' L' D L'");
+        cube.makeMoves(solutionBLD.getWholeAlg(solution));
+        Assertions.assertTrue(Cube.isSolved(cube));
     }
 }
