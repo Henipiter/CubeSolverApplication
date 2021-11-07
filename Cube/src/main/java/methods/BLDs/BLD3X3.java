@@ -22,8 +22,6 @@ public class BLD3X3 implements BLD {
     private final Interpretation3x3EdgesExt interpretationCubeEdge = new Interpretation3x3EdgesExt();
     private final Interpretation3x3EdgesExt interpretationPatternCubeEdge = new Interpretation3x3EdgesExt();
 
-    private final BlindOrientation blindOrientation = new BlindOrientation();
-
     private final Cube3x3 cube;
     private final Cube3x3 patternCube;
 
@@ -36,35 +34,37 @@ public class BLD3X3 implements BLD {
     }
 
     @Override
-    public ArrayList solve() {
+    public ArrayList solve(char upperColor, char frontColor) {
         ArrayList<SolutionBLD> solutionBLDs = new ArrayList<>();
-        solutionBLDs.add(solveOrientation());
+        solutionBLDs.add(solveOrientation(upperColor, frontColor));
 
-        cube.makeMoves(solutionBLDs.get(0).getAlgorithm());
-        rotatePatternCube();
-        interpretationPatternCubeVertex.interpretVertices(patternCube);
-        interpretationPatternCubeEdge.interpretEdges(patternCube);
-
+        refreshBeforeSolve(solutionBLDs.get(0).getAlgorithm());
         solutionBLDs.addAll(solveAllVertices());
-        solutionBLDs.add(solveParity(solutionBLDs.size()-1));
+        solutionBLDs.add(solveParity(solutionBLDs.size() - 1));
         solutionBLDs.addAll(solveAllEdges());
         return solutionBLDs;
     }
 
-    public SolutionBLD solveOrientation() {
+    public void refreshBeforeSolve(ArrayList<Move> alg) {
+        cube.makeMoves(alg);
+        rotatePatternCube();
+        interpretationPatternCubeVertex.interpretVertices(patternCube);
+        interpretationPatternCubeEdge.interpretEdges(patternCube);
+
+    }
+
+    public SolutionBLD solveOrientation(char upperColor, char frontColor) {
         ArrayList<Move> alg = new ArrayList<>();
         alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(Interpretation.getSideWithColor(
-                blindOrientation.getUpperColor(), cube.getCenter())));
+                upperColor, cube.getCenter())));
         alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(
-                Interpretation.getSideWithColor(blindOrientation.getFrontColor(),
-                        cube.getCenter())));
+                Interpretation.getSideWithColor(frontColor, cube.getCenter())));
         return new SolutionBLD(alg, null, null, ElementType.ALL);
     }
 
     public SolutionBLD solveParity(int size) {
         if (size % 2 == 1) {
-            Algorithm algorithm = new Algorithm();
-            return new SolutionBLD(algorithm.getPermAlg("R"), "<PARITY>", null, null);
+            return new SolutionBLD(Algorithm.getPermAlg("R"), "<PARITY>", null, null);
         } else {
             return new SolutionBLD(InspectMove.stringToMoveList("BLANK"), "<->", null, null);
         }
@@ -144,10 +144,9 @@ public class BLD3X3 implements BLD {
     }
 
     private ArrayList<Move> getSetupAndAlgorithmAndReverseSetup(String permutation, String setup) {
-        final Algorithm algorithm = new Algorithm();
         ArrayList<Move> alg = new ArrayList<>();
         alg.addAll(InspectMove.stringToMoveList(setup));
-        alg.addAll(algorithm.getPermAlg(permutation));
+        alg.addAll(Algorithm.getPermAlg(permutation));
         alg.addAll(InspectMove.getReverseAlgorithm(InspectMove.stringToMoveList(setup)));
         return alg;
     }

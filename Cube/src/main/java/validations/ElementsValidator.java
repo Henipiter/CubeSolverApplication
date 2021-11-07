@@ -21,7 +21,7 @@ public class ElementsValidator {
     public ElementsValidator(Cube3x3 cube3x3) {
         this.cube3x3 = cube3x3;
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
-        ArrayList<SolutionBLD> solution = bld3X3.solve();
+        ArrayList<SolutionBLD> solution = bld3X3.solve('w','g');
         cube3x3.makeMoves(solutionBLD.getWholeAlg(solution));
         validateRollingPop();
         validateOllParity();

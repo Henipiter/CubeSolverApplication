@@ -1,2 +1,0 @@
-front:r
-up:y

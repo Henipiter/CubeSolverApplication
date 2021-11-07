@@ -1,5 +1,6 @@
 package methods.LBLs;
 
+import DTOs.CubeOrientationCache;
 import DTOs.Solution;
 import cubes.Cube;
 import methods.SolvingMethod;
@@ -10,9 +11,9 @@ public class LBLSolver implements SolvingMethod {
 
     public ArrayList<Solution> solve(Cube cube) {
         LBLFactory lblFactory = new LBLFactory();
-        LBL lbl =  lblFactory.getLBL(cube);
+        LBL lbl = lblFactory.getLBL(cube);
 
-        ArrayList<Solution> solution = lbl.solve('w');
+        ArrayList<Solution> solution = lbl.solve(CubeOrientationCache.crossColorLBL);
 
         return solution;
     }

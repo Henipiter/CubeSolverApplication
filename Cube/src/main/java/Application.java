@@ -1,3 +1,4 @@
+import DTOs.CacheLoader;
 import DTOs.Move;
 import DTOs.Solution;
 import cubes.Cube2x2;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class Application {
 
     public static void main(String[] args) {
+        CacheLoader.load();
 
         Cube2x2 cube2x2 = new Cube2x2();
         Cube3x3 cube3x3 = new Cube3x3();

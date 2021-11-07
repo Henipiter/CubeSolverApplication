@@ -1,5 +1,3 @@
-package method;
-
 import DTOs.*;
 import cubes.Cube;
 import cubes.Cube2x2;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 
 public class MultipleSolveMethod {
 
-    private static final int TIMES = 10000;
+    private static final int TIMES = 100;
 
     ScramblerFactory scramblerFactory = new ScramblerFactory();
     Solution solutionLBL = new SolutionLBL();
@@ -122,7 +120,7 @@ public class MultipleSolveMethod {
         System.out.println(InspectMove.moveListToString(scrambleAlg));
         cube2x2.makeMoves(scrambleAlg);
         BLD2X2 bld2X2 = new BLD2X2(cube2x2);
-        ArrayList x = bld2X2.solve();
+        ArrayList x = bld2X2.solve(CubeOrientationCache.upperColorBLD,CubeOrientationCache.frontColorBLD);
         System.out.println("---");
         System.out.println(InspectMove.moveListToString(solutionBLD.getWholeAlg(x)));
 
@@ -139,7 +137,7 @@ public class MultipleSolveMethod {
         System.out.println(InspectMove.moveListToString(scrambleAlg));
         cube3x3.makeMoves(scrambleAlg);
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
-        ArrayList x = bld3X3.solve();
+        ArrayList x = bld3X3.solve(CubeOrientationCache.upperColorBLD,CubeOrientationCache.frontColorBLD);
         System.out.println("---");
         System.out.println(InspectMove.moveListToString(solutionBLD.getWholeAlg(x)));
 

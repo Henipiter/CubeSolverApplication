@@ -14,10 +14,9 @@ public class Algorithm {
     private static final String OllParity = "Rw2 B2 U2 Lw U2 Rw' U2 Rw U2 F2 Rw F2 Lw' B2 Rw2";
     private static final String PllParity = "r2 U2 r2 Uw2 r2 u2";
 
-
     private static final Map<String, String> permutations = new HashMap<>();
 
-    public Algorithm() {
+    public static void loadPermutations() {
         permutations.put("Y", PermY);
         permutations.put("T", PermT);
         permutations.put("J", PermJ);
@@ -27,11 +26,11 @@ public class Algorithm {
         permutations.put("PLL", PllParity);
     }
 
-    public String getPerm(String permutation) {
+    public static String getPerm(String permutation) {
         return permutations.get(permutation);
     }
 
-    public ArrayList<Move> getPermAlg(String permutation) {
+    public static ArrayList<Move> getPermAlg(String permutation) {
         return InspectMove.stringToMoveList(permutations.get(permutation));
     }
 }

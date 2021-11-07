@@ -1,14 +1,12 @@
 package method.LBL;
 
-import DTOs.InspectMove;
-import DTOs.Move;
-import DTOs.Solution;
-import DTOs.SolutionLBL;
+import DTOs.*;
 import cubes.Cube;
 import cubes.Cube4x4;
 import interpretations.Interpretation4x4Centers;
 import methods.LBLs.LBL4X4;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -20,6 +18,11 @@ public class LBL4x4Test {
     Solution solution = new SolutionLBL();
     Cube cube = new Cube4x4();
     Interpretation4x4Centers interpretation = new Interpretation4x4Centers();
+
+    @BeforeAll
+    static void init(){
+        Algorithm.loadPermutations();
+    }
 
     @Test
     public void call_addToAlgorithmAndUpdateCubeStuff_and_check_correctness() {
