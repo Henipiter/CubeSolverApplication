@@ -127,7 +127,7 @@ public class LBL3X3 implements LBL {
             if (sideEdgeNumber < 0 || sideEdgeNumber == 2) {
                 sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide, crossColor);
             }
-            if(sideEdgeNumber==-1){
+            if (sideEdgeNumber == -1) {
                 return recursiveAlg;
             }
             ArrayList<Move> tempAlg = calculateEdges.getMovesToJoinEdgeToCross(actualSide, sideEdgeNumber, crossColor);
@@ -151,7 +151,6 @@ public class LBL3X3 implements LBL {
         calculateEdges.refreshCube(cube);
         ArrayList<Move> tempAlg = calculateEdges.getMoveToSolveIncorrectOrderCross();
         cube.getLogger().info("Incorrect cross solved!");
-
         return new SolutionLBL(tempAlg, "Correct bottom cross",
                 new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.EDGE, ProgressInfo.NONE);
     }
@@ -288,7 +287,6 @@ public class LBL3X3 implements LBL {
         return tempAlg;
     }
 
-
     public SolutionLBL solveUpperCross() {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
@@ -315,7 +313,6 @@ public class LBL3X3 implements LBL {
     }
 
     public SolutionLBL solveIncorrectUpperCross() {
-
         ArrayList<Move> tempAlg = new ArrayList<>();
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
@@ -344,7 +341,6 @@ public class LBL3X3 implements LBL {
             calculateVertices.refreshCube(cube);
         }
         cube.getLogger().info("Vertex permuted!");
-
         return new SolutionLBL(tempAlg, "Permute vertices",
                 new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.VERTEX, ProgressInfo.TWO_LAYERS);
     }
@@ -368,8 +364,6 @@ public class LBL3X3 implements LBL {
         tempAlg.add(lastMove);
         cube.move(lastMove);
         cube.getLogger().info("Vertex oriented!");
-
-
         return new SolutionLBL(tempAlg, "Orient vertices",
                 interpretationEdges.getCenterArray()[1], ElementType.ALL, ProgressInfo.NONE);
     }

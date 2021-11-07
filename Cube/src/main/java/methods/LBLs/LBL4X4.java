@@ -106,7 +106,6 @@ public class LBL4X4 implements LBL {
         updateCubeAndInterpretationAndCalculation(algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, secondCenterColor, new int[]{4, 2, 3, 5});
         return new SolutionLBL(algorithm, "Center", secondCenterColor, ElementType.CENTER, ProgressInfo.NONE);
-
     }
 
     public void addToAlgorithmAndUpdateCubeStuff(ArrayList<Move> algToSet, ArrayList<Move> finalAlg) {
@@ -125,7 +124,6 @@ public class LBL4X4 implements LBL {
         char colorOfDestSide = interpretation4x4Centers.whichColorIsMostCommonInGivenSide(numOfDestSide);
         temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
-
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{4, 1, 5});
         return new SolutionLBL(algorithm, "Center", colorOfDestSide, ElementType.CENTER, ProgressInfo.NONE);
     }
@@ -147,7 +145,6 @@ public class LBL4X4 implements LBL {
     }
 
     public SolutionLBL solveLastTwoCenters() {
-
         ArrayList<Move> temp_alg = new ArrayList<>();
         ArrayList<Move> algorithm = new ArrayList<>();
         interpretation4x4Centers.interpretCenters(cube);
@@ -246,7 +243,6 @@ public class LBL4X4 implements LBL {
         cube3x3 = new Cube3x3(cube);
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
         algorithm.addAll(lbl3X3.solveF2L_LBL(firstCenterColor));
-
         try {
             lbl3X3.checkOllParity();
         } catch (Exception exception) {

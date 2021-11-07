@@ -13,8 +13,6 @@ public class LBLSolver implements SolvingMethod {
         LBLFactory lblFactory = new LBLFactory();
         LBL lbl = lblFactory.getLBL(cube);
 
-        ArrayList<Solution> solution = lbl.solve(CubeOrientationCache.crossColorLBL);
-
-        return solution;
+        return lbl.solve(CubeOrientationCache.crossColorLBL);
     }
 }

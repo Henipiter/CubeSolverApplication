@@ -16,15 +16,12 @@ import java.util.List;
 @Getter
 public class Interpretation3x3EdgesExt extends Interpretation3x3Edges {
 
-
     private static final String EDGE_MARKS_FILE = "src/main/resources/edgeMarks.txt";
     private static final String EDGE_SETUP_FILE = "src/main/resources/edgeSetup.txt";
     private static final String EDGE_ALGORITHM_FILE = "src/main/resources/edgeReplaceAlg.txt";
 
-
     private boolean[] edgeCorrect = new boolean[12];
     private ArrayList<EdgeExt> edgeExtArrayList = new ArrayList<>(Collections.nCopies(12, null));
-
 
     public Interpretation3x3EdgesExt() {
         super();
@@ -55,7 +52,6 @@ public class Interpretation3x3EdgesExt extends Interpretation3x3Edges {
             edgeCorrect[edgeIndex] = checkIfEdgeInIncorrectPlace(edgeIndex) == -1;
         }
     }
-
 
     public EdgeExt rotateEdgeColor(Edge edge) {
         char[] colors = edge.getColor();
@@ -97,7 +93,8 @@ public class Interpretation3x3EdgesExt extends Interpretation3x3Edges {
         if (edgeExtArrayList.get(edgeIndex).getColor()[0] == getCenterArray()[edgeIndex / 8] &&
                 edgeExtArrayList.get(edgeIndex).getColor()[1] == getCenterArray()[sideOrder[edgeIndex]]) {
             return -1;
-        } else return edgeIndex;
+        } else {
+            return edgeIndex;
+        }
     }
-
 }

@@ -44,7 +44,6 @@ public class CalculateEdges4x4Test {
         System.out.println(scramble);
         System.out.println(InspectMove.moveListToString(alg));
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
-
     }
 
     @ParameterizedTest
@@ -67,23 +66,19 @@ public class CalculateEdges4x4Test {
         boolean resulttt = interpretation4x4Edges.isGivenEdgeHasItsPairOnGivenEdgePair(14, 6) ||
                 interpretation4x4Edges.isGivenEdgeHasItsPairOnGivenEdgePair(15, 6);
         Assertions.assertTrue(resulttt);
-
     }
 
     @Test
     void call_pairAllEdges() {
-
         cube.makeMoves("r u l d");
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<SolutionLBL> algorithm = lbl.pairAllEdges();
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
         System.out.println(InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
-
     }
 
     @Test
     void call_pairAllEdge2s() {
-
         cube.makeMoves("r' d R D2 U' B' r' B' D' d");
         cube.makeMoves("Lw2 U Lw2 y U' Rw U Rw' y U2 Lw' U' Lw x2 Rw U' Rw' y F Rw U2 Rw' y U Rw U Rw' z x U Rw U' Rw' x Rw U Rw' D Lw2 U2 Lw2 x U2 Rw U2 Rw' U' Lw' U' Lw");
         LBL4X4 lbl = new LBL4X4(cube);
@@ -103,5 +98,4 @@ public class CalculateEdges4x4Test {
         Assertions.assertTrue(interpretation4x4Edges.isAllEdgesArePaired());
         System.out.println(InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
     }
-
 }

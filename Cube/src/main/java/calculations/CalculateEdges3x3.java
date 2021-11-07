@@ -71,7 +71,6 @@ public class CalculateEdges3x3 extends CalculateMoves {
     }
 
     private Move getMoveToGetFreeSlotFrom4thSideToGivenSide(int side) {
-
         switch (side) {
             case 2:
                 return new Move(MoveEnum.D, MoveTypeEnum.PRIM);
@@ -254,6 +253,3 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return InspectMove.stringToMoveList("R U R' U R U2 R' U");
     }
 }
-
-
-

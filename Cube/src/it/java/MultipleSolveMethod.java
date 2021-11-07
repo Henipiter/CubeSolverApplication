@@ -146,7 +146,4 @@ public class MultipleSolveMethod {
         cube3x3.makeMoves(solutionBLD.getWholeAlg(x));
         Assertions.assertTrue(Cube.isSolved(cube3x3));
     }
-
 }
-
-

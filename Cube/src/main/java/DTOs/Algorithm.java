@@ -34,4 +34,3 @@ public class Algorithm {
         return InspectMove.stringToMoveList(permutations.get(permutation));
     }
 }
-

@@ -9,6 +9,4 @@ public class Center {
     public Center(char[] color) {
         this.color = color;
     }
-
-
 }

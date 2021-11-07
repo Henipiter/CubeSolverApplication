@@ -62,7 +62,7 @@ public class CalculateVertices2x2 {
     }
 
     public ArrayList<Move> permuteVertexAlgorithm() {
-        if(!interpretation2x2Vertices.isVerticesPermuted()) {
+        if (!interpretation2x2Vertices.isVerticesPermuted()) {
 
             if (interpretation2x2Vertices.isVerticesNotPairedInLine()) {
                 return InspectMove.stringToMoveList("R' F R' F2 R U' R' F2 R2 U'");

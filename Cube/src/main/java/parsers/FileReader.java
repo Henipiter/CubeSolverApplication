@@ -15,11 +15,12 @@ public class FileReader {
         return new String(encoded, StandardCharsets.UTF_8);
     }
 
-    public static boolean isFileExists(String path){
+    public static boolean isFileExists(String path) {
         File f = new File(path);
         return f.exists() && !f.isDirectory();
     }
-    public static List<String> getFileLines(String path)   {
+
+    public static List<String> getFileLines(String path) {
         String string = null;
         try {
             string = readFile(path);
@@ -28,5 +29,4 @@ public class FileReader {
         }
         return Arrays.asList(string.split("\n"));
     }
-
 }

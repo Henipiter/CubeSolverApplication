@@ -29,12 +29,12 @@ public class Cube3x3 extends Cube {
                 cube[i][j] = center[i];
     }
 
-    public Cube3x3(Cube2x2 cube2x2){
+    public Cube3x3(Cube2x2 cube2x2) {
         this.cube = Parse2x2To3x3.copyFieldsColors(cube2x2);
         this.center = Parse2x2To3x3.copyCentersColors(cube2x2);
     }
 
-    public Cube3x3(Cube4x4 cube4x4){
+    public Cube3x3(Cube4x4 cube4x4) {
         this.cube = Parse4x4To3x3.copyFieldsColors(cube4x4);
         this.center = Parse4x4To3x3.copyCentersColors(cube4x4);
     }

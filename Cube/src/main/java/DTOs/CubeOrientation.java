@@ -27,7 +27,6 @@ public class CubeOrientation implements Serializable {
         objectOutputStream.writeObject(cubeOrientation);
         objectOutputStream.flush();
         objectOutputStream.close();
-
     }
 
     public void deserialize() throws IOException, ClassNotFoundException {
@@ -44,7 +43,7 @@ public class CubeOrientation implements Serializable {
     }
 
     private void whetherFileExists() throws IOException {
-        if(!FileReader.isFileExists(CUBE_ORIENTATION)){
+        if (!FileReader.isFileExists(CUBE_ORIENTATION)) {
             frontColorBLD = 'g';
             upperColorBLD = 'w';
             crossColorLBL = 'w';
@@ -52,11 +51,11 @@ public class CubeOrientation implements Serializable {
         }
     }
 
-    private void whetherFieldsNotInitialized(){
-        if(frontColorBLD =='\0') {
+    private void whetherFieldsNotInitialized() {
+        if (frontColorBLD == '\0') {
             frontColorBLD = 'g';
         }
-        if(upperColorBLD =='\0') {
+        if (upperColorBLD == '\0') {
             frontColorBLD = 'w';
         }
     }

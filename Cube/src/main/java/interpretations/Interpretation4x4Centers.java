@@ -22,7 +22,6 @@ public class Interpretation4x4Centers {
         centerArrayList.add(addSingleCenter(cube, 3, new int[]{6, 5, 9, 10}));
         centerArrayList.add(addSingleCenter(cube, 4, new int[]{5, 6, 10, 9}));
         centerArrayList.add(addSingleCenter(cube, 5, new int[]{9, 10, 6, 5}));
-
     }
 
     private Center addSingleCenter(Cube cube, int side, int[] fields) {

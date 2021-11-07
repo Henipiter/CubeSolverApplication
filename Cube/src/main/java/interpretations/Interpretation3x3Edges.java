@@ -279,7 +279,6 @@ public class Interpretation3x3Edges {
         return null;
     }
 
-
     public boolean isCrossInCorrectOrder(char crossColor) {
         char[] currentOrder = new char[4];
         for (int i = 0; i < 4; i++) {

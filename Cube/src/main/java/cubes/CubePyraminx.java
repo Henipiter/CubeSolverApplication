@@ -313,15 +313,6 @@ public class CubePyraminx extends Cube {
             move(move);
         }
     }
-
-    public char[][] getCube() {
-        return cube;
-    }
-
-    public void setCube(char[][] cube) {
-        this.cube = cube;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {

@@ -17,7 +17,7 @@ public class SolutionBLD extends Solution {
     public static String getWholeMarks(ArrayList<SolutionBLD> solution) {
         StringBuilder stringBuilder = new StringBuilder();
         solution.forEach(moves -> stringBuilder.append(moves.getMarks()).append(" "));
-        return stringBuilder.deleteCharAt(stringBuilder.length()-1).toString();
+        return stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class SolutionBLD extends Solution {
     }
 
     public SolutionBLD(ArrayList<Move> algorithm, String marks, ArrayList<Integer> elementIndexes,
-                       ElementType elementType){
+                       ElementType elementType) {
         this.algorithm = algorithm;
         this.marks = marks;
         this.elementIndexes = elementIndexes;
@@ -37,5 +37,3 @@ public class SolutionBLD extends Solution {
         this.progressInfo = ProgressInfo.NONE;
     }
 }
-
-

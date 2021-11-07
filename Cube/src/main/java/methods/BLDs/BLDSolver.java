@@ -12,8 +12,6 @@ public class BLDSolver implements SolvingMethod {
         BLDFactory bldFactory = new BLDFactory();
         BLD bld = bldFactory.getBLD(cube);
 
-        ArrayList<Solution> solution = bld.solve(CubeOrientationCache.upperColorBLD, CubeOrientationCache.frontColorBLD);
-
-        return solution;
+        return bld.solve(CubeOrientationCache.upperColorBLD, CubeOrientationCache.frontColorBLD);
     }
 }

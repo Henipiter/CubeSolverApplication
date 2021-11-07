@@ -6,7 +6,6 @@ import interpretations.Interpretation3x3Edges;
 
 import java.util.ArrayList;
 
-
 public class ColorValidation3x3 extends ColorValidator {
 
     private static final int EDGE_NUMBER = 12;

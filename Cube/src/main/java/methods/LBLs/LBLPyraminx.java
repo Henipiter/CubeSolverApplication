@@ -15,9 +15,6 @@ public class LBLPyraminx implements LBL {
 
     @Override
     public ArrayList<Solution> solve(char firstCenterColor) {
-
-
         return null;
     }
-
 }

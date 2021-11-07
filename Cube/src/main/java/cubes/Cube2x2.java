@@ -3,8 +3,7 @@ package cubes;
 
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import validations.ColorValidation2x2;
 import validations.ColorValidator;
 import validations.ElementsValidator;
@@ -15,13 +14,12 @@ import static DTOs.MoveEnum.*;
 import static DTOs.MoveTypeEnum.SIMPLE;
 import static java.util.Arrays.deepEquals;
 
-@Getter
-@Setter
+@Data
 public class Cube2x2 extends Cube {
 
     private static Logger logger = Logger.getLogger("Cube2x2");
 
-    private void initCenters(){
+    private void initCenters() {
         this.center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     }
 
@@ -261,25 +259,11 @@ public class Cube2x2 extends Cube {
         }
     }
 
-    public void setCube(char[][] cube) {
-        this.cube = cube;
-    }
-
-    public char[][] getCube() {
-        return cube;
-    }
-
-//    @Override
-//    public char[] getCenter() {
-//        return center;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
         }
-
         if (!(o instanceof Cube2x2)) {
             return false;
         }

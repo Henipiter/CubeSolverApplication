@@ -50,7 +50,6 @@ public class BLD3X3 implements BLD {
         rotatePatternCube();
         interpretationPatternCubeVertex.interpretVertices(patternCube);
         interpretationPatternCubeEdge.interpretEdges(patternCube);
-
     }
 
     public SolutionBLD solveOrientation(char upperColor, char frontColor) {

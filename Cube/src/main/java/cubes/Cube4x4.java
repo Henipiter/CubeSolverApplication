@@ -572,14 +572,6 @@ public class Cube4x4 extends Cube {
         }
     }
 
-    public char[][] getCube() {
-        return cube;
-    }
-
-    public void setCube(char[][] cube) {
-        this.cube = cube;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {

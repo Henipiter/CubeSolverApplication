@@ -52,6 +52,8 @@ public class Cube {
     }
 
     public static boolean isSolved(Cube cube) {
+
+
         for (int i = 0; i < cube.getCube().length; i++) {
             for (int j = 1; j < cube.getCube()[0].length; j++) {
                 if (cube.getCube()[i][0] != cube.getCube()[i][j]) {

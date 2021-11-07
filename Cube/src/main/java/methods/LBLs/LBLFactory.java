@@ -1,27 +1,22 @@
 package methods.LBLs;
 
 import cubes.*;
-import methods.BLDs.BLD;
-import methods.BLDs.BLD2X2;
-import methods.BLDs.BLD3X3;
-import methods.SolvingMethod;
 
-public class LBLFactory{
+public class LBLFactory {
 
-    public LBL getLBL(Cube cube){
-        if(cube instanceof Cube2x2){
+    public LBL getLBL(Cube cube) {
+        if (cube instanceof Cube2x2) {
             return new LBL2X2(cube);
         }
-        if(cube instanceof Cube3x3){
+        if (cube instanceof Cube3x3) {
             return new LBL3X3(cube);
         }
-        if(cube instanceof Cube4x4){
+        if (cube instanceof Cube4x4) {
             return new LBL4X4(cube);
         }
-        if(cube instanceof CubePyraminx){
+        if (cube instanceof CubePyraminx) {
             return new LBLPyraminx(cube);
         }
         return null;
     }
-
 }

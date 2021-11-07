@@ -39,16 +39,16 @@ public class InspectMove {
         return new Move(recogniseMove(direction), recogniseType(direction));
     }
 
-    public static ArrayList<Move> getReverseAlgorithm(ArrayList<Move> algorithm){
+    public static ArrayList<Move> getReverseAlgorithm(ArrayList<Move> algorithm) {
         ArrayList<Move> reverseAlg = new ArrayList<>();
-        for (int i = algorithm.size()-1; i >=0 ; i--) {
-            reverseAlg.add( getReverseMove(algorithm.get(i)) );
+        for (int i = algorithm.size() - 1; i >= 0; i--) {
+            reverseAlg.add(getReverseMove(algorithm.get(i)));
         }
         return reverseAlg;
     }
 
     public static Move getReverseMove(Move setup) {
-        switch (setup.getMoveTypeEnum()){
+        switch (setup.getMoveTypeEnum()) {
             case SIMPLE:
                 return new Move(setup.getMoveEnum(), MoveTypeEnum.PRIM);
             case PRIM:

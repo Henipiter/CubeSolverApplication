@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ParseFileElementToElement {
 
-
     public static List<VertexExt> getVertexName(List<VertexExt> vertexList, List<FileElement> fileElements) {
         for (FileElement element : fileElements) {
             vertexList.get(element.getElement()).getName().set(element.getField(), element.getData());
@@ -43,5 +42,4 @@ public class ParseFileElementToElement {
         }
         return edgeList;
     }
-
 }

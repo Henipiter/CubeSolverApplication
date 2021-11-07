@@ -10,5 +10,4 @@ public abstract class Solution {
     protected ProgressInfo progressInfo;
 
     public abstract ArrayList<Move> getWholeAlg(Object solution);
-
 }

@@ -13,7 +13,7 @@ public class Cube1x1 extends Cube {
 
     char[][] cube = new char[6][1];
     char[] center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
-    private Logger logger = Logger.getLogger("Cube1x1");
+    private final Logger logger = Logger.getLogger("Cube1x1");
 
     public Cube1x1() {
         for (int i = 0; i < 6; i++)
