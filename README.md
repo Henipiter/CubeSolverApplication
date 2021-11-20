@@ -14,7 +14,7 @@ Choose method:
  - MethodStrategy methodStrategy = new MethodStrategy(new LBLSolver());
 
 Get solving algorithm:
- - String solveAlgorithm = methodStrategy.solve(cube3x3);
+ - ArrayList<Solution> solveAlgorithm = methodStrategy.solve(cube3x3);
   
 Convert ArrayList-String:
 - InspectMove.moveListToString(algorithm);
