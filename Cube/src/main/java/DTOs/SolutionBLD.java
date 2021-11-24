@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class SolutionBLD extends Solution {
     private ArrayList<Move> algorithm;
     private String marks;
-    private ArrayList<Integer> elementIndexes;
 
     public static String getWholeMarks(ArrayList<SolutionBLD> solution) {
         StringBuilder stringBuilder = new StringBuilder();

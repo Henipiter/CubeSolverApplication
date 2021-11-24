@@ -7,7 +7,7 @@ import cubes.Cube4x4;
 
 public class ColorValidationFactory {
 
-    public ColorValidator getValidator(Cube cube) {
+    public static ColorValidator getValidator(Cube cube) {
 
         if (cube instanceof Cube2x2) {
             return new ColorValidation2x2((Cube2x2) cube);

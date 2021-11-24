@@ -1,7 +1,7 @@
 package methods.LBLs;
 
-import DTOs.CubeOrientationCache;
 import DTOs.Solution;
+import cache.CubeOrientationCache;
 import cubes.Cube;
 import methods.SolvingMethod;
 

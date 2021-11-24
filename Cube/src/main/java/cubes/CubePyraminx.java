@@ -11,8 +11,6 @@ import static java.util.Arrays.deepEquals;
 
 public class CubePyraminx extends Cube {
 
-    char[][] cube = new char[4][9];
-    char[] center = new char[]{'g', 'y', 'r', 'b'};
     private Logger logger = Logger.getLogger("CubePyraminx");
 
     public CubePyraminx() {
