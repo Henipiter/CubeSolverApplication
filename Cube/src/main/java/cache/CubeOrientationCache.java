@@ -1,5 +1,7 @@
-package DTOs;
+package cache;
 
+import DTOs.CubeOrientation;
+import DTOs.Edge;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -10,7 +12,15 @@ public class CubeOrientationCache {
     public static char upperColorBLD;
     public static char crossColorLBL;
 
+    public static void load(){
+        frontColorBLD = 'r';
+        upperColorBLD = 'y';
+        crossColorLBL = 'w';
+    }
+
     public static void readColorBlindSetup() {
+        Edge.EdgeBuilder<?, ?> x = Edge.builder();
+
         CubeOrientation cubeOrientation = new CubeOrientation();
         try {
             cubeOrientation.deserialize();
