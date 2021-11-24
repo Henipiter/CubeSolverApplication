@@ -4,9 +4,6 @@ import DTOs.Move;
 import DTOs.MoveTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
-import validations.ColorValidation4x4;
-import validations.ColorValidator;
-import validations.ElementsValidator;
 
 import java.util.logging.Logger;
 
@@ -35,13 +32,6 @@ public class Cube4x4 extends Cube {
     public Cube4x4(char[][] cube) {
         this.cube = cube;
         initCenters();
-    }
-
-    public void validate(Cube4x4 cube) throws Exception {
-        ColorValidator colorValidator = new ColorValidation4x4(cube);
-        colorValidator.throwExceptions();
-        ElementsValidator elementsValidator = new ElementsValidator(new Cube3x3(cube));
-        elementsValidator.throwExceptions();
     }
 
     private void rotateSide(boolean clockwise, int side) {

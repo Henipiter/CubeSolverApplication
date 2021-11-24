@@ -4,6 +4,8 @@ package cubes;
 import DTOs.Move;
 import lombok.Getter;
 import lombok.Setter;
+import validations.ColorValidationFactory;
+import validations.ColorValidator;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -25,6 +27,10 @@ public class Cube {
         else {
             move(move);
         }
+    }
+
+    public ColorValidator validate(){
+        return ColorValidationFactory.getValidator(this);
     }
 
     public void move(Move move) {

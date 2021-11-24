@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import parsers.Parse2x2To3x3;
 import parsers.Parse4x4To3x3;
-import validations.ColorValidation3x3;
-import validations.ColorValidator;
-import validations.ElementsValidator;
 
 import java.util.logging.Logger;
 
@@ -37,13 +34,6 @@ public class Cube3x3 extends Cube {
     public Cube3x3(Cube4x4 cube4x4) {
         this.cube = Parse4x4To3x3.copyFieldsColors(cube4x4);
         this.center = Parse4x4To3x3.copyCentersColors(cube4x4);
-    }
-
-    public void validate(Cube3x3 cube) throws Exception {
-        ColorValidator colorValidator = new ColorValidation3x3(cube);
-        colorValidator.throwExceptions();
-        ElementsValidator elementsValidator = new ElementsValidator(cube);
-        elementsValidator.throwExceptions();
     }
 
     private void initCenters() {
