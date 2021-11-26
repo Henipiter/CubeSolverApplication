@@ -1,4 +1,5 @@
 import DTOs.*;
+import cache.CubeOrientationCache;
 import cubes.Cube;
 import cubes.Cube2x2;
 import cubes.Cube3x3;

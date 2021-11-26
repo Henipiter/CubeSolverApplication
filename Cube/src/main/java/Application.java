@@ -1,6 +1,6 @@
-import DTOs.CacheLoader;
 import DTOs.Move;
 import DTOs.Solution;
+import cache.CacheLoader;
 import cubes.Cube2x2;
 import cubes.Cube3x3;
 import methods.LBLs.LBLSolver;

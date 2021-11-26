@@ -38,4 +38,22 @@ class ColorValidatorTest {
         //then
         Assertions.assertFalse(result);
     }
+
+    @Test
+    void aa() {
+        //given
+        cube3x3.getCube()[4][1] = 'b';
+        cube3x3.getCube()[5][1] = 'g';
+        colorValidator = new ColorValidation3x3(cube3x3);
+        //when
+        boolean result = colorValidator.isEdgeColorCorrectness();
+        //then
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    void a(){
+        ColorValidator a = cube3x3.validate();
+
+    }
 }
