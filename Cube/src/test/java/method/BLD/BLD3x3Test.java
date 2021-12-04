@@ -1,10 +1,14 @@
 package method.BLD;
 
+import DTOs.Algorithm;
+import DTOs.InspectMove;
+import DTOs.Solution;
 import DTOs.SolutionBLD;
 import cubes.Cube;
 import cubes.Cube3x3;
 import methods.BLDs.BLD3X3;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,6 +17,11 @@ public class BLD3x3Test {
 
     Cube cube;
     BLD3X3 bld3X3;
+
+    @BeforeAll
+    static void init(){
+        Algorithm.loadPermutations();
+    }
 
     @Test
     void solveAllVertices() {
@@ -53,5 +62,20 @@ public class BLD3x3Test {
         bld3X3 = new BLD3X3(cube);
         ArrayList<SolutionBLD> solution = bld3X3.solveAllEdges();
         Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
+    }
+
+    @Test
+    void solveAllCube() {
+        cube = new Cube3x3();
+        Solution solutionBLD = new SolutionBLD();
+        cube.makeMoves("B R' B' R' U' F' L' D L'");
+        bld3X3 = new BLD3X3(cube);
+        ArrayList<SolutionBLD> solution = bld3X3.solve('y','r');
+        cube.makeMoves(solutionBLD.getWholeAlg(solution));
+        System.out.println(InspectMove.moveListToString(solutionBLD.getWholeAlg(solution)));
+        cube = new Cube3x3();
+        cube.makeMoves("B R' B' R' U' F' L' D L'");
+        cube.makeMoves(solutionBLD.getWholeAlg(solution));
+        Assertions.assertTrue(Cube.isSolved(cube));
     }
 }

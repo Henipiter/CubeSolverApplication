@@ -23,5 +23,4 @@ public class Parse2x2To3x3 {
         System.arraycopy(cube2x2.getCenter(), 0, centerArray, 0, 6);
         return centerArray;
     }
-
 }

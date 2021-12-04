@@ -26,21 +26,30 @@ public class ColorValidator {
         sameColorEdgesCounter = new HashMap<>();
     }
 
-    protected String createKey(char[] edgeColors){
+    public void throwExceptions() throws Exception {
+        if (vertexColorCorrectness) {
+            throw new Exception("VertexColorError");
+        }
+        if (edgeColorCorrectness) {
+            throw new Exception("EdgeColorError");
+        }
+    }
+
+    protected String createKey(char[] edgeColors) {
         Arrays.sort(edgeColors);
         return String.valueOf(edgeColors);
     }
 
-    protected boolean checkCountsOfEdgeColors(int rightEdgeOccurrence){
-        for(Integer counter : sameColorEdgesCounter.values()){
-            if(counter!=rightEdgeOccurrence){
+    protected boolean checkCountsOfEdgeColors(int rightEdgeOccurrence) {
+        for (Integer counter : sameColorEdgesCounter.values()) {
+            if (counter != rightEdgeOccurrence) {
                 return false;
             }
         }
         return true;
     }
 
-    protected void putOrReplaceValueInMap(String key){
+    protected void putOrReplaceValueInMap(String key) {
         if (!sameColorEdgesCounter.containsKey(key)) {
             sameColorEdgesCounter.put(key, 1);
         } else {
@@ -87,7 +96,6 @@ public class ColorValidator {
     }
 
 
-
     protected boolean isEdgesHaveColorFromOppositeSide(int numberOfEdges, ArrayList<Edge> edgeArrayList) {
         for (int edgeIndex = 0; edgeIndex < numberOfEdges; edgeIndex++) {
             if (isEdgeHasColorFromOppositeCenters(edgeIndex, edgeArrayList)) {
@@ -101,7 +109,7 @@ public class ColorValidator {
         for (int edgeIndex = 0; edgeIndex < numberOfEdges; edgeIndex++) {
             putOrReplaceValueInMap(createKey(edgeArrayList.get(edgeIndex).getColor()));
         }
-        return !checkCountsOfEdgeColors(numberOfEdges/12);
+        return !checkCountsOfEdgeColors(numberOfEdges / 12);
     }
 
     protected boolean isEdgeHasColorFromOppositeCenters(int edgeIndex, ArrayList<Edge> edgeArrayList) {

@@ -22,7 +22,7 @@ public class Move {
         validateMove();
     }
 
-    public Move(String moveString){
+    public Move(String moveString) {
         Move move = InspectMove.getMove(moveString);
         this.moveEnum = move.getMoveEnum();
         this.moveTypeEnum = move.getMoveTypeEnum();

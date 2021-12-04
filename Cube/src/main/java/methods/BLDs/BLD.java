@@ -5,5 +5,5 @@ import DTOs.Solution;
 import java.util.ArrayList;
 
 public interface BLD {
-    ArrayList<Solution> solve();
+    ArrayList<Solution> solve(char upperColor, char frontColor);
 }

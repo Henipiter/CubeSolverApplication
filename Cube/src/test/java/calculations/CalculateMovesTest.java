@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CalculateMovesTest {
 
     @Test
-    void reduceRepeatingMoves(){
+    void reduceRepeatingMoves() {
         //given
         ArrayList<Move> input = InspectMove.stringToMoveList("F F2 R R2 R'");
         String expected = "F' R2";
@@ -19,5 +19,4 @@ public class CalculateMovesTest {
         //then
         Assertions.assertEquals(expected, InspectMove.moveListToString(result));
     }
-
 }

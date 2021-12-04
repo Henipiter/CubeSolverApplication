@@ -9,6 +9,7 @@ import interpretations.Interpretation3x3Edges;
 import interpretations.Interpretation3x3Vertices;
 import methods.LBLs.LBL3X3;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -21,6 +22,7 @@ public class LBL3x3Test {
     Interpretation3x3Edges interpretation3x3Edges = new Interpretation3x3Edges();
     Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
 
+    Solution solution = new SolutionLBL();
 
     @ParameterizedTest
     @CsvSource({
@@ -38,7 +40,18 @@ public class LBL3x3Test {
         //when
         ArrayList<SolutionLBL> alg = lbl3X3.solve(color);
         //then
-        System.out.println("Soluion: " + InspectMove.moveListToString(Solution.getWholeAlg(alg)));
+        System.out.println("Soluion: " + InspectMove.moveListToString(solution.getWholeAlg(alg)));
+        Assertions.assertTrue(Cube.isSolved(cube));
+    }
+    @Test
+    void solveSingle() {
+        cube = new Cube3x3();
+        cube.makeMoves("U2 R' U L F L2 D' R2 B' R' D2 F2 U2 F L' D L' D2 R' U F'"); //B2 L2 F D2 B' L' F2 R D L2 B D2 L B U2 B' U L2 U2 R2 D'
+        lbl3X3 = new LBL3X3(cube);
+        //when
+        ArrayList<SolutionLBL> alg = lbl3X3.solve('w');
+        //then
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(alg)));
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 
@@ -104,11 +117,11 @@ public class LBL3x3Test {
         ArrayList<SolutionLBL> alg = lbl3X3.solveFirstLayer();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
-        System.out.println("Soluion: " + InspectMove.moveListToString(Solution.getWholeAlg(alg)));
+        System.out.println("Soluion: " + InspectMove.moveListToString(solution.getWholeAlg(alg)));
 
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Vertices.isFirstLayerComplete()),
-                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(Solution.getWholeAlg(alg)))
+                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(solution.getWholeAlg(alg)))
         );
     }
 
@@ -126,11 +139,11 @@ public class LBL3x3Test {
         ArrayList<SolutionLBL> alg = lbl3X3.solveSecondLayer();
         //then
         interpretation3x3Edges.interpretEdges(cube);
-        System.out.println("Soluion: " + InspectMove.moveListToString(Solution.getWholeAlg(alg)));
+        System.out.println("Soluion: " + InspectMove.moveListToString(solution.getWholeAlg(alg)));
 
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Edges.isSecondLayerComplete()),
-                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(Solution.getWholeAlg(alg)))
+                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(solution.getWholeAlg(alg)))
         );
     }
 

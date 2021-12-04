@@ -279,7 +279,6 @@ public class Interpretation3x3Edges {
         return null;
     }
 
-
     public boolean isCrossInCorrectOrder(char crossColor) {
         char[] currentOrder = new char[4];
         for (int i = 0; i < 4; i++) {
@@ -409,6 +408,10 @@ public class Interpretation3x3Edges {
             }
         }
         return counter;
+    }
+
+    public boolean isCorrectPositionBeforeOllParity() {
+        return edgeArrayList.get(2).getColor()[0] != getCenterArray()[0];
     }
 
     public boolean isUpperCrossIsCorrect() {

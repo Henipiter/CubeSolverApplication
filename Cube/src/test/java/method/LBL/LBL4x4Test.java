@@ -1,14 +1,12 @@
 package method.LBL;
 
-import DTOs.InspectMove;
-import DTOs.Move;
-import DTOs.Solution;
-import DTOs.SolutionLBL;
+import DTOs.*;
 import cubes.Cube;
 import cubes.Cube4x4;
 import interpretations.Interpretation4x4Centers;
 import methods.LBLs.LBL4X4;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -17,8 +15,14 @@ import java.util.ArrayList;
 
 public class LBL4x4Test {
 
+    Solution solution = new SolutionLBL();
     Cube cube = new Cube4x4();
     Interpretation4x4Centers interpretation = new Interpretation4x4Centers();
+
+    @BeforeAll
+    static void init(){
+        Algorithm.loadPermutations();
+    }
 
     @Test
     public void call_addToAlgorithmAndUpdateCubeStuff_and_check_correctness() {
@@ -188,11 +192,11 @@ public class LBL4x4Test {
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<SolutionLBL> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
-        System.out.println("Solution: " + InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
     }
 
 
@@ -208,12 +212,12 @@ public class LBL4x4Test {
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<SolutionLBL> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
-        System.out.println("Solution: " + InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
 
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
     }
 
     @ParameterizedTest
@@ -229,13 +233,13 @@ public class LBL4x4Test {
         LBL4X4 lbl = new LBL4X4(cube);
         ArrayList<SolutionLBL> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
-        System.out.println("Solution: " + InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
 
 
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
     }
 
     @ParameterizedTest
@@ -252,13 +256,12 @@ public class LBL4x4Test {
         ArrayList<SolutionLBL> algorithm = lbl.solveCenters(firstCenterColor);
         interpretation.interpretCenters(cube);
 
-        System.out.println("Solution: " + InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
         for (int i = 0; i < 6; i++) {
             Assertions.assertTrue(interpretation.isWholeCenterInOneColor(i));
         }
-        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        Assertions.assertEquals(expectedAlg, InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
     }
-
 
     @ParameterizedTest
     @CsvSource({"y", "b", "g", "r", "o", "w"})
@@ -269,10 +272,26 @@ public class LBL4x4Test {
         //when
         ArrayList<SolutionLBL> algorithm = lbl.solve(firstCenterColor);
         //then
-        System.out.println("Solution: " + algorithm);
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
         cube = new Cube4x4();
         cube.makeMoves("b2 l U2 F2 L2 d' B' b' L B'");
-        cube.makeMoves(InspectMove.moveListToString(Solution.getWholeAlg(algorithm)));
+        cube.makeMoves(InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
+        Assertions.assertTrue(Cube.isSolved(cube));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"w"})
+    public void call_solve1(char firstCenterColor) {
+        //given
+        cube.makeMoves("Uw2 R' U2 Rw' Dw2 Fw' U2 R D' Lw2 F' D' Lw' Dw' Fw2 D' Rw2 F Dw Lw D2 L Dw' L U' Rw Fw2 L F2 R Bw L' B2 R2 Fw2 Rw2 Fw2 L' B2 R2 Fw Uw2 Fw Uw2");
+        LBL4X4 lbl = new LBL4X4(cube);
+        //when
+        ArrayList<SolutionLBL> algorithm = lbl.solve(firstCenterColor);
+        //then
+        System.out.println("Solution: " + InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
+        cube = new Cube4x4();
+        cube.makeMoves("Uw2 R' U2 Rw' Dw2 Fw' U2 R D' Lw2 F' D' Lw' Dw' Fw2 D' Rw2 F Dw Lw D2 L Dw' L U' Rw Fw2 L F2 R Bw L' B2 R2 Fw2 Rw2 Fw2 L' B2 R2 Fw Uw2 Fw Uw2");
+        cube.makeMoves(InspectMove.moveListToString(solution.getWholeAlg(algorithm)));
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 

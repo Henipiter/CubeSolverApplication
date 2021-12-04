@@ -14,7 +14,6 @@ public class MethodStrategy {
     }
 
     public ArrayList<Solution> solve(Cube cube) {
-
         return solvingMethod.solve(cube);
     }
 }

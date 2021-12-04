@@ -48,24 +48,11 @@ public class Interpretation3x3VerticesExt extends Interpretation3x3Vertices {
         }
     }
 
-    public boolean isAllVerticesCorrect() {
-        return searchIncorrectVertex() == -1;
-    }
-
     private void initNamesAndSetups() {
         for (VertexExt vertexExt : vertexExtArrayList) {
             vertexExt.setSetup(new ArrayList<>(Collections.nCopies(3, null)));
             vertexExt.setName(new ArrayList<>(Collections.nCopies(3, null)));
         }
-    }
-
-    public int searchIncorrectVertex() {
-        for (int i = 0; i < 8; i++) {
-            if (!vertexCorrect[i]) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     private void saveVertexMarks() {

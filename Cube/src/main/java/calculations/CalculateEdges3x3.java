@@ -71,7 +71,6 @@ public class CalculateEdges3x3 extends CalculateMoves {
     }
 
     private Move getMoveToGetFreeSlotFrom4thSideToGivenSide(int side) {
-
         switch (side) {
             case 2:
                 return new Move(MoveEnum.D, MoveTypeEnum.PRIM);
@@ -226,6 +225,16 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
     }
 
+    public Move moveUpperCrossToRightPositionBeforeOllParity() {
+        int movesCounter = 0;
+        while (!interpretation3x3Edges.isCorrectPositionBeforeOllParity()) {
+            movesCounter++;
+            cube3x3.move("U");
+            refreshCube(cube3x3);
+        }
+        return new Move(MoveEnum.U, MoveTypeEnum.returnEnumByInt(movesCounter));
+    }
+
     public Move rotateUpperIncorrectCrossToRightPosition() {
         int movesCounter = 0;
         while (!interpretation3x3Edges.isUpperIncorrectCrossPositionCorrect()) {
@@ -244,6 +253,3 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return InspectMove.stringToMoveList("R U R' U R U2 R' U");
     }
 }
-
-
-

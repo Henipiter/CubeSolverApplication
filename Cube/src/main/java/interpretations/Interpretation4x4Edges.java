@@ -101,6 +101,5 @@ public class Interpretation4x4Edges {
             }
         }
         return 0;
-        //TODO exception - cannot find
     }
 }

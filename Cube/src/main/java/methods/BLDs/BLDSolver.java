@@ -1,6 +1,7 @@
 package methods.BLDs;
 
 import DTOs.Solution;
+import cache.CubeOrientationCache;
 import cubes.Cube;
 import methods.SolvingMethod;
 
@@ -11,8 +12,6 @@ public class BLDSolver implements SolvingMethod {
         BLDFactory bldFactory = new BLDFactory();
         BLD bld = bldFactory.getBLD(cube);
 
-        ArrayList<Solution> solution = bld.solve();
-
-        return solution;
+        return bld.solve(CubeOrientationCache.upperColorBLD, CubeOrientationCache.frontColorBLD);
     }
 }

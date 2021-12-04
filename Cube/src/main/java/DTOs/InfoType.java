@@ -1,5 +1,5 @@
 package DTOs;
 
 public enum InfoType {
-        COLOR, INDEX, DEFAULT, ALL
+    COLOR, INDEX, DEFAULT, ALL
 }

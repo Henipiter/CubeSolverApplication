@@ -77,7 +77,7 @@ public class Interpretation2x2Vertices {
         return vertexArrayList.get(0).getColor()[2] == vertexArrayList.get(1).getColor()[2];
     }
 
-    public boolean isVerticesPermuted(){
+    public boolean isVerticesPermuted() {
         return vertexArrayList.get(0).getColor()[2] == vertexArrayList.get(1).getColor()[2] &&
                 vertexArrayList.get(2).getColor()[2] == vertexArrayList.get(3).getColor()[2];
     }
@@ -100,7 +100,6 @@ public class Interpretation2x2Vertices {
     public boolean isUpperLayerFitToBottomLayer() {
         return vertexArrayList.get(1).getColor()[2] == vertexArrayList.get(4).getColor()[2];
     }
-
 
     public boolean isVerticesInRightPosition() {
         return isUpperLayerFitToBottomLayer();

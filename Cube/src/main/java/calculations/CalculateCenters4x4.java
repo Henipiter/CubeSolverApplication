@@ -35,7 +35,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
         int sourceField = interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(sideSource, color);
         int diagonallyField = (sourceField + 2) % 4;
         if (!interpretation4X4Centers.isFieldInGivenColor(sideDestination, diagonallyField, color)) {
-            return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK); //everything is OK
+            return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
         }
         if (!interpretation4X4Centers.isFieldInGivenColor(sideDestination, sourceField, color)) {
             return new Move(MoveEnum.U, MoveTypeEnum.DOUBLE);
@@ -46,7 +46,7 @@ public class CalculateCenters4x4 extends CalculateMoves {
         if (!interpretation4X4Centers.isFieldInGivenColor(sideDestination, (diagonallyField + 3) % 4, color)) {
             return new Move(MoveEnum.U, MoveTypeEnum.SIMPLE);
         }
-        return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK); //everything is OK
+        return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
     public ArrayList<Move> prepareJoiningIfOnBothSidesAreStripes(int sourceSide, int destinationSide, char color) {
@@ -77,7 +77,6 @@ public class CalculateCenters4x4 extends CalculateMoves {
 
     public MoveEnum getMoveEnumToSetup(int sideSource, char color) {
         int field = interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(sideSource, color);
-
         if (interpretation4X4Centers.isStripe(sideSource, color) && interpretation4X4Centers.isTwoFieldsFormBlankStripe(0, color)) {
             if (interpretation4X4Centers.isFieldInGivenColor(sideSource, 0, color)
                     && interpretation4X4Centers.isFieldInGivenColor(sideSource, 3, color)) {

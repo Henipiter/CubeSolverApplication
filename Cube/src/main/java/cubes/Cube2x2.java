@@ -3,9 +3,7 @@ package cubes;
 
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
-import lombok.Getter;
-import lombok.Setter;
-import validations.ElementsValidator;
+import lombok.Data;
 
 import java.util.logging.Logger;
 
@@ -13,32 +11,28 @@ import static DTOs.MoveEnum.*;
 import static DTOs.MoveTypeEnum.SIMPLE;
 import static java.util.Arrays.deepEquals;
 
-@Getter
-@Setter
+@Data
 public class Cube2x2 extends Cube {
 
     private static Logger logger = Logger.getLogger("Cube2x2");
 
-    private void initCenters(){
+    private void initCenters() {
         this.center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     }
 
     public Cube2x2() {
         this.cube = new char[6][4];
         initCenters();
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++)
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
                 cube[i][j] = center[i];
+            }
+        }
     }
 
     public Cube2x2(char[][] cube) {
         this.cube = cube;
         initCenters();
-    }
-
-    public void validate(Cube2x2 cube) throws Exception {
-        ElementsValidator elementsValidator = new ElementsValidator(new Cube3x3(cube));
-        elementsValidator.throwExceptions();
     }
 
     public void rotateSide(boolean clockwise, int side) {
@@ -255,25 +249,11 @@ public class Cube2x2 extends Cube {
         }
     }
 
-    public void setCube(char[][] cube) {
-        this.cube = cube;
-    }
-
-    public char[][] getCube() {
-        return cube;
-    }
-
-//    @Override
-//    public char[] getCenter() {
-//        return center;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
         }
-
         if (!(o instanceof Cube2x2)) {
             return false;
         }

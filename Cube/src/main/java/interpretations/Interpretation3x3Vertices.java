@@ -16,8 +16,6 @@ public class Interpretation3x3Vertices {
         saveVertexPositionOnWallsAndFields();
     }
 
-
-
     public void interpretVertices(Cube cube) {
         for (Vertex vertex : vertexArrayList) {
             char[] vertexColor = new char[3];
@@ -86,7 +84,7 @@ public class Interpretation3x3Vertices {
     private boolean isVertexNotInRightPlaceOrHasIncorrectOrientation(int vertexIndex) {
         Vertex vertex = getVertexArrayList().get(vertexIndex);
         return !isVertexBetweenItsCenters(vertexIndex, vertex) ||
-                vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[vertexIndex/4];
+                vertexArrayList.get(vertexIndex).getColor()[0] != centerArray[vertexIndex / 4];
     }
 
     public int getIncorrectVertexInFirstLayer() {
