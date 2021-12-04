@@ -152,7 +152,7 @@ public class LBL3X3 implements LBL {
         ArrayList<Move> tempAlg = calculateEdges.getMoveToSolveIncorrectOrderCross();
         cube.getLogger().info("Incorrect cross solved!");
         return new SolutionLBL(tempAlg, "Correct bottom cross",
-                new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.EDGE, ProgressInfo.NONE);
+                new ArrayList<>(Arrays.asList(8, 9, 10, 11)), ElementType.EDGE, ProgressInfo.NONE);
     }
 
     private void addInspectMoveAndRefreshCube(ArrayList<Move> tempAlg, Move movement) {
