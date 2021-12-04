@@ -32,8 +32,8 @@ public class LBL3X3 implements LBL {
         calculateEdges = new CalculateEdges3x3((Cube3x3) cube);
     }
 
-    public ArrayList<SolutionLBL> solveF2L_LBL(char firstCenterColor) {
-        ArrayList<SolutionLBL> algorithm = new ArrayList<>();
+    public ArrayList<Solution> solveF2L_LBL(char firstCenterColor) {
+        ArrayList<Solution> algorithm = new ArrayList<>();
         algorithm.addAll(solveCross(firstCenterColor));
         algorithm.add(solveIncorrectCross());
         algorithm.addAll(solveFirstLayer());
@@ -42,8 +42,8 @@ public class LBL3X3 implements LBL {
     }
 
     @Override
-    public ArrayList solve(char firstCenterColor) {
-        ArrayList<SolutionLBL> algorithm = new ArrayList<>(solveF2L_LBL(firstCenterColor));
+    public ArrayList<Solution> solve(char firstCenterColor) {
+        ArrayList<Solution> algorithm = new ArrayList<>(solveF2L_LBL(firstCenterColor));
         try {
             checkOllParity();
         } catch (Exception exception) {
@@ -65,15 +65,15 @@ public class LBL3X3 implements LBL {
     }
 
 
-    public ArrayList<SolutionLBL> solveCross(char firstCenterColor) {
+    public ArrayList<Solution> solveCross(char firstCenterColor) {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
-        ArrayList<SolutionLBL> solutionLBL = new ArrayList<>();
+        ArrayList<Solution> solutionLBL = new ArrayList<>();
         ArrayList<Move> tempAlg = new ArrayList<>();
         tempAlg.add(rotateCubeToSetCrossOnBottom(firstCenterColor));
 
         cube.makeMoves(tempAlg);
-        solutionLBL.add(new SolutionLBL(new ArrayList<>(tempAlg), "intro"));
+        solutionLBL.add(new Solution(new ArrayList<>(tempAlg), "intro"));
         tempAlg.clear();
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
@@ -92,7 +92,7 @@ public class LBL3X3 implements LBL {
                 tempAlg.addAll(x);
                 System.out.println(InspectMove.moveListToString(x));
                 updateCubeAndInterpretationAndCalculation(x);
-                solutionLBL.add(new SolutionLBL(new ArrayList<>(tempAlg), "edge", new ArrayList<>(Collections.singletonList(sideEdgeNumber)), ElementType.EDGE, ProgressInfo.NONE));
+                solutionLBL.add(new Solution(new ArrayList<>(tempAlg), "edge", new ArrayList<>(Collections.singletonList(sideEdgeNumber)), ElementType.EDGE, ProgressInfo.NONE));
                 tempAlg.clear();
             }
         }
@@ -116,12 +116,12 @@ public class LBL3X3 implements LBL {
         return CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideWithOppositeColor);
     }
 
-    public SolutionLBL solveIncorrectCross() {
+    public Solution solveIncorrectCross() {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<Move> tempAlg = calculateEdges.getMoveToSolveIncorrectOrderCross();
         cube.getLogger().info("Incorrect cross solved!");
-        return new SolutionLBL(tempAlg, "Correct bottom cross",
+        return new Solution(tempAlg, "Correct bottom cross",
                 new ArrayList<>(Arrays.asList(8, 9, 10, 11)), ElementType.EDGE, ProgressInfo.NONE);
     }
 
@@ -140,7 +140,7 @@ public class LBL3X3 implements LBL {
         return (edgeIndex + movement.getMoveTypeEnum().getValue()) % 4;
     }
 
-    private SolutionLBL putVertexFromUpperSideToBottomLayer(char crossColor) {
+    private Solution putVertexFromUpperSideToBottomLayer(char crossColor) {
         ArrayList<Move> algorithm = new ArrayList<>();
         Move moveUpperSide;
         Move rotateCube;
@@ -156,11 +156,11 @@ public class LBL3X3 implements LBL {
         ArrayList<Move> joinAlg = calculateVertices.getMoveToJoinVertexIntoFirstLayer(vertexIndex, crossColor);
         algorithm.addAll(joinAlg);
         cube.makeMoves(joinAlg);
-        return new SolutionLBL(algorithm, "First layer",
+        return new Solution(algorithm, "First layer",
                 new ArrayList<>(Collections.singletonList(vertexIndex)), ElementType.VERTEX, ProgressInfo.CROSS);
     }
 
-    private SolutionLBL putVertexFromBottomLayerToUpperSide() {
+    private Solution putVertexFromBottomLayerToUpperSide() {
         Move rotateCube;
         ArrayList<Move> algorithm = new ArrayList<>();
 
@@ -173,14 +173,14 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(joinAlg);
 
         cube.makeMoves(joinAlg);
-        return new SolutionLBL(algorithm, "First layer",
+        return new Solution(algorithm, "First layer",
                 new ArrayList<>(Collections.singletonList(vertexIndex)), ElementType.VERTEX, ProgressInfo.CROSS);
     }
 
-    public ArrayList<SolutionLBL> solveFirstLayer() {
+    public ArrayList<Solution> solveFirstLayer() {
         interpretation3x3Vertices.interpretVertices(cube);
         calculateVertices.refreshCube(cube);
-        ArrayList<SolutionLBL> solution = new ArrayList<>();
+        ArrayList<Solution> solution = new ArrayList<>();
         char crossColor = interpretation3x3Vertices.getCenterArray()[1];
         while (!interpretation3x3Vertices.isFirstLayerComplete()) {
             if (interpretation3x3Vertices.isVertexWithGivenColorOnUpperSide(crossColor)) {
@@ -196,7 +196,7 @@ public class LBL3X3 implements LBL {
     }
 
 
-    private SolutionLBL putEdgeFromUpperSideToSecondLayer() {
+    private Solution putEdgeFromUpperSideToSecondLayer() {
         ArrayList<Move> algorithm = new ArrayList<>();
         int edgeIndex = interpretationEdges.getSecondLayerEdgeIndexOnUpperSide();
         Edge edge = interpretationEdges.getEdgeArrayList().get(edgeIndex);
@@ -209,11 +209,11 @@ public class LBL3X3 implements LBL {
         ArrayList<Move> joinAlg = calculateEdges.getMoveToJoinEdgeIntoSecondLayer(edgeIndex, edge.getColor()[0]);
         algorithm.addAll(joinAlg);
         cube.makeMoves(joinAlg);
-        return new SolutionLBL(algorithm, "Second layer",
+        return new Solution(algorithm, "Second layer",
                 new ArrayList<>(Collections.singletonList(edgeIndex)), ElementType.EDGE, ProgressInfo.FIRST_LAYER);
     }
 
-    private SolutionLBL putEdgeFromSecondLayerToUpperSide() {
+    private Solution putEdgeFromSecondLayerToUpperSide() {
         Move rotateCube;
         ArrayList<Move> algorithm = new ArrayList<>();
 
@@ -226,14 +226,14 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(joinAlg);
 
         cube.makeMoves(joinAlg);
-        return new SolutionLBL(algorithm, "Second layer",
+        return new Solution(algorithm, "Second layer",
                 new ArrayList<>(Collections.singletonList(edgeIndex)), ElementType.EDGE, ProgressInfo.FIRST_LAYER);
     }
 
-    public ArrayList<SolutionLBL> solveSecondLayer() {
+    public ArrayList<Solution> solveSecondLayer() {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
-        ArrayList<SolutionLBL> solution = new ArrayList<>();
+        ArrayList<Solution> solution = new ArrayList<>();
         while (!interpretationEdges.isSecondLayerComplete()) {
             if (interpretationEdges.isSecondLayerEdgeOnUpperSide()) {
                 solution.add(putEdgeFromUpperSideToSecondLayer());
@@ -257,7 +257,7 @@ public class LBL3X3 implements LBL {
         return tempAlg;
     }
 
-    public SolutionLBL solveUpperCross() {
+    public Solution solveUpperCross() {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
         ArrayList<Move> tempAlg = new ArrayList<>();
@@ -266,7 +266,7 @@ public class LBL3X3 implements LBL {
         }
         cube.getLogger().info("Upper cross solved!");
         CalculateMoves.reduceRepeatingMoves(tempAlg);
-        return new SolutionLBL(tempAlg, "Upper cross",
+        return new Solution(tempAlg, "Upper cross",
                 interpretationEdges.getCenterArray()[1], ElementType.EDGE, ProgressInfo.NONE);
     }
 
@@ -282,7 +282,7 @@ public class LBL3X3 implements LBL {
         }
     }
 
-    public SolutionLBL solveIncorrectUpperCross() {
+    public Solution solveIncorrectUpperCross() {
         ArrayList<Move> tempAlg = new ArrayList<>();
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
@@ -295,11 +295,11 @@ public class LBL3X3 implements LBL {
             calculateEdges.refreshCube(cube);
         }
         cube.getLogger().info("Incorrect upper cross solved!");
-        return new SolutionLBL(tempAlg, "Correct upper cross",
+        return new Solution(tempAlg, "Correct upper cross",
                 new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.EDGE, ProgressInfo.TWO_LAYERS);
     }
 
-    public SolutionLBL solveNotPermutedVertexes() {
+    public Solution solveNotPermutedVertexes() {
         ArrayList<Move> tempAlg = new ArrayList<>();
         interpretation3x3Vertices.interpretVertices(cube);
         calculateVertices.refreshCube(cube);
@@ -311,11 +311,11 @@ public class LBL3X3 implements LBL {
             calculateVertices.refreshCube(cube);
         }
         cube.getLogger().info("Vertex permuted!");
-        return new SolutionLBL(tempAlg, "Permute vertices",
+        return new Solution(tempAlg, "Permute vertices",
                 new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.VERTEX, ProgressInfo.TWO_LAYERS);
     }
 
-    public SolutionLBL solveNotOrientedVertexes() {
+    public Solution solveNotOrientedVertexes() {
         ArrayList<Move> tempAlg = new ArrayList<>();
         int uMoveCounter = 0;
         interpretation3x3Vertices.interpretVertices(cube);
@@ -334,7 +334,7 @@ public class LBL3X3 implements LBL {
         tempAlg.add(lastMove);
         cube.move(lastMove);
         cube.getLogger().info("Vertex oriented!");
-        return new SolutionLBL(tempAlg, "Orient vertices",
+        return new Solution(tempAlg, "Orient vertices",
                 interpretationEdges.getCenterArray()[1], ElementType.ALL, ProgressInfo.NONE);
     }
 }

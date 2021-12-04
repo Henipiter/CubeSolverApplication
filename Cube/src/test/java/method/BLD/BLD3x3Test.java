@@ -3,7 +3,6 @@ package method.BLD;
 import DTOs.Algorithm;
 import DTOs.InspectMove;
 import DTOs.Solution;
-import DTOs.SolutionBLD;
 import cubes.Cube;
 import cubes.Cube3x3;
 import methods.BLDs.BLD3X3;
@@ -29,8 +28,8 @@ public class BLD3x3Test {
         cube = new Cube3x3();
         cube.makeMoves("U");
         bld3X3 = new BLD3X3(cube);
-        ArrayList<SolutionBLD> solution = bld3X3.solveAllVertices();
-        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
+        ArrayList<Solution> solution = bld3X3.solveAllVertices();
+        Assertions.assertEquals(expectedSolution, Solution.getWholeMarks(solution));
     }
 
     @Test
@@ -39,8 +38,8 @@ public class BLD3x3Test {
         cube = new Cube3x3();
         cube.makeMoves("B' L D L2 U' R2 B2 D' R2 U' R2 D' B2 L' B' D U R' U2 B");
         bld3X3 = new BLD3X3(cube);
-        ArrayList<SolutionBLD> solution = bld3X3.solveAllVertices();
-        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
+        ArrayList<Solution> solution = bld3X3.solveAllVertices();
+        Assertions.assertEquals(expectedSolution, Solution.getWholeMarks(solution));
     }
 
     @Test
@@ -50,8 +49,8 @@ public class BLD3x3Test {
         cube.makeMoves("U");
         bld3X3 = new BLD3X3(cube);
         bld3X3.solveAllEdges();
-        ArrayList<SolutionBLD> solution = bld3X3.solveAllEdges();
-        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
+        ArrayList<Solution> solution = bld3X3.solveAllEdges();
+        Assertions.assertEquals(expectedSolution, Solution.getWholeMarks(solution));
     }
 
     @Test
@@ -60,22 +59,22 @@ public class BLD3x3Test {
         cube = new Cube3x3();
         cube.makeMoves("B' L D L2 U' R2 B2 D' R2 U' R2 D' B2 L' B' D U R' U2 B");
         bld3X3 = new BLD3X3(cube);
-        ArrayList<SolutionBLD> solution = bld3X3.solveAllEdges();
-        Assertions.assertEquals(expectedSolution, SolutionBLD.getWholeMarks(solution));
+        ArrayList<Solution> solution = bld3X3.solveAllEdges();
+        Assertions.assertEquals(expectedSolution, Solution.getWholeMarks(solution));
     }
 
     @Test
     void solveAllCube() {
         cube = new Cube3x3();
-        Solution solutionBLD = new SolutionBLD();
+        Solution solutionBLD;
         cube.makeMoves("B R' B' R' U' F' L' D L'");
         bld3X3 = new BLD3X3(cube);
-        ArrayList<SolutionBLD> solution = bld3X3.solve('y','r');
-        cube.makeMoves(solutionBLD.getWholeAlg(solution));
-        System.out.println(InspectMove.moveListToString(solutionBLD.getWholeAlg(solution)));
+        ArrayList<Solution> solution = bld3X3.solve('y','r');
+        cube.makeMoves(Solution.getWholeAlg(solution));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(solution)));
         cube = new Cube3x3();
         cube.makeMoves("B R' B' R' U' F' L' D L'");
-        cube.makeMoves(solutionBLD.getWholeAlg(solution));
+        cube.makeMoves(Solution.getWholeAlg(solution));
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 }

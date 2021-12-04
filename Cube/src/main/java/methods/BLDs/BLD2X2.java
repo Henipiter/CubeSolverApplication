@@ -1,6 +1,6 @@
 package methods.BLDs;
 
-import DTOs.SolutionBLD;
+import DTOs.Solution;
 import cubes.Cube;
 import cubes.Cube2x2;
 import cubes.Cube3x3;
@@ -16,10 +16,10 @@ public class BLD2X2 implements BLD {
     }
 
     @Override
-    public ArrayList solve(char upperColor, char frontColor) {
+    public ArrayList<Solution> solve(char upperColor, char frontColor) {
         Cube3x3 cube3x3 = new Cube3x3(cube);
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
-        ArrayList<SolutionBLD> solution = new ArrayList<>();
+        ArrayList<Solution> solution = new ArrayList<>();
 
         solution.add(bld3X3.solveOrientation(upperColor, frontColor));
         bld3X3.refreshBeforeSolve(solution.get(0).getAlgorithm());

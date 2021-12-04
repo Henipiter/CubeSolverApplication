@@ -102,7 +102,7 @@ public class CalculateEdges3x3Test {
 
 
     @ParameterizedTest
-    @CsvSource({"M' U M U',F'", "M' U M U' F2,F", "M' U M U' R2,F", "M' U M U' F2 R2,F'"})
+    @CsvSource({"M' U M U',F", "M' U M U' F2,F", "M' U M U' R2,F'", "M' U M U' F2 R2,F'"})
     void getMovesToMoveInnerEdgeOnConflictEdge(String scramble, String expected) {
         cube.makeMoves(scramble);
         interpretation3x3Edges.interpretEdges(cube);

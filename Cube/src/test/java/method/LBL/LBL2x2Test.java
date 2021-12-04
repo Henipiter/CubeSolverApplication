@@ -2,7 +2,7 @@ package method.LBL;
 
 import DTOs.InspectMove;
 import DTOs.Move;
-import DTOs.SolutionLBL;
+import DTOs.Solution;
 import cubes.Cube;
 import cubes.Cube2x2;
 import methods.LBLs.LBL2X2;
@@ -53,7 +53,7 @@ public class LBL2x2Test {
         cube2x2.makeMoves(scramble);
         lbl2x2 = new LBL2X2(cube2x2);
         //when
-        SolutionLBL result = lbl2x2.solvePll();
+        Solution result = lbl2x2.solvePll();
         //then
         System.out.println(InspectMove.moveListToString(result.getAlgorithm()));
         Assertions.assertTrue(Cube.isSolved(cube2x2));

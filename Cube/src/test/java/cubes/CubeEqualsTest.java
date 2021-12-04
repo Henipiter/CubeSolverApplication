@@ -11,6 +11,7 @@ public class CubeEqualsTest {
         Cube2x2 cube2x2 = new Cube2x2();
         Cube2x2 cube2x2_2 = new Cube2x2();
         Assertions.assertEquals(cube2x2_2, cube2x2);
+        Assertions.assertTrue(Cube.isSolved(cube2x2));
     }
 
     @Test
@@ -19,6 +20,7 @@ public class CubeEqualsTest {
         Cube2x2 cube2x2_2 = new Cube2x2();
         cube2x2.move("R");
         Assertions.assertNotEquals(cube2x2_2, cube2x2);
+        Assertions.assertFalse(Cube.isSolved(cube2x2));
     }
 
     @Test

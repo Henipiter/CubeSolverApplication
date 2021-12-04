@@ -14,13 +14,20 @@ public class CubePyraminx extends Cube {
     private Logger logger = Logger.getLogger("CubePyraminx");
 
     public CubePyraminx() {
+        this.cube = new char[4][9];
+        initCenters();
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < 9; j++)
                 cube[i][j] = center[i];
     }
 
+    private void initCenters() {
+        this.center = new char[]{'g', 'y', 'r', 'b'};
+    }
+
     public CubePyraminx(char[][] cube) {
         this.cube = cube;
+        this.center = new char[]{'g', 'y', 'r', 'b'};
     }
 
     public void rotateCube(boolean clockwise, int side) {
