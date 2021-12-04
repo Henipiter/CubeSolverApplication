@@ -39,16 +39,17 @@ class ColorValidatorTest {
         Assertions.assertFalse(result);
     }
 
-    @Test
-    void aa() {
+    @ParameterizedTest
+    @CsvSource({"g,b, true", "b,g,true", "b,b,false", "g,g,false", "w, b,false"})
+    void aa(char front, char back, boolean expect) {
         //given
-        cube3x3.getCube()[4][1] = 'b';
-        cube3x3.getCube()[5][1] = 'g';
+        cube3x3.getCube()[4][1] = front;
+        cube3x3.getCube()[5][1] = back;
         colorValidator = new ColorValidation3x3(cube3x3);
         //when
         boolean result = colorValidator.isEdgeColorCorrectness();
         //then
-        Assertions.assertFalse(result);
+        Assertions.assertEquals(expect,result);
     }
 
     @Test

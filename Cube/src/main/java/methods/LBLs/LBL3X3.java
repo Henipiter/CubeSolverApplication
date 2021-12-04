@@ -34,7 +34,7 @@ public class LBL3X3 implements LBL {
 
     public ArrayList<SolutionLBL> solveF2L_LBL(char firstCenterColor) {
         ArrayList<SolutionLBL> algorithm = new ArrayList<>();
-        algorithm.add(solveCross(firstCenterColor));
+        algorithm.addAll(solveCross(firstCenterColor));
         algorithm.add(solveIncorrectCross());
         algorithm.addAll(solveFirstLayer());
         algorithm.addAll(solveSecondLayer());
@@ -64,35 +64,43 @@ public class LBL3X3 implements LBL {
         return algorithm;
     }
 
-    public SolutionLBL solveCross(char firstCenterColor) {
+
+    public ArrayList<SolutionLBL> solveCross(char firstCenterColor) {
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
+        ArrayList<SolutionLBL> solutionLBL = new ArrayList<>();
         ArrayList<Move> tempAlg = new ArrayList<>();
         tempAlg.add(rotateCubeToSetCrossOnBottom(firstCenterColor));
+
         cube.makeMoves(tempAlg);
+        solutionLBL.add(new SolutionLBL(new ArrayList<>(tempAlg), "intro"));
+        tempAlg.clear();
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
-
-        int i = 0;
-        int side;
-        int[] order = interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
         while (!interpretationEdges.isSolvedCross()) {
-            side = order[i];
-            while (interpretationEdges.countFieldsWithGivenColor(firstCenterColor, removeIrrelevantColors(
-                    interpretationEdges.getColorFromAllEdgesFromGivenSide(side))) > 0) {
-                tempAlg.addAll(recursiveSolveCross(firstCenterColor, side, side));
-            }
-            if (Arrays.equals(order, interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor))) {
-                i = (i + 1) % 4;
+
+            int sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnSide(4, firstCenterColor);
+            if (sideEdgeNumber == -1) {
+                cube.makeMoves("y");
+                tempAlg.add(new Move("y"));
+                interpretationEdges.interpretEdges(cube);
+                calculateEdges.refreshCube(cube);
             } else {
-                order = interpretationEdges.getOrderSolvingCrossEdges(firstCenterColor);
-                i = 0;
+                int fieldEdge = interpretationEdges.getEdgeIndexFieldWithColor(interpretationEdges.getEdgeArrayList().get(sideEdgeNumber), firstCenterColor);
+
+                ArrayList<Move> x = calculateEdges.getMovesToJoinEdgeToCross1(4, sideEdgeNumber, fieldEdge, firstCenterColor);
+                tempAlg.addAll(x);
+                System.out.println(InspectMove.moveListToString(x));
+                updateCubeAndInterpretationAndCalculation(x);
+                solutionLBL.add(new SolutionLBL(new ArrayList<>(tempAlg), "edge", new ArrayList<>(Collections.singletonList(sideEdgeNumber)), ElementType.EDGE, ProgressInfo.NONE));
+                tempAlg.clear();
             }
         }
-        cube.getLogger().info("Cross solved!");
 
-        return new SolutionLBL(tempAlg, "Bottom cross", firstCenterColor, ElementType.EDGE, ProgressInfo.NONE);
+        return solutionLBL;
     }
+
+
 
     private void updateCubeAndInterpretationAndCalculation(ArrayList<Move> alg) {
         cube.makeMoves(alg);
@@ -100,50 +108,12 @@ public class LBL3X3 implements LBL {
         calculateEdges.refreshCube(cube);
     }
 
-    private char[] removeIrrelevantColors(char[] colors) {
-        colors[2] = 'x';
-        colors[5] = 'x';
-        colors[7] = 'x';
-        return colors;
-    }
 
     private Move rotateCubeToSetCrossOnBottom(char firstCenterColor) {
         char oppositeColor = Interpretation.getColorOfOppositeSide(firstCenterColor);
         int sideWithOppositeColor =
                 Interpretation3x3Centers.getCenterNumberWithGivenColor(cube, oppositeColor);
         return CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideWithOppositeColor);
-    }
-
-    private ArrayList<Move> recursiveSolveCross(char crossColor, int beginSide, int actualSide) {
-        ArrayList<Move> recursiveAlg = new ArrayList<>();
-        if (interpretationEdges.isCollisionWithDifferentSide(actualSide, crossColor)) {
-            int nextCollisionSide = interpretationEdges.getSideWhichHaveCollisionWithGivenSide(actualSide, crossColor);
-            if (nextCollisionSide != beginSide) {
-                recursiveAlg.addAll(recursiveSolveCross(crossColor, beginSide, nextCollisionSide));
-            }
-        }
-        if (!isAlgorithmContainsMoveEnum(MoveEnum.D, recursiveAlg)) {
-            int sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnCircumference(actualSide, crossColor);
-            if (sideEdgeNumber < 0 || sideEdgeNumber == 2) {
-                sideEdgeNumber = interpretationEdges.getEdgeIndexFromSideWithGivenColorOnInnerSide(actualSide, crossColor);
-            }
-            if (sideEdgeNumber == -1) {
-                return recursiveAlg;
-            }
-            ArrayList<Move> tempAlg = calculateEdges.getMovesToJoinEdgeToCross(actualSide, sideEdgeNumber, crossColor);
-            updateCubeAndInterpretationAndCalculation(tempAlg);
-            recursiveAlg.addAll(tempAlg);
-        }
-        return recursiveAlg;
-    }
-
-    private boolean isAlgorithmContainsMoveEnum(MoveEnum moveEnum, ArrayList<Move> alg) {
-        for (Move move : alg) {
-            if (move.getMoveEnum() == moveEnum) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public SolutionLBL solveIncorrectCross() {

@@ -150,6 +150,15 @@ public class Interpretation3x3Edges {
                 edge.getColor()[1] == color;
     }
 
+    public int getEdgeIndexFieldWithColor(Edge edge, char color) {
+        if (edge.getColor()[0] == color) {
+            return 0;
+        } else if (edge.getColor()[1] == color) {
+            return 1;
+        }
+        return -1;
+    }
+
     public int getFreeSlotOnCross(char crossColor) {
         int[] crossEdges = getIndexesOfEdgesOnGivenSide(1);
         for (int i = 0; i < 4; i++) {
@@ -205,7 +214,7 @@ public class Interpretation3x3Edges {
         for (int i : order) {
             int index = (circumferenceFields[i] + field) % 2;
             if (edgeArrayList.get(edgeIndexes[i]).getColor()[index] == color)
-                return i;
+                return edgeIndexes[i];
         }
         return -1;
     }

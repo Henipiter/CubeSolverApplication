@@ -39,6 +39,49 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
+    public ArrayList<Move> getMovesToJoinEdgeToCross1(int side, int sideEdgeNumber, int edgeField, char crossColor) {
+        ArrayList<Move> alg = new ArrayList<>();
+        switch (sideEdgeNumber) {
+            case 2:
+                if (edgeField == 0) {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(4, crossColor));
+                    alg.addAll(InspectMove.stringToMoveList("F2"));
+                } else {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(4, crossColor));
+                    alg.addAll(InspectMove.stringToMoveList("F' D' L"));
+                }
+                break;
+            case 7:
+                if (edgeField == 0) {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(4, crossColor));
+                    alg.addAll(InspectMove.stringToMoveList("F'"));
+                } else {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(2, crossColor));
+                    alg.addAll(InspectMove.stringToMoveList("L"));
+                }
+                break;
+            case 6:
+                if (edgeField == 0) {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(4, crossColor));
+                    alg.addAll(InspectMove.stringToMoveList("F"));
+                } else {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(3, crossColor));
+                    alg.addAll(InspectMove.stringToMoveList("R'"));
+                }
+
+                break;
+            case 10:
+                if (edgeField == 0) {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(4, crossColor));
+                } else {
+                    alg.add(getMoveToGetFreeSlotOnGivenSide(4, crossColor));
+                    alg.addAll(InspectMove.stringToMoveList("F D' L"));
+                }
+                break;
+        }
+        return alg;
+    }
+
     public ArrayList<Move> getMovesToJoinEdgeToCross(int side, int sideEdgeNumber, char crossColor) {
         ArrayList<Move> tempAlg = new ArrayList<>();
         int edgeIndex = interpretation3x3Edges.getIndexesOfEdgesOnGivenSide(side)[sideEdgeNumber];
