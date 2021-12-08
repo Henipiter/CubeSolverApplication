@@ -39,7 +39,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public ArrayList<Move> getMovesToJoinEdgeToCross1(int side, int sideEdgeNumber, int edgeField, char crossColor) {
+    public ArrayList<Move> getMovesToJoinEdgeToCross1(int sideEdgeNumber, int edgeField, char crossColor) {
         ArrayList<Move> alg = new ArrayList<>();
         switch (sideEdgeNumber) {
             case 2:
@@ -80,19 +80,6 @@ public class CalculateEdges3x3 extends CalculateMoves {
                 break;
         }
         return alg;
-    }
-
-    public ArrayList<Move> getMovesToJoinEdgeToCross(int side, int sideEdgeNumber, char crossColor) {
-        ArrayList<Move> tempAlg = new ArrayList<>();
-        int edgeIndex = interpretation3x3Edges.getIndexesOfEdgesOnGivenSide(side)[sideEdgeNumber];
-        int edgeFieldIndex = interpretation3x3Edges.getIndexFieldOfEdgeWithGivenColor(edgeIndex, crossColor);
-        if (interpretation3x3Edges.isFieldOnCircumference(side, sideEdgeNumber, edgeFieldIndex)) {
-            tempAlg.add(getMoveToGetFreeSlotOnGivenSide(side, crossColor));
-            tempAlg.add(getMoveToJoinCircumferenceField(side, sideEdgeNumber));
-        } else {
-            tempAlg.add(getMovesToMoveInnerEdgeOnConflictEdge(side, crossColor));
-        }
-        return tempAlg;
     }
 
     public Move getMoveToJoinCircumferenceField(int side, int sideEdgeNumber) {

@@ -1,6 +1,9 @@
 package methods.LBLs;
 
-import DTOs.*;
+import DTOs.Algorithm;
+import DTOs.InfoType;
+import DTOs.Move;
+import DTOs.Solution;
 import calculations.CalculateCenters4x4;
 import calculations.CalculateEdges3x3;
 import calculations.CalculateEdges4x4;
@@ -17,7 +20,7 @@ import java.util.Arrays;
 
 public class LBL4X4 implements LBL {
 
-    private Cube4x4 cube;
+    private final Cube4x4 cube;
     private final Interpretation4x4Centers interpretation4x4Centers;
     private final Interpretation4x4Edges interpretation4x4Edges;
     private final CalculateCenters4x4 calculateCenters4x4;
@@ -95,7 +98,8 @@ public class LBL4X4 implements LBL {
         ArrayList<Move> algorithm = rotateCubeToGetMaxNumOfColoredFieldOnCenter(baseColor);
         updateCubeAndInterpretationAndCalculation(algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, baseColor, new int[]{4, 1, 2, 3, 5});
-        return new Solution(algorithm, "Center", baseColor, ElementType.CENTER, ProgressInfo.NONE);
+
+        return Solution.center4x4(algorithm, baseColor);
     }
 
     public Solution solveSecondCenter() {
@@ -105,7 +109,8 @@ public class LBL4X4 implements LBL {
         algorithm.add(new Move("x2"));
         updateCubeAndInterpretationAndCalculation(algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, secondCenterColor, new int[]{4, 2, 3, 5});
-        return new Solution(algorithm, "Center", secondCenterColor, ElementType.CENTER, ProgressInfo.NONE);
+
+        return Solution.center4x4(algorithm, secondCenterColor);
     }
 
     public void addToAlgorithmAndUpdateCubeStuff(ArrayList<Move> algToSet, ArrayList<Move> finalAlg) {
@@ -125,7 +130,8 @@ public class LBL4X4 implements LBL {
         temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{4, 1, 5});
-        return new Solution(algorithm, "Center", colorOfDestSide, ElementType.CENTER, ProgressInfo.NONE);
+
+        return Solution.center4x4(algorithm, colorOfDestSide);
     }
 
     public Solution solveFourthCenter() {
@@ -139,9 +145,9 @@ public class LBL4X4 implements LBL {
         char colorOfDestSide = Interpretation.whichColorIsNextInOrder(numOfDestSide, colorOnLeft, colorOnUp);
         temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
-
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{4, 1});
-        return new Solution(algorithm, "Center", colorOfDestSide, ElementType.CENTER, ProgressInfo.NONE);
+
+        return Solution.center4x4(algorithm, colorOfDestSide);
     }
 
     public Solution solveLastTwoCenters() {
@@ -156,7 +162,8 @@ public class LBL4X4 implements LBL {
         temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{5});
-        return new Solution(algorithm, "Center", colorOfDestSide, ElementType.CENTER, ProgressInfo.NONE);
+
+        return Solution.center4x4(algorithm, colorOfDestSide);
     }
 
     public void getAlgorithmToSolveWholeCenter(ArrayList<Move> algorithm, char colorOfDestSide, int[] sideWhereSearchFields) {
@@ -217,8 +224,8 @@ public class LBL4X4 implements LBL {
         cube.getLogger().info("OLL Parity");
         makeOllParityOn3x3();
         cube3x3.makeMoves("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
-        return new Solution(alg, "OLL Parity",
-                new ArrayList(Arrays.asList(4, 5)), ElementType.EDGE, ProgressInfo.NONE);
+        return Solution.parity(alg, "OLL Parity",
+                new ArrayList<>(Arrays.asList(4, 5)));
     }
 
     private Move prepareBeforeOllParity() {
@@ -230,8 +237,9 @@ public class LBL4X4 implements LBL {
     private ArrayList<Solution> resolvePllParity(LBL3X3 lbl3X3) {
         ArrayList<Solution> algorithm = new ArrayList<>();
         cube.getLogger().info("PLL Parity");
-        algorithm.add(new Solution(Algorithm.getPermAlg("PLL"), "PLL Parity",
-                new ArrayList(Arrays.asList(0, 1, 4, 5)), ElementType.EDGE, ProgressInfo.NONE));
+        ArrayList<Move> alg = Algorithm.getPermAlg("PLL");
+        algorithm.add(Solution.parity(alg, "PLL Parity",
+                new ArrayList<>(Arrays.asList(0, 1, 4, 5))));
         makePllParityOn3x3();
         algorithm.add(lbl3X3.solveIncorrectUpperCross());
         algorithm.add(lbl3X3.solveNotPermutedVertexes());

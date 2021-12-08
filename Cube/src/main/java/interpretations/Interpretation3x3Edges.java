@@ -146,8 +146,7 @@ public class Interpretation3x3Edges {
     }
 
     public boolean isGivenSideEdgeIndexHasGivenColor(Edge edge, char color) {
-        return edge.getColor()[0] == color ||
-                edge.getColor()[1] == color;
+        return edge.getColor()[0] == color || edge.getColor()[1] == color;
     }
 
     public int getEdgeIndexFieldWithColor(Edge edge, char color) {

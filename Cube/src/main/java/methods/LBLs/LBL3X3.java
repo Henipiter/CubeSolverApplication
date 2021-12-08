@@ -73,7 +73,7 @@ public class LBL3X3 implements LBL {
         tempAlg.add(rotateCubeToSetCrossOnBottom(firstCenterColor));
 
         cube.makeMoves(tempAlg);
-        solutionLBL.add(new Solution(new ArrayList<>(tempAlg), "intro"));
+        solutionLBL.add(Solution.rotate(new ArrayList<>(tempAlg)));
         tempAlg.clear();
         interpretationEdges.interpretEdges(cube);
         calculateEdges.refreshCube(cube);
@@ -88,19 +88,17 @@ public class LBL3X3 implements LBL {
             } else {
                 int fieldEdge = interpretationEdges.getEdgeIndexFieldWithColor(interpretationEdges.getEdgeArrayList().get(sideEdgeNumber), firstCenterColor);
 
-                ArrayList<Move> x = calculateEdges.getMovesToJoinEdgeToCross1(4, sideEdgeNumber, fieldEdge, firstCenterColor);
+                ArrayList<Move> x = calculateEdges.getMovesToJoinEdgeToCross1(sideEdgeNumber, fieldEdge, firstCenterColor);
                 tempAlg.addAll(x);
                 System.out.println(InspectMove.moveListToString(x));
                 updateCubeAndInterpretationAndCalculation(x);
-                solutionLBL.add(new Solution(new ArrayList<>(tempAlg), "edge", new ArrayList<>(Collections.singletonList(sideEdgeNumber)), ElementType.EDGE, ProgressInfo.NONE));
+                solutionLBL.add(Solution.firstCross(new ArrayList<>(tempAlg), new ArrayList<>(Collections.singletonList(sideEdgeNumber))));
                 tempAlg.clear();
             }
         }
 
         return solutionLBL;
     }
-
-
 
     private void updateCubeAndInterpretationAndCalculation(ArrayList<Move> alg) {
         cube.makeMoves(alg);
@@ -121,8 +119,8 @@ public class LBL3X3 implements LBL {
         calculateEdges.refreshCube(cube);
         ArrayList<Move> tempAlg = calculateEdges.getMoveToSolveIncorrectOrderCross();
         cube.getLogger().info("Incorrect cross solved!");
-        return new Solution(tempAlg, "Correct bottom cross",
-                new ArrayList<>(Arrays.asList(8, 9, 10, 11)), ElementType.EDGE, ProgressInfo.NONE);
+        return Solution.firstIncorrectCross(tempAlg,
+                new ArrayList<>(Arrays.asList(8, 9, 10, 11)));
     }
 
     private void addInspectMoveAndRefreshCube(ArrayList<Move> tempAlg, Move movement) {
@@ -156,8 +154,7 @@ public class LBL3X3 implements LBL {
         ArrayList<Move> joinAlg = calculateVertices.getMoveToJoinVertexIntoFirstLayer(vertexIndex, crossColor);
         algorithm.addAll(joinAlg);
         cube.makeMoves(joinAlg);
-        return new Solution(algorithm, "First layer",
-                new ArrayList<>(Collections.singletonList(vertexIndex)), ElementType.VERTEX, ProgressInfo.CROSS);
+        return Solution.firstLayer(algorithm, new ArrayList<>(Collections.singletonList(vertexIndex)));
     }
 
     private Solution putVertexFromBottomLayerToUpperSide() {
@@ -173,8 +170,7 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(joinAlg);
 
         cube.makeMoves(joinAlg);
-        return new Solution(algorithm, "First layer",
-                new ArrayList<>(Collections.singletonList(vertexIndex)), ElementType.VERTEX, ProgressInfo.CROSS);
+        return Solution.firstLayer(algorithm, new ArrayList<>(Collections.singletonList(vertexIndex)));
     }
 
     public ArrayList<Solution> solveFirstLayer() {
@@ -209,8 +205,7 @@ public class LBL3X3 implements LBL {
         ArrayList<Move> joinAlg = calculateEdges.getMoveToJoinEdgeIntoSecondLayer(edgeIndex, edge.getColor()[0]);
         algorithm.addAll(joinAlg);
         cube.makeMoves(joinAlg);
-        return new Solution(algorithm, "Second layer",
-                new ArrayList<>(Collections.singletonList(edgeIndex)), ElementType.EDGE, ProgressInfo.FIRST_LAYER);
+        return Solution.secondLayer(algorithm, new ArrayList<>(Collections.singletonList(edgeIndex)));
     }
 
     private Solution putEdgeFromSecondLayerToUpperSide() {
@@ -226,8 +221,7 @@ public class LBL3X3 implements LBL {
         algorithm.addAll(joinAlg);
 
         cube.makeMoves(joinAlg);
-        return new Solution(algorithm, "Second layer",
-                new ArrayList<>(Collections.singletonList(edgeIndex)), ElementType.EDGE, ProgressInfo.FIRST_LAYER);
+        return Solution.secondLayer(algorithm, new ArrayList<>(Collections.singletonList(edgeIndex)));
     }
 
     public ArrayList<Solution> solveSecondLayer() {
@@ -266,8 +260,7 @@ public class LBL3X3 implements LBL {
         }
         cube.getLogger().info("Upper cross solved!");
         CalculateMoves.reduceRepeatingMoves(tempAlg);
-        return new Solution(tempAlg, "Upper cross",
-                interpretationEdges.getCenterArray()[1], ElementType.EDGE, ProgressInfo.NONE);
+        return Solution.secondCross(tempAlg, interpretationEdges.getCenterArray()[1]);
     }
 
     public void checkOllParity() throws Exception {
@@ -295,8 +288,7 @@ public class LBL3X3 implements LBL {
             calculateEdges.refreshCube(cube);
         }
         cube.getLogger().info("Incorrect upper cross solved!");
-        return new Solution(tempAlg, "Correct upper cross",
-                new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.EDGE, ProgressInfo.TWO_LAYERS);
+        return Solution.secondIncorrectCross(tempAlg, new ArrayList<>(Arrays.asList(0, 1, 2, 3)));
     }
 
     public Solution solveNotPermutedVertexes() {
@@ -311,8 +303,7 @@ public class LBL3X3 implements LBL {
             calculateVertices.refreshCube(cube);
         }
         cube.getLogger().info("Vertex permuted!");
-        return new Solution(tempAlg, "Permute vertices",
-                new ArrayList<>(Arrays.asList(0, 1, 2, 3)), ElementType.VERTEX, ProgressInfo.TWO_LAYERS);
+        return Solution.permutation(tempAlg, new ArrayList<>(Arrays.asList(0, 1, 2, 3)));
     }
 
     public Solution solveNotOrientedVertexes() {
@@ -334,7 +325,6 @@ public class LBL3X3 implements LBL {
         tempAlg.add(lastMove);
         cube.move(lastMove);
         cube.getLogger().info("Vertex oriented!");
-        return new Solution(tempAlg, "Orient vertices",
-                interpretationEdges.getCenterArray()[1], ElementType.ALL, ProgressInfo.NONE);
+        return Solution.orientation(tempAlg, interpretationEdges.getCenterArray()[1]);
     }
 }

@@ -58,14 +58,14 @@ public class BLD3X3 implements BLD {
                 upperColor, cube.getCenter())));
         alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(
                 Interpretation.getSideWithColor(frontColor, cube.getCenter())));
-        return new Solution(alg, null, null, ElementType.ALL);
+        return Solution.rotate(alg);
     }
 
     public Solution solveParity(int size) {
         if (size % 2 == 1) {
-            return new Solution(Algorithm.getPermAlg("R"), "<PARITY>", null, null);
+            return Solution.blind(Algorithm.getPermAlg("R"), "Parity");
         } else {
-            return new Solution(InspectMove.stringToMoveList("BLANK"), "<->", null, null);
+            return Solution.blind(InspectMove.stringToMoveList("BLANK"), "No parity");
         }
     }
 
@@ -131,15 +131,17 @@ public class BLD3X3 implements BLD {
 
     private Solution addToSolutionVertex(int vertexIndex, int fieldIndex) {
         VertexExt vertexExt = interpretationCubeVertex.getVertexExtArrayList().get(vertexIndex);
-        return new Solution(getSetupAndAlgorithmAndReverseSetup("Y", vertexExt.getSetup().get(fieldIndex)),
-                vertexExt.getName().get(fieldIndex), new ArrayList<>(Arrays.asList(0, vertexIndex)), ElementType.VERTEX);
+        ArrayList<Move> alg = getSetupAndAlgorithmAndReverseSetup("Y", vertexExt.getSetup().get(fieldIndex));
+
+        return Solution.blind(alg, "Vertex stage", vertexExt.getName().get(fieldIndex),
+                new ArrayList<>(Arrays.asList(0, vertexIndex)), ElementType.VERTEX);
     }
 
     private Solution addToSolutionEdge(int edgeIndex, int fieldIndex) {
         EdgeExt edgeExt = interpretationCubeEdge.getEdgeExtArrayList().get(edgeIndex);
-        return new Solution(getSetupAndAlgorithmAndReverseSetup(
-                edgeExt.getAlgorithm().get(fieldIndex), edgeExt.getSetup().get(fieldIndex)),
-                edgeExt.getName().get(fieldIndex), new ArrayList<>(Arrays.asList(1, edgeIndex)), ElementType.EDGE);
+        ArrayList<Move> alg = getSetupAndAlgorithmAndReverseSetup(edgeExt.getAlgorithm().get(fieldIndex), edgeExt.getSetup().get(fieldIndex));
+        return Solution.blind(alg, "Edge stage", edgeExt.getName().get(fieldIndex),
+                new ArrayList<>(Arrays.asList(1, edgeIndex)), ElementType.EDGE);
     }
 
     private ArrayList<Move> getSetupAndAlgorithmAndReverseSetup(String permutation, String setup) {

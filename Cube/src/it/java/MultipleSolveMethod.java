@@ -24,7 +24,7 @@ public class MultipleSolveMethod {
     private static final int TIMES = 100;
 
     ScramblerFactory scramblerFactory = new ScramblerFactory();
-    Solution solutionCube;
+
 
     @BeforeEach
     void init(){
@@ -78,13 +78,13 @@ public class MultipleSolveMethod {
         System.out.println(InspectMove.moveListToString(scrambleAlg));
         cube2x2.makeMoves(scrambleAlg);
         LBL2X2 lbl2X2 = new LBL2X2(cube2x2);
-        ArrayList x = lbl2X2.solve('w');
+        ArrayList<Solution> x = lbl2X2.solve('w');
         System.out.println("---");
-        System.out.println(InspectMove.moveListToString(solutionCube.getWholeAlg(x)));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(x)));
 
         cube2x2 = new Cube2x2();
         cube2x2.makeMoves(scrambleAlg);
-        cube2x2.makeMoves(solutionCube.getWholeAlg(x));
+        cube2x2.makeMoves(Solution.getWholeAlg(x));
         Assertions.assertTrue(Cube.isSolved(cube2x2));
     }
 
@@ -95,13 +95,13 @@ public class MultipleSolveMethod {
         System.out.println(InspectMove.moveListToString(scrambleAlg));
         cube3x3.makeMoves(scrambleAlg);
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
-        ArrayList x = lbl3X3.solve('w');
+        ArrayList<Solution> x = lbl3X3.solve('w');
         System.out.println("---");
-        System.out.println(InspectMove.moveListToString(solutionCube.getWholeAlg(x)));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(x)));
 
         cube3x3 = new Cube3x3();
         cube3x3.makeMoves(scrambleAlg);
-        cube3x3.makeMoves(solutionCube.getWholeAlg(x));
+        cube3x3.makeMoves(Solution.getWholeAlg(x));
         Assertions.assertTrue(Cube.isSolved(cube3x3));
     }
 
@@ -112,13 +112,13 @@ public class MultipleSolveMethod {
         System.out.println(InspectMove.moveListToString(scrambleAlg));
         cube4x4.makeMoves(scrambleAlg);
         LBL4X4 lbl4X4 = new LBL4X4(cube4x4);
-        ArrayList x = lbl4X4.solve('w');
+        ArrayList<Solution> x = lbl4X4.solve('w');
         System.out.println("---");
-        System.out.println(InspectMove.moveListToString(solutionCube.getWholeAlg(x)));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(x)));
 
         cube4x4 = new Cube4x4();
         cube4x4.makeMoves(scrambleAlg);
-        cube4x4.makeMoves(solutionCube.getWholeAlg(x));
+        cube4x4.makeMoves(Solution.getWholeAlg(x));
         Assertions.assertTrue(Cube.isSolved(cube4x4));
     }
 
@@ -129,13 +129,13 @@ public class MultipleSolveMethod {
         System.out.println(InspectMove.moveListToString(scrambleAlg));
         cube2x2.makeMoves(scrambleAlg);
         BLD2X2 bld2X2 = new BLD2X2(cube2x2);
-        ArrayList x = bld2X2.solve(CubeOrientationCache.upperColorBLD, CubeOrientationCache.frontColorBLD);
+        ArrayList<Solution> x = bld2X2.solve(CubeOrientationCache.upperColorBLD, CubeOrientationCache.frontColorBLD);
         System.out.println("---");
-        System.out.println(InspectMove.moveListToString(solutionCube.getWholeAlg(x)));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(x)));
 
         cube2x2 = new Cube2x2();
         cube2x2.makeMoves(scrambleAlg);
-        cube2x2.makeMoves(solutionCube.getWholeAlg(x));
+        cube2x2.makeMoves(Solution.getWholeAlg(x));
         Assertions.assertTrue(Cube.isSolved(cube2x2));
     }
 
@@ -146,13 +146,13 @@ public class MultipleSolveMethod {
         System.out.println(InspectMove.moveListToString(scrambleAlg));
         cube3x3.makeMoves(scrambleAlg);
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
-        ArrayList x = bld3X3.solve(CubeOrientationCache.upperColorBLD, CubeOrientationCache.frontColorBLD);
+        ArrayList<Solution> x = bld3X3.solve(CubeOrientationCache.upperColorBLD, CubeOrientationCache.frontColorBLD);
         System.out.println("---");
-        System.out.println(InspectMove.moveListToString(solutionCube.getWholeAlg(x)));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(x)));
 
         cube3x3 = new Cube3x3();
         cube3x3.makeMoves(scrambleAlg);
-        cube3x3.makeMoves(solutionCube.getWholeAlg(x));
+        cube3x3.makeMoves(Solution.getWholeAlg(x));
         Assertions.assertTrue(Cube.isSolved(cube3x3));
     }
 }
