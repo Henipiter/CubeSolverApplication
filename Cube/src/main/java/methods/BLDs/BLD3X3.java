@@ -23,14 +23,14 @@ public class BLD3X3 implements BLD {
     private final Interpretation3x3EdgesExt interpretationPatternCubeEdge = new Interpretation3x3EdgesExt();
 
     private final Cube3x3 cube;
-    private final Cube3x3 patternCube;
+    private Cube3x3 patternCube;
 
     public BLD3X3(Cube cube) {
         this.cube = (Cube3x3) cube;
-        patternCube = new Cube3x3();
-        rotatePatternCube();
-        interpretationPatternCubeVertex.interpretVertices(patternCube);
-        interpretationPatternCubeEdge.interpretEdges(patternCube);
+//        patternCube = new Cube3x3(cube.getCenter());
+//        rotatePatternCube();
+//        interpretationPatternCubeVertex.interpretVertices(patternCube);
+//        interpretationPatternCubeEdge.interpretEdges(patternCube);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class BLD3X3 implements BLD {
 
     public void refreshBeforeSolve(ArrayList<Move> alg) {
         cube.makeMoves(alg);
-        rotatePatternCube();
+        patternCube = new Cube3x3(cube.getCenter());
         interpretationPatternCubeVertex.interpretVertices(patternCube);
         interpretationPatternCubeEdge.interpretEdges(patternCube);
     }

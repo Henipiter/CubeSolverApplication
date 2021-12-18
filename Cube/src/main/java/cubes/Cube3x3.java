@@ -26,6 +26,15 @@ public class Cube3x3 extends Cube {
                 cube[i][j] = center[i];
     }
 
+    public Cube3x3(char[] center) {
+        this.cube = new char[6][8];
+        this.center = center;
+       // initCenters();
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 8; j++)
+                cube[i][j] = center[i];
+    }
+
     public Cube3x3(Cube2x2 cube2x2) {
         this.cube = Parse2x2To3x3.copyFieldsColors(cube2x2);
         this.center = Parse2x2To3x3.copyCentersColors(cube2x2);

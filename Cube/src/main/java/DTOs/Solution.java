@@ -50,6 +50,7 @@ public class Solution {
         this.marks = marks;
         this.elementIndexes = elementIndexes;
         this.elementType = elementType;
+        this.infoType = InfoType.INDEX;
         this.progressInfo = ProgressInfo.NONE;
     }
 

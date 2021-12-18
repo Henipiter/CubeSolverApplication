@@ -5,6 +5,8 @@ import DTOs.InspectMove;
 import DTOs.Solution;
 import cubes.Cube;
 import cubes.Cube3x3;
+import interpretations.Interpretation3x3Edges;
+import interpretations.Interpretation3x3Vertices;
 import methods.BLDs.BLD3X3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -66,15 +68,47 @@ public class BLD3x3Test {
     @Test
     void solveAllCube() {
         cube = new Cube3x3();
-        Solution solutionBLD;
-        cube.makeMoves("B R' B' R' U' F' L' D L'");
+        cube.makeMoves("x2 F R' F x2 y2");
         bld3X3 = new BLD3X3(cube);
-        ArrayList<Solution> solution = bld3X3.solve('y','r');
+        ArrayList<Solution> solution = bld3X3.solve('y','g');
         cube.makeMoves(Solution.getWholeAlg(solution));
         System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(solution)));
         cube = new Cube3x3();
-        cube.makeMoves("B R' B' R' U' F' L' D L'");
+        cube.makeMoves("x2 F R' F x2 y2");
         cube.makeMoves(Solution.getWholeAlg(solution));
+        Assertions.assertTrue(Cube.isSolved(cube));
+    }
+
+    @Test
+    void solveAllC555ube() {
+
+        char[][] input = new char[][] {
+                {'b','y','y','b','y','r','r','w'},
+                {'g','w','w','g','w','y','y','y'},
+                {'w','w','g','r','o','r','r','o'},
+                {'o','o','b','o','r','o','o','r'},
+                {'w','w','o','b','b','b','b','b'},
+                {'r','g','g','y','g','y','g','g'}
+        };
+
+        cube = new Cube3x3(input);
+        cube.setCenter(new char[]{'y','w','r','o','b','g'});
+
+        bld3X3 = new BLD3X3(cube);
+        ArrayList<Solution> solution = bld3X3.solve('w','g');
+        cube.makeMoves(Solution.getWholeAlg(solution));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(solution)));
+
+        cube = new Cube3x3(input);
+        cube.setCenter(new char[]{'y','w','r','o','b','g'});
+        cube.makeMoves(Solution.getWholeAlg(solution));
+
+        Interpretation3x3Edges interpretation3x3Edges = new Interpretation3x3Edges();
+        Interpretation3x3Vertices interpretation3x3Vertices  = new Interpretation3x3Vertices();
+        interpretation3x3Edges.interpretEdges(this.cube);
+        interpretation3x3Vertices.interpretVertices(this.cube);
+
+
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 }
