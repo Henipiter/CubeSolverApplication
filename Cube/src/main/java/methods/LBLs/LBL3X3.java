@@ -260,7 +260,7 @@ public class LBL3X3 implements LBL {
         }
         cube.getLogger().info("Upper cross solved!");
         CalculateMoves.reduceRepeatingMoves(tempAlg);
-        return Solution.secondCross(tempAlg, interpretationEdges.getCenterArray()[1]);
+        return Solution.secondCross(tempAlg, interpretationEdges.getCenterArray()[0]);
     }
 
     public void checkOllParity() throws Exception {
@@ -325,6 +325,6 @@ public class LBL3X3 implements LBL {
         tempAlg.add(lastMove);
         cube.move(lastMove);
         cube.getLogger().info("Vertex oriented!");
-        return Solution.orientation(tempAlg, interpretationEdges.getCenterArray()[1]);
+        return Solution.orientation(tempAlg, interpretation3x3Vertices.getCenterArray()[0]);
     }
 }

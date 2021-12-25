@@ -60,7 +60,7 @@ public class LBL2X2 implements LBL {
         alg.add(calculateVertices2x2.moveBottomSideToGetRightPlacedVertexInCorrectPosition());
         alg.addAll(calculateVertices2x2.permuteVertexAlgorithm());
         cube.makeMoves(calculateVertices2x2.permuteVertexAlgorithm());
-        return Solution.permutation(alg, new ArrayList<>(Arrays.asList(1, 2, 3, 4)));
+        return Solution.permutation(alg, new ArrayList<>(Arrays.asList(0, 1, 2, 3)));
     }
 
     public void setCentersByVertex(int indexVertex) {
