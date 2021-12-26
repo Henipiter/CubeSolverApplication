@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class Solution {
 
     protected ArrayList<Move> algorithm = new ArrayList<>();
-    protected ArrayList<Integer> elementIndexes;
+    protected ArrayList<Integer> beginIndex;
+    protected ArrayList<Integer> endIndex;
     protected ElementType elementType;
     protected ProgressInfo progressInfo;
 
@@ -33,22 +34,24 @@ public class Solution {
         this.progressInfo = progressInfo;
     }
 
-    private Solution(ArrayList<Move> algorithm, String message, ArrayList<Integer> elementIndexes,
+    private Solution(ArrayList<Move> algorithm, String message, ArrayList<Integer> beginIndex, ArrayList<Integer> endIndex,
                      ElementType elementType, ProgressInfo progressInfo) {
         this.algorithm = algorithm;
         this.message = message;
-        this.elementIndexes = elementIndexes;
+        this.beginIndex = beginIndex;
+        this.endIndex = endIndex;
         this.elementType = elementType;
         this.infoType = InfoType.INDEX;
         this.progressInfo = progressInfo;
     }
 
     private Solution(ArrayList<Move> algorithm, String message, String marks,
-                     ArrayList<Integer> elementIndexes, ElementType elementType) {
+                     ArrayList<Integer> beginIndex, ArrayList<Integer> endIndex, ElementType elementType) {
         this.algorithm = algorithm;
         this.message = message;
         this.marks = marks;
-        this.elementIndexes = elementIndexes;
+        this.beginIndex = beginIndex;
+        this.endIndex = endIndex;
         this.elementType = elementType;
         this.infoType = InfoType.INDEX;
         this.progressInfo = ProgressInfo.NONE;
@@ -56,7 +59,7 @@ public class Solution {
 
     public static ArrayList<Move> getWholeAlg(ArrayList<Solution> solution) {
         ArrayList<Move> alg = new ArrayList<>();
-        for(Solution x : solution){
+        for (Solution x : solution) {
             alg.addAll(x.algorithm);
         }
         return alg;
@@ -64,7 +67,7 @@ public class Solution {
 
     public static String getWholeMarks(ArrayList<Solution> solution) {
         StringBuilder stringBuilder = new StringBuilder();
-        for(Solution x : solution){
+        for (Solution x : solution) {
             stringBuilder.append(x.marks).append(" ");
         }
         return stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
@@ -74,39 +77,39 @@ public class Solution {
         this.infoType = infoType;
     }
 
-    public static Solution parity(ArrayList<Move> algorithm, String message, ArrayList<Integer> elementIndexes) {
-        return new Solution(algorithm, message, elementIndexes, ElementType.EDGE, ProgressInfo.NONE);
+    public static Solution parity(ArrayList<Move> algorithm, String message, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
+        return new Solution(algorithm, message, beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.NONE);
     }
 
-    public static Solution firstCross(ArrayList<Move>algorithm, ArrayList<Integer> elementIndexes) {
-        return new Solution(algorithm, "First cross", elementIndexes, ElementType.EDGE, ProgressInfo.NONE);
+    public static Solution firstCross(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
+        return new Solution(algorithm, "First cross", beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.NONE);
     }
 
-    public static Solution firstIncorrectCross(ArrayList<Move> algorithm, ArrayList<Integer> elementIndexes) {
-        return new Solution(algorithm, "Correct bottom cross", elementIndexes, ElementType.EDGE, ProgressInfo.CROSS);
+    public static Solution firstIncorrectCross(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
+        return new Solution(algorithm, "Correct bottom cross", beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.CROSS);
     }
 
-    public static Solution firstLayer(ArrayList<Move> algorithm, ArrayList<Integer> elementIndexes) {
-        return new Solution(algorithm, "First layer", elementIndexes, ElementType.VERTEX, ProgressInfo.CROSS);
+    public static Solution firstLayer(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
+        return new Solution(algorithm, "First layer", beginIndexes, endIndexes, ElementType.VERTEX, ProgressInfo.CROSS);
     }
 
-    public static Solution secondLayer(ArrayList<Move> algorithm, ArrayList<Integer> elementIndexes) {
-        return new Solution(algorithm, "Second layer", elementIndexes, ElementType.EDGE, ProgressInfo.FIRST_LAYER);
+    public static Solution secondLayer(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
+        return new Solution(algorithm, "Second layer", beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.FIRST_LAYER);
     }
 
-    public static Solution secondCross(ArrayList<Move>algorithm, char color) {
+    public static Solution secondCross(ArrayList<Move> algorithm, char color) {
         return new Solution(algorithm, "Second cross", color, ElementType.EDGE, ProgressInfo.NONE);
     }
 
-    public static Solution secondIncorrectCross(ArrayList<Move>algorithm, ArrayList<Integer> elementIndexes) {
-        return new Solution(algorithm, "Correct second cross", elementIndexes, ElementType.EDGE, ProgressInfo.NONE);
+    public static Solution secondIncorrectCross(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
+        return new Solution(algorithm, "Correct second cross", beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.NONE);
     }
 
-    public static Solution permutation(ArrayList<Move>algorithm, ArrayList<Integer> elementIndexes) {
-        return new Solution(algorithm, "Permute vertices", elementIndexes, ElementType.VERTEX, ProgressInfo.NONE);
+    public static Solution permutation(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
+        return new Solution(algorithm, "Permute vertices", beginIndexes, endIndexes, ElementType.VERTEX, ProgressInfo.NONE);
     }
 
-    public static Solution orientation(ArrayList<Move>algorithm, char color) {
+    public static Solution orientation(ArrayList<Move> algorithm, char color) {
         return new Solution(algorithm, "Orient vertices", color, ElementType.ALL, ProgressInfo.NONE);
     }
 
@@ -116,11 +119,11 @@ public class Solution {
 
     public static Solution blind(ArrayList<Move> algorithm, String message, String marks,
                                  ArrayList<Integer> elementIndexes, ElementType elementType) {
-        return new Solution(algorithm, message, marks, elementIndexes, elementType);
+        return new Solution(algorithm, message, marks, elementIndexes, elementIndexes, elementType);
     }
 
     public static Solution blind(ArrayList<Move> algorithm, String message) {
-        return new Solution(algorithm, message, "", null, null);
+        return new Solution(algorithm, message, "", null, null, null);
     }
 
     public static Solution rotate(ArrayList<Move> alg) {

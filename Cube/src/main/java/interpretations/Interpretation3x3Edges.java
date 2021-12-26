@@ -73,6 +73,30 @@ public class Interpretation3x3Edges {
         return counter;
     }
 
+    public int getEdgeIndexBeforeRotation(int numOfRotations, int edgeIndexAfterRotation) {
+        int edgeLayer = edgeIndexAfterRotation / 4;
+        int edgeIndexOfLayer = edgeIndexAfterRotation % 4;
+        int edgeIndexOfLayerBeforeRotate = (4 - numOfRotations + edgeIndexOfLayer) % 4;
+        return 4 * edgeLayer + edgeIndexOfLayerBeforeRotate;
+    }
+
+    public int getEdgeIndexAfterJoinEdgeIntoSecondLayer(char secondCenterColor) {
+        if (secondCenterColor == centerArray[3]) {
+            return 6;
+        }
+        return 7;
+    }
+
+    public int getEdgeIndexAfterJoinToCross(int sideEdgeNumber, int edgeField) {
+        if (edgeField == 0) {
+            return 10;
+        }
+        if (sideEdgeNumber == 6) {
+            return 9;
+        }
+        return 11;
+    }
+
     public int getIndexFieldOfEdgeWithGivenColor(int edgeIndex, char color) {
         if (edgeArrayList.get(edgeIndex).getColor()[0] == color) {
             return 0;
@@ -262,7 +286,6 @@ public class Interpretation3x3Edges {
         switch (side) {
             case 1:
                 return new int[]{10, 9, 11, 8};
-
             case 2:
                 return new int[]{3, 7, 11, 4};
             case 3:

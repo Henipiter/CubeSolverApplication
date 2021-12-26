@@ -221,5 +221,17 @@ public class LBL3x3Test {
         );
     }
 
+    @Test
+    void aasolveCross() {
+        cube = new Cube3x3();
+        cube.makeMoves("M2 S2 E2 x2 F2 y F2 y F2 y F2 D2");
+        lbl3X3 = new LBL3X3(cube);
+        //when
+        ArrayList<Solution> alg = lbl3X3.solveFirstLayer();
+        //then
+        interpretation3x3Vertices.interpretVertices(cube);
+        System.out.println("Soluion: " + InspectMove.moveListToString(solution.getWholeAlg(alg)));
 
+
+    }
 }

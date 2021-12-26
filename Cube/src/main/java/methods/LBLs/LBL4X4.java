@@ -196,7 +196,7 @@ public class LBL4X4 implements LBL {
             temp_alg = calculateEdges4x4.getMovesToPutUnpairedEdgeOn12Index(secondEdgePairIndex);
             temp_alg.addAll(CalculateEdges4x4.getAlgorithmToJoinEdges());
             updateCubeAndSaveAlgorithm(temp_alg, solutionLBL.getAlgorithm());
-            solutionLBL.setElementIndexes(new ArrayList<>(Arrays.asList(firstEdgePairIndex, secondEdgePairIndex)));
+            solutionLBL.setBeginIndex(new ArrayList<>(Arrays.asList(firstEdgePairIndex, secondEdgePairIndex)));
             solution.add(solutionLBL);
         }
         cube.getLogger().info("Edges paired!");
@@ -225,6 +225,7 @@ public class LBL4X4 implements LBL {
         makeOllParityOn3x3();
         cube3x3.makeMoves("R2 B2 U2 L U2 R' U2 R U2 F2 R F2 L' B2 R2");
         return Solution.parity(alg, "OLL Parity",
+                new ArrayList<>(Arrays.asList(4, 5)),
                 new ArrayList<>(Arrays.asList(4, 5)));
     }
 
@@ -239,6 +240,7 @@ public class LBL4X4 implements LBL {
         cube.getLogger().info("PLL Parity");
         ArrayList<Move> alg = Algorithm.getPermAlg("PLL");
         algorithm.add(Solution.parity(alg, "PLL Parity",
+                new ArrayList<>(Arrays.asList(0, 1, 4, 5)),
                 new ArrayList<>(Arrays.asList(0, 1, 4, 5))));
         makePllParityOn3x3();
         algorithm.add(lbl3X3.solveIncorrectUpperCross());

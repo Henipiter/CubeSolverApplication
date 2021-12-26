@@ -39,7 +39,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public ArrayList<Move> getMovesToJoinEdgeToCross1(int sideEdgeNumber, int edgeField, char crossColor) {
+    public ArrayList<Move> getMovesToJoinEdgeToCross(int sideEdgeNumber, int edgeField, char crossColor) {
         ArrayList<Move> alg = new ArrayList<>();
         switch (sideEdgeNumber) {
             case 2:
@@ -207,7 +207,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
         return new Move(MoveEnum.BLANK, MoveTypeEnum.BLANK);
     }
 
-    public ArrayList<Move> getMoveToJoinEdgeIntoSecondLayer(int edgeIndex, char secondCenterColor) {
+    public ArrayList<Move> getMoveToJoinEdgeIntoSecondLayer(char secondCenterColor) {
         if (secondCenterColor == interpretation3x3Edges.getCenterArray()[3]) {
             return InspectMove.stringToMoveList("U R U' R' F R' F' R");
         }
