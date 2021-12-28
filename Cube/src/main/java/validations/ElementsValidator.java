@@ -1,7 +1,6 @@
 package validations;
 
 import DTOs.Solution;
-import DTOs.SolutionBLD;
 import cubes.Cube3x3;
 import lombok.Getter;
 import methods.BLDs.BLD3X3;
@@ -16,12 +15,12 @@ public class ElementsValidator {
     private boolean pllParity;
 
     private Cube3x3 cube3x3;
-    Solution solutionBLD = new SolutionBLD();
+    Solution solutionBLD;
 
     public ElementsValidator(Cube3x3 cube3x3) {
         this.cube3x3 = cube3x3;
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
-        ArrayList<SolutionBLD> solution = bld3X3.solve('w', 'g');
+        ArrayList<Solution> solution = bld3X3.solve('w', 'g');
         cube3x3.makeMoves(solutionBLD.getWholeAlg(solution));
         validateRollingPop();
         validateOllParity();

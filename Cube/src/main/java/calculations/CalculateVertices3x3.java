@@ -43,10 +43,10 @@ public class CalculateVertices3x3 {
         String alg = "";
         switch (vertexIndex) {
             case 2:
-                alg = "R U R'";
+                alg = "R U R' U'";
                 break;
             case 3:
-                alg = "L' U' L";
+                alg = "L' U' L U";
                 break;
         }
         return InspectMove.stringToMoveList(alg);

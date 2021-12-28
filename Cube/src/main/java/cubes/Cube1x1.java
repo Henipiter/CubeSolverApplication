@@ -12,12 +12,14 @@ import static java.util.Arrays.deepEquals;
 public class Cube1x1 extends Cube {
 
     char[][] cube = new char[6][1];
-    char[] center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
+    char[] center;
     private final Logger logger = Logger.getLogger("Cube1x1");
 
-    public Cube1x1() {
-        for (int i = 0; i < 6; i++)
+    public Cube1x1(char[] center) {
+        this.center = center;
+        for (int i = 0; i < 6; i++) {
             cube[i][0] = center[i];
+        }
     }
 
     private void moveElementary(int[] sideOrder) {

@@ -2,13 +2,14 @@ package method.LBL;
 
 import DTOs.InspectMove;
 import DTOs.Move;
-import DTOs.SolutionLBL;
+import DTOs.Solution;
 import cubes.Cube;
 import cubes.Cube2x2;
 import methods.LBLs.LBL2X2;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -53,7 +54,7 @@ public class LBL2x2Test {
         cube2x2.makeMoves(scramble);
         lbl2x2 = new LBL2X2(cube2x2);
         //when
-        SolutionLBL result = lbl2x2.solvePll();
+        Solution result = lbl2x2.solvePll();
         //then
         System.out.println(InspectMove.moveListToString(result.getAlgorithm()));
         Assertions.assertTrue(Cube.isSolved(cube2x2));
@@ -93,5 +94,25 @@ public class LBL2x2Test {
         System.out.println(alg);
         Assertions.assertTrue(Cube.isSolved(cube2x2));
     }
+
+
+    @Test
+    void solveAA() {
+        char[][] input = new char[][]{
+                {'w', 'w', 'w', 'w'},
+                {'r', 'r', 'r', 'r'},
+                {'o', 'o', 'o', 'o'},
+                {'y', 'y', 'y', 'y'},
+                {'g', 'g', 'g', 'g'},
+                {'b', 'b', 'b', 'b'},
+        };
+        cube2x2 = new Cube2x2(input);
+        cube2x2.makeMoves("U2 F U' F' R U2 F2 R' U' D");
+        lbl2x2 = new LBL2X2(cube2x2);
+        ArrayList alg = lbl2x2.solve('w');
+        System.out.println(alg);
+        Assertions.assertTrue(Cube.isSolved(cube2x2));
+    }
+
 
 }

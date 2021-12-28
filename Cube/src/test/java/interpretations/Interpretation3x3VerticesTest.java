@@ -153,4 +153,24 @@ class Interpretation3x3VerticesTest {
         //then
         Assertions.assertEquals(expected,result);
     }
+
+    @Test
+    void test_analyzeColors(){
+        char[][] input = new char[][] {
+                {'w','w','w','w','w','w','w','w'},
+                {'r','r','r','r','r','r','r','r'},
+                {'o','o','o','o','o','o','o','o'},
+                {'y','y','y','y','y','y','y','y'},
+                {'g','g','g','g','g','g','g','g'},
+                {'b','b','b','b','b','b','b','b'},
+        };
+        char[] expected = new char[] { 'w','r','y','o','b','g' };
+
+        cube = new Cube3x3(input);
+        interpretation3x3Vertices.interpretVertices(cube);
+        char[] result = interpretation3x3Vertices.analyzeColorOrder();
+
+        Assert.assertArrayEquals(expected, result);
+
+    }
 }

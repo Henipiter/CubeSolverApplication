@@ -1,6 +1,5 @@
 package calculations;
 
-import DTOs.InspectMove;
 import DTOs.Move;
 import DTOs.MoveEnum;
 import DTOs.MoveTypeEnum;
@@ -10,8 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.ArrayList;
 
 public class CalculateEdges3x3Test {
 
@@ -102,7 +99,7 @@ public class CalculateEdges3x3Test {
 
 
     @ParameterizedTest
-    @CsvSource({"M' U M U',F'", "M' U M U' F2,F", "M' U M U' R2,F", "M' U M U' F2 R2,F'"})
+    @CsvSource({"M' U M U',F", "M' U M U' F2,F", "M' U M U' R2,F'", "M' U M U' F2 R2,F'"})
     void getMovesToMoveInnerEdgeOnConflictEdge(String scramble, String expected) {
         cube.makeMoves(scramble);
         interpretation3x3Edges.interpretEdges(cube);
@@ -112,22 +109,6 @@ public class CalculateEdges3x3Test {
         //then
         Assertions.assertEquals(expected, result.toString());
     }
-
-    @ParameterizedTest
-    @CsvSource({
-            "M' U M U' F,D R',3,3", "M' U M U' F R,R2,3,0", "M' U M U' F R2 ,R,3,1",
-            "M' U M U' F',D' L,2,1"
-    })
-    void getMovesToJoinEdgeToCross(String scramble, String expected, int side, int sideEdgeNumber) {
-        cube.makeMoves(scramble);
-        interpretation3x3Edges.interpretEdges(cube);
-        calculateEdges3x3.refreshCube(cube);
-        //when
-        ArrayList<Move> result = calculateEdges3x3.getMovesToJoinEdgeToCross(side, sideEdgeNumber, 'y');
-        //then
-        Assertions.assertEquals(expected, InspectMove.moveListToString(result));
-    }
-
 
     @ParameterizedTest
     @CsvSource({

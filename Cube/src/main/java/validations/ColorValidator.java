@@ -17,6 +17,7 @@ public class ColorValidator {
 
     protected boolean vertexColorCorrectness;
     protected boolean edgeColorCorrectness;
+    protected char[] center;
 
     private final Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
     protected Map<String, Integer> sameColorEdgesCounter;
@@ -24,15 +25,7 @@ public class ColorValidator {
     protected ColorValidator(Cube3x3 cube3x3) {
         interpretation3x3Vertices.interpretVertices(cube3x3);
         sameColorEdgesCounter = new HashMap<>();
-    }
-
-    public void throwExceptions() throws Exception {
-        if (vertexColorCorrectness) {
-            throw new Exception("VertexColorError");
-        }
-        if (edgeColorCorrectness) {
-            throw new Exception("EdgeColorError");
-        }
+        center = cube3x3.getCenter();
     }
 
     protected String createKey(char[] edgeColors) {
@@ -68,10 +61,11 @@ public class ColorValidator {
     }
 
     private boolean isVertexHasColorsFromOppositeCenter(int vertexIndex) {
+        Interpretation interpretation = new Interpretation(center);
         char[] vertexColor = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex).getColor();
         int[] colorPairIndex = new int[3];
         for (int i = 0; i < 3; i++) {
-            colorPairIndex[i] = Interpretation.getIndexOfColor(vertexColor[i]) / 2;
+            colorPairIndex[i] = interpretation.getIndexOfColor(vertexColor[i]) / 2;
         }
         return !(Arrays.stream(colorPairIndex).anyMatch(elem -> elem == 0) &&
                 Arrays.stream(colorPairIndex).anyMatch(elem -> elem == 1) &&
@@ -113,10 +107,11 @@ public class ColorValidator {
     }
 
     protected boolean isEdgeHasColorFromOppositeCenters(int edgeIndex, ArrayList<Edge> edgeArrayList) {
+        Interpretation interpretation = new Interpretation(center);
         char[] edgeColor = edgeArrayList.get(edgeIndex).getColor();
         int[] colorPairIndex = new int[2];
         for (int i = 0; i < 2; i++) {
-            colorPairIndex[i] = Interpretation.getIndexOfColor(edgeColor[i]) / 2;
+            colorPairIndex[i] = interpretation.getIndexOfColor(edgeColor[i]) / 2;
         }
         return colorPairIndex[0] == colorPairIndex[1];
     }

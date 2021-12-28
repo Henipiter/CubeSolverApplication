@@ -6,8 +6,14 @@ import lombok.Data;
 @Data
 public class Interpretation {
 
-    public static char whichColorIsNextInOrder(int chosenSide, char colorOnLeft, char colorOnUp) {
-        Interpretation1x1 interpretation1x1 = new Interpretation1x1();
+    private final char[] centerOrder;
+
+    public Interpretation(char[] centerOrder) {
+        this.centerOrder = centerOrder;
+    }
+
+    public char whichColorIsNextInOrder(int chosenSide, char colorOnLeft, char colorOnUp) {
+        Interpretation1x1 interpretation1x1 = new Interpretation1x1(centerOrder);
         return interpretation1x1.whichColorIsNextInOrder(chosenSide, colorOnLeft, colorOnUp);
     }
 
@@ -20,22 +26,13 @@ public class Interpretation {
         return -1;
     }
 
-    public static int getIndexOfColor(char sideColor) {
-        return new String(getColorOrder()).indexOf(sideColor);
+    public int getIndexOfColor(char sideColor) {
+        return new String(centerOrder).indexOf(sideColor);
     }
 
-    public static char getColorOfOppositeSide(char sideColor) {
+    public char getColorOfOppositeSide(char sideColor) {
         int indexOfColor = getIndexOfColor(sideColor);
-        return getColorOrder()[(indexOfColor % 2 + 1) % 2 + indexOfColor / 2 * 2];
-    }
-
-    private static char[] getColorOrder() {
-        return new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
-    }
-
-    public static char[] getColorOrder(char colorOnUp) {
-        Interpretation1x1 interpretation1x1 = new Interpretation1x1();
-        return interpretation1x1.getColorOrder(colorOnUp);
+        return centerOrder[(indexOfColor % 2 + 1) % 2 + indexOfColor / 2 * 2];
     }
 
     public static char[] getCenterArray(Cube cube) {

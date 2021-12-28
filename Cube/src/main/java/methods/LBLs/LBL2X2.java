@@ -1,13 +1,17 @@
 package methods.LBLs;
 
 
-import DTOs.*;
+import DTOs.InspectMove;
+import DTOs.Move;
+import DTOs.Solution;
+import DTOs.Vertex;
 import calculations.CalculateVertices2x2;
 import cubes.Cube;
 import cubes.Cube2x2;
 import cubes.Cube3x3;
 import interpretations.Interpretation;
 import interpretations.Interpretation2x2Vertices;
+import interpretations.Interpretation3x3Vertices;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,40 +19,47 @@ import java.util.Collections;
 
 public class LBL2X2 implements LBL {
 
-    Solution solution = new SolutionLBL();
     private Cube2x2 cube;
 
-    private Interpretation2x2Vertices interpretation2x2Vertices;
-    private CalculateVertices2x2 calculateVertices2x2;
+    private final Interpretation2x2Vertices interpretation2x2Vertices;
+    private final CalculateVertices2x2 calculateVertices2x2;
+    private final Interpretation interpretation;
 
     public LBL2X2(Cube cube) {
         this.cube = (Cube2x2) cube;
+        setCenters();
         interpretation2x2Vertices = new Interpretation2x2Vertices();
         calculateVertices2x2 = new CalculateVertices2x2((Cube2x2) cube);
+        interpretation = new Interpretation(cube.getCenter());
     }
-
+    private void setCenters() {
+        Cube3x3 cube3x3 = new Cube3x3(cube);
+        Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
+        interpretation3x3Vertices.interpretVertices(cube3x3);
+        cube.setCenter(interpretation3x3Vertices.analyzeColorOrder());
+    }
     @Override
-    public ArrayList solve(char firstCenterColor) {
-        ArrayList<SolutionLBL> algorithm = new ArrayList<>();
+    public ArrayList<Solution> solve(char firstCenterColor) {
+        ArrayList<Solution> algorithm = new ArrayList<>();
         interpretation2x2Vertices.interpretVertices(cube);
-        algorithm.add(new SolutionLBL(new ArrayList<>(Collections.singletonList(
-                rotateCubeToGetColorOnBottomSide(firstCenterColor))), "Rotate"));
+        algorithm.add(Solution.rotate(new ArrayList<>(Collections.singletonList(
+                rotateCubeToGetColorOnBottomSide(firstCenterColor)))));
         int vertOfBegin = interpretation2x2Vertices.getIndexVertexFromBottomHasColor(firstCenterColor);
         setCentersByVertex(vertOfBegin);
 
         Cube3x3 cube3x3 = new Cube3x3(cube);
         LBL3X3 lbl3X3 = new LBL3X3(cube3x3);
-        ArrayList<SolutionLBL> tempAlg = lbl3X3.solveFirstLayer();
-        cube.makeMoves(solution.getWholeAlg(tempAlg));
+        ArrayList<Solution> tempAlg = lbl3X3.solveFirstLayer();
+        cube.makeMoves(Solution.getWholeAlg(tempAlg));
         algorithm.addAll(tempAlg);
-        SolutionLBL tempSolution = lbl3X3.solveNotOrientedVertexes();
+        Solution tempSolution = lbl3X3.solveNotOrientedVertexes();
         cube.makeMoves(tempSolution.getAlgorithm());
         algorithm.add(tempSolution);
         algorithm.add(solvePll());
         return algorithm;
     }
 
-    public SolutionLBL solvePll() {
+    public Solution solvePll() {
         calculateVertices2x2.refreshCube(cube);
         interpretation2x2Vertices.interpretVertices(cube);
         ArrayList<Move> alg = new ArrayList<>();
@@ -57,8 +68,9 @@ public class LBL2X2 implements LBL {
         alg.add(calculateVertices2x2.moveBottomSideToGetRightPlacedVertexInCorrectPosition());
         alg.addAll(calculateVertices2x2.permuteVertexAlgorithm());
         cube.makeMoves(calculateVertices2x2.permuteVertexAlgorithm());
-        return new SolutionLBL(alg, "Permute",
-                new ArrayList<>(Arrays.asList(1, 2, 3, 4)), ElementType.VERTEX, ProgressInfo.NONE);
+        return Solution.permutation(alg,
+                new ArrayList<>(Arrays.asList(0, 1, 2, 3)),
+                new ArrayList<>(Arrays.asList(0, 1, 2, 3)));
     }
 
     public void setCentersByVertex(int indexVertex) {
@@ -68,10 +80,11 @@ public class LBL2X2 implements LBL {
     }
 
     private char[] setUpperRightFrontCenters(char[] centerArray) {
+
         interpretation2x2Vertices.interpretVertices(cube);
-        centerArray[0] = Interpretation.getColorOfOppositeSide(centerArray[1]);
-        centerArray[3] = Interpretation.getColorOfOppositeSide(centerArray[2]);
-        centerArray[4] = Interpretation.getColorOfOppositeSide(centerArray[5]);
+        centerArray[0] = interpretation.getColorOfOppositeSide(centerArray[1]);
+        centerArray[3] = interpretation.getColorOfOppositeSide(centerArray[2]);
+        centerArray[4] = interpretation.getColorOfOppositeSide(centerArray[5]);
         return centerArray;
     }
 
@@ -82,7 +95,7 @@ public class LBL2X2 implements LBL {
                 return vertexColors[1];
             case 5:
             case 6:
-                return Interpretation.getColorOfOppositeSide(vertexColors[1]);
+                return interpretation.getColorOfOppositeSide(vertexColors[1]);
         }
         return 'x';
     }
@@ -91,7 +104,7 @@ public class LBL2X2 implements LBL {
         switch (indexVertex) {
             case 6:
             case 7:
-                return Interpretation.getColorOfOppositeSide(vertexColors[2]);
+                return interpretation.getColorOfOppositeSide(vertexColors[2]);
             case 4:
             case 5:
                 return vertexColors[2];
