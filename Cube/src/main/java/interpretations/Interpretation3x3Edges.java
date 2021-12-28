@@ -26,23 +26,6 @@ public class Interpretation3x3Edges {
         centerArray = Interpretation.getCenterArray(cube);
     }
 
-    public int[] getOrderSolvingCrossEdges(char color) {
-        int[] order = new int[4];
-        int[] sides = new int[]{2, 4, 3, 5};
-        int beginIndex = 0;
-        int endIndex = 3;
-        for (int i = 0; i < 4; i++) {
-            if (edgeArrayList.get(11 - i).getColor()[0] == color) {
-                order[endIndex] = sides[i];
-                endIndex--;
-            } else {
-                order[beginIndex] = sides[i];
-                beginIndex++;
-            }
-        }
-        return order;
-    }
-
     private void saveEdgePositionOnWallsAndFields() {
         edgeArrayList.add(addSingleEdge(new int[]{0, 5}, new int[]{1, 1}));
         edgeArrayList.add(addSingleEdge(new int[]{0, 3}, new int[]{4, 1}));
@@ -95,13 +78,6 @@ public class Interpretation3x3Edges {
             return 9;
         }
         return 11;
-    }
-
-    public int getIndexFieldOfEdgeWithGivenColor(int edgeIndex, char color) {
-        if (edgeArrayList.get(edgeIndex).getColor()[0] == color) {
-            return 0;
-        }
-        return 1;
     }
 
     public char[] getColorOnCircumferenceFromGivenSide(int side) {
@@ -242,14 +218,6 @@ public class Interpretation3x3Edges {
         return -1;
     }
 
-    public int getEdgeIndexFromSideWithGivenColorOnCircumference(int side, char color) {
-        return getEdgeIndexFromSideWithGivenColorOnSide(side, color, true);
-    }
-
-    public int getEdgeIndexFromSideWithGivenColorOnInnerSide(int side, char color) {
-        return getEdgeIndexFromSideWithGivenColorOnSide(side, color, false);
-    }
-
     public int getEdgeIndexFromSideWithGivenColorOnSide(int side, char color) {
         int onCircumference = getEdgeIndexFromSideWithGivenColorOnSide(side, color, true);
         if (onCircumference == -1) {
@@ -267,21 +235,6 @@ public class Interpretation3x3Edges {
         return edges;
     }
 
-    public boolean isFieldOnCircumference(int side, int sideEdgeNumber, int edgeFieldIndex) {
-        int[] circumferenceFields = getIndexesOfFieldsOnEdgesOnGivenSide(side);
-        return circumferenceFields[sideEdgeNumber] == edgeFieldIndex;
-    }
-
-    public int getSideEdgeNumber(int side, int edgeIndex) {
-        int[] edgeIndexes = getIndexesOfEdgesOnGivenSide(side);
-        for (int i = 0; i < 4; i++) {
-            if (edgeIndexes[i] == edgeIndex) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public int[] getIndexesOfEdgesOnGivenSide(int side) {
         switch (side) {
             case 1:
@@ -289,7 +242,7 @@ public class Interpretation3x3Edges {
             case 2:
                 return new int[]{3, 7, 11, 4};
             case 3:
-                return new int[]{1, 5, 9, 6}; // R2,R, -, R'
+                return new int[]{1, 5, 9, 6};
             case 4:
                 return new int[]{2, 6, 10, 7};
             case 5:
@@ -308,35 +261,6 @@ public class Interpretation3x3Edges {
                 return new int[]{0, 0, 0, 0};
         }
         return null;
-    }
-
-    public boolean isCrossInCorrectOrder(char crossColor) {
-        char[] currentOrder = new char[4];
-        for (int i = 0; i < 4; i++) {
-            currentOrder[i] = edgeArrayList.get(i + 8).getColor()[1];
-        }
-        char oppositeColor = Interpretation.getColorOfOppositeSide(crossColor);
-        char[] expectedOrder = Interpretation.getColorOrder(oppositeColor);
-        for (int i = 0; i < 4; i++) {
-            int expectedOrderIndex = new String(expectedOrder).indexOf(currentOrder[i]);
-            if (isCorrectOrderInCurrentOrder(currentOrder, expectedOrder, i, expectedOrderIndex)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isCorrectOrderInCurrentOrder(char[] currentOrder, char[] expectedOrder, int currentOrderIndex, int expectedOrderIndex) {
-        int matches = 0;
-        for (int j = 1; j < 4; j++) {
-            if (currentOrder[(currentOrderIndex + j) % 4] == expectedOrder[(expectedOrderIndex + j) % 4]) {
-                matches++;
-            }
-            if (matches == 3) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public int countEdgesPairedWithCenters() {
@@ -423,9 +347,10 @@ public class Interpretation3x3Edges {
                         edgeArrayList.get(0).getColor()[0] != centerArray[0]);
     }
 
-    public boolean isUpperIncorrectCrossPositionCorrect() {
+    public boolean isUpperIncorrectCrossPositionCorrect(char[] center) {
+        Interpretation interpretation = new Interpretation(center);
         return edgeArrayList.get(0).getColor()[1] ==
-                Interpretation.getColorOfOppositeSide(edgeArrayList.get(2).getColor()[1]) ||
+                interpretation.getColorOfOppositeSide(edgeArrayList.get(2).getColor()[1]) ||
                 (edgeArrayList.get(0).getColor()[1] == centerArray[2] &&
                         edgeArrayList.get(1).getColor()[1] == centerArray[3]);
 

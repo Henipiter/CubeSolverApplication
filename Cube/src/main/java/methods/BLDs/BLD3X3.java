@@ -27,10 +27,7 @@ public class BLD3X3 implements BLD {
 
     public BLD3X3(Cube cube) {
         this.cube = (Cube3x3) cube;
-//        patternCube = new Cube3x3(cube.getCenter());
-//        rotatePatternCube();
-//        interpretationPatternCubeVertex.interpretVertices(patternCube);
-//        interpretationPatternCubeEdge.interpretEdges(patternCube);
+        refresh();
     }
 
     @Override
@@ -45,11 +42,16 @@ public class BLD3X3 implements BLD {
         return solutionBLDs;
     }
 
-    public void refreshBeforeSolve(ArrayList<Move> alg) {
-        cube.makeMoves(alg);
+    private void refresh(){
         patternCube = new Cube3x3(cube.getCenter());
         interpretationPatternCubeVertex.interpretVertices(patternCube);
         interpretationPatternCubeEdge.interpretEdges(patternCube);
+
+    }
+
+    public void refreshBeforeSolve(ArrayList<Move> alg) {
+        cube.makeMoves(alg);
+        refresh();
     }
 
     public Solution solveOrientation(char upperColor, char frontColor) {

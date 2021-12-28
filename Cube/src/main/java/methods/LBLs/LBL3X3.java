@@ -23,6 +23,7 @@ public class LBL3X3 implements LBL {
     private final Interpretation3x3Vertices interpretation3x3Vertices;
     private final CalculateEdges3x3 calculateEdges;
     private final CalculateVertices3x3 calculateVertices;
+    private final Interpretation interpretation;
 
     public LBL3X3(Cube cube) {
         this.cube = (Cube3x3) cube;
@@ -30,6 +31,7 @@ public class LBL3X3 implements LBL {
         interpretation3x3Vertices = new Interpretation3x3Vertices();
         calculateVertices = new CalculateVertices3x3((Cube3x3) cube);
         calculateEdges = new CalculateEdges3x3((Cube3x3) cube);
+        interpretation = new Interpretation(cube.getCenter());
     }
 
     public ArrayList<Solution> solveF2L_LBL(char firstCenterColor) {
@@ -113,7 +115,7 @@ public class LBL3X3 implements LBL {
 
 
     private Move rotateCubeToSetCrossOnBottom(char firstCenterColor) {
-        char oppositeColor = Interpretation.getColorOfOppositeSide(firstCenterColor);
+        char oppositeColor = interpretation.getColorOfOppositeSide(firstCenterColor);
         int sideWithOppositeColor =
                 Interpretation3x3Centers.getCenterNumberWithGivenColor(cube, oppositeColor);
         return CalculateMoves.rotateSideToGetItOnTopAlgorithm(sideWithOppositeColor);
@@ -165,7 +167,7 @@ public class LBL3X3 implements LBL {
 
         return Solution.firstLayer(algorithm,
                 new ArrayList<>(Collections.singletonList(originalVertexIndex)),
-                new ArrayList<>(Collections.singletonList(vertexIndex+4)));
+                new ArrayList<>(Collections.singletonList(vertexIndex + 4)));
     }
 
     private Solution putVertexFromBottomLayerToUpperSide() {
@@ -185,7 +187,7 @@ public class LBL3X3 implements LBL {
         cube.makeMoves(joinAlg);
         return Solution.firstLayer(algorithm,
                 new ArrayList<>(Collections.singletonList(originalVertexIndex)),
-                new ArrayList<>(Collections.singletonList(vertexIndex%4)));
+                new ArrayList<>(Collections.singletonList(vertexIndex % 4)));
     }
 
     public ArrayList<Solution> solveFirstLayer() {

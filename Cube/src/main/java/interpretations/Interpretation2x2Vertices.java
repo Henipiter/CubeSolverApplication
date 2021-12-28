@@ -69,8 +69,9 @@ public class Interpretation2x2Vertices {
         return -1;
     }
 
-    public boolean isVerticesNotPairedAreAcross() {
-        return vertexArrayList.get(0).getColor()[2] == Interpretation.getColorOfOppositeSide(vertexArrayList.get(1).getColor()[2]);
+    public boolean isVerticesNotPairedAreAcross(char[] center) {
+        Interpretation interpretation = new Interpretation(center);
+        return vertexArrayList.get(0).getColor()[2] == interpretation.getColorOfOppositeSide(vertexArrayList.get(1).getColor()[2]);
     }
 
     public boolean isVerticesNotPairedInLine() {
@@ -93,8 +94,8 @@ public class Interpretation2x2Vertices {
         return isVerticesNotPairedInLine();
     }
 
-    public boolean isVerticesAcrossInRightPosition() {
-        return isVerticesNotPairedAreAcross();
+    public boolean isVerticesAcrossInRightPosition(char[] center) {
+        return isVerticesNotPairedAreAcross(center);
     }
 
     public boolean isUpperLayerFitToBottomLayer() {

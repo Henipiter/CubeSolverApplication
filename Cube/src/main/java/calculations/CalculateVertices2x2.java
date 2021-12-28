@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class CalculateVertices2x2 {
 
-    private Interpretation2x2Vertices interpretation2x2Vertices = new Interpretation2x2Vertices();
-    private Cube2x2 cube2x2;
+    private final Interpretation2x2Vertices interpretation2x2Vertices = new Interpretation2x2Vertices();
+    private final Cube2x2 cube2x2;
 
     public CalculateVertices2x2(Cube2x2 cube2x2) {
         this.cube2x2 = cube2x2;
@@ -45,7 +45,7 @@ public class CalculateVertices2x2 {
 
     private Move moveUpperSideToGetRightPlaceVertexAcross() {
         int movesCounter = 0;
-        while (!interpretation2x2Vertices.isVerticesAcrossInRightPosition()) {
+        while (!interpretation2x2Vertices.isVerticesAcrossInRightPosition(cube2x2.getCenter())) {
             movesCounter++;
             cube2x2.move("U");
             refreshCube(cube2x2);

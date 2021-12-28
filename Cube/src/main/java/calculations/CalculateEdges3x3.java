@@ -267,7 +267,7 @@ public class CalculateEdges3x3 extends CalculateMoves {
 
     public Move rotateUpperIncorrectCrossToRightPosition() {
         int movesCounter = 0;
-        while (!interpretation3x3Edges.isUpperIncorrectCrossPositionCorrect()) {
+        while (!interpretation3x3Edges.isUpperIncorrectCrossPositionCorrect(cube3x3.getCenter())) {
             movesCounter++;
             cube3x3.move("y");
             refreshCube(cube3x3);

@@ -12,6 +12,7 @@ import cubes.Cube;
 import cubes.Cube3x3;
 import cubes.Cube4x4;
 import interpretations.Interpretation;
+import interpretations.Interpretation3x3Vertices;
 import interpretations.Interpretation4x4Centers;
 import interpretations.Interpretation4x4Edges;
 
@@ -26,6 +27,7 @@ public class LBL4X4 implements LBL {
     private final CalculateCenters4x4 calculateCenters4x4;
     private final CalculateEdges4x4 calculateEdges4x4;
     private Cube3x3 cube3x3;
+    private final Interpretation interpretation;
 
     public LBL4X4(Cube cube) {
         interpretation4x4Centers = new Interpretation4x4Centers();
@@ -33,6 +35,8 @@ public class LBL4X4 implements LBL {
         calculateCenters4x4 = new CalculateCenters4x4();
         calculateEdges4x4 = new CalculateEdges4x4((Cube4x4) cube);
         this.cube = (Cube4x4) cube;
+        setCenters();
+        interpretation = new Interpretation(cube.getCenter());
     }
 
     @Override
@@ -42,6 +46,13 @@ public class LBL4X4 implements LBL {
         algorithm.addAll(pairAllEdges());
         algorithm.addAll(phase3x3(firstCenterColor));
         return algorithm;
+    }
+
+    private void setCenters() {
+        Cube3x3 cube3x3 = new Cube3x3(cube);
+        Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
+        interpretation3x3Vertices.interpretVertices(cube3x3);
+        cube.setCenter(interpretation3x3Vertices.analyzeColorOrder());
     }
 
     public ArrayList<Solution> solveCenters(char firstCenterColor) {
@@ -105,7 +116,7 @@ public class LBL4X4 implements LBL {
     public Solution solveSecondCenter() {
         interpretation4x4Centers.interpretCenters(cube);
         ArrayList<Move> algorithm = new ArrayList<>();
-        char secondCenterColor = Interpretation.getColorOfOppositeSide(interpretation4x4Centers.getColorOfCenter(0));
+        char secondCenterColor = interpretation.getColorOfOppositeSide(interpretation4x4Centers.getColorOfCenter(0));
         algorithm.add(new Move("x2"));
         updateCubeAndInterpretationAndCalculation(algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, secondCenterColor, new int[]{4, 2, 3, 5});
@@ -142,7 +153,7 @@ public class LBL4X4 implements LBL {
         int numOfDestSide = 4;
         char colorOnLeft = interpretation4x4Centers.getCenterArrayList().get(2).getColor()[0];
         char colorOnUp = interpretation4x4Centers.getCenterArrayList().get(0).getColor()[0];
-        char colorOfDestSide = Interpretation.whichColorIsNextInOrder(numOfDestSide, colorOnLeft, colorOnUp);
+        char colorOfDestSide = interpretation.whichColorIsNextInOrder(numOfDestSide, colorOnLeft, colorOnUp);
         temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{4, 1});
@@ -158,7 +169,7 @@ public class LBL4X4 implements LBL {
         int numOfDestSide = 4;
         char colorOnLeft = interpretation4x4Centers.getCenterArrayList().get(2).getColor()[0];
         char colorOnUp = interpretation4x4Centers.getCenterArrayList().get(0).getColor()[0];
-        char colorOfDestSide = Interpretation.whichColorIsNextInOrder(numOfDestSide, colorOnLeft, colorOnUp);
+        char colorOfDestSide = interpretation.whichColorIsNextInOrder(numOfDestSide, colorOnLeft, colorOnUp);
         temp_alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(numOfDestSide));
         addToAlgorithmAndUpdateCubeStuff(temp_alg, algorithm);
         getAlgorithmToSolveWholeCenter(algorithm, colorOfDestSide, new int[]{5});

@@ -8,8 +8,8 @@ public class Interpretation1x1 {
 
     private Cube1x1 cube;
 
-    public Interpretation1x1() {
-        cube = new Cube1x1();
+    public Interpretation1x1(char[] center) {
+        cube = new Cube1x1(center);
     }
 
     public void refreshCube(Cube1x1 cube) {
@@ -17,7 +17,7 @@ public class Interpretation1x1 {
     }
 
     public int getSideWithGivenColor(char color) {
-        int result = 'w';
+        int result = -1;
         for (int side = 0; side < 6; side++) {
             if (cube.getCube()[side][0] == color) {
                 result = side;

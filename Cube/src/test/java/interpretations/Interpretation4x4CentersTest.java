@@ -19,9 +19,10 @@ public class Interpretation4x4CentersTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"w,y","y,w","g,b","b,g","o,r","r,o"})
+    @CsvSource({"w,y", "y,w", "g,b", "b,g", "o,r", "r,o"})
     public void call_getColorOfOppositeSide_and_check_correctness(char input, char expected) {
-        Assertions.assertEquals(expected, Interpretation.getColorOfOppositeSide(input));
+        Interpretation interpretation = new Interpretation(new char[]{'w', 'y', 'r', 'o', 'g', 'b'});
+        Assertions.assertEquals(expected, interpretation.getColorOfOppositeSide(input));
     }
 
     @Test
@@ -44,20 +45,20 @@ public class Interpretation4x4CentersTest {
 
 
     @Test
-    public void call_inWhichSideIsTheMostWhiteFields_and_should_return_0(){
+    public void call_inWhichSideIsTheMostWhiteFields_and_should_return_0() {
         interpretation4X4Centers.interpretCenters(cube);
         Assertions.assertEquals(0, interpretation4X4Centers.getSideWithTheMostFieldsWithGivenColor('w'));
     }
 
     @Test
-    public void call_inWhichSideIsTheMostWhiteFields_and_should_return_5(){
+    public void call_inWhichSideIsTheMostWhiteFields_and_should_return_5() {
         cube.makeMoves("x");
         interpretation4X4Centers.interpretCenters(cube);
         Assertions.assertEquals(5, interpretation4X4Centers.getSideWithTheMostFieldsWithGivenColor('w'));
     }
 
     @Test
-    public void call_inWhichSideIsTheMostWhiteFields_and_should_return_4(){
+    public void call_inWhichSideIsTheMostWhiteFields_and_should_return_4() {
         cube.makeMoves("r u x'");
         interpretation4X4Centers.interpretCenters(cube);
         Assertions.assertEquals(4, interpretation4X4Centers.getSideWithTheMostFieldsWithGivenColor('w'));
@@ -67,13 +68,13 @@ public class Interpretation4x4CentersTest {
 
 
     @Test
-    public void call_inWhichSideIsGivenColorFieldsExceptUpperSide_and_should_return_0(){
+    public void call_inWhichSideIsGivenColorFieldsExceptUpperSide_and_should_return_0() {
         interpretation4X4Centers.interpretCenters(cube);
         Assertions.assertEquals(0, interpretation4X4Centers.inWhichSideIsGivenColorFieldsExceptUpperSide('w'));
     }
 
     @Test
-    public void call_inWhichSideIsGivenColorFieldsExceptUpperSide_and_should_return_3(){
+    public void call_inWhichSideIsGivenColorFieldsExceptUpperSide_and_should_return_3() {
         cube.makeMoves("r u");
         interpretation4X4Centers.interpretCenters(cube);
         Assertions.assertEquals(3, interpretation4X4Centers.inWhichSideIsGivenColorFieldsExceptUpperSide('w'));
@@ -82,136 +83,135 @@ public class Interpretation4x4CentersTest {
     /*****************************************************************/
 
     @Test
-    public void call_countFieldWithGivenColor_and_verify_correctness(){
+    public void call_countFieldWithGivenColor_and_verify_correctness() {
         cube.makeMoves("r u");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(0,'w'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0,'y'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0,'o'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0,'r'));
-        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(0,'g'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0,'b'));
+        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(0, 'w'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0, 'y'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0, 'o'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0, 'r'));
+        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(0, 'g'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(0, 'b'));
 
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1,'w'));
-        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(1,'y'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1,'o'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1,'r'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1,'g'));
-        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(1,'b'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1, 'w'));
+        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(1, 'y'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1, 'o'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1, 'r'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(1, 'g'));
+        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(1, 'b'));
 
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(4,'w'));
-        Assertions.assertEquals(1, interpretation4X4Centers.countFieldWithGivenColor(4,'y'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(4,'o'));
-        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(4,'r'));
-        Assertions.assertEquals(1, interpretation4X4Centers.countFieldWithGivenColor(4,'g'));
-        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(4,'b'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(4, 'w'));
+        Assertions.assertEquals(1, interpretation4X4Centers.countFieldWithGivenColor(4, 'y'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(4, 'o'));
+        Assertions.assertEquals(2, interpretation4X4Centers.countFieldWithGivenColor(4, 'r'));
+        Assertions.assertEquals(1, interpretation4X4Centers.countFieldWithGivenColor(4, 'g'));
+        Assertions.assertEquals(0, interpretation4X4Centers.countFieldWithGivenColor(4, 'b'));
     }
 
     /*****************************************************************/
 
     @Test
-    public void call_isStripesOnGivenSides_with_parallel_stripes_and_should_return_true(){
+    public void call_isStripesOnGivenSides_with_parallel_stripes_and_should_return_true() {
         cube.makeMoves("r");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4X4Centers.isStripesOnGivenSides(0,5,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isStripesOnGivenSides(0, 5, 'w'));
     }
 
     @Test
-    public void call_isStripesOnGivenSides_with_across_stripes_and_should_return_true(){
+    public void call_isStripesOnGivenSides_with_across_stripes_and_should_return_true() {
         cube.makeMoves("u F");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4X4Centers.isStripesOnGivenSides(4,3,'r'));
+        Assertions.assertTrue(interpretation4X4Centers.isStripesOnGivenSides(4, 3, 'r'));
     }
 
     @Test
-    public void call_isStripesOnGivenSides_with_no_stripe_on_one_side_and_should_return_false(){
+    public void call_isStripesOnGivenSides_with_no_stripe_on_one_side_and_should_return_false() {
         cube.makeMoves("u F u");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isStripesOnGivenSides(4,3,'r'));
+        Assertions.assertFalse(interpretation4X4Centers.isStripesOnGivenSides(4, 3, 'r'));
     }
 
     @Test
-    public void call_isStripesOnGivenSides_with_no_stripes_on_both_side_and_should_return_false(){
+    public void call_isStripesOnGivenSides_with_no_stripes_on_both_side_and_should_return_false() {
         cube.makeMoves("u l f");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isStripesOnGivenSides(2,0,'o'));
+        Assertions.assertFalse(interpretation4X4Centers.isStripesOnGivenSides(2, 0, 'o'));
     }
 
     /*****************************************************************/
 
     @Test
-    public void call_isTwoFieldsFormStripe_with_lengthwise_stripe_and_should_return_true(){
+    public void call_isTwoFieldsFormStripe_with_lengthwise_stripe_and_should_return_true() {
         cube.makeMoves("u");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormStripe(0,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isTwoFieldsFormStripe(0, 'w'));
     }
 
     @Test
-    public void call_isTwoFieldsFormStripe_with_not_lengthwise_stripe_and_should_return_false(){
+    public void call_isTwoFieldsFormStripe_with_not_lengthwise_stripe_and_should_return_false() {
         cube.makeMoves("u r");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(2,'g'));
+        Assertions.assertFalse(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(2, 'g'));
     }
 
     @Test
-    public void call_isTwoFieldsFormStripe_with_two_field_on_side_but_no_stripe_and_should_return_false(){
+    public void call_isTwoFieldsFormStripe_with_two_field_on_side_but_no_stripe_and_should_return_false() {
         cube.makeMoves("u r U' r'");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(4,'g'));
+        Assertions.assertFalse(interpretation4X4Centers.isTwoFieldsFormLengthwiseStripe(4, 'g'));
     }
 
     /*****************************************************************/
 
     @Test
-    public void call_isStripesAreInOneLine_with_stripes_in_one_line_and_should_return_true(){
+    public void call_isStripesAreInOneLine_with_stripes_in_one_line_and_should_return_true() {
         cube.makeMoves("r U2");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isStripesAreInOneLine(0,4,'r'));
+        Assertions.assertFalse(interpretation4X4Centers.isStripesAreInOneLine(0, 4, 'r'));
     }
 
     @Test
-    public void call_isStripesAreInOneLine_with_no_stripes_in_one_line_and_should_return_false(){
+    public void call_isStripesAreInOneLine_with_no_stripes_in_one_line_and_should_return_false() {
         cube.makeMoves("r");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isStripesAreInOneLine(0,4,'r'));
+        Assertions.assertFalse(interpretation4X4Centers.isStripesAreInOneLine(0, 4, 'r'));
     }
 
     @Test
-    public void call_isStripesAreInOneLine_with_stripes_across_and_should_return_false(){
+    public void call_isStripesAreInOneLine_with_stripes_across_and_should_return_false() {
         cube.makeMoves("r U");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isStripesAreInOneLine(0,4,'g'));
+        Assertions.assertFalse(interpretation4X4Centers.isStripesAreInOneLine(0, 4, 'g'));
     }
 
     /*****************************************************************/
 
     @Test
-    public void call_getNumOfFieldsOnGivenSideWithGivenColor_and_should_return_2(){
+    public void call_getNumOfFieldsOnGivenSideWithGivenColor_and_should_return_2() {
         cube.makeMoves("r U");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertEquals(2, interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(0,'g'));
+        Assertions.assertEquals(2, interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(0, 'g'));
     }
 
     @Test
-    public void call_getNumOfFieldsOnGivenSideWithGivenColor_and_should_return_minus1(){
+    public void call_getNumOfFieldsOnGivenSideWithGivenColor_and_should_return_minus1() {
         cube.makeMoves("r U");
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertEquals(-1, interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(0,'r'));
+        Assertions.assertEquals(-1, interpretation4X4Centers.getNumOfFieldsOnGivenSideWithGivenColor(0, 'r'));
     }
 
     /*****************************************************************/
 
     @Test
-    public void call_isFieldInGivenColor_and_should_return_true(){
+    public void call_isFieldInGivenColor_and_should_return_true() {
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertTrue(interpretation4X4Centers.isFieldInGivenColor(0,3,'w'));
+        Assertions.assertTrue(interpretation4X4Centers.isFieldInGivenColor(0, 3, 'w'));
     }
 
 
     @Test
-    public void call_isFieldInGivenColor_and_should_return_false(){
+    public void call_isFieldInGivenColor_and_should_return_false() {
         interpretation4X4Centers.interpretCenters(cube);
-        Assertions.assertFalse(interpretation4X4Centers.isFieldInGivenColor(0,3,'g'));
+        Assertions.assertFalse(interpretation4X4Centers.isFieldInGivenColor(0, 3, 'g'));
     }
-
 }

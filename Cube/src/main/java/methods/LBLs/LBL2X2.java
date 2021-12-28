@@ -11,6 +11,7 @@ import cubes.Cube2x2;
 import cubes.Cube3x3;
 import interpretations.Interpretation;
 import interpretations.Interpretation2x2Vertices;
+import interpretations.Interpretation3x3Vertices;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,18 +19,25 @@ import java.util.Collections;
 
 public class LBL2X2 implements LBL {
 
-    Solution solution;
     private Cube2x2 cube;
 
-    private Interpretation2x2Vertices interpretation2x2Vertices;
-    private CalculateVertices2x2 calculateVertices2x2;
+    private final Interpretation2x2Vertices interpretation2x2Vertices;
+    private final CalculateVertices2x2 calculateVertices2x2;
+    private final Interpretation interpretation;
 
     public LBL2X2(Cube cube) {
         this.cube = (Cube2x2) cube;
+        setCenters();
         interpretation2x2Vertices = new Interpretation2x2Vertices();
         calculateVertices2x2 = new CalculateVertices2x2((Cube2x2) cube);
+        interpretation = new Interpretation(cube.getCenter());
     }
-
+    private void setCenters() {
+        Cube3x3 cube3x3 = new Cube3x3(cube);
+        Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
+        interpretation3x3Vertices.interpretVertices(cube3x3);
+        cube.setCenter(interpretation3x3Vertices.analyzeColorOrder());
+    }
     @Override
     public ArrayList<Solution> solve(char firstCenterColor) {
         ArrayList<Solution> algorithm = new ArrayList<>();
@@ -72,10 +80,11 @@ public class LBL2X2 implements LBL {
     }
 
     private char[] setUpperRightFrontCenters(char[] centerArray) {
+
         interpretation2x2Vertices.interpretVertices(cube);
-        centerArray[0] = Interpretation.getColorOfOppositeSide(centerArray[1]);
-        centerArray[3] = Interpretation.getColorOfOppositeSide(centerArray[2]);
-        centerArray[4] = Interpretation.getColorOfOppositeSide(centerArray[5]);
+        centerArray[0] = interpretation.getColorOfOppositeSide(centerArray[1]);
+        centerArray[3] = interpretation.getColorOfOppositeSide(centerArray[2]);
+        centerArray[4] = interpretation.getColorOfOppositeSide(centerArray[5]);
         return centerArray;
     }
 
@@ -86,7 +95,7 @@ public class LBL2X2 implements LBL {
                 return vertexColors[1];
             case 5:
             case 6:
-                return Interpretation.getColorOfOppositeSide(vertexColors[1]);
+                return interpretation.getColorOfOppositeSide(vertexColors[1]);
         }
         return 'x';
     }
@@ -95,7 +104,7 @@ public class LBL2X2 implements LBL {
         switch (indexVertex) {
             case 6:
             case 7:
-                return Interpretation.getColorOfOppositeSide(vertexColors[2]);
+                return interpretation.getColorOfOppositeSide(vertexColors[2]);
             case 4:
             case 5:
                 return vertexColors[2];

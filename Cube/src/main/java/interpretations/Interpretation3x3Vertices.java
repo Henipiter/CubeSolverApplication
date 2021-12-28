@@ -27,6 +27,101 @@ public class Interpretation3x3Vertices {
         centerArray = Interpretation.getCenterArray(cube);
     }
 
+    public char[] analyzeColorOrder() {
+        char[] colors = new char[6];
+        colors[0] = 'w';
+        colors[2] = getColorWhichIsNotOnOppositeSide();
+        char[] thirdPairOfColor = getThirdPairCenterColors(colors[0], colors[2]);
+        colors[4] = thirdPairOfColor[0];
+        colors[5] = thirdPairOfColor[1];
+
+        int bottomCenterIndex = getVertexIndexWithTwoColorsWithoutOne(colors[2], colors[4], colors[0]);
+        colors[1] = getThirdColorVertex(vertexArrayList.get(bottomCenterIndex), colors[2], colors[4]);
+
+        int leftCenterIndex = getVertexIndexWithTwoColorsWithoutOne(colors[0], colors[4], colors[2]);
+        colors[3] = getThirdColorVertex(vertexArrayList.get(leftCenterIndex), colors[0], colors[4]);
+        return colors;
+
+    }
+
+    private char[] getThirdPairCenterColors(char color1, char color2) {
+        char[] pair = new char[2];
+        int vertexIndex1 = getVertexIndexWithTwoColors(-1, color1, color2);
+        int vertexIndex2 = getVertexIndexWithTwoColors(vertexIndex1, color1, color2);
+
+        Vertex vertex1 = rotateVertexColorToGetColorOnZeroIndex(
+                vertexArrayList.get(vertexIndex1), color1);
+        Vertex vertex2 = rotateVertexColorToGetColorOnZeroIndex(
+                vertexArrayList.get(vertexIndex2), color1);
+
+        if (vertex1.getColor()[1] == color2) {
+            switch (vertexIndex1) {
+                case 0:
+                case 2:
+                case 5:
+                case 7:
+                    pair[1] = vertex1.getColor()[2];
+                    pair[0] = getThirdColorVertex(vertex2, color1, color2);
+                    break;
+                case 1:
+                case 3:
+                case 4:
+                case 6:
+                    pair[0] = vertex1.getColor()[2];
+                    pair[1] = getThirdColorVertex(vertex2, color1, color2);
+                    break;
+            }
+        } else {
+            switch (vertexIndex1) {
+                case 0:
+                case 2:
+                case 5:
+                case 7:
+                    pair[0] = vertex1.getColor()[1];
+                    pair[1] = getThirdColorVertex(vertex2, color1, color2);
+                    break;
+                case 1:
+                case 3:
+                case 4:
+                case 6:
+                    pair[1] = vertex1.getColor()[1];
+                    pair[0] = getThirdColorVertex(vertex2, color1, color2);
+                    break;
+            }
+        }
+        return pair;
+
+    }
+
+    private char getThirdColorVertex(Vertex vertex, char color1, char color2) {
+        for (int i = 0; i < 3; i++) {
+            if (vertex.getColor()[i] != color1 && vertex.getColor()[i] != color2) {
+                return vertex.getColor()[i];
+            }
+        }
+        return 'x';
+    }
+
+    private char getColorWhichIsNotOnOppositeSide() {
+        if (getVertexIndexWithTwoColors(-1, 'w', 'r') != -1) {
+            return 'r';
+        } else {
+            return 'y';
+        }
+    }
+
+    private Vertex rotateVertexColorToGetColorOnZeroIndex(Vertex vertex, char color) {
+        while (vertex.getColor()[0] != color) {
+            vertex = rotateVertexColor(vertex);
+        }
+        return vertex;
+    }
+
+    private Vertex rotateVertexColor(Vertex vertex) {
+        char[] colors = vertex.getColor();
+        return Vertex.builder().color(new char[]{colors[1], colors[2], colors[0]}).build();
+    }
+
     private void saveVertexPositionOnWallsAndFields() {
         vertexArrayList.add(addSingleVertex(new int[]{0, 2, 5}, new int[]{0, 0, 0}));
         vertexArrayList.add(addSingleVertex(new int[]{0, 3, 5}, new int[]{2, 0, 2}));
@@ -45,6 +140,32 @@ public class Interpretation3x3Vertices {
 
     public boolean isVertexHasGivenColor(Vertex vertex, char color) {
         return getFieldWithColor(vertex, color) != -1;
+    }
+
+    private int getVertexIndexWithTwoColorsWithoutOne(char with1, char with2, char without) {
+        for (int i = 0; i < 8; i++) {
+            Vertex vertex = vertexArrayList.get(i);
+            if (isVertexHasGivenColor(vertex, with1) &&
+                    isVertexHasGivenColor(vertex, with2) &&
+                    !isVertexHasGivenColor(vertex, without)) {
+                return i;
+            }
+
+        }
+        return -1;
+    }
+
+    private int getVertexIndexWithTwoColors(int without, char color1, char color2) {
+        for (int i = 0; i < 8; i++) {
+            if (i != without) {
+                Vertex vertex = vertexArrayList.get(i);
+                if (isVertexHasGivenColor(vertex, color1) &&
+                        isVertexHasGivenColor(vertex, color2)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     public int getFieldWithColor(Vertex vertex, char color) {

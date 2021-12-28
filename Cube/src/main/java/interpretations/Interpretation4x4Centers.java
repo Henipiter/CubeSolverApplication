@@ -9,6 +9,7 @@ import java.util.ArrayList;
 @Data
 public class Interpretation4x4Centers {
     private ArrayList<Center> centerArrayList;
+    private char[] centerArray = new char[6];
 
     public Interpretation4x4Centers() {
         centerArrayList = new ArrayList<>();
@@ -22,6 +23,8 @@ public class Interpretation4x4Centers {
         centerArrayList.add(addSingleCenter(cube, 3, new int[]{6, 5, 9, 10}));
         centerArrayList.add(addSingleCenter(cube, 4, new int[]{5, 6, 10, 9}));
         centerArrayList.add(addSingleCenter(cube, 5, new int[]{9, 10, 6, 5}));
+
+        centerArray = Interpretation.getCenterArray(cube);
     }
 
     private Center addSingleCenter(Cube cube, int side, int[] fields) {
@@ -32,9 +35,10 @@ public class Interpretation4x4Centers {
         return new Center(centerColors);
     }
 
-    public char getColorOfOppositeSide(int side) {
+    public char getColorOfOppositeSide(int side, char[] center) {
+        Interpretation interpretation = new Interpretation(center);
         char sideColor = getColorOfCenter(side);
-        return Interpretation.getColorOfOppositeSide(sideColor);
+        return interpretation.getColorOfOppositeSide(sideColor);
     }
 
     public char getColorOfCenter(int side) {
