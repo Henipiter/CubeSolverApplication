@@ -210,13 +210,13 @@ public class LBL3x3Test {
         cube.makeMoves(scramble);
         lbl3X3 = new LBL3X3(cube);
         //when
-        Solution alg = lbl3X3.solveNotOrientedVertexes();
+        ArrayList<Solution> alg = lbl3X3.solveNotOrientedVertexes();
         //then
         interpretation3x3Vertices.interpretVertices(cube);
-        System.out.println("Solution: " + InspectMove.moveListToString(alg.getAlgorithm()));
+        System.out.println("Solution: " + InspectMove.moveListToString(Solution.getWholeAlg(alg)));
         Assertions.assertAll(
                 () -> Assertions.assertTrue(interpretation3x3Vertices.isAllVertexesInRightOrientation()),
-                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(alg.getAlgorithm()))
+                () -> Assertions.assertEquals(expected, InspectMove.moveListToString(Solution.getWholeAlg(alg)))
         );
     }
 

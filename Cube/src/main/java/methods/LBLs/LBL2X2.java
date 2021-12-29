@@ -38,6 +38,7 @@ public class LBL2X2 implements LBL {
         interpretation3x3Vertices.interpretVertices(cube3x3);
         cube.setCenter(interpretation3x3Vertices.analyzeColorOrder());
     }
+
     @Override
     public ArrayList<Solution> solve(char firstCenterColor) {
         ArrayList<Solution> algorithm = new ArrayList<>();
@@ -52,9 +53,9 @@ public class LBL2X2 implements LBL {
         ArrayList<Solution> tempAlg = lbl3X3.solveFirstLayer();
         cube.makeMoves(Solution.getWholeAlg(tempAlg));
         algorithm.addAll(tempAlg);
-        Solution tempSolution = lbl3X3.solveNotOrientedVertexes();
-        cube.makeMoves(tempSolution.getAlgorithm());
-        algorithm.add(tempSolution);
+        ArrayList<Solution> tempSolution = lbl3X3.solveNotOrientedVertexes();
+        cube.makeMoves(Solution.getWholeAlg(tempSolution));
+        algorithm.addAll(tempSolution);
         algorithm.add(solvePll());
         return algorithm;
     }
@@ -120,15 +121,6 @@ public class LBL2X2 implements LBL {
         centerArray[2] = getLeftCenterColor(indexVertex, vertexColors);
         centerArray[5] = getBackCenterColor(indexVertex, vertexColors);
         return centerArray;
-    }
-
-    private int getIndexOfChar(char c, char[] order) {
-        for (int i = 0; i < order.length; i++) {
-            if (order[i] == c) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public int getVertexOfBegin(char color) {

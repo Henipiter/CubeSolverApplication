@@ -7,13 +7,13 @@ import java.util.ArrayList;
 @Data
 public class Solution {
 
+    protected String message;
     protected ArrayList<Move> algorithm = new ArrayList<>();
     protected ArrayList<Integer> beginIndex;
     protected ArrayList<Integer> endIndex;
     protected ElementType elementType;
     protected ProgressInfo progressInfo;
 
-    protected String message;
     protected String marks;
     protected char color;
     protected InfoType infoType;
@@ -82,7 +82,8 @@ public class Solution {
     }
 
     public static Solution firstCross(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
-        return new Solution(algorithm, "First cross", beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.NONE);
+        String number = " (" + Counter.getAndIncrement() + ")";
+        return new Solution(algorithm, "First cross" + number, beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.NONE);
     }
 
     public static Solution firstIncorrectCross(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
@@ -90,11 +91,13 @@ public class Solution {
     }
 
     public static Solution firstLayer(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
-        return new Solution(algorithm, "First layer", beginIndexes, endIndexes, ElementType.VERTEX, ProgressInfo.CROSS);
+        String number = " (" + Counter.getAndIncrement() + ")";
+        return new Solution(algorithm, "First layer" + number, beginIndexes, endIndexes, ElementType.VERTEX, ProgressInfo.CROSS);
     }
 
     public static Solution secondLayer(ArrayList<Move> algorithm, ArrayList<Integer> beginIndexes, ArrayList<Integer> endIndexes) {
-        return new Solution(algorithm, "Second layer", beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.FIRST_LAYER);
+        String number = " (" + Counter.getAndIncrement() + ")";
+        return new Solution(algorithm, "Second layer" + number, beginIndexes, endIndexes, ElementType.EDGE, ProgressInfo.FIRST_LAYER);
     }
 
     public static Solution secondCross(ArrayList<Move> algorithm, char color) {
@@ -110,11 +113,18 @@ public class Solution {
     }
 
     public static Solution orientation(ArrayList<Move> algorithm, char color) {
-        return new Solution(algorithm, "Orient vertices", color, ElementType.ALL, ProgressInfo.NONE);
+        String number = " (" + Counter.getAndIncrement() + ")";
+        return new Solution(algorithm, "Orient vertices" + number, color, ElementType.ALL, ProgressInfo.NONE);
     }
 
-    public static Solution center4x4(ArrayList<Move> algorithm, char baseColor) {
-        return new Solution(algorithm, "Center", baseColor, ElementType.CENTER, ProgressInfo.NONE);
+    public static Solution center4x4(ArrayList<Move> algorithm, String message, char baseColor) {
+        return new Solution(algorithm, message, baseColor, ElementType.CENTER, ProgressInfo.NONE);
+    }
+
+    public static Solution pairEdges4x4(ArrayList<Move> algorithm, ArrayList<Integer> beginIndex, ArrayList<Integer> endIndex) {
+        String number = " (" + Counter.getAndIncrement() + ")";
+        return new Solution(algorithm, "Pair edge" + number,
+                beginIndex, endIndex, ElementType.EDGE, ProgressInfo.NONE);
     }
 
     public static Solution blind(ArrayList<Move> algorithm, String message, String marks,
