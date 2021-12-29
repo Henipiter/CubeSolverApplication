@@ -226,7 +226,7 @@ public class LBL3X3 implements LBL {
         return Solution.secondLayer(algorithm,
                 new ArrayList<>(Collections.singletonList(originalEdgeIndex)),
                 new ArrayList<>(Collections.singletonList(
-                        interpretationEdges.getEdgeIndexAfterJoinEdgeIntoSecondLayer(edge.getColor()[0]))));
+                        interpretationEdges.getEdgeIndexAfterJoinEdgeIntoSecondLayer(edge.getColor()[0], cube.getCenter()[3]))));
     }
 
     private Solution putEdgeFromSecondLayerToUpperSide() {

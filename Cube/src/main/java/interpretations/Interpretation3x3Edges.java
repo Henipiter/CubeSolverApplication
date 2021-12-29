@@ -63,8 +63,8 @@ public class Interpretation3x3Edges {
         return 4 * edgeLayer + edgeIndexOfLayerBeforeRotate;
     }
 
-    public int getEdgeIndexAfterJoinEdgeIntoSecondLayer(char secondCenterColor) {
-        if (secondCenterColor == centerArray[3]) {
+    public int getEdgeIndexAfterJoinEdgeIntoSecondLayer(char secondCenterColor, char rightCenter) {
+        if (secondCenterColor == rightCenter) {
             return 6;
         }
         return 7;
