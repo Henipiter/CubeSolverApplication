@@ -51,10 +51,4 @@ class ColorValidatorTest {
         //then
         Assertions.assertEquals(expect,result);
     }
-
-    @Test
-    void a(){
-        ColorValidator a = cube3x3.validate();
-
-    }
 }

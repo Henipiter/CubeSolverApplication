@@ -1,5 +1,7 @@
 package validations;
 
+import DTOs.Algorithm;
+import cache.FileElementCache;
 import cubes.Cube3x3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,8 @@ public class ElementsValidatorTest {
 
     @BeforeEach
     void init() {
+        FileElementCache.loadAll();
+        Algorithm.loadPermutations();
         cube3x3 = new Cube3x3();
     }
 

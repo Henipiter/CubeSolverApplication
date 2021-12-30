@@ -3,6 +3,7 @@ import DTOs.InspectMove;
 import DTOs.Move;
 import DTOs.Solution;
 import cache.CubeOrientationCache;
+import cache.FileElementCache;
 import cubes.Cube;
 import cubes.Cube2x2;
 import cubes.Cube3x3;
@@ -28,6 +29,7 @@ public class MultipleSolveMethod {
 
     @BeforeEach
     void init(){
+        FileElementCache.loadAll();
         Algorithm.loadPermutations();
     }
 

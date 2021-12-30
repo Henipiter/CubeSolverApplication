@@ -23,4 +23,12 @@ class InspectMoveTest {
         Assertions.assertEquals(expected, InspectMove.moveListToString(result));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "x R y D"
+    })
+    void stringToArrayToString(String a){
+        String result = InspectMove.moveListToString(InspectMove.stringToMoveList(a));
+        Assertions.assertEquals(a, result);
+    }
 }

@@ -2,25 +2,19 @@ package interpretations;
 
 import DTOs.Edge;
 import DTOs.EdgeExt;
-import DTOs.FileElement;
+import cache.FileElementCache;
 import cubes.Cube;
 import lombok.Getter;
-import parsers.ParseCodeToElement;
 import parsers.ParseElementToElementExt;
 import parsers.ParseFileElementToElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @Getter
 public class Interpretation3x3EdgesExt extends Interpretation3x3Edges {
 
-    private static final String EDGE_MARKS_FILE = "src/main/resources/edgeMarks.txt";
-    private static final String EDGE_SETUP_FILE = "src/main/resources/edgeSetup.txt";
-    private static final String EDGE_ALGORITHM_FILE = "src/main/resources/edgeReplaceAlg.txt";
-
-    private boolean[] edgeCorrect = new boolean[12];
+    private final boolean[] edgeCorrect = new boolean[12];
     private ArrayList<EdgeExt> edgeExtArrayList = new ArrayList<>(Collections.nCopies(12, null));
 
     public Interpretation3x3EdgesExt() {
@@ -59,26 +53,15 @@ public class Interpretation3x3EdgesExt extends Interpretation3x3Edges {
     }
 
     private void saveEdgeMarks() {
-        List<FileElement> elementList = ParseCodeToElement.getElementsFromFile(EDGE_MARKS_FILE);
-        ParseFileElementToElement.getEdgeName(edgeExtArrayList, elementList);
+        ParseFileElementToElement.getEdgeName(edgeExtArrayList, FileElementCache.getEdgeMarkList());
     }
 
     private void saveEdgeAlgorithm() {
-        List<FileElement> elementList = ParseCodeToElement.getElementsFromFile(EDGE_ALGORITHM_FILE);
-        ParseFileElementToElement.getEdgeAlgorithm(edgeExtArrayList, elementList);
+        ParseFileElementToElement.getEdgeAlgorithm(edgeExtArrayList, FileElementCache.getEdgeAlgorithmList());
     }
 
     private void saveEdgeSetups() {
-        List<FileElement> elementList = ParseCodeToElement.getElementsFromFile(EDGE_SETUP_FILE);
-        ParseFileElementToElement.getEdgeSetup(edgeExtArrayList, elementList);
-    }
-
-    private int getEdgeInIncorrectPlace() {
-        for (int i = 0; i < 12; i++) {
-            if (checkIfEdgeInIncorrectPlace(i) != -1)
-                return i;
-        }
-        return -1;
+        ParseFileElementToElement.getEdgeSetup(edgeExtArrayList, FileElementCache.getEdgeSetupList());
     }
 
     private int checkIfEdgeInIncorrectPlace(int edgeIndex) {

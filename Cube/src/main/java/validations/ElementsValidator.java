@@ -14,14 +14,13 @@ public class ElementsValidator {
     private boolean ollParity;
     private boolean pllParity;
 
-    private Cube3x3 cube3x3;
-    Solution solutionBLD;
+    private final Cube3x3 cube3x3;
 
     public ElementsValidator(Cube3x3 cube3x3) {
         this.cube3x3 = cube3x3;
         BLD3X3 bld3X3 = new BLD3X3(cube3x3);
         ArrayList<Solution> solution = bld3X3.solve('w', 'g');
-        cube3x3.makeMoves(solutionBLD.getWholeAlg(solution));
+        cube3x3.makeMoves(Solution.getWholeAlg(solution));
         validateRollingPop();
         validateOllParity();
         validatePllParity();
@@ -40,17 +39,5 @@ public class ElementsValidator {
         int vertexSolutionSize = bld3X3.solveAllVertices().size();
         int edgeSolutionSize = bld3X3.solveAllEdges().size();
         pllParity = vertexSolutionSize != edgeSolutionSize;
-    }
-
-    public void throwExceptions() throws Exception {
-        if (rollingPop) {
-            throw new Exception("RollingPop");
-        }
-        if (ollParity) {
-            throw new Exception("OllParity");
-        }
-        if (pllParity) {
-            throw new Exception("PllParity");
-        }
     }
 }
