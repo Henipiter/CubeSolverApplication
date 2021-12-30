@@ -18,6 +18,10 @@ public class Cube3x3 extends Cube {
 
     private Logger logger = Logger.getLogger("Cube3x3");
 
+    public static Cube3x3 empty(){
+        return new Cube3x3(new char[]{'x','x','x','x','x','x'});
+    }
+
     public Cube3x3() {
         this.cube = new char[6][8];
         initCenters();

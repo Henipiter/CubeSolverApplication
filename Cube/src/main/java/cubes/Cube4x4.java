@@ -20,6 +20,17 @@ public class Cube4x4 extends Cube {
     private void initCenters() {
         this.center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     }
+    public static Cube4x4 empty(){
+        return new Cube4x4(new char[]{'x','x','x','x','x','x'});
+    }
+
+    public Cube4x4(char[] center) {
+        this.cube = new char[6][16];
+        this.center = center;
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 16; j++)
+                cube[i][j] = center[i];
+    }
 
     public Cube4x4() {
         this.cube = new char[6][16];

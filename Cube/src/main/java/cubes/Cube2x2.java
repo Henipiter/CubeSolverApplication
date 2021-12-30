@@ -20,6 +20,10 @@ public class Cube2x2 extends Cube {
         this.center = new char[]{'w', 'y', 'o', 'r', 'g', 'b'};
     }
 
+    public static Cube2x2 empty(){
+        return new Cube2x2(new char[]{'x','x','x','x','x','x'});
+    }
+
     public Cube2x2() {
         this.cube = new char[6][4];
         initCenters();
@@ -28,6 +32,14 @@ public class Cube2x2 extends Cube {
                 cube[i][j] = center[i];
             }
         }
+    }
+
+    public Cube2x2(char[] center) {
+        this.cube = new char[6][4];
+        this.center = center;
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 4; j++)
+                cube[i][j] = center[i];
     }
 
     public Cube2x2(char[][] cube) {

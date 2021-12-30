@@ -1,14 +1,30 @@
 package cubes.cube2x2;
 
 
-
 import cubes.Cube2x2;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ConstructorTest {
+public class Cube2x2Test {
 
+    @Test
+    public void testCube2x2EmptyMethod(){
+
+        //given
+        Cube2x2 cube2x2 = Cube2x2.empty();
+        char[][] expected = new char[][] {
+                {'x','x','x','x'},
+                {'x','x','x','x'},
+                {'x','x','x','x'},
+                {'x','x','x','x'},
+                {'x','x','x','x'},
+                {'x','x','x','x'},
+        };
+
+        //then
+        Assert.assertArrayEquals(expected, cube2x2.getCube());
+
+    }
     @Test
     public void testCube2x2EmptyConstructor(){
 
