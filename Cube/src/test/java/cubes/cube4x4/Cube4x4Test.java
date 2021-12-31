@@ -21,8 +21,5 @@ public class Cube4x4Test {
         Cube4x4 cube4x4 = Cube4x4.empty();
         //then
         Assert.assertArrayEquals(expected, cube4x4.getCube());
-
-
     }
-
 }

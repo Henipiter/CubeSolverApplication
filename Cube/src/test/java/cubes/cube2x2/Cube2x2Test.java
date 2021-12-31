@@ -9,7 +9,6 @@ public class Cube2x2Test {
 
     @Test
     public void testCube2x2EmptyMethod(){
-
         //given
         Cube2x2 cube2x2 = Cube2x2.empty();
         char[][] expected = new char[][] {
@@ -20,11 +19,10 @@ public class Cube2x2Test {
                 {'x','x','x','x'},
                 {'x','x','x','x'},
         };
-
         //then
         Assert.assertArrayEquals(expected, cube2x2.getCube());
-
     }
+
     @Test
     public void testCube2x2EmptyConstructor(){
 
