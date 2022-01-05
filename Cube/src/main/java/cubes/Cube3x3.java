@@ -2,6 +2,7 @@ package cubes;
 
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
+import interpretations.Interpretation3x3Vertices;
 import lombok.Getter;
 import lombok.Setter;
 import parsers.Parse2x2To3x3;
@@ -18,8 +19,14 @@ public class Cube3x3 extends Cube {
 
     private Logger logger = Logger.getLogger("Cube3x3");
 
-    public static Cube3x3 empty(){
-        return new Cube3x3(new char[]{'x','x','x','x','x','x'});
+    public static Cube3x3 empty() {
+        return new Cube3x3(new char[]{'x', 'x', 'x', 'x', 'x', 'x'});
+    }
+
+    public static char[] getCentersFromVertices(Cube3x3 cube3x3) {
+        Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
+        interpretation3x3Vertices.interpretVertices(cube3x3);
+        return interpretation3x3Vertices.analyzeColorOrder();
     }
 
     public Cube3x3() {
@@ -58,8 +65,16 @@ public class Cube3x3 extends Cube {
     }
 
     public Cube3x3(char[][] cube, char[] center) {
-        this.cube = cube;
-        this.center = center;
+        this.center = new char[6];
+        this.cube = new char[6][8];
+        for (int i = 0; i < 6; i++) {
+            this.center[i] = center[i];
+        }
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 8; j++) {
+                this.cube[i][j] = cube[i][j];
+            }
+        }
     }
 
     private void rotate(boolean clockwise, int side) {

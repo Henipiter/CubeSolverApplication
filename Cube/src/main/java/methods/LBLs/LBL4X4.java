@@ -12,7 +12,6 @@ import cubes.Cube;
 import cubes.Cube3x3;
 import cubes.Cube4x4;
 import interpretations.Interpretation;
-import interpretations.Interpretation3x3Vertices;
 import interpretations.Interpretation4x4Centers;
 import interpretations.Interpretation4x4Edges;
 
@@ -49,10 +48,7 @@ public class LBL4X4 implements LBL {
     }
 
     private void setCenters() {
-        Cube3x3 cube3x3 = new Cube3x3(cube);
-        Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
-        interpretation3x3Vertices.interpretVertices(cube3x3);
-        cube.setCenter(interpretation3x3Vertices.analyzeColorOrder());
+        cube.setCenter(Cube3x3.getCentersFromVertices(new Cube3x3(cube)));
     }
 
     public ArrayList<Solution> solveCenters(char firstCenterColor) {
