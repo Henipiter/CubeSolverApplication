@@ -1,9 +1,13 @@
 package validations;
 
+import DTOs.Algorithm;
+import cache.FileElementCache;
 import cubes.Cube3x3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class ElementsValidatorTest {
 
@@ -14,6 +18,8 @@ public class ElementsValidatorTest {
 
     @BeforeEach
     void init() {
+        FileElementCache.loadAll();
+        Algorithm.loadPermutations();
         cube3x3 = new Cube3x3();
     }
 
@@ -27,6 +33,42 @@ public class ElementsValidatorTest {
         elementsValidator = new ElementsValidator(cube3x3);
         //then
         Assertions.assertTrue(elementsValidator.isRollingPop());
+    }
+
+    @Test
+    void a() {
+        //given
+        cube3x3.makeMoves(ALG1);
+        switchTwoFields(4,0,2,3);
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertTrue(elementsValidator.isWrongVertexColorOrder());
+    }
+
+    @Test
+    void aa() {
+        //given
+        cube3x3.makeMoves("z");
+        switchTwoFields(4,0,2,3);
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertTrue(elementsValidator.isWrongVertexColorOrder());
+    }
+
+    @Test
+    void correctCubeTest() {
+        //given
+        cube3x3.makeMoves("z");
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertFalse(elementsValidator.isOllParity());
+        Assertions.assertFalse(elementsValidator.isPllParity());
+        Assertions.assertFalse(elementsValidator.isRollingPop());
+        Assertions.assertFalse(elementsValidator.isWrongCenterOrder());
+        Assertions.assertFalse(elementsValidator.isWrongVertexColorOrder());
     }
 
     @Test
@@ -157,6 +199,73 @@ public class ElementsValidatorTest {
         elementsValidator = new ElementsValidator(cube3x3);
         //then
         Assertions.assertFalse(elementsValidator.isPllParity());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"R u x", "R u z", "R u y"})
+    void correctCenters() {
+        //given
+        cube3x3.makeMoves(ALG1);
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertFalse(elementsValidator.isWrongCenterOrder());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"R u x", "R u z", "R u y"})
+    void incorrectTwoCenters() {
+        //given
+        cube3x3.makeMoves(ALG1);
+        switchCenters(0, 1);
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertTrue(elementsValidator.isWrongCenterOrder());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"R u x", "R u z", "R u y"})
+    void incorrectTwoCenters1() {
+        //given
+        cube3x3.makeMoves(ALG1);
+        switchCenters(0, 4);
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertTrue(elementsValidator.isWrongCenterOrder());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"R R'", "R u x", "R u z", "R u y"})
+    void incorrectFourCenters() {
+        //given
+        cube3x3.makeMoves(ALG1);
+        switchCenters(0, 1);
+        switchCenters(2, 3);
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertFalse(elementsValidator.isWrongCenterOrder());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"R R'", "R u x", "R u z", "R u y"})
+    void incorrectThreeCenters() {
+        //given
+        cube3x3.makeMoves(ALG1);
+        switchCenters(0, 4);
+        switchCenters(4, 2);
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertTrue(elementsValidator.isWrongCenterOrder());
+    }
+
+    private void switchCenters(int side1, int side2) {
+        char centerColor = cube3x3.getCenter()[side1];
+        cube3x3.getCenter()[side1] = cube3x3.getCenter()[side2];
+        cube3x3.getCenter()[side2] = centerColor;
     }
 
     private void rotateVertex() {

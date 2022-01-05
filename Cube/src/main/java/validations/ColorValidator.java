@@ -46,7 +46,9 @@ public class ColorValidator {
         if (!sameColorEdgesCounter.containsKey(key)) {
             sameColorEdgesCounter.put(key, 1);
         } else {
-            sameColorEdgesCounter.replace(key, sameColorEdgesCounter.get(key) + 1);
+            int currentValue = sameColorEdgesCounter.get(key);
+            sameColorEdgesCounter.remove(key);
+            sameColorEdgesCounter.put(key, currentValue + 1);
         }
     }
 
@@ -67,9 +69,18 @@ public class ColorValidator {
         for (int i = 0; i < 3; i++) {
             colorPairIndex[i] = interpretation.getIndexOfColor(vertexColor[i]) / 2;
         }
-        return !(Arrays.stream(colorPairIndex).anyMatch(elem -> elem == 0) &&
-                Arrays.stream(colorPairIndex).anyMatch(elem -> elem == 1) &&
-                Arrays.stream(colorPairIndex).anyMatch(elem -> elem == 2));
+        return !(isArrayContainsInt(colorPairIndex, 0)
+                && isArrayContainsInt(colorPairIndex, 1)
+                && isArrayContainsInt(colorPairIndex, 2));
+    }
+
+    private boolean isArrayContainsInt(int[] array, int value) {
+        for (int i : array) {
+            if (i == value) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkWhetherVerticesHasColorsLikeInGivenVertex(int vertexIndex) {

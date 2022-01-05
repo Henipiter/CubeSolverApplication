@@ -3,6 +3,7 @@ package method.BLD;
 import DTOs.Algorithm;
 import DTOs.InspectMove;
 import DTOs.Solution;
+import cache.FileElementCache;
 import cubes.Cube;
 import cubes.Cube2x2;
 import methods.BLDs.BLD2X2;
@@ -19,6 +20,7 @@ public class BLD2x2Test {
 
     @BeforeAll
     static void initAll(){
+        FileElementCache.loadAll();
         Algorithm.loadPermutations();
     }
 

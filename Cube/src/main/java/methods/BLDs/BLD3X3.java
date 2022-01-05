@@ -11,6 +11,7 @@ import interpretations.Interpretation3x3VerticesExt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class BLD3X3 implements BLD {
 
@@ -34,8 +35,6 @@ public class BLD3X3 implements BLD {
     public ArrayList<Solution> solve(char upperColor, char frontColor) {
         ArrayList<Solution> solutionBLDs = new ArrayList<>();
         solutionBLDs.add(solveOrientation(upperColor, frontColor));
-
-        refreshBeforeSolve(solutionBLDs.get(0).getAlgorithm());
         solutionBLDs.addAll(solveAllVertices());
         solutionBLDs.add(solveParity(solutionBLDs.size() - 1));
         solutionBLDs.addAll(solveAllEdges());
@@ -56,10 +55,16 @@ public class BLD3X3 implements BLD {
 
     public Solution solveOrientation(char upperColor, char frontColor) {
         ArrayList<Move> alg = new ArrayList<>();
-        alg.add(CalculateMoves.rotateSideToGetItOnTopAlgorithm(Interpretation.getSideWithColor(
-                upperColor, cube.getCenter())));
-        alg.add(CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(
-                Interpretation.getSideWithColor(frontColor, cube.getCenter())));
+        Move onTop = CalculateMoves.rotateSideToGetItOnTopAlgorithm(Interpretation.getSideWithColor(
+                upperColor, cube.getCenter()));
+
+        alg.add(onTop);
+        refreshBeforeSolve(alg);
+        Move onFront = CalculateMoves.getMoveToSetGivenSideOnFrontExceptBottomAndUpperSide(
+                Interpretation.getSideWithColor(frontColor, cube.getCenter()));
+        alg.add(onFront);
+
+        refreshBeforeSolve(new ArrayList<>(Collections.singletonList(onFront)));
         return Solution.rotate(alg);
     }
 

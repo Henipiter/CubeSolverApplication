@@ -1,23 +1,18 @@
 package interpretations;
 
-import DTOs.FileElement;
 import DTOs.Vertex;
 import DTOs.VertexExt;
+import cache.FileElementCache;
 import cubes.Cube;
 import lombok.Getter;
-import parsers.ParseCodeToElement;
 import parsers.ParseElementToElementExt;
 import parsers.ParseFileElementToElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @Getter
 public class Interpretation3x3VerticesExt extends Interpretation3x3Vertices {
-
-    private static final String VERTEX_MARKS_FILE = "src/main/resources/vertexMarks.txt";
-    private static final String VERTEX_SETUP_FILE = "src/main/resources/vertexSetup.txt";
 
     private boolean[] vertexCorrect = new boolean[8];
     private ArrayList<VertexExt> vertexExtArrayList = new ArrayList<>(Collections.nCopies(8, null));
@@ -56,13 +51,11 @@ public class Interpretation3x3VerticesExt extends Interpretation3x3Vertices {
     }
 
     private void saveVertexMarks() {
-        List<FileElement> elementList = ParseCodeToElement.getElementsFromFile(VERTEX_MARKS_FILE);
-        ParseFileElementToElement.getVertexName(vertexExtArrayList, elementList);
+        ParseFileElementToElement.getVertexName(vertexExtArrayList, FileElementCache.getVertexMarkList());
     }
 
     private void saveVertexSetups() {
-        List<FileElement> elementList = ParseCodeToElement.getElementsFromFile(VERTEX_SETUP_FILE);
-        ParseFileElementToElement.getVertexSetup(vertexExtArrayList, elementList);
+        ParseFileElementToElement.getVertexSetup(vertexExtArrayList, FileElementCache.getVertexSetupList());
     }
 
     private boolean isVertexNotInRightPlaceOrHasIncorrectOrientation(int vertexIndex) {
