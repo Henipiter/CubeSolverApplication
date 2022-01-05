@@ -22,7 +22,6 @@ public class BLD2X2 implements BLD {
         ArrayList<Solution> solution = new ArrayList<>();
 
         solution.add(bld3X3.solveOrientation(upperColor, frontColor));
-        bld3X3.refreshBeforeSolve(solution.get(0).getAlgorithm());
         solution.addAll(bld3X3.solveAllVertices());
 
         return solution;
