@@ -65,7 +65,7 @@ public class BLD3X3 implements BLD {
         alg.add(onFront);
 
         refreshBeforeSolve(new ArrayList<>(Collections.singletonList(onFront)));
-        return Solution.rotate(alg);
+        return Solution.rotateBlind(alg);
     }
 
     public Solution solveParity(int size) {

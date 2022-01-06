@@ -140,6 +140,12 @@ public class Solution {
         return new Solution(alg, "Rotate cube");
     }
 
+    public static Solution rotateBlind(ArrayList<Move> alg) {
+        Solution solution = new Solution(alg, "Rotate cube");
+        solution.setMarks("");
+        return solution;
+    }
+
     public ArrayList<Move> getAlgorithm() {
         return algorithm;
     }

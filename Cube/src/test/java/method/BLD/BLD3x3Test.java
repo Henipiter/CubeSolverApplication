@@ -10,6 +10,8 @@ import methods.BLDs.BLD3X3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 
@@ -77,6 +79,42 @@ public class BLD3x3Test {
         cube.makeMoves("x2 F R' F x2 y2");
         cube.makeMoves(Solution.getWholeAlg(solution));
         Assertions.assertTrue(Cube.isSolved(cube));
+    }
+
+    @Test
+    void solveAllCubeWhenAllEdgesAreRotated() {
+        String scramble = "M U M U M U M U M' U M' U M' U M' U x2 M U M U M U M U M'" +
+                " U M' U M' U M' U x U M U M U M U2 M' U M' U M' U x2 U M U M U M U2 M' U M' U M' U";
+        cube = new Cube3x3();
+        cube.makeMoves(scramble);
+        bld3X3 = new BLD3X3(cube);
+        ArrayList<Solution> solution = bld3X3.solve('y', 'g');
+        cube.makeMoves(Solution.getWholeAlg(solution));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(solution)));
+        cube = new Cube3x3();
+        cube.makeMoves(scramble);
+        cube.makeMoves(Solution.getWholeAlg(solution));
+        Assertions.assertTrue(Cube.isSolved(cube));
+        Assertions.assertEquals("  A F C D B E J K M L N G I H T R Z S W O U P", Solution.getWholeMarks(solution));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "y R U' R' U R U' R' U D  R U' R' U R U' R' U D  R U' R' U R U' R' U D2 x2 D  R U' R' U R U' R' U D R U' R' U R U' R' U D R U' R' U R U' R' U D x' D' R U' R' U R U' R' U D  R U' R' U R U' R' U  R U' R' U R U' R' U x' y', ANCPBHULTSZFWJ",
+            "y R U R' U' R U R' U' D  R U R' U' R U R' U' D  R U R' U' R U R' U' D2 x2 D  R U R' U' R U R' U' D R U R' U' R U R' U' D R U R' U' R U R' U' D x' D' R U R' U' R U R' U' D  R U R' U' R U R' U'  R U R' U' R U R' U' x' y', AOCDBIUKTMZRWG"
+    })
+    void solveAllCubeWhenAllVerticesAreRotatedOnce(String scramble, String expectedMarks) {
+        cube = new Cube3x3();
+        cube.makeMoves(scramble);
+        bld3X3 = new BLD3X3(cube);
+        ArrayList<Solution> solution = bld3X3.solve('y', 'r');
+        cube.makeMoves(Solution.getWholeAlg(solution));
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(solution)));
+        cube = new Cube3x3();
+        cube.makeMoves(scramble);
+        cube.makeMoves(Solution.getWholeAlg(solution));
+        Assertions.assertTrue(Cube.isSolved(cube));
+        Assertions.assertEquals(expectedMarks, Solution.getWholeMarks(solution).replace(" ",""));
     }
 
     @Test
