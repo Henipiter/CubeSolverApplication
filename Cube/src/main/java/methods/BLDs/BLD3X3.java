@@ -25,6 +25,7 @@ public class BLD3X3 implements BLD {
 
     private final Cube3x3 cube;
     private Cube3x3 patternCube;
+    private boolean badColorOrder;
 
     public BLD3X3(Cube cube) {
         this.cube = (Cube3x3) cube;
@@ -33,6 +34,7 @@ public class BLD3X3 implements BLD {
 
     @Override
     public ArrayList<Solution> solve(char upperColor, char frontColor) {
+        badColorOrder = false;
         ArrayList<Solution> solutionBLDs = new ArrayList<>();
         solutionBLDs.add(solveOrientation(upperColor, frontColor));
         solutionBLDs.addAll(solveAllVertices());
@@ -41,7 +43,7 @@ public class BLD3X3 implements BLD {
         return solutionBLDs;
     }
 
-    private void refresh(){
+    private void refresh() {
         patternCube = new Cube3x3(cube.getCenter());
         interpretationPatternCubeVertex.interpretVertices(patternCube);
         interpretationPatternCubeEdge.interpretEdges(patternCube);
@@ -246,9 +248,32 @@ public class BLD3X3 implements BLD {
 
     private void noteUnsolvedVertices() {
         for (int i = 0; i < 8; i++) {
-            vertexCorrect[i] = Arrays.equals(interpretationCubeVertex.getVertexArrayList().get(i).getColor(),
-                    interpretationPatternCubeVertex.getVertexArrayList().get(i).getColor());
+            char[] color1 = interpretationCubeVertex.normalizeVertexColorOrder(i, interpretationCubeVertex.getVertexArrayList().get(i).getColor());
+            char[] color2 = interpretationCubeVertex.normalizeVertexColorOrder(i,interpretationPatternCubeVertex.getVertexArrayList().get(i).getColor());
+
+            vertexCorrect[i] = Arrays.equals(color1, color2)
+                    || (isVertexContainsAllColors(color1, color2) && isOneColorIsInTheSameField(color1, color2));
         }
+    }
+
+    private boolean isOneColorIsInTheSameField(char[] color1, char[] color2) {
+        for (int i = 0; i < 3; i++) {
+            if (color1[i] == color2[i]) {
+                badColorOrder = true;
+                System.out.println("AAAAAAAAAA");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isVertexContainsAllColors(char[] color1, char[] color2) {
+        for (int i = 0; i < 3; i++) {
+            if (!charArrayContainsChar(color1, color2[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void noteUnsolvedEdges() {
@@ -289,5 +314,9 @@ public class BLD3X3 implements BLD {
 
     private boolean charArrayContainsChar(char[] array, char character) {
         return new String(array).indexOf(character) != -1;
+    }
+
+    public boolean isBadColorOrder() {
+        return badColorOrder;
     }
 }

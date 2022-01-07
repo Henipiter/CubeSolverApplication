@@ -4,6 +4,7 @@ package cubes;
 import DTOs.Move;
 import DTOs.MoveTypeEnum;
 import lombok.Data;
+import parsers.Parse3x3To2x2;
 
 import java.util.logging.Logger;
 
@@ -45,6 +46,11 @@ public class Cube2x2 extends Cube {
     public Cube2x2(char[][] cube) {
         this.cube = cube;
         initCenters();
+    }
+
+    public Cube2x2(Cube3x3 cube3x3){
+        this.center = Parse3x3To2x2.copyCentersColors(cube3x3);
+        this.cube = Parse3x3To2x2.copyFieldsColors(cube3x3);
     }
 
     public void rotateSide(boolean clockwise, int side) {

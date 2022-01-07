@@ -20,7 +20,9 @@ public class Parse2x2To3x3 {
 
     public static char[] copyCentersColors(Cube2x2 cube2x2) {
         char[] centerArray = new char[6];
-        System.arraycopy(cube2x2.getCenter(), 0, centerArray, 0, 6);
+        for (int i = 0; i < 6; i++) {
+            centerArray[i] = cube2x2.getCenter()[i];
+        }
         return centerArray;
     }
 }

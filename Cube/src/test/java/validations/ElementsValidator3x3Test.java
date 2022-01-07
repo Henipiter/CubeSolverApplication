@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class ElementsValidatorTest {
+public class ElementsValidator3x3Test {
 
     private static final String ALG1 = "U2 R2 B2 U F2 L2 F2 D' F2 L2 R' B2 U2 R' U L' B' F' D2";
 
@@ -24,22 +24,10 @@ public class ElementsValidatorTest {
     }
 
     @Test
-    void rollingPop2Times() {
-        //given
-        rotateVertex();
-        cube3x3.makeMoves(ALG1);
-        rotateVertex();
-        //when
-        elementsValidator = new ElementsValidator(cube3x3);
-        //then
-        Assertions.assertTrue(elementsValidator.isRollingPop());
-    }
-
-    @Test
-    void a() {
+    void testWrongVertexColor1() {
         //given
         cube3x3.makeMoves(ALG1);
-        switchTwoFields(4,0,2,3);
+        switchTwoFields(4,0,2,2);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -47,10 +35,10 @@ public class ElementsValidatorTest {
     }
 
     @Test
-    void aa() {
+    void testWrongVertexColor2() {
         //given
         cube3x3.makeMoves("z");
-        switchTwoFields(4,0,2,3);
+        switchTwoFields(4,0,2,2);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -69,6 +57,18 @@ public class ElementsValidatorTest {
         Assertions.assertFalse(elementsValidator.isRollingPop());
         Assertions.assertFalse(elementsValidator.isWrongCenterOrder());
         Assertions.assertFalse(elementsValidator.isWrongVertexColorOrder());
+    }
+
+    @Test
+    void rollingPop2Times() {
+        //given
+        rotateVertex();
+        cube3x3.makeMoves(ALG1);
+        rotateVertex();
+        //when
+        elementsValidator = new ElementsValidator(cube3x3);
+        //then
+        Assertions.assertTrue(elementsValidator.isRollingPop());
     }
 
     @Test

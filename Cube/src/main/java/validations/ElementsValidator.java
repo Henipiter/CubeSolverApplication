@@ -3,9 +3,11 @@ package validations;
 import DTOs.Move;
 import DTOs.Solution;
 import calculations.CalculateMoves;
+import cubes.Cube2x2;
 import cubes.Cube3x3;
 import interpretations.Interpretation;
 import lombok.Getter;
+import methods.BLDs.BLD2X2;
 import methods.BLDs.BLD3X3;
 
 import java.util.ArrayList;
@@ -19,25 +21,50 @@ public class ElementsValidator {
     private boolean wrongCenterOrder;
     private boolean wrongVertexColorOrder;
 
-    private final Cube3x3 cube3x3;
+    private Cube3x3 cube3x3;
+    private Cube2x2 cube2x2;
 
     public ElementsValidator(Cube3x3 cube3x3) {
 
         this.cube3x3 = cube3x3;
-        try {
-            validateCenters(cube3x3);
-            if(!wrongCenterOrder) {
-                BLD3X3 bld3X3 = new BLD3X3(cube3x3);
-                ArrayList<Solution> solution = bld3X3.solve('w', 'g');
-                cube3x3.makeMoves(Solution.getWholeAlg(solution));
-                validateRollingPop();
-                validateOllParity();
-                validatePllParity();
-            }
+
+        boolean wrongOrder1;
+        boolean wrongOrder2;
+        validateCenters(cube3x3);
+        if (!wrongCenterOrder) {
+            BLD3X3 bld3X3 = new BLD3X3(cube3x3);
+            ArrayList<Solution> solution = bld3X3.solve('w', 'g');
+
+            wrongOrder1 = bld3X3.isBadColorOrder();
+            cube3x3.makeMoves(Solution.getWholeAlg(solution));
+            bld3X3.solve('w', 'g');
+
+            wrongOrder2 = bld3X3.isBadColorOrder();
+            wrongVertexColorOrder = wrongOrder1 || wrongOrder2;
+            validateRollingPop(cube3x3.getCube());
+            validateOllParity();
+            validatePllParity();
         }
-        catch (IndexOutOfBoundsException e){
-            wrongVertexColorOrder = true;
-        }
+
+
+    }
+
+
+    public ElementsValidator(Cube2x2 cube2x2) {
+
+        this.cube2x2 = cube2x2;
+        boolean wrongOrder1;
+        boolean wrongOrder2;
+
+        BLD2X2 bld2X2 = new BLD2X2(cube2x2);
+        ArrayList<Solution> solution = bld2X2.solve('w', 'g');
+        wrongOrder1 = bld2X2.isBadColorOrder();
+        cube2x2.makeMoves(Solution.getWholeAlg(solution));
+        bld2X2.solve('w', 'g');
+
+        wrongOrder2 = bld2X2.isBadColorOrder();
+        wrongVertexColorOrder = wrongOrder1 || wrongOrder2;
+        validateRollingPop(cube2x2.getCube());
 
     }
 
@@ -64,8 +91,8 @@ public class ElementsValidator {
         }
     }
 
-    public void validateRollingPop() {
-        rollingPop = cube3x3.getCube()[0][0] != cube3x3.getCube()[0][2];
+    public void validateRollingPop(char[][] cube) {
+        rollingPop = cube[0][0] != cube[0][2];
     }
 
     public void validateOllParity() {

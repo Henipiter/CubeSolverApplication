@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class BLD2X2 implements BLD {
 
     private Cube2x2 cube;
+    private boolean badColorOrder;
 
     public BLD2X2(Cube cube) {
         this.cube = (Cube2x2) cube;
@@ -24,6 +25,11 @@ public class BLD2X2 implements BLD {
         solution.add(bld3X3.solveOrientation(upperColor, frontColor));
         solution.addAll(bld3X3.solveAllVertices());
 
+        badColorOrder = bld3X3.isBadColorOrder();
         return solution;
+    }
+
+    public boolean isBadColorOrder() {
+        return badColorOrder;
     }
 }

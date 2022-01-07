@@ -93,6 +93,29 @@ public class Interpretation3x3Vertices {
 
     }
 
+    public char[] normalizeVertexColorOrder(int side, char[] colors){
+        char[] normalizeColors = new char[3];
+        normalizeColors[0] = colors[0];
+
+        switch (side) {
+            case 0:
+            case 2:
+            case 5:
+            case 7:
+                normalizeColors[1] = colors[1];
+                normalizeColors[2] = colors[2];
+                break;
+            case 1:
+            case 3:
+            case 4:
+            case 6:
+                normalizeColors[1] = colors[2];
+                normalizeColors[2] = colors[1];
+                break;
+        }
+        return normalizeColors;
+    }
+
     private char getThirdColorVertex(Vertex vertex, char color1, char color2) {
         for (int i = 0; i < 3; i++) {
             if (vertex.getColor()[i] != color1 && vertex.getColor()[i] != color2) {
