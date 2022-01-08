@@ -1,9 +1,7 @@
 package validations;
 
 import DTOs.Edge;
-import DTOs.Vertex;
 import cubes.Cube3x3;
-import interpretations.Interpretation;
 import interpretations.Interpretation3x3Vertices;
 import lombok.Getter;
 
@@ -15,8 +13,9 @@ import java.util.Map;
 @Getter
 public class ColorValidator {
 
-    protected boolean vertexColorCorrectness;
-    protected boolean edgeColorCorrectness;
+    protected boolean differentSumsOfColors;
+    protected boolean nonUniqueVertices;
+    protected boolean nonUniqueEdges;
     protected char[] center;
 
     private final Interpretation3x3Vertices interpretation3x3Vertices = new Interpretation3x3Vertices();
@@ -33,13 +32,27 @@ public class ColorValidator {
         return String.valueOf(edgeColors);
     }
 
-    protected boolean checkCountsOfEdgeColors(int rightEdgeOccurrence) {
+    protected boolean checkCountsOfUniqueElements(int rightElementOccurrence) {
         for (Integer counter : sameColorEdgesCounter.values()) {
-            if (counter != rightEdgeOccurrence) {
+            if (counter != rightElementOccurrence) {
                 return false;
             }
         }
         return true;
+    }
+
+    protected void countColors(char[][] cube, int numOfFields){
+        sameColorEdgesCounter = new HashMap<>();
+        for (int side = 0; side < 6; side++) {
+            countColors(cube[side], numOfFields);
+        }
+    }
+
+    protected void countColors(char[] fields, int numOfFields){
+        for (int field = 0; field < numOfFields; field++) {
+            putOrReplaceValueInMap(String.valueOf(fields[field]));
+        }
+
     }
 
     protected void putOrReplaceValueInMap(String key) {
@@ -52,78 +65,19 @@ public class ColorValidator {
         }
     }
 
-    protected boolean isVerticesHaveRepeatingColorsOrHasColorFromOppositeSide() {
-        for (int vertexIndex = 0; vertexIndex < 8; vertexIndex++) {
-            if (checkWhetherVerticesHasColorsLikeInGivenVertex(vertexIndex) ||
-                    isVertexHasColorsFromOppositeCenter(vertexIndex)) {
-                return true;
-            }
+    protected boolean areVerticesUnique(){
+        sameColorEdgesCounter = new HashMap<>();
+        for (int edgeIndex = 0; edgeIndex < 8; edgeIndex++) {
+            putOrReplaceValueInMap(createKey(interpretation3x3Vertices.getVertexArrayList().get(edgeIndex).getColor()));
         }
-        return false;
+        return !checkCountsOfUniqueElements(1);
     }
 
-    private boolean isVertexHasColorsFromOppositeCenter(int vertexIndex) {
-        Interpretation interpretation = new Interpretation(center);
-        char[] vertexColor = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex).getColor();
-        int[] colorPairIndex = new int[3];
-        for (int i = 0; i < 3; i++) {
-            colorPairIndex[i] = interpretation.getIndexOfColor(vertexColor[i]) / 2;
-        }
-        return !(isArrayContainsInt(colorPairIndex, 0)
-                && isArrayContainsInt(colorPairIndex, 1)
-                && isArrayContainsInt(colorPairIndex, 2));
-    }
-
-    private boolean isArrayContainsInt(int[] array, int value) {
-        for (int i : array) {
-            if (i == value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean checkWhetherVerticesHasColorsLikeInGivenVertex(int vertexIndex) {
-        for (int i = 0; i < 8; i++) {
-            if (i != vertexIndex && isVertexContainsAllColors(i, vertexIndex)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isVertexContainsAllColors(int vertexIndex1, int vertexIndex2) {
-        Vertex vertex1 = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex1);
-        Vertex vertex2 = interpretation3x3Vertices.getVertexArrayList().get(vertexIndex2);
-        return interpretation3x3Vertices.isVertexHasGivenColor(vertex1, vertex2.getColor()[0]) &&
-                interpretation3x3Vertices.isVertexHasGivenColor(vertex1, vertex2.getColor()[1]) &&
-                interpretation3x3Vertices.isVertexHasGivenColor(vertex1, vertex2.getColor()[2]);
-    }
-
-
-    protected boolean isEdgesHaveColorFromOppositeSide(int numberOfEdges, ArrayList<Edge> edgeArrayList) {
-        for (int edgeIndex = 0; edgeIndex < numberOfEdges; edgeIndex++) {
-            if (isEdgeHasColorFromOppositeCenters(edgeIndex, edgeArrayList)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected boolean isEdgesHaveRepeatingColors(int numberOfEdges, ArrayList<Edge> edgeArrayList) {
+    protected boolean areEdgesUnique(int numberOfEdges, ArrayList<Edge> edgeArrayList) {
+        sameColorEdgesCounter = new HashMap<>();
         for (int edgeIndex = 0; edgeIndex < numberOfEdges; edgeIndex++) {
             putOrReplaceValueInMap(createKey(edgeArrayList.get(edgeIndex).getColor()));
         }
-        return !checkCountsOfEdgeColors(numberOfEdges / 12);
-    }
-
-    protected boolean isEdgeHasColorFromOppositeCenters(int edgeIndex, ArrayList<Edge> edgeArrayList) {
-        Interpretation interpretation = new Interpretation(center);
-        char[] edgeColor = edgeArrayList.get(edgeIndex).getColor();
-        int[] colorPairIndex = new int[2];
-        for (int i = 0; i < 2; i++) {
-            colorPairIndex[i] = interpretation.getIndexOfColor(edgeColor[i]) / 2;
-        }
-        return colorPairIndex[0] == colorPairIndex[1];
+        return !checkCountsOfUniqueElements(numberOfEdges / 12);
     }
 }

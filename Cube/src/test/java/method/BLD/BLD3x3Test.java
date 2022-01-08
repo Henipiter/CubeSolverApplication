@@ -151,4 +151,26 @@ public class BLD3x3Test {
         Assertions.assertTrue(Cube.isSolved(cube));
     }
 
+    @Test
+    void solveTwoTimes(){
+
+            cube = new Cube3x3();
+            cube.makeMoves("x2 F R' F x2 y2");
+            bld3X3 = new BLD3X3(cube);
+            ArrayList<Solution> solution = bld3X3.solve('y', 'g');
+            cube.makeMoves(Solution.getWholeAlg(solution));
+            System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(solution)));
+            cube = new Cube3x3();
+            cube.makeMoves("x2 F R' F x2 y2");
+            cube.makeMoves(Solution.getWholeAlg(solution));
+
+            bld3X3 = new BLD3X3(cube);
+            solution = bld3X3.solve('y', 'g');
+        System.out.println(InspectMove.moveListToString(Solution.getWholeAlg(solution)));
+
+        //  cube.makeMoves(Solution.getWholeAlg(solution));
+            Assertions.assertTrue(Cube.isSolved(cube));
+
+    }
+
 }
