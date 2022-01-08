@@ -22,14 +22,14 @@ public class ElementsValidator3x3Test {
         FileElementCache.loadAll();
         Algorithm.loadPermutations();
         cube3x3 = new Cube3x3();
-        validationTestHelper = new ValidationTestHelper(cube3x3);
+        validationTestHelper = new ValidationTestHelper(cube3x3.getCube());
     }
 
     @Test
     void testWrongVertexColor1() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.switchTwoFields(4,0,2,2);
+        validationTestHelper.switchTwoFields(4, 0, 2, 2);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -40,7 +40,7 @@ public class ElementsValidator3x3Test {
     void testWrongVertexColor2() {
         //given
         cube3x3.makeMoves("z");
-        validationTestHelper.switchTwoFields(4,0,2,2);
+        validationTestHelper.switchTwoFields(4, 0, 2, 2);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -118,7 +118,7 @@ public class ElementsValidator3x3Test {
     @Test
     void isOllParityBefore() {
         //given
-        validationTestHelper.rotateEdge();
+        validationTestHelper.rotateEdge3x3();
         cube3x3.makeMoves(ALG1);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
@@ -130,7 +130,7 @@ public class ElementsValidator3x3Test {
     void isOllParityAfter() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.rotateEdge();
+        validationTestHelper.rotateEdge3x3();
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -140,7 +140,7 @@ public class ElementsValidator3x3Test {
     @Test
     void isPllParityByEdgesBefore() {
         //given
-        validationTestHelper.switchTwoEdges();
+        validationTestHelper.switchTwoEdges3x3();
         cube3x3.makeMoves(ALG1);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
@@ -152,7 +152,7 @@ public class ElementsValidator3x3Test {
     void isPllParityByEdgesAfter() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.switchTwoEdges();
+        validationTestHelper.switchTwoEdges3x3();
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -162,7 +162,7 @@ public class ElementsValidator3x3Test {
     @Test
     void isPllParityByVerticesBefore() {
         //given
-        validationTestHelper. switchTwoVertices();
+        validationTestHelper.switchTwoVertices3x3();
         cube3x3.makeMoves(ALG1);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
@@ -174,7 +174,7 @@ public class ElementsValidator3x3Test {
     void isPllParityByVerticesAfter() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.  switchTwoVertices();
+        validationTestHelper.switchTwoVertices3x3();
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -184,9 +184,9 @@ public class ElementsValidator3x3Test {
     @Test
     void noPllParityByVerticesAndEdges() {
         //given
-        validationTestHelper.switchTwoEdges();
+        validationTestHelper.switchTwoEdges3x3();
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.switchTwoVertices();
+        validationTestHelper.switchTwoVertices3x3();
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -219,7 +219,7 @@ public class ElementsValidator3x3Test {
     void incorrectTwoCenters() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.switchCenters(0, 1);
+        validationTestHelper.switchCenters(cube3x3.getCenter(), 0, 1);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -231,7 +231,7 @@ public class ElementsValidator3x3Test {
     void incorrectTwoCenters1() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.switchCenters(0, 4);
+        validationTestHelper.switchCenters(cube3x3.getCenter(),0, 4);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -243,8 +243,8 @@ public class ElementsValidator3x3Test {
     void incorrectFourCenters() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.switchCenters(0, 1);
-        validationTestHelper.switchCenters(2, 3);
+        validationTestHelper.switchCenters(cube3x3.getCenter(),0, 1);
+        validationTestHelper.switchCenters(cube3x3.getCenter(),2, 3);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
@@ -256,47 +256,11 @@ public class ElementsValidator3x3Test {
     void incorrectThreeCenters() {
         //given
         cube3x3.makeMoves(ALG1);
-        validationTestHelper.switchCenters(0, 4);
-        validationTestHelper.switchCenters(4, 2);
+        validationTestHelper.switchCenters(cube3x3.getCenter(),0, 4);
+        validationTestHelper.switchCenters(cube3x3.getCenter(),4, 2);
         //when
         elementsValidator = new ElementsValidator(cube3x3);
         //then
         Assertions.assertTrue(elementsValidator.isWrongCenterOrder());
     }
-
-//    private void switchCenters(int side1, int side2) {
-//        char centerColor = cube3x3.getCenter()[side1];
-//        cube3x3.getCenter()[side1] = cube3x3.getCenter()[side2];
-//        cube3x3.getCenter()[side2] = centerColor;
-//    }
-//
-//    private void rotateVertex() {
-//        char buffer = cube3x3.getCube()[5][0];
-//        cube3x3.getCube()[5][0] = cube3x3.getCube()[2][0];
-//        cube3x3.getCube()[2][0] = cube3x3.getCube()[0][0];
-//        cube3x3.getCube()[0][0] = buffer;
-//    }
-//
-//    private void rotateEdge() {
-//        switchTwoFields(0, 1, 5, 1);
-//    }
-//
-//    private void switchTwoVertices() {
-//        switchTwoFields(0, 0, 0, 2);
-//        switchTwoFields(2, 0, 5, 2);
-//        switchTwoFields(5, 0, 3, 0);
-//
-//    }
-//
-//    private void switchTwoEdges() {
-//        switchTwoFields(0, 1, 0, 6);
-//        switchTwoFields(5, 1, 4, 1);
-//
-//    }
-//
-//    private void switchTwoFields(int side1, int field1, int side2, int field2) {
-//        char buffer = cube3x3.getCube()[side1][field1];
-//        cube3x3.getCube()[side1][field1] = cube3x3.getCube()[side2][field2];
-//        cube3x3.getCube()[side2][field2] = buffer;
-//    }
 }
