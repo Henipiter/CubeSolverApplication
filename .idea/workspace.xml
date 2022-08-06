@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7e5f1f9f-3fbb-4af3-855e-c225c8b93c13" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/CubeSolverApplication.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/Application.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Algorithm.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Center.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Counter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/CubeOrientation.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Edge$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Edge$EdgeBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Edge$EdgeBuilderImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Edge.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/EdgeExt$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/EdgeExt$EdgeExtBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/EdgeExt$EdgeExtBuilderImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/EdgeExt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/ElementType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/FileElement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/InfoType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/InspectMove$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Move.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/MoveTypeEnum$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/MoveTypeEnum.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/ProgressInfo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Solution.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Vertex$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Vertex$VertexBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Vertex$VertexBuilderImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/Vertex.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/VertexExt$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/VertexExt$VertexExtBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/VertexExt$VertexExtBuilderImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/VertexExt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/blind_orientation.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cache/CacheLoader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cache/CubeOrientationCache.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cache/FileElementCache.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/calculations/CalculateCenters4x4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/calculations/CalculateEdges3x3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/calculations/CalculateEdges4x4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/calculations/CalculateMoves.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/calculations/CalculateVertices2x2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/calculations/CalculateVertices3x3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube1x1$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube1x1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube3x3$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube4x4$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/cubes/CubePyraminx$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/edgeMarks.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/edgeReplaceAlg.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/edgeSetup.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/exceptions/IncorectMoveException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation1x1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation2x2Vertices.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation3x3Centers.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation3x3Edges.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation3x3EdgesExt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation3x3Vertices.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation3x3VerticesExt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation4x4Centers.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/interpretations/Interpretation4x4Edges.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/BLDs/BLDFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/BLDs/BLDSolver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/FMs/FM.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/FMs/FM2X2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/FMs/FM3X3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/FMs/FM4X4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/FMs/FMFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/FMs/FMPyraminx.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/FMs/FMSolver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/LBLs/LBL.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/LBLs/LBL2X2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/LBLs/LBL3X3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/LBLs/LBL4X4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/LBLs/LBLFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/LBLs/LBLPyraminx.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/methods/LBLs/LBLSolver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/FileReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/Parse2x2To3x3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/Parse4x4To3x3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/ParseCodeToElement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/ParseElementToElementExt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/ParseFileElementToElement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/ParseTxtCodeToIndices.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/parsers/ParseTxtCodeToValue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/scramblers/Scrambler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/scramblers/Scrambler2x2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/scramblers/Scrambler3x3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/scramblers/Scrambler4x4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/scramblers/ScramblerFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/scramblers/ScramblerPyraminx.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/validations/ColorValidation2x2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/validations/ColorValidation3x3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/validations/ColorValidation4x4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/validations/ColorValidationFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/validations/ColorValidator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/validations/ElementsValidator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/vertexMarks.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/classes/vertexSetup.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/DTOs/AlgorithmTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/DTOs/CounterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/DTOs/CubeOrientationTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/DTOs/InspectMoveTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/algForTestSetupTo12Edge.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/algForTestSetupTo14Or15Edge.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/calculations/CalculateCenters4x4Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/calculations/CalculateEdges3x3Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/calculations/CalculateEdges4x4Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/calculations/CalculateMovesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/calculations/CalculateVertices3x3Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/CubeEqualsTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/MakeMovesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/MoveTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/Cube2x2Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/basic/MoveBTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/basic/MoveDTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/basic/MoveFTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/basic/MoveLTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/basic/MoveRTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/basic/MoveUTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/rotate/MoveXTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/rotate/MoveYTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/rotate/MoveZTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube2x2/moves/scramble/ScrambleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/Cube3x3Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/advanced/RandomScrambles.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveBTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveDTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveFTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveLTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveMTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveRTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveSTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/basic/MoveUTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube3x3/moves/rotate/MoveXTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/Cube4x4Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/advanced/allMovesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/advanced/innerMovesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/advanced/outerMovesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/advanced/rotateMovesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/advanced/twinMovesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/inner/MoveBInTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/inner/MoveDInTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/inner/MoveFInTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/inner/MoveLInTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/inner/MoveRInTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/inner/MoveUInTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/outer/MoveBTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/outer/MoveDTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/outer/MoveFTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/outer/MoveLTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/outer/MoveRTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/outer/MoveUTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/rotate/MoveXTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/rotate/MoveYTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/rotate/MoveZTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/twin/MoveBTwinTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/twin/MoveDTwinTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/twin/MoveFTwinTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/twin/MoveLTwinTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/twin/MoveRTwinTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cube4x4/moves/basic/twin/MoveUTwinTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/advanced/MoveRandomTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveBTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveBwTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveExternBTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveExternLTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveExternRTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveExternUTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveLTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveLwTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveRTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveRwTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveUTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/cubes/cubePyraminx/moves/basic/MoveUwTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/interpretations/Interpretation3x3EdgesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/interpretations/Interpretation3x3VerticesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/interpretations/Interpretation4x4CentersTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/interpretations/Interpretation4x4EdgesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/method/BLD/BLD2x2Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/method/BLD/BLD3x3Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/method/LBL/LBL2x2Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/method/LBL/LBL3x3Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/method/LBL/LBL4x4Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/parsers/files/FileReaderTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/scramblers/ScrambleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/validations/ColorValidation3x3Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/validations/ColorValidation4x4Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/validations/ColorValidatorTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cube/target/test-classes/validations/ElementsValidatorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/Cube.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/src/main/resources/edgeMarks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/src/main/resources/edgeMarks.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/src/main/resources/edgeReplaceAlg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/src/main/resources/edgeReplaceAlg.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/src/main/resources/edgeSetup.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/src/main/resources/edgeSetup.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/src/main/resources/vertexMarks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/src/main/resources/vertexMarks.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/src/main/resources/vertexSetup.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/src/main/resources/vertexSetup.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/src/test/resources/algForTestSetupTo12Edge.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/src/test/resources/algForTestSetupTo12Edge.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/src/test/resources/algForTestSetupTo14Or15Edge.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/src/test/resources/algForTestSetupTo14Or15Edge.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/target/classes/DTOs/InspectMove.class" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/target/classes/DTOs/InspectMove.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube2x2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube2x2$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube2x2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/target/classes/cubes/Cube2x2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/target/classes/methods/BLDs/BLD2X2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/target/classes/methods/BLDs/BLD2X2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cube/target/classes/methods/BLDs/BLD3X3.class" beforeDir="false" afterPath="$PROJECT_DIR$/Cube/target/classes/methods/BLDs/BLD3X3.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2Cya1ogUaP7WHDw1A52avdEwbJw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7e5f1f9f-3fbb-4af3-855e-c225c8b93c13" name="Changes" comment="" />
+      <created>1659777072425</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1659777072425</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
